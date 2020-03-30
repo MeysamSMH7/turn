@@ -16,5 +16,9 @@
 
     <string name="AlertCantConnect">خطا در ارتباط</string>
     <string name="AlertCheckNetAgain">لطفا ارتباط خود با اینترنت را چک نمایید</string>
+    <string name="markazName">نام مرکز:</string>
+    <string name="doctorName">نام پزشک:</string>
+    <string name="motakhasesName">متخصص:</string>
+    <string name="datePP">تاریخ نوبت:</string>
 
 </resources>

@@ -1,178 +1,616 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="7dp"
-    android:paddingRight="7dp">
+    android:layout_height="match_parent">
 
-
-    <LinearLayout
-        android:id="@+id/linearSelectFilters"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp">
 
         <LinearLayout
-            android:id="@+id/linearFrRes_city"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:background="@drawable/bg_white_corner_"
-            android:orientation="vertical"
-            android:padding="7dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtFrResTitle_city"
+            <LinearLayout
+                android:id="@+id/linearSelectFilters"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="right|center"
-                android:text="انتخاب شهر"
-                android:textColor="@color/colorLogo" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-            <TextView
-                android:id="@+id/txtFrRes_city"
+                <LinearLayout
+                    android:id="@+id/linearFrRes_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/bg_white_corner_"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <TextView
+                        android:id="@+id/txtFrResTitle_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="right|center"
+                        android:text="انتخاب شهر"
+                        android:textColor="@color/colorLogo" />
+
+                    <TextView
+                        android:id="@+id/txtFrRes_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="7dp"
+                        android:layout_weight="0.5"
+                        android:gravity="right|center"
+                        android:paddingLeft="7dp"
+                        android:text="\tتمام شهرها"
+                        android:textColor="@color/colorLogo" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearFrRes_takhasos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/bg_white_corner_"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <TextView
+                        android:id="@+id/txtFrResTitle_takhasos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="right|center"
+                        android:text="انتخاب تخصص"
+                        android:textColor="@color/colorLogo" />
+
+                    <TextView
+                        android:id="@+id/txtFrRes_takhasos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="7dp"
+                        android:layout_weight="0.5"
+                        android:gravity="right|center"
+                        android:paddingLeft="7dp"
+                        android:text="\tتمام تخصص ها"
+                        android:textColor="@color/colorLogo" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearFrRes_darmonghah"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/bg_white_corner_"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <TextView
+                        android:id="@+id/txtFrResTitle_darmonghah"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="right|center"
+                        android:text="انتخاب درمانگاه ها"
+                        android:textColor="@color/colorLogo" />
+
+                    <TextView
+                        android:id="@+id/txtFrRes_darmonghah"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="7dp"
+                        android:layout_weight="0.5"
+                        android:gravity="right|center"
+                        android:paddingLeft="7dp"
+                        android:text="\tتمام درمانگاه ها"
+                        android:textColor="@color/colorLogo" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearFrRes_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/bg_white_corner_"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <TextView
+                        android:id="@+id/txtFrResTitle_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="right|center"
+                        android:text="انتخاب بازه زمانی"
+                        android:textColor="@color/colorLogo" />
+
+                    <TextView
+                        android:id="@+id/txtFrRes_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="7dp"
+                        android:layout_weight="0.5"
+                        android:gravity="right|center"
+                        android:paddingLeft="7dp"
+                        android:text="\tتمام زمان ها"
+                        android:textColor="@color/colorLogo" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearFrRes_doctor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/bg_white_corner_"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <TextView
+                        android:id="@+id/txtFrResTitle_doctor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="right|center"
+                        android:text="انتخاب پزشک"
+                        android:textColor="@color/colorLogo" />
+
+                    <TextView
+                        android:id="@+id/txtFrRes_doctor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="7dp"
+                        android:layout_weight="0.5"
+                        android:gravity="right|center"
+                        android:paddingLeft="7dp"
+                        android:text="\tتمام پزشک ها"
+                        android:textColor="@color/colorLogo" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnFrRes_next"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="0.5"
+                        android:text="بعدی" />
+
+                    <Button
+                        android:id="@+id/btnFrRes_filter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="0.5"
+                        android:text="حذف فیلترها" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearPazireshPage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginBottom="7dp"
-                android:layout_weight="0.5"
-                android:gravity="right|center"
-                android:paddingLeft="7dp"
-                android:text="\tتمام شهرها"
-                android:textColor="@color/colorLogo" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@color/colorRed" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtPP_markazName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right|center"
+                            android:text="@string/markazName" />
+
+                        <TextView
+                            android:id="@+id/txtPP_doctorName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right|center"
+                            android:text="@string/doctorName" />
+
+                        <TextView
+                            android:id="@+id/txtPP_motakhasesName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right|center"
+                            android:text="@string/motakhasesName" />
+
+                        <TextView
+                            android:id="@+id/txtPP_datePP"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right|center"
+                            android:text="@string/datePP" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/bg_white_corner_"
+                    android:orientation="vertical"
+                    android:padding="7dp">
+
+                    <RadioGroup
+                        android:id="@+id/radioGPPP_CodMeli"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/radioBtnPP_CodMeli"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:checked="true"
+                            android:gravity="right|center"
+                            android:layoutDirection="rtl"
+                            android:text="کد ملی" />
+
+                        <RadioButton
+                            android:id="@+id/radioBtnPP_NumErja"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:gravity="right|center"
+                            android:layoutDirection="rtl"
+                            android:text="شماره ارجا" />
+
+                    </RadioGroup>
+
+
+                    <EditText
+                        android:id="@+id/edtFrPP_Cod"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorPurple7"
+                        android:gravity="right"
+                        android:hint="کد ملی"
+                        android:maxLines="2"
+                        android:paddingEnd="7dp"
+                        android:paddingRight="7dp"
+                        android:textColor="@color/colorPurple7"
+                        android:textCursorDrawable="@color/colorPurple7"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnPP_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="جستجو کن" />
+
+
+                <LinearLayout
+                    android:id="@+id/linearPazireshPage2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/bg_white_corner_"
+                        android:orientation="vertical"
+                        android:padding="7dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:text="نام بیمار"
+                            android:textColor="@color/colorLogo" />
+
+                        <EditText
+                            android:id="@+id/edtFrPP_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/colorPurple7"
+                            android:enabled="false"
+                            android:gravity="right"
+                            android:maxLines="2"
+                            android:paddingEnd="7dp"
+                            android:paddingRight="7dp"
+                            android:textColor="@color/colorPurple7"
+                            android:textCursorDrawable="@color/colorPurple7"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/bg_white_corner_"
+                        android:orientation="vertical"
+                        android:padding="7dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:text="نام خانوادگی"
+                            android:textColor="@color/colorLogo" />
+
+                        <EditText
+                            android:id="@+id/edtFrPP_family"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/colorPurple7"
+                            android:gravity="right"
+                            android:maxLines="2"
+                            android:paddingEnd="7dp"
+                            android:paddingRight="7dp"
+                            android:textColor="@color/colorPurple7"
+                            android:textCursorDrawable="@color/colorPurple7"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/bg_white_corner_"
+                        android:orientation="vertical"
+                        android:padding="7dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:text="نام پدر"
+                            android:textColor="@color/colorLogo" />
+
+                        <EditText
+                            android:id="@+id/edtFrPP_fatherName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/colorPurple7"
+                            android:gravity="right"
+                            android:maxLines="2"
+                            android:paddingEnd="7dp"
+                            android:paddingRight="7dp"
+                            android:textColor="@color/colorPurple7"
+                            android:textCursorDrawable="@color/colorPurple7"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/bg_white_corner_"
+                        android:orientation="vertical"
+                        android:padding="7dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:text="جنسیت"
+                            android:textColor="@color/colorLogo" />
+
+                        <RadioGroup
+                            android:id="@+id/radioGPPP_sex"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/radioBtnPP_female"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_weight="0.5"
+                                android:gravity="right|center"
+                                android:layoutDirection="rtl"
+                                android:text="زن" />
+
+                            <RadioButton
+                                android:id="@+id/radioBtnPP_male"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_weight="0.5"
+                                android:gravity="right|center"
+                                android:layoutDirection="rtl"
+                                android:text="مرد" />
+
+                        </RadioGroup>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/bg_white_corner_"
+                        android:orientation="vertical"
+                        android:padding="7dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:text="شماره همراه"
+                            android:textColor="@color/colorLogo" />
+
+                        <EditText
+                            android:id="@+id/edtFrPP_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/colorPurple7"
+                            android:gravity="right"
+                            android:inputType="number"
+                            android:maxLines="2"
+                            android:paddingEnd="7dp"
+                            android:paddingRight="7dp"
+                            android:textColor="@color/colorPurple7"
+                            android:textCursorDrawable="@color/colorPurple7"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearFrPP_City"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/bg_white_corner_"
+                        android:orientation="vertical"
+                        android:padding="7dp">
+
+                        <TextView
+                            android:id="@+id/edtFrPP_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:text="انتخاب شهر"
+                            android:textColor="@color/colorLogo" />
+
+                        <TextView
+                            android:id="@+id/txtFrPP_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:paddingLeft="7dp"
+                            android:textColor="@color/colorLogo" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/bg_white_corner_"
+                        android:orientation="vertical"
+                        android:padding="7dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:text="آدرس"
+                            android:textColor="@color/colorLogo" />
+
+                        <EditText
+                            android:id="@+id/edtFrPP_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/colorPurple7"
+                            android:gravity="right"
+                            android:maxLines="2"
+                            android:paddingEnd="7dp"
+                            android:paddingRight="7dp"
+                            android:textColor="@color/colorPurple7"
+                            android:textCursorDrawable="@color/colorPurple7"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearFrPP_bime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/bg_white_corner_"
+                        android:orientation="vertical"
+                        android:padding="7dp">
+
+                        <TextView
+                            android:id="@+id/edtFrPP_bime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:text="انتخاب بیمه"
+                            android:textColor="@color/colorLogo" />
+
+                        <TextView
+                            android:id="@+id/txtFrPP_bime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:paddingLeft="7dp"
+                            android:textColor="@color/colorLogo" />
+
+                    </LinearLayout>
+
+
+                    <Button
+                        android:id="@+id/btnPP_paziresh"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="پذیرش" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearFrRes_takhasos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:background="@drawable/bg_white_corner_"
-            android:orientation="vertical"
-            android:padding="7dp">
-
-            <TextView
-                android:id="@+id/txtFrResTitle_takhasos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="right|center"
-                android:text="انتخاب تخصص"
-                android:textColor="@color/colorLogo" />
-
-            <TextView
-                android:id="@+id/txtFrRes_takhasos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginBottom="7dp"
-                android:layout_weight="0.5"
-                android:gravity="right|center"
-                android:paddingLeft="7dp"
-                android:text="\tتمام تخصص ها"
-                android:textColor="@color/colorLogo" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearFrRes_darmonghah"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:background="@drawable/bg_white_corner_"
-            android:orientation="vertical"
-            android:padding="7dp">
-
-            <TextView
-                android:id="@+id/txtFrResTitle_darmonghah"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="right|center"
-                android:text="انتخاب درمانگاه ها"
-                android:textColor="@color/colorLogo" />
-
-            <TextView
-                android:id="@+id/txtFrRes_darmonghah"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginBottom="7dp"
-                android:layout_weight="0.5"
-                android:gravity="right|center"
-                android:paddingLeft="7dp"
-                android:text="\tتمام درمانگاه ها"
-                android:textColor="@color/colorLogo" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearFrRes_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:background="@drawable/bg_white_corner_"
-            android:orientation="vertical"
-            android:padding="7dp">
-
-            <TextView
-                android:id="@+id/txtFrResTitle_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="right|center"
-                android:text="انتخاب بازه زمانی"
-                android:textColor="@color/colorLogo" />
-
-            <TextView
-                android:id="@+id/txtFrRes_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginBottom="7dp"
-                android:layout_weight="0.5"
-                android:gravity="right|center"
-                android:paddingLeft="7dp"
-                android:text="\tتمام زمان ها"
-                android:textColor="@color/colorLogo" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearFrRes_doctor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:background="@drawable/bg_white_corner_"
-            android:orientation="vertical"
-            android:padding="7dp">
-
-            <TextView
-                android:id="@+id/txtFrResTitle_doctor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:gravity="right|center"
-                android:text="انتخاب پزشک"
-                android:textColor="@color/colorLogo" />
-
-            <TextView
-                android:id="@+id/txtFrRes_doctor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginBottom="7dp"
-                android:layout_weight="0.5"
-                android:gravity="right|center"
-                android:paddingLeft="7dp"
-                android:text="\tتمام پزشک ها"
-                android:textColor="@color/colorLogo" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
