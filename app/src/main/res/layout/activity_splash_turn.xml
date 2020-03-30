@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_splash_2"
+    android:layoutDirection="ltr"
+    tools:context=".Activity.Splash.Activity_Splash_Turn">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="0.3"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/ic_launcher"
+                android:tint="@color/colorWhite" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/imgAcS_Logo"
+                android:layout_alignParentStart="true"
+                android:gravity="left|center"
+                android:paddingLeft="7dp"
+                android:textStyle="bold"
+                android:text="اپلیکیشن نوبت دهی\nآنلاین"
+                android:textColor="@color/colorWhite" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3">
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/imgAcS_Logo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:padding="20dp"
+        android:src="@mipmap/ic_launcher_round"
+        android:tint="@color/colorWhite"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/txtAcs_DDL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgAcS_Logo"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="7dp"
+        android:gravity="center"
+        android:text="یییییییی"
+        android:textColor="@color/colorWhite"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progressAcS"
+        style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:indeterminate="true" />
+
+    <TextView
+        android:id="@+id/txtAcS_Version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/progressAcS"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="7dp"
+        android:textColor="@color/colorWhite" />
+
+    <TextView
+        android:id="@+id/txtAcS_tryAgain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtAcS_Version"
+        android:layout_alignParentStart="true"
+        android:gravity="center"
+        android:text="tryAgain"
+        android:textColor="@color/colorWhite"
+        android:visibility="gone" />
+
+
+</RelativeLayout>
