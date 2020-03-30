@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#7a154c</color>
+    <color name="colorLogo">#7a154c</color>
     <color name="colorPrimaryDark">#7a154c</color>
     <color name="colorAccent">#7a154c</color>
 
@@ -33,7 +34,6 @@
     <color name="colorPurple4">#23161D</color>
     <color name="colorPurple5">#531B42</color>
     <color name="colorPurple6">#A71F71</color>
-    <color name="colorLogo">#7a154c</color>
     <color name="colorPurple7">#684181</color>
     <color name="colorPink2">#C6779B</color>
     <color name="colorChat1">#182533</color>
@@ -63,18 +63,6 @@
     <color name="colorRed2">#a40711</color>
     <color name="colorRed3">#A71B1B</color>
 
-    <color name="ham_1">@color/colorBlue</color>
-    <color name="ham_2">@color/colorRed2</color>
-    <color name="ham_3">#d1395c</color>
-    <color name="ham_4">@color/colorLogo</color>
-    <color name="ham_5">@color/colorPink2</color>
-    <color name="ham_6">@color/medium_blue</color>
-    <color name="ham_7">#AF681F</color>
-    <color name="ham_8">@color/dim_gray</color>
-    <color name="ham_9">@color/colorGray</color>
-    <color name="ham_10">#8cf9eb</color>
-    <color name="ham_11">@color/colorPurple2</color>
-    <color name="ham_12">@color/tan</color>
 
     <color name="colorButton">#7a154c</color>
     <color name="colorWaring">#dcc44d</color>

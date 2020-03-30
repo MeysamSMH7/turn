@@ -6,7 +6,9 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 
 import com.example.turn.Activity.Main.Adapter.ViewPagerAdapter;
-import com.example.turn.Activity.Main.Fragment.frTabs;
+import com.example.turn.Activity.Main.Fragment.frTab_estelam;
+import com.example.turn.Activity.Main.Fragment.frTab_laghv;
+import com.example.turn.Activity.Main.Fragment.frTab_reserve;
 import com.example.turn.R;
 
 import android.view.View;
@@ -107,11 +109,11 @@ public class Activity_Main_Turn extends AppCompatActivity
     private void initViewPager() {
 
         fragments = new ArrayList<>();
-        fragments.add(frTabs.newInstance());
-        fragments.add(frTabs.newInstance());
-        fragments.add(frTabs.newInstance());
+        fragments.add(frTab_estelam.newInstance());
+        fragments.add(frTab_laghv.newInstance());
+        fragments.add(frTab_reserve.newInstance());
 
-        titles = new String[]{"تب 3", "تب 2", "تب 1"};
+        titles = new String[]{"لغو", "استعلام", "رزرو"};
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
         vp_viewPager.setAdapter(adapter);
@@ -123,8 +125,6 @@ public class Activity_Main_Turn extends AppCompatActivity
         tl_tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tl_tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tl_tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-
-
 
     }
 

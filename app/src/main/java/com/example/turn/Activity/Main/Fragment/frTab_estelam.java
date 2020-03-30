@@ -11,19 +11,19 @@ import androidx.fragment.app.Fragment;
 
 import com.example.turn.R;
 
-public class frTabs extends Fragment {
+public class frTab_estelam extends Fragment {
 
-    public static frTabs newInstance() {
+    public static frTab_estelam newInstance() {
 
         Bundle args = new Bundle();
-        frTabs fragment = new frTabs();
+        frTab_estelam fragment = new frTab_estelam();
         return fragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fr_tabs, container, false);
+        View view = inflater.inflate(R.layout.fr_tab_estelam, container, false);
 // cods here
 
         return view;
