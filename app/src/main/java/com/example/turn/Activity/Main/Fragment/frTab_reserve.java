@@ -24,6 +24,7 @@ import com.example.turn.Activity.Main.Adapter.AdRecycResTimes;
 import com.example.turn.Activity.Main.Model.ModAlerts;
 import com.example.turn.Activity.Main.Adapter.ListViewAdapter;
 import com.example.turn.Activity.Main.Model.ModResTime;
+import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
 
 import java.util.ArrayList;
@@ -99,7 +100,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_tab_reserve, container, false);
         selectFilters(view);
         reservationTimes(view);
@@ -114,6 +116,16 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         linearPazireshPage.setVisibility(View.GONE);
         linearPazireshPageBtn.setVisibility(View.GONE);
         linearPazireshPage2.setVisibility(View.GONE);
+
+
+        new setConnectionVolley(getContext(), "url", null
+        ).connectStringRequest(new setConnectionVolley.OnResponse() {
+            @Override
+            public void OnResponse(String response) {
+
+            }
+        });
+
 
         return view;
     }
@@ -187,7 +199,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         arrayListResTimes = new ArrayList();
 
         for (int i = 0; i <= 10; i++) tempData(i);
-        AdRecycResTimes adapterResTimes = new AdRecycResTimes(getContext(),arrayListResTimes);
+        AdRecycResTimes adapterResTimes = new AdRecycResTimes(getContext(), arrayListResTimes);
         rcycRT.setAdapter(adapterResTimes);
 
 
