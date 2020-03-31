@@ -24,8 +24,13 @@ import com.example.turn.Activity.Main.Adapter.AdRecycResTimes;
 import com.example.turn.Activity.Main.Model.ModAlerts;
 import com.example.turn.Activity.Main.Adapter.ListViewAdapter;
 import com.example.turn.Activity.Main.Model.ModResTime;
+import com.example.turn.Classes.ShowMessage;
 import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -55,6 +60,24 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
     private Button btnFrRes_filter;
     private Button btnFrRes_next;
+
+    private ArrayList dataCity;
+    private ArrayList dataTakhasos;
+    private ArrayList dataHospital;
+    private ArrayList dataTime;
+    private ArrayList dataDoctor;
+
+    private ArrayList dataCityID;
+    private ArrayList dataTakhasosID;
+    private ArrayList dataHospitalID;
+    private ArrayList dataTimeID;
+    private ArrayList dataDoctorID;
+
+    private String cityId = "";
+    private String takhasosId = "";
+    private String hospiralId = "";
+    private String timeId = "";
+    private String doctorId = "";
 
     //------------ linearResTimes
     private LinearLayout linearResTimes;
@@ -103,6 +126,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_tab_reserve, container, false);
+
         selectFilters(view);
         reservationTimes(view);
         paziresh(view);
@@ -116,15 +140,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         linearPazireshPage.setVisibility(View.GONE);
         linearPazireshPageBtn.setVisibility(View.GONE);
         linearPazireshPage2.setVisibility(View.GONE);
-
-
-        new setConnectionVolley(getContext(), "url", null
-        ).connectStringRequest(new setConnectionVolley.OnResponse() {
-            @Override
-            public void OnResponse(String response) {
-
-            }
-        });
 
 
         return view;
@@ -253,23 +268,37 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             }
         });
 
+        ArrayList arrayList = new ArrayList();
+        ArrayList arrayListID = new ArrayList();
+
         if (tag.equals("city"))
-            animalNameListSearchView = new String[]{"اون شهر", "این شهر", "اراک", "چیز"};
+            arrayList = new ArrayList(dataCity);
         else if (tag.equals("takhasos"))
-            animalNameListSearchView = new String[]{"سر", "سندرم دست بی قرار", "یه سندرم دیگه", "چیز"};
+            arrayList = new ArrayList(dataTakhasos);
         else if (tag.equals("darmonghah"))
-            animalNameListSearchView = new String[]{"درمانگاه سر کوچه", "درمانگاه سر خیابون", "درمانگاه بغل دستمون", "چیز"};
+            arrayList = new ArrayList(dataHospital);
         else if (tag.equals("time"))
-            animalNameListSearchView = new String[]{"دیروز :|", "هفته ی بعد", "ماه بعد", "چیز"};
+            arrayList = new ArrayList(dataTime);
         else if (tag.equals("doctor"))
-            animalNameListSearchView = new String[]{"دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر مهسا طاهری", "دکتر سیدمیثم حسینی", "دکتر چیز زاده", "چیز"};
+            arrayList = new ArrayList(dataDoctor);
+
+        if (tag.equals("city"))
+            arrayListID = new ArrayList(dataCityID);
+        else if (tag.equals("takhasos"))
+            arrayListID = new ArrayList(dataTakhasosID);
+        else if (tag.equals("darmonghah"))
+            arrayListID = new ArrayList(dataHospitalID);
+        else if (tag.equals("time"))
+            arrayListID = new ArrayList(dataTimeID);
+        else if (tag.equals("doctor"))
+            arrayListID = new ArrayList(dataDoctorID);
 
         if (arraylistSearchView.size() != 0)
             arraylistSearchView.clear();
 
         listSearchView = layout.findViewById(R.id.listviewFr);
-        for (int i = 0; i < animalNameListSearchView.length; i++) {
-            ModAlerts modAlerts = new ModAlerts(animalNameListSearchView[i]);
+        for (int i = 0; i < arrayList.size(); i++) {
+            ModAlerts modAlerts = new ModAlerts(arrayList.get(i) + "");
             arraylistSearchView.add(modAlerts);
         }
         adapterSearchView = new ListViewAdapter(getContext(), arraylistSearchView);
@@ -279,24 +308,35 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         editsearchSearchView.setOnQueryTextListener(this);
 
 
+        final ArrayList finalArrayListID = arrayListID;
         listSearchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String txt = animalNameListSearchView[i] + "";
                 if (tag.equals("city"))
-                    txtFrRes_city.setText(txt + "");
+                    txtFrRes_city.setText(dataCity.get(i) + "");
                 else if (tag.equals("takhasos"))
-                    txtFrRes_takhasos.setText(txt + "");
+                    txtFrRes_takhasos.setText(dataTakhasos.get(i) + "");
                 else if (tag.equals("darmonghah"))
-                    txtFrRes_darmonghah.setText(txt + "");
+                    txtFrRes_darmonghah.setText(dataHospital.get(i) + "");
                 else if (tag.equals("time"))
-                    txtFrRes_time.setText(txt + "");
+                    txtFrRes_time.setText(dataTime.get(i) + "");
                 else if (tag.equals("doctor"))
-                    txtFrRes_doctor.setText(txt + "");
+                    txtFrRes_doctor.setText(dataDoctor.get(i) + "");
+
+                if (tag.equals("city"))
+                    cityId = finalArrayListID.get(i) + "";
+                else if (tag.equals("takhasos"))
+                    takhasosId = finalArrayListID.get(i) + "";
+                else if (tag.equals("darmonghah"))
+                    hospiralId = finalArrayListID.get(i) + "";
+                else if (tag.equals("time"))
+                    timeId = finalArrayListID.get(i) + "";
+                else if (tag.equals("doctor"))
+                    doctorId = finalArrayListID.get(i) + "";
+
                 alertDialog.dismiss();
             }
         });
-
 
         builder.setView(layout);
         alertDialog = builder.create();
@@ -385,6 +425,85 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         });
 
 
+        dataCity = new ArrayList();
+        dataTakhasos = new ArrayList();
+        dataHospital = new ArrayList();
+        dataTime = new ArrayList();
+        dataDoctor = new ArrayList();
+        dataCityID = new ArrayList();
+        dataTakhasosID = new ArrayList();
+        dataHospitalID = new ArrayList();
+        dataTimeID = new ArrayList();
+        dataDoctorID = new ArrayList();
+
+
+//------ Connection data for dropDowns
+
+//        JSONObject object = new JSONObject();
+//        try {
+//            object.put("id", "-1");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        new setConnectionVolley(getContext(), "url", object
+//        ).connectStringRequest(new setConnectionVolley.OnResponse() {
+//            @Override
+//            public void OnResponse(String response) {
+//                setDropDownsData(response);
+//            }
+//        });
+
+        String response = "{\"status\":\"yes\",\"message\":\"\",\"data\":{ \"hospital\":[{\"id\":\"0\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"1\",\"title\":\"بیمارستان عمومی ماساچوست\"}],\"doctor\":[{\"id\":\"0\",\"title\":\"علی علیزاده\"},{\"id\":\"1\",\"title\":\"حسین زارعی\"}],\"specialty\":[{\"id\":\"0\",\"title\":\"اطفال\"},{\"id\":\"1\",\"title\":\"عفونی\"}],\"time\":[{\"id\":\"4\",\"title\":\"فردا\"},{\"id\":\"5\",\"title\":\"پسفردا\"},{\"id\":\"4\",\"title\":\"دیروز\"}],\"city\":[{\"id\":\"1\",\"title\":\"اراک\"},{\"id\":\"2\",\"title\":\"امل\"},{\"id\":\"41\",\"title\":\"تهران\"}]}}";
+        setDropDownsData(response);
+    }
+
+    private void setDropDownsData(String res) {
+        try {
+            JSONObject object = new JSONObject(res);
+            String status = object.getString("status");
+            String message = object.getString("message");
+
+            if (status.equals("yes")) {
+                String data = object.getString("data");
+                JSONObject objData = new JSONObject(data);
+                JSONArray arrayHospital = objData.getJSONArray("hospital");
+                JSONArray arrayDoctor = objData.getJSONArray("doctor");
+                JSONArray arraySpecialty = objData.getJSONArray("specialty");
+                JSONArray arrayTime = objData.getJSONArray("time");
+                JSONArray arrayCity = objData.getJSONArray("city");
+
+                for (int i = 0; i < arrayHospital.length(); i++) {
+                    JSONObject object1 = arrayHospital.getJSONObject(i);
+                    dataHospitalID.add(object1.getString("id"));
+                    dataHospital.add(object1.getString("title"));
+                }
+                for (int i = 0; i < arrayDoctor.length(); i++) {
+                    JSONObject object1 = arrayDoctor.getJSONObject(i);
+                    dataDoctorID.add(object1.getString("id"));
+                    dataDoctor.add(object1.getString("title"));
+                }
+                for (int i = 0; i < arraySpecialty.length(); i++) {
+                    JSONObject object1 = arraySpecialty.getJSONObject(i);
+                    dataTakhasosID.add(object1.getString("id"));
+                    dataTakhasos.add(object1.getString("title"));
+                }
+                for (int i = 0; i < arrayTime.length(); i++) {
+                    JSONObject object1 = arrayTime.getJSONObject(i);
+                    dataTimeID.add(object1.getString("id"));
+                    dataTime.add(object1.getString("title"));
+                }
+                for (int i = 0; i < arrayCity.length(); i++) {
+                    JSONObject object1 = arrayCity.getJSONObject(i);
+                    dataCityID.add(object1.getString("id"));
+                    dataCity.add(object1.getString("title"));
+                }
+
+            } else
+                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -397,7 +516,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private ListView listSearchView;
     private ListViewAdapter adapterSearchView;
     private SearchView editsearchSearchView;
-    private String[] animalNameListSearchView;
     private ArrayList<ModAlerts> arraylistSearchView = new ArrayList<ModAlerts>();
 
     @Override
@@ -411,6 +529,5 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
-
 
 }
