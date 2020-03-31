@@ -43,7 +43,7 @@
         android:layout_marginBottom="7dp"
         android:paddingLeft="35dp"
         android:paddingRight="35dp"
-        android:text="امکان لغو تمامی نوبت های گرفته شده "
+        android:text="امکان لغو تمامی نوبت های اخذ شده "
         android:textAlignment="center"
         android:textColor="#009688"
         android:textSize="20dp"
