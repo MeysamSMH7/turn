@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearMain"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="7dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginRight="7dp"
+    android:layout_marginBottom="3dp"
+    android:background="@drawable/selector_button_ds"
+    android:gravity="center"
+    android:layoutDirection="ltr"
+    android:orientation="vertical"
+    android:padding="7dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="3dp">
+
+        <TextView
+            android:id="@+id/txtRcycRT_shift"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="شیفت صبح"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/txtRcycRT_hospital"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="right|center"
+            android:paddingRight="17dp"
+            android:text="بیمارستان اون ور ابی ها"
+            android:textColor="@color/colorLogo" />
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_num_1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="3dp">
+
+        <TextView
+            android:id="@+id/txtRcycRT_takhasos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="تخصص داخلی موز موز موز موز"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/txtRcycRT_doctorName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="right|center"
+            android:paddingRight="17dp"
+            android:text="دکتر اسم و فامیلی"
+            android:textColor="@color/colorLogo" />
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_num_2" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/txtRcycRT_num"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:gravity="right|center"
+        android:paddingRight="17dp"
+        android:text="ایتنرنتی : 23"
+        android:textColor="@color/colorLogo" />
+
+    <LinearLayout
+        android:id="@+id/linearRcycRT_status"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#39AB17"
+        android:layout_marginTop="3dp">
+
+        <TextView
+            android:id="@+id/txtRcycRT_status"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="وضعیت: دریافت نوبت"
+            android:textColor="@color/colorWhite" />
+        <!--            android:text="وضعیت: دریافت نوبت\nتعاد باقی مانده 23"-->
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
