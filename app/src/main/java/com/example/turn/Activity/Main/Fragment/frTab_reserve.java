@@ -54,6 +54,7 @@ public class frTab_reserve extends Fragment implements
     private Button btnFrRes_filter;
     private Button btnFrRes_next;
     //------------
+     private LinearLayout linearPazireshPage;
     private TextView txtPP_markazName;
     private TextView txtPP_doctorName;
     private TextView txtPP_motakhasesName;
@@ -69,10 +70,10 @@ public class frTab_reserve extends Fragment implements
     private RadioGroup radioGPPP_sex;
     private EditText edtFrPP_phone;
     private LinearLayout linearFrPP_City;
-    private EditText txtFrPP_city;
+    private TextView txtFrPP_city;
     private EditText edtFrPP_address;
     private LinearLayout linearFrPP_bime;
-    private EditText txtFrPP_bime;
+    private TextView txtFrPP_bime;
 
 
     public static frTab_reserve newInstance() {
@@ -86,14 +87,18 @@ public class frTab_reserve extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_tab_reserve, container, false);
-// cods here
         selectFilters(view);
         paziresh(view);
+
+        linearSelectFilters.setVisibility(View.VISIBLE);
+        linearPazireshPage.setVisibility(View.GONE);
+        linearPazireshPage2.setVisibility(View.GONE);
 
         return view;
     }
 
     private void paziresh(View view) {
+        linearPazireshPage = view.findViewById(R.id.linearPazireshPage);
         txtPP_markazName = view.findViewById(R.id.txtPP_markazName);
         txtPP_doctorName = view.findViewById(R.id.txtPP_doctorName);
         txtPP_motakhasesName = view.findViewById(R.id.txtPP_motakhasesName);
@@ -136,11 +141,6 @@ public class frTab_reserve extends Fragment implements
         edtFrPP_address = view.findViewById(R.id.edtFrPP_address);
         linearFrPP_bime = view.findViewById(R.id.linearFrPP_bime);
         txtFrPP_bime = view.findViewById(R.id.txtFrPP_bime);
-
-
-
-
-
 
     }
 
@@ -279,6 +279,7 @@ public class frTab_reserve extends Fragment implements
             @Override
             public void onClick(View view) {
                 linearSelectFilters.setVisibility(View.GONE);
+                linearPazireshPage.setVisibility(View.VISIBLE);
             }
         });
 
@@ -292,7 +293,7 @@ public class frTab_reserve extends Fragment implements
     }
 
 
-    //  SearchView
+    //  SearchView -------------------------------------------------------------
     private ListView listSearchView;
     private ListViewAdapter adapterSearchView;
     private SearchView editsearchSearchView;
