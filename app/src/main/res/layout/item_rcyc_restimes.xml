@@ -36,7 +36,7 @@
             android:gravity="right|center"
             android:paddingRight="17dp"
             android:text="بیمارستان اون ور ابی ها"
-            android:textColor="@color/colorLogo" />
+            android:textColor="@color/colorAccent" />
 
         <ImageButton
             android:layout_width="30dp"
@@ -68,7 +68,7 @@
             android:gravity="right|center"
             android:paddingRight="17dp"
             android:text="دکتر اسم و فامیلی"
-            android:textColor="@color/colorLogo" />
+            android:textColor="@color/colorAccent" />
 
         <ImageButton
             android:layout_width="30dp"
@@ -86,14 +86,14 @@
         android:gravity="right|center"
         android:paddingRight="17dp"
         android:text="ایتنرنتی : 23"
-        android:textColor="@color/colorLogo" />
+        android:textColor="@color/colorAccent" />
 
     <LinearLayout
         android:id="@+id/linearRcycRT_status"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#39AB17"
-        android:layout_marginTop="3dp">
+        android:layout_marginTop="3dp"
+        android:background="#39AB17">
 
         <TextView
             android:id="@+id/txtRcycRT_status"

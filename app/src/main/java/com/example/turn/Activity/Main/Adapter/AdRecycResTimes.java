@@ -43,36 +43,23 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             holder.itemView.startAnimation(animation);
             lastPosition = position;
 
-            String hospitalName = data.get(position).hospitalName;
+            String hospitalName = data.get(position).hsp_title;
             hospitalName.replace("بیمارستان", "");
             hospitalName.replace("بیمارستان", "");
             holder.txtRcycRT_hospital.setText("بیمارستان " + hospitalName);
-            holder.txtRcycRT_hospital.setText("شیفت " + data.get(position).shift);
-            holder.txtRcycRT_doctorName.setText("دکتر " + data.get(position).doctorName);
-            holder.txtRcycRT_takhasos.setText("تخصص " + data.get(position).takhasos);
-            holder.txtRcycRT_num.setText("اینترنتی: " + data.get(position).num);
+            holder.txtRcycRT_shift.setText("شیفت " + data.get(position).shift_title);
+            holder.txtRcycRT_doctorName.setText("دکتر " + data.get(position).dr_name);
+            holder.txtRcycRT_takhasos.setText("تخصص " + data.get(position).spc_title);
+            holder.txtRcycRT_num.setText("اینترنتی: " + data.get(position).web_turn);
 
-            holder.linearRcycRT_status.setBackgroundColor(context.getResources().getColor(R.color.colorFinish));
-            holder.txtRcycRT_status.setText("وضعیت: اتمام");
 
-            if (position == 4) {
+
+            if ( data.get(position).web_turn.equals("0")) {
+                holder.linearRcycRT_status.setBackgroundColor(context.getResources().getColor(R.color.colorFinish));
+                holder.txtRcycRT_status.setText("وضعیت: " + data.get(position).status_type);
+            }else {
                 holder.linearRcycRT_status.setBackgroundColor(context.getResources().getColor(R.color.colorNoFinish));
-                holder.txtRcycRT_status.setText("وضعیت: نوبت دهی");
-            }
-
-            if (position == 5) {
-                holder.linearRcycRT_status.setBackgroundColor(context.getResources().getColor(R.color.colorNoFinish));
-                holder.txtRcycRT_status.setText("وضعیت: نوبت دهی");
-            }
-
-            if (position == 7) {
-                holder.linearRcycRT_status.setBackgroundColor(context.getResources().getColor(R.color.colorNoFinish));
-                holder.txtRcycRT_status.setText("وضعیت: نوبت دهی");
-            }
-
-            if (position == 9) {
-                holder.linearRcycRT_status.setBackgroundColor(context.getResources().getColor(R.color.colorNoFinish));
-                holder.txtRcycRT_status.setText("وضعیت: نوبت دهی");
+                holder.txtRcycRT_status.setText("وضعیت: " + data.get(position).status_type);
             }
 
         } catch (Exception e) {

@@ -11,99 +11,7 @@
         android:src="@drawable/main_background"
         android:tint="#EBFFFFFF" />
 
-    <LinearLayout
-        android:id="@+id/linearBtns"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
 
-        <!--    linearSelectFiltersBtn        -->
-        <LinearLayout
-            android:id="@+id/linearSelectFiltersBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <Button
-                android:id="@+id/btnFrRes_next"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight="0.5"
-                android:text="بعدی" />
-
-            <Button
-                android:id="@+id/btnFrRes_filter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight="0.5"
-                android:text="حذف فیلترها" />
-
-        </LinearLayout>
-
-        <!--    linearResTimesBtn        -->
-        <LinearLayout
-            android:id="@+id/linearResTimesBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnRT_next"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight="0.5"
-                android:text="بعدی" />
-
-            <Button
-                android:id="@+id/btnRT_previous"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight="0.5"
-                android:text="مرحله ی قبلی" />
-
-
-        </LinearLayout>
-
-        <!--    linearPazireshPageBtn        -->
-        <LinearLayout
-            android:id="@+id/linearPazireshPageBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight="0.5"
-                android:text="ثبت پذیرش" />
-
-            <Button
-                android:id="@+id/btnPP_previous"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight="0.5"
-                android:text="مرحله ی قبلی" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <!--  Buttons  -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -127,8 +35,9 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:cardCornerRadius="10dp">
+                    android:layout_margin="3dp"
+                    app:cardCornerRadius="7dp">
+
                     <LinearLayout
                         android:id="@+id/linearFrRes_city"
                         android:layout_width="match_parent"
@@ -144,8 +53,8 @@
                             android:layout_weight="0.5"
                             android:gravity="right|center"
                             android:text="انتخاب شهر"
-                            android:visibility="gone"
-                            android:textColor="@color/colorLogo" />
+                            android:textColor="@color/colorLogo"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/txtFrRes_city"
@@ -160,140 +69,172 @@
                             android:textColor="@color/colorLogo" />
 
                     </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
-
-                <LinearLayout
-                    android:id="@+id/linearFrRes_takhasos"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
-                    android:background="@drawable/bg_white_corner_"
-                    android:orientation="vertical"
-                    android:padding="7dp">
+                    app:cardCornerRadius="7dp">
 
-                    <TextView
-                        android:id="@+id/txtFrResTitle_takhasos"
+                    <LinearLayout
+                        android:id="@+id/linearFrRes_takhasos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:layout_weight="0.5"
-                        android:gravity="right|center"
-                        android:text="انتخاب تخصص"
-                        android:textColor="@color/colorLogo" />
+                        android:layout_margin="3dp"
+                        android:background="@drawable/bg_white_corner_"
+                        android:orientation="vertical"
+                        android:padding="7dp">
 
-                    <TextView
-                        android:id="@+id/txtFrRes_takhasos"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginBottom="7dp"
-                        android:layout_weight="0.5"
-                        android:gravity="right|center"
-                        android:paddingLeft="7dp"
-                        android:text="\tتمام تخصص ها"
-                        android:textColor="@color/colorLogo" />
+                        <TextView
+                            android:id="@+id/txtFrResTitle_takhasos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:text="انتخاب تخصص"
+                            android:textColor="@color/colorLogo"
+                            android:visibility="gone" />
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/txtFrRes_takhasos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:paddingLeft="7dp"
+                            android:text="\tتمام تخصص ها"
+                            android:textColor="@color/colorLogo" />
 
-                <LinearLayout
-                    android:id="@+id/linearFrRes_darmonghah"
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
-                    android:background="@drawable/bg_white_corner_"
-                    android:orientation="vertical"
-                    android:padding="7dp">
+                    app:cardCornerRadius="7dp">
 
-                    <TextView
-                        android:id="@+id/txtFrResTitle_darmonghah"
+                    <LinearLayout
+                        android:id="@+id/linearFrRes_darmonghah"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:gravity="right|center"
-                        android:visibility="gone"
-                        android:text="انتخاب درمانگاه ها"
-                        android:textColor="@color/colorLogo" />
+                        android:layout_margin="3dp"
+                        android:background="@drawable/bg_white_corner_"
+                        android:orientation="vertical"
+                        android:padding="7dp">
 
-                    <TextView
-                        android:id="@+id/txtFrRes_darmonghah"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginBottom="7dp"
-                        android:layout_weight="0.5"
-                        android:gravity="right|center"
-                        android:paddingLeft="7dp"
-                        android:text="\tتمام درمانگاه ها"
-                        android:textColor="@color/colorLogo" />
+                        <TextView
+                            android:id="@+id/txtFrResTitle_darmonghah"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:text="انتخاب درمانگاه ها"
+                            android:textColor="@color/colorLogo"
+                            android:visibility="gone" />
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/txtFrRes_darmonghah"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:paddingLeft="7dp"
+                            android:text="\tتمام درمانگاه ها"
+                            android:textColor="@color/colorLogo" />
 
-                <LinearLayout
-                    android:id="@+id/linearFrRes_time"
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
-                    android:background="@drawable/bg_white_corner_"
-                    android:orientation="vertical"
-                    android:padding="7dp">
+                    app:cardCornerRadius="7dp">
 
-                    <TextView
-                        android:visibility="gone"
-                        android:id="@+id/txtFrResTitle_time"
+                    <LinearLayout
+                        android:id="@+id/linearFrRes_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:gravity="right|center"
-                        android:text="انتخاب بازه زمانی"
-                        android:textColor="@color/colorLogo" />
+                        android:layout_margin="3dp"
+                        android:background="@drawable/bg_white_corner_"
+                        android:orientation="vertical"
+                        android:padding="7dp">
 
-                    <TextView
-                        android:id="@+id/txtFrRes_time"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginBottom="7dp"
-                        android:layout_weight="0.5"
-                        android:gravity="right|center"
-                        android:paddingLeft="7dp"
-                        android:text="\tتمام زمان ها"
-                        android:textColor="@color/colorLogo" />
+                        <TextView
+                            android:id="@+id/txtFrResTitle_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:text="انتخاب بازه زمانی"
+                            android:textColor="@color/colorLogo"
+                            android:visibility="gone" />
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/txtFrRes_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:paddingLeft="7dp"
+                            android:text="\tتمام زمان ها"
+                            android:textColor="@color/colorLogo" />
 
-                <LinearLayout
-                    android:id="@+id/linearFrRes_doctor"
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
-                    android:background="@drawable/bg_white_corner_"
-                    android:orientation="vertical"
-                    android:padding="7dp">
+                    app:cardCornerRadius="7dp">
 
-                    <TextView
-                        android:visibility="gone"
-                        android:id="@+id/txtFrResTitle_doctor"
+                    <LinearLayout
+                        android:id="@+id/linearFrRes_doctor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:gravity="right|center"
-                        android:text="انتخاب پزشک"
-                        android:textColor="@color/colorLogo" />
+                        android:layout_margin="3dp"
+                        android:background="@drawable/bg_white_corner_"
+                        android:orientation="vertical"
+                        android:padding="7dp">
 
-                    <TextView
-                        android:id="@+id/txtFrRes_doctor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginBottom="7dp"
-                        android:layout_weight="0.5"
-                        android:gravity="right|center"
-                        android:paddingLeft="7dp"
-                        android:text="\tتمام پزشک ها"
-                        android:textColor="@color/colorLogo" />
+                        <TextView
+                            android:id="@+id/txtFrResTitle_doctor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:text="انتخاب پزشک"
+                            android:textColor="@color/colorLogo"
+                            android:visibility="gone" />
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/txtFrRes_doctor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:layout_weight="0.5"
+                            android:gravity="right|center"
+                            android:paddingLeft="7dp"
+                            android:text="\tتمام پزشک ها"
+                            android:textColor="@color/colorLogo" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
 
 
             </LinearLayout>
@@ -733,5 +674,88 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <!--  Buttons  -->
+    <LinearLayout
+        android:id="@+id/linearBtns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <!--    linearSelectFiltersBtn        -->
+        <LinearLayout
+            android:id="@+id/linearSelectFiltersBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnFrRes_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="0.5"
+                android:text="بعدی" />
+
+            <Button
+                android:id="@+id/btnFrRes_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="0.5"
+                android:text="حذف فیلترها" />
+
+        </LinearLayout>
+
+        <!--    linearResTimesBtn        -->
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/linearResTimesBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnRT_previous"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="0.5"
+                android:text="مرحله ی قبلی" />
+
+        </LinearLayout>
+
+        <!--    linearPazireshPageBtn        -->
+        <LinearLayout
+            android:id="@+id/linearPazireshPageBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="0.5"
+                android:text="ثبت پذیرش" />
+
+            <Button
+                android:id="@+id/btnPP_previous"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="0.5"
+                android:text="مرحله ی قبلی" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

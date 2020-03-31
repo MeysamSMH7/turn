@@ -86,7 +86,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
     private ArrayList<ModResTime> arrayListResTimes;
 
-    private Button btnRT_next;
     private Button btnRT_previous;
 
     //------------ linearPazireshPage
@@ -141,6 +140,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         linearPazireshPageBtn.setVisibility(View.GONE);
         linearPazireshPage2.setVisibility(View.GONE);
 
+        String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":[{\"dr_prg_hsp_mdc_spc_date_id\":\"1\",\"hsp_title\":\"بیمارستان شهید بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"مهسا طاهری\",\"spc_title\":\"اطفال\",\"prg_date\":\"1399/01/06\",\"web_turn\":\"1\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"12\",\"hsp_title\":\"بیمارستان شهید حسینی\",\"shift_title\":\"عصر\",\"dr_name\":\"مهدی منصوری\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/02/07\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"13\",\"hsp_title\":\"بیمارستان شهید صالحی\",\"shift_title\":\"ش\",\"dr_name\":\"فرزاد اکبری\",\"spc_title\":\"عمومی\",\"prg_date\":\"1399/03/09\",\"web_turn\":\"5\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"14\",\"hsp_title\":\"بیمارستان شهید عابدزاده\",\"shift_title\":\"عصر\",\"dr_name\":\"علی ملکی\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/04/19\",\"web_turn\":\"3\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"15\",\"hsp_title\":\"بیمارستان  بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"نجمه مقدم\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/09/05\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"}]}";
+        setRecycViewData(res);
         return view;
     }
 
@@ -209,25 +210,17 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private void reservationTimes(View view) {
         linearResTimes = view.findViewById(R.id.linearResTimes);
         linearResTimesBtn = view.findViewById(R.id.linearResTimesBtn);
+        btnRT_previous = view.findViewById(R.id.btnRT_previous);
         rcycRT = view.findViewById(R.id.rcycRT);
         arrayListResTimes = new ArrayList();
 
-        for (int i = 0; i <= 10; i++) tempData(i);
-        AdRecycResTimes adapterResTimes = new AdRecycResTimes(getContext(), arrayListResTimes);
-        rcycRT.setAdapter(adapterResTimes);
+        JSONObject objectMain = new JSONObject();
+        try {
+            objectMain.put("ss", "ss");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-
-        btnRT_next = view.findViewById(R.id.btnRT_next);
-        btnRT_previous = view.findViewById(R.id.btnRT_previous);
-        btnRT_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                linearPazireshPage.setVisibility(View.VISIBLE);
-                linearPazireshPageBtn.setVisibility(View.VISIBLE);
-                linearResTimes.setVisibility(View.GONE);
-                linearResTimesBtn.setVisibility(View.GONE);
-            }
-        });
         btnRT_previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -243,16 +236,39 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
     }
 
-    private void tempData(int i) {
-        ModResTime time = new ModResTime();
-        time.hospitalName = "بیمارستان دی " + i;
-        time.shift = "صبح";
-        time.doctorName = "دکتر چیزی";
-        time.takhasos = "فک و صورت";
-        time.date = "1399/01/0" + i;
-        time.num = "" + i;
-        time.status = "ok";
-        arrayListResTimes.add(time);
+    private void setRecycViewData(String res) {
+        try {
+            JSONObject object = new JSONObject(res);
+            String status = object.getString("status");
+            String message = object.getString("message");
+            if (status.equals("yes")) {
+                String data = object.getString("data");
+                JSONArray arrayData = new JSONArray(data);
+
+                for (int i = 0; i < arrayData.length(); i++) {
+                    JSONObject objectTemp = arrayData.getJSONObject(i);
+                    ModResTime time = new ModResTime();
+                    time.id = objectTemp.getString("dr_prg_hsp_mdc_spc_date_id");
+                    time.hsp_title = objectTemp.getString("hsp_title");
+                    time.shift_title = objectTemp.getString("shift_title");
+                    time.dr_name = objectTemp.getString("dr_name");
+                    time.spc_title = objectTemp.getString("spc_title");
+                    time.prg_date = objectTemp.getString("prg_date");
+                    time.web_turn = objectTemp.getString("web_turn");
+                    time.status_type = objectTemp.getString("status_type");
+                    arrayListResTimes.add(time);
+                }
+
+                AdRecycResTimes adapterResTimes = new AdRecycResTimes(getContext(), arrayListResTimes);
+                rcycRT.setAdapter(adapterResTimes);
+
+            } else
+//                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
+                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //    SearchView
@@ -499,7 +515,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 }
 
             } else
-                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
+//                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
+                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
