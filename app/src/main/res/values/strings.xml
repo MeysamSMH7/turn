@@ -22,4 +22,5 @@
     <string name="datePP">تاریخ نوبت:</string>
 
     <string name="cantGetServer">خطا در برقراری ارتباط با سرور</string>
+    <string name="urlHospital">http://nobat.ir/site</string>
 </resources>

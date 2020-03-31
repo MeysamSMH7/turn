@@ -27,6 +27,8 @@ import com.example.turn.Activity.Main.Model.ModResTime;
 import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class frTab_reserve extends Fragment implements SearchView.OnQueryTextListener {
@@ -117,14 +119,22 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         linearPazireshPageBtn.setVisibility(View.GONE);
         linearPazireshPage2.setVisibility(View.GONE);
 
+       // JSONObject jsonMain = new JSONObject();
+        //  try {
+        //      jsonMain.put("hospitalName","فلان جا");
 
-        new setConnectionVolley(getContext(), "url", null
-        ).connectStringRequest(new setConnectionVolley.OnResponse() {
-            @Override
-            public void OnResponse(String response) {
+        //  } catch (Exception e) {
+        //      e.printStackTrace();
+        //  }
 
-            }
-        });
+
+        //   new setConnectionVolley(getContext(),getString(R.string.urlSite)+ getString(R.string.urlHospital), jsonMain
+                //  ).connectStringRequest(new setConnectionVolley.OnResponse() {
+        //     @Override
+        //    public void OnResponse(String response) {
+
+        //    }
+        //  });
 
 
         return view;
