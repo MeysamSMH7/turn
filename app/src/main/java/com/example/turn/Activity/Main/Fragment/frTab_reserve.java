@@ -381,7 +381,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
     }
 
-
     //  SearchView -------------------------------------------------------------
     private ListView listSearchView;
     private ListViewAdapter adapterSearchView;
