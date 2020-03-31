@@ -1,10 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/main_background"
+        android:tint="#EBFFFFFF" />
+
+    <LinearLayout
+        android:id="@+id/linearBtns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <!--    linearSelectFiltersBtn        -->
+        <LinearLayout
+            android:id="@+id/linearSelectFiltersBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btnFrRes_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="0.5"
+                android:text="بعدی" />
+
+            <Button
+                android:id="@+id/btnFrRes_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="0.5"
+                android:text="حذف فیلترها" />
+
+        </LinearLayout>
+
+        <!--    linearResTimesBtn        -->
+        <LinearLayout
+            android:id="@+id/linearResTimesBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnRT_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="0.5"
+                android:text="بعدی" />
+
+            <Button
+                android:id="@+id/btnRT_previous"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="0.5"
+                android:text="مرحله ی قبلی" />
+
+
+        </LinearLayout>
+
+        <!--    linearPazireshPageBtn        -->
+        <LinearLayout
+            android:id="@+id/linearPazireshPageBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="0.5"
+                android:text="ثبت پذیرش" />
+
+            <Button
+                android:id="@+id/btnPP_previous"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="0.5"
+                android:text="مرحله ی قبلی" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--  Buttons  -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,8 +121,7 @@
                 android:id="@+id/linearSelectFilters"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/linearFrRes_city"
@@ -193,7 +291,8 @@
                 android:id="@+id/linearResTimes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcycRT"
@@ -209,7 +308,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-              >
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -219,6 +318,63 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/btnPP_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="جستجو کن" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:background="@drawable/bg_white_corner_"
+                            android:orientation="vertical"
+                            android:padding="7dp">
+
+                            <EditText
+                                android:id="@+id/edtFrPP_Cod"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/colorPurple7"
+                                android:gravity="right"
+                                android:hint="کد ملی"
+                                android:maxLines="2"
+                                android:paddingEnd="7dp"
+                                android:paddingRight="7dp"
+                                android:textColor="@color/colorPurple7"
+                                android:textCursorDrawable="@color/colorPurple7"
+                                android:textSize="15sp" />
+
+
+                            <RadioGroup
+                                android:id="@+id/radioGPPP_CodMeli"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <RadioButton
+                                    android:id="@+id/radioBtnPP_CodMeli"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="right"
+                                    android:checked="true"
+                                    android:gravity="right|center"
+                                    android:layoutDirection="rtl"
+                                    android:text="کد ملی" />
+
+                                <RadioButton
+                                    android:id="@+id/radioBtnPP_NumErja"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="right"
+                                    android:gravity="right|center"
+                                    android:layoutDirection="rtl"
+                                    android:text="شماره ارجا" />
+
+                            </RadioGroup>
+
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -269,63 +425,6 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
-                            android:background="@drawable/bg_white_corner_"
-                            android:orientation="vertical"
-                            android:padding="7dp">
-
-                            <RadioGroup
-                                android:id="@+id/radioGPPP_CodMeli"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <RadioButton
-                                    android:id="@+id/radioBtnPP_CodMeli"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="right"
-                                    android:checked="true"
-                                    android:gravity="right|center"
-                                    android:layoutDirection="rtl"
-                                    android:text="کد ملی" />
-
-                                <RadioButton
-                                    android:id="@+id/radioBtnPP_NumErja"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="right"
-                                    android:gravity="right|center"
-                                    android:layoutDirection="rtl"
-                                    android:text="شماره ارجا" />
-
-                            </RadioGroup>
-
-
-                            <EditText
-                                android:id="@+id/edtFrPP_Cod"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:backgroundTint="@color/colorPurple7"
-                                android:gravity="right"
-                                android:hint="کد ملی"
-                                android:maxLines="2"
-                                android:paddingEnd="7dp"
-                                android:paddingRight="7dp"
-                                android:textColor="@color/colorPurple7"
-                                android:textCursorDrawable="@color/colorPurple7"
-                                android:textSize="15sp" />
-
-                        </LinearLayout>
-
-                        <Button
-                            android:id="@+id/btnPP_search"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="جستجو کن" />
-
                         <!--    linearPazireshPage2         -->
 
                         <LinearLayout
@@ -336,37 +435,11 @@
                             android:visibility="gone">
 
 
-                            <LinearLayout
+                            <Button
+                                android:id="@+id/btnPP_paziresh"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="3dp"
-                                android:background="@drawable/bg_white_corner_"
-                                android:orientation="vertical"
-                                android:padding="7dp">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="0.5"
-                                    android:gravity="right|center"
-                                    android:text="نام بیمار"
-                                    android:textColor="@color/colorLogo" />
-
-                                <EditText
-                                    android:id="@+id/edtFrPP_name"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:backgroundTint="@color/colorPurple7"
-                                    android:enabled="false"
-                                    android:gravity="right"
-                                    android:maxLines="2"
-                                    android:paddingEnd="7dp"
-                                    android:paddingRight="7dp"
-                                    android:textColor="@color/colorPurple7"
-                                    android:textCursorDrawable="@color/colorPurple7"
-                                    android:textSize="15sp" />
-
-                            </LinearLayout>
+                                android:text="پذیرش" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -375,14 +448,6 @@
                                 android:background="@drawable/bg_white_corner_"
                                 android:orientation="vertical"
                                 android:padding="7dp">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="0.5"
-                                    android:gravity="right|center"
-                                    android:text="نام خانوادگی"
-                                    android:textColor="@color/colorLogo" />
 
                                 <EditText
                                     android:id="@+id/edtFrPP_family"
@@ -397,6 +462,14 @@
                                     android:textCursorDrawable="@color/colorPurple7"
                                     android:textSize="15sp" />
 
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.5"
+                                    android:gravity="right|center"
+                                    android:text="نام خانوادگی"
+                                    android:textColor="@color/colorLogo" />
+
                             </LinearLayout>
 
                             <LinearLayout
@@ -406,14 +479,6 @@
                                 android:background="@drawable/bg_white_corner_"
                                 android:orientation="vertical"
                                 android:padding="7dp">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="0.5"
-                                    android:gravity="right|center"
-                                    android:text="نام پدر"
-                                    android:textColor="@color/colorLogo" />
 
                                 <EditText
                                     android:id="@+id/edtFrPP_fatherName"
@@ -428,6 +493,14 @@
                                     android:textCursorDrawable="@color/colorPurple7"
                                     android:textSize="15sp" />
 
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.5"
+                                    android:gravity="right|center"
+                                    android:text="نام پدر"
+                                    android:textColor="@color/colorLogo" />
+
                             </LinearLayout>
 
                             <LinearLayout
@@ -437,14 +510,6 @@
                                 android:background="@drawable/bg_white_corner_"
                                 android:orientation="vertical"
                                 android:padding="7dp">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="0.5"
-                                    android:gravity="right|center"
-                                    android:text="جنسیت"
-                                    android:textColor="@color/colorLogo" />
 
                                 <RadioGroup
                                     android:id="@+id/radioGPPP_sex"
@@ -474,6 +539,14 @@
 
                                 </RadioGroup>
 
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.5"
+                                    android:gravity="right|center"
+                                    android:text="جنسیت"
+                                    android:textColor="@color/colorLogo" />
+
 
                             </LinearLayout>
 
@@ -484,14 +557,6 @@
                                 android:background="@drawable/bg_white_corner_"
                                 android:orientation="vertical"
                                 android:padding="7dp">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="0.5"
-                                    android:gravity="right|center"
-                                    android:text="شماره همراه"
-                                    android:textColor="@color/colorLogo" />
 
                                 <EditText
                                     android:id="@+id/edtFrPP_phone"
@@ -506,6 +571,14 @@
                                     android:textColor="@color/colorPurple7"
                                     android:textCursorDrawable="@color/colorPurple7"
                                     android:textSize="15sp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.5"
+                                    android:gravity="right|center"
+                                    android:text="شماره همراه"
+                                    android:textColor="@color/colorLogo" />
 
                             </LinearLayout>
 
@@ -548,14 +621,6 @@
                                 android:orientation="vertical"
                                 android:padding="7dp">
 
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="0.5"
-                                    android:gravity="right|center"
-                                    android:text="آدرس"
-                                    android:textColor="@color/colorLogo" />
-
                                 <EditText
                                     android:id="@+id/edtFrPP_address"
                                     android:layout_width="match_parent"
@@ -568,6 +633,14 @@
                                     android:textColor="@color/colorPurple7"
                                     android:textCursorDrawable="@color/colorPurple7"
                                     android:textSize="15sp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.5"
+                                    android:gravity="right|center"
+                                    android:text="آدرس"
+                                    android:textColor="@color/colorLogo" />
 
                             </LinearLayout>
 
@@ -603,11 +676,37 @@
                             </LinearLayout>
 
 
-                            <Button
-                                android:id="@+id/btnPP_paziresh"
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="پذیرش" />
+                                android:layout_margin="3dp"
+                                android:background="@drawable/bg_white_corner_"
+                                android:orientation="vertical"
+                                android:padding="7dp">
+
+                                <EditText
+                                    android:id="@+id/edtFrPP_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="@color/colorPurple7"
+                                    android:enabled="false"
+                                    android:gravity="right"
+                                    android:maxLines="2"
+                                    android:paddingEnd="7dp"
+                                    android:paddingRight="7dp"
+                                    android:textColor="@color/colorPurple7"
+                                    android:textCursorDrawable="@color/colorPurple7"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="0.5"
+                                    android:gravity="right|center"
+                                    android:text="نام بیمار"
+                                    android:textColor="@color/colorLogo" />
+
+                            </LinearLayout>
 
 
                         </LinearLayout>
@@ -622,97 +721,5 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-    <!--  Buttons  -->
-    <LinearLayout
-        android:id="@+id/linearBtns"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
-
-        <!--    linearSelectFiltersBtn        -->
-        <LinearLayout
-            android:id="@+id/linearSelectFiltersBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <Button
-                android:id="@+id/btnFrRes_next"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight="0.5"
-                android:text="بعدی" />
-
-            <Button
-                android:id="@+id/btnFrRes_filter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight="0.5"
-                android:text="حذف فیلترها" />
-
-        </LinearLayout>
-
-        <!--    linearResTimesBtn        -->
-        <LinearLayout
-            android:id="@+id/linearResTimesBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnRT_next"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight="0.5"
-                android:text="بعدی" />
-
-            <Button
-                android:id="@+id/btnRT_previous"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight="0.5"                android:text="مرحله ی قبلی" />
-
-
-        </LinearLayout>
-
-        <!--    linearPazireshPageBtn        -->
-        <LinearLayout
-            android:id="@+id/linearPazireshPageBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight="0.5"
-                android:text="ثبت پذیرش" />
-
-            <Button
-                android:id="@+id/btnPP_previous"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight="0.5"
-                android:text="مرحله ی قبلی" />
-
-        </LinearLayout>
-
-    </LinearLayout>
 
 </RelativeLayout>
