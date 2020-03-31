@@ -13,8 +13,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_viewPager"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -25,12 +27,12 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginRight="2dp"
-                android:background="@drawable/bg_greywhite_corner"
+                android:background="@color/colorPrimaryDark"
                 app:tabIndicatorColor="@color/colorAccent"
                 app:tabIndicatorHeight="5dp"
-                app:tabSelectedTextColor="@color/colorLogo"
+                app:tabSelectedTextColor="@color/colorPrimaryDark"
                 android:layout_gravity="bottom"
-                app:tabTextColor="@color/colorPurple7" />
+                app:tabTextColor="@color/colorPrimaryDark" />
         </androidx.viewpager.widget.ViewPager>
 
     </LinearLayout>

@@ -11,9 +11,8 @@
         android:src="@drawable/main_background"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
-        android:tint="#BAFFFFFF"
+        android:tint="#EBFFFFFF"
         android:layout_height="match_parent"/>
-
 
     <ImageView
         android:id="@+id/img123"
@@ -27,15 +26,30 @@
         android:id="@+id/textasdf3"
         android:layout_width="365dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="7dp"
         android:text="سامانه نوبت دهی دانشگاه علوم پزشکی مازندران"
         android:textAlignment="center"
         android:textColor="#009688"
-        android:textSize="25dp"
+        android:textSize="12dp"
         android:textStyle="bold"
         android:typeface="serif" />
+
+    <TextView
+        android:id="@+id/textasdf4"
+        android:layout_width="365dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:text="ساdران"
+        android:textAlignment="center"
+        android:textColor="#009688"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:typeface="serif" />
+
     <ProgressBar
         android:id="@+id/progressAcS"
         style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
@@ -45,7 +59,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:indeterminate="true" />
-
     <TextView
         android:id="@+id/txtAcS_Version"
         android:layout_width="match_parent"

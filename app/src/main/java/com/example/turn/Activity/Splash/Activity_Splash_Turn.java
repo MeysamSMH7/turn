@@ -46,9 +46,9 @@ public class Activity_Splash_Turn extends AppCompatActivity {
         internet = new CheckInternet(context);
         preferences = getSharedPreferences("TuRn", 0);
         RelativeLayout layoutMain = findViewById(R.id.layoutMain);
-        ImageView imgAcS_Logo = findViewById(R.id.imgAcS_Logo);
-        TextView txtAcs_DDL = findViewById(R.id.txtAcs_DDL);
-        AnimationStartActivity(layoutMain, imgAcS_Logo, txtAcs_DDL);
+      //  ImageView imgAcS_Logo = findViewById(R.id.imgAcS_Logo);
+      //  TextView txtAcs_DDL = findViewById(R.id.txtAcs_DDL);
+       // AnimationStartActivity(layoutMain, imgAcS_Logo, txtAcs_DDL);
 
         txtAcS_tryAgain = findViewById(R.id.txtAcS_tryAgain);
 

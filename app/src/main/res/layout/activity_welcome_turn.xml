@@ -23,11 +23,11 @@
     <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
-        android:textColor="@color/colorWhite"
+        android:textColor="#FFFFFF"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@null"
+        android:background="@color/colorPrimaryDark"
         android:text="قبلی" />
 
     <Button
@@ -37,6 +37,6 @@
         android:layout_alignParentBottom="true"
         android:textColor="@color/colorWhite"
         android:layout_alignParentRight="true"
-        android:background="@null"
+        android:background="@color/colorPrimaryDark"
         android:text="بعدی" />
 </RelativeLayout>

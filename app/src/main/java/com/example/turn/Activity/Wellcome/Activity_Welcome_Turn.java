@@ -33,7 +33,7 @@ public class Activity_Welcome_Turn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_turn);
 
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 
         view_pager =  findViewById(R.id.view_pager);
         dotsLayout = findViewById(R.id.dotsLayout);
