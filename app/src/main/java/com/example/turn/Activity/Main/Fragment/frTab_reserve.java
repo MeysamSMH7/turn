@@ -141,6 +141,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         linearPazireshPageBtn.setVisibility(View.GONE);
         linearPazireshPage2.setVisibility(View.GONE);
 
+
         String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":[{\"dr_prg_hsp_mdc_spc_date_id\":\"1\",\"hsp_title\":\"بیمارستان شهید بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"مهسا طاهری\",\"spc_title\":\"اطفال\",\"prg_date\":\"1399/01/06\",\"web_turn\":\"1\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"12\",\"hsp_title\":\"بیمارستان شهید حسینی\",\"shift_title\":\"عصر\",\"dr_name\":\"مهدی منصوری\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/02/07\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"13\",\"hsp_title\":\"بیمارستان شهید صالحی\",\"shift_title\":\"ش\",\"dr_name\":\"فرزاد اکبری\",\"spc_title\":\"عمومی\",\"prg_date\":\"1399/03/09\",\"web_turn\":\"5\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"14\",\"hsp_title\":\"بیمارستان شهید عابدزاده\",\"shift_title\":\"عصر\",\"dr_name\":\"علی ملکی\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/04/19\",\"web_turn\":\"3\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"15\",\"hsp_title\":\"بیمارستان  بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"نجمه مقدم\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/09/05\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"}]}";
         setRecycViewData(res);
         return view;
@@ -418,13 +419,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             @Override
             public void onClick(View view) {
                 // TODO: clear all
-
-                txtFrRes_city.setText("\t" + "تمام شهرها");
-                txtFrRes_takhasos.setText("\t" + "تمام تخصص ها");
-                txtFrRes_darmonghah.setText("\t" + "تمام درمانگاه ها");
-                txtFrRes_time.setText("\t" + "تمام زمان ها");
-                txtFrRes_doctor.setText("\t" + "تمام دکتر ها");
-
+                defultDataDropDown();
             }
         });
 
@@ -469,8 +464,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 //            }
 //        });
 
-        String response = "{\"status\":\"yes\",\"message\":\"\",\"data\":{ \"hospital\":[{\"id\":\"0\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"1\",\"title\":\"بیمارستان عمومی ماساچوست\"}],\"doctor\":[{\"id\":\"0\",\"title\":\"علی علیزاده\"},{\"id\":\"1\",\"title\":\"حسین زارعی\"}],\"specialty\":[{\"id\":\"0\",\"title\":\"اطفال\"},{\"id\":\"1\",\"title\":\"عفونی\"}],\"time\":[{\"id\":\"4\",\"title\":\"فردا\"},{\"id\":\"5\",\"title\":\"پسفردا\"},{\"id\":\"4\",\"title\":\"دیروز\"}],\"city\":[{\"id\":\"1\",\"title\":\"اراک\"},{\"id\":\"2\",\"title\":\"امل\"},{\"id\":\"41\",\"title\":\"تهران\"}]}}";
+        String response = "{\"status\":\"yes\",\"message\":\"\",\"data\":{ \"hospital\":[{\"id\":\"0\",\"title\":\"تمامی بیمارستان ها\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"1\",\"title\":\"بیمارستان عمومی ماساچوست\"}],\"doctor\":[{\"id\":\"0\",\"title\":\"تمامی دکترها\"},{\"id\":\"4\",\"title\":\"علی علیزاده\"},{\"id\":\"1\",\"title\":\"حسین زارعی\"}],\"specialty\":[{\"id\":\"0\",\"title\":\"تمامی تخصص ها\"},{\"id\":\"6\",\"title\":\"اطفال\"},{\"id\":\"1\",\"title\":\"عفونی\"}],\"time\":[{\"id\":\"0\",\"title\":\"تمامی زمان ها\"},{\"id\":\"4\",\"title\":\"فردا\"},{\"id\":\"5\",\"title\":\"پسفردا\"},{\"id\":\"4\",\"title\":\"دیروز\"}],\"city\":[{\"id\":\"0\",\"title\":\"تمامی شهرها\"},{\"id\":\"1\",\"title\":\"اراک\"},{\"id\":\"2\",\"title\":\"امل\"},{\"id\":\"41\",\"title\":\"تهران\"}]}}";
         setDropDownsData(response);
+
     }
 
     private void setDropDownsData(String res) {
@@ -514,6 +510,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     dataCity.add(object1.getString("title"));
                 }
 
+                defultDataDropDown();
+
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
                 Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
@@ -544,6 +542,20 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
+    }
+
+    private void defultDataDropDown() {
+        txtFrRes_city.setText(dataCity.get(0) + "");
+        txtFrRes_takhasos.setText(dataTakhasos.get(0) + "");
+        txtFrRes_darmonghah.setText(dataHospital.get(0) + "");
+        txtFrRes_time.setText(dataTime.get(0) + "");
+        txtFrRes_doctor.setText(dataDoctor.get(0) + "");
+
+        cityId = dataCityID.get(0) + "";
+        takhasosId = dataTakhasosID.get(0) + "";
+        hospiralId = dataHospitalID.get(0) + "";
+        timeId = dataTimeID.get(0) + "";
+        doctorId = dataDoctorID.get(0) + "";
     }
 
 }
