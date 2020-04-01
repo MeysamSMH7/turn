@@ -19,19 +19,20 @@
 
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tl_tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
+                android:layout_height="?attr/actionBarSize"
                 android:layout_marginTop="3dp"
                 android:layout_marginRight="2dp"
                 android:background="@color/colorPrimaryDark"
-                app:tabIndicatorColor="@color/colorAccent"
-                app:tabIndicatorHeight="5dp"
-                app:tabSelectedTextColor="@color/colorPrimaryDark"
+                app:tabIndicatorColor="@color/colorWhite"
+                app:tabIndicatorHeight="3dp"
+                app:tabSelectedTextColor="@color/colorWhite"
                 android:layout_gravity="bottom"
+                app:tabIconTint="@color/colorWhite"
+                app:tabPadding="2dp"
                 app:tabTextColor="@color/colorPrimaryDark" />
         </androidx.viewpager.widget.ViewPager>
 

@@ -31,6 +31,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -50,8 +51,9 @@ public class Activity_Main_Turn extends AppCompatActivity
     private int[] tabIcons = {
             R.drawable.ic_num_1,
             R.drawable.ic_num_2,
-            R.drawable.ic_num_1
+            R.drawable.bandage
     };
+
     private SharedPreferences preferences;
 
     @Override
@@ -109,27 +111,25 @@ public class Activity_Main_Turn extends AppCompatActivity
     private void initViewPager() {
 
         fragments = new ArrayList<>();
-        fragments.add(frTab_estelam.newInstance());
-        fragments.add(frTab_laghv.newInstance());
         fragments.add(frTab_reserve.newInstance());
+        fragments.add(frTab_laghv.newInstance());
+        fragments.add(frTab_estelam.newInstance());
 
-        titles = new String[]{"لغو", "استعلام", "رزرو"};
+        titles = new String[]{"خانه ", "استعلام نوبت", " لغو نوبت"};
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
         vp_viewPager.setAdapter(adapter);
         tl_tabLayout.setupWithViewPager(vp_viewPager);
         int limit = (adapter.getCount() > 1 ? adapter.getCount() - 1 : 1);
         vp_viewPager.setOffscreenPageLimit(limit);
-        vp_viewPager.setCurrentItem(2);
+        vp_viewPager.setCurrentItem(0);
 
         tl_tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tl_tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tl_tabLayout.getTabAt(2).setIcon(tabIcons[2]);
 
     }
-
-
-    @Override
+   @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
