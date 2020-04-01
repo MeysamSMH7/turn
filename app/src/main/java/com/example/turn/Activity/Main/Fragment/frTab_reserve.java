@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.turn.Activity.Main.Adapter.AdRecycResTimes;
+import com.example.turn.Activity.Main.Adapter.onClickInterface;
 import com.example.turn.Activity.Main.Model.ModAlerts;
 import com.example.turn.Activity.Main.Adapter.ListViewAdapter;
 import com.example.turn.Activity.Main.Model.ModResTime;
@@ -142,8 +143,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         linearPazireshPage2.setVisibility(View.GONE);
 
 
-        String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":[{\"dr_prg_hsp_mdc_spc_date_id\":\"1\",\"hsp_title\":\"بیمارستان شهید بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"مهسا طاهری\",\"spc_title\":\"اطفال\",\"prg_date\":\"1399/01/06\",\"web_turn\":\"1\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"12\",\"hsp_title\":\"بیمارستان شهید حسینی\",\"shift_title\":\"عصر\",\"dr_name\":\"مهدی منصوری\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/02/07\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"13\",\"hsp_title\":\"بیمارستان شهید صالحی\",\"shift_title\":\"ش\",\"dr_name\":\"فرزاد اکبری\",\"spc_title\":\"عمومی\",\"prg_date\":\"1399/03/09\",\"web_turn\":\"5\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"14\",\"hsp_title\":\"بیمارستان شهید عابدزاده\",\"shift_title\":\"عصر\",\"dr_name\":\"علی ملکی\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/04/19\",\"web_turn\":\"3\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"15\",\"hsp_title\":\"بیمارستان  بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"نجمه مقدم\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/09/05\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"}]}";
-        setRecycViewData(res);
         return view;
     }
 
@@ -229,6 +228,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         });
 
 
+        String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":[{\"dr_prg_hsp_mdc_spc_date_id\":\"1\",\"hsp_title\":\"بیمارستان شهید بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"مهسا طاهری\",\"spc_title\":\"اطفال\",\"prg_date\":\"1399/01/06\",\"web_turn\":\"1\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"12\",\"hsp_title\":\"بیمارستان شهید حسینی\",\"shift_title\":\"عصر\",\"dr_name\":\"مهدی منصوری\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/02/07\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"13\",\"hsp_title\":\"بیمارستان شهید صالحی\",\"shift_title\":\"ش\",\"dr_name\":\"فرزاد اکبری\",\"spc_title\":\"عمومی\",\"prg_date\":\"1399/03/09\",\"web_turn\":\"5\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"14\",\"hsp_title\":\"بیمارستان شهید عابدزاده\",\"shift_title\":\"عصر\",\"dr_name\":\"علی ملکی\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/04/19\",\"web_turn\":\"3\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"15\",\"hsp_title\":\"بیمارستان  بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"نجمه مقدم\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/09/05\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"}]}";
+        setRecycViewData(res);
+
     }
 
     private void setRecycViewData(String res) {
@@ -254,7 +256,18 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     arrayListResTimes.add(time);
                 }
 
-                AdRecycResTimes adapterResTimes = new AdRecycResTimes(getContext(), arrayListResTimes);
+
+                onClickInterface onclickInterface = new onClickInterface() {
+                    @Override
+                    public void setClick(int position, boolean canUse) {
+                        if (canUse)
+                            Toast.makeText(getContext(), position + "میتونی بری بعدی", Toast.LENGTH_LONG).show();
+                         else
+                            Toast.makeText(getContext(), "نمیتونی داییه", Toast.LENGTH_SHORT).show();
+
+                    }
+                };
+                AdRecycResTimes adapterResTimes = new AdRecycResTimes(getContext(), arrayListResTimes, onclickInterface);
                 rcycRT.setAdapter(adapterResTimes);
 
             } else
@@ -419,7 +432,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             @Override
             public void onClick(View view) {
                 // TODO: clear all
-                defultDataDropDown();
+                defaultDataDropDown();
             }
         });
 
@@ -510,7 +523,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     dataCity.add(object1.getString("title"));
                 }
 
-                defultDataDropDown();
+                defaultDataDropDown();
 
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
@@ -544,7 +557,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         return false;
     }
 
-    private void defultDataDropDown() {
+    private void defaultDataDropDown() {
         txtFrRes_city.setText(dataCity.get(0) + "");
         txtFrRes_takhasos.setText(dataTakhasos.get(0) + "");
         txtFrRes_darmonghah.setText(dataHospital.get(0) + "");

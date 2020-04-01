@@ -8,6 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,10 +23,12 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
     private Context context;
     private List<ModResTime> data;
     private int lastPosition = -1;
+    onClickInterface onClickInterface;
 
-    public AdRecycResTimes(Context context, List<ModResTime> data) {
+    public AdRecycResTimes(Context context, List<ModResTime> data, onClickInterface onClickInterface) {
         this.context = context;
         this.data = data;
+        this.onClickInterface = onClickInterface;
     }
 
     @NonNull
@@ -52,15 +55,24 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             holder.txtRcycRT_takhasos.setText("تخصص " + data.get(position).spc_title);
             holder.txtRcycRT_num.setText("اینترنتی: " + data.get(position).web_turn);
 
-
-
-            if ( data.get(position).web_turn.equals("0")) {
+            if (data.get(position).web_turn.equals("0")) {
                 holder.linearRcycRT_status.setBackgroundColor(context.getResources().getColor(R.color.colorFinish));
                 holder.txtRcycRT_status.setText("وضعیت: " + data.get(position).status_type);
-            }else {
+            } else {
                 holder.linearRcycRT_status.setBackgroundColor(context.getResources().getColor(R.color.colorNoFinish));
                 holder.txtRcycRT_status.setText("وضعیت: " + data.get(position).status_type);
             }
+
+
+            holder.linearMain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (data.get(position).web_turn.equals("0"))
+                        onClickInterface.setClick(position, false);
+                    else
+                        onClickInterface.setClick(position, true);
+                }
+            });
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,4 +109,6 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
 
         }
     }
+
+
 }
