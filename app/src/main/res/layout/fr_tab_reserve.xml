@@ -739,23 +739,27 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <ImageView
                 android:id="@+id/btnFrRes_next"
+                android:src="@drawable/ic_search_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
+                android:tint="@color/colorPrimaryDark"
                 android:layout_weight="0.5"
-                android:text="بعدی" />
+             />
 
-            <Button
+            <ImageView
                 android:id="@+id/btnFrRes_filter"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
                 android:layout_weight="0.5"
-                android:text="حذف فیلترها" />
+                android:src="@drawable/rsz_1ic_nofilter"
+                android:text="حذف فیلترها"
+                android:tint="@color/colorPrimaryDark" />
 
         </LinearLayout>
 

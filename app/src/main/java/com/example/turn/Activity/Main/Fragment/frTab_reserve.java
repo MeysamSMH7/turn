@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
@@ -56,8 +57,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private LinearLayout linearFrRes_time;
     private LinearLayout linearFrRes_doctor;
 
-    private Button btnFrRes_filter;
-    private Button btnFrRes_next;
+    private ImageView btnFrRes_filter;
+    private ImageView btnFrRes_next;
 
     private ArrayList dataCity;
     private ArrayList dataTakhasos;
