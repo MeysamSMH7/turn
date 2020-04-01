@@ -51,7 +51,7 @@
                             android:orientation="horizontal"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
-                          android:layout_marginLeft="10dp"
+                          android:layout_marginLeft="35dp"
                             android:tint="#0DC3B2"
                             android:src="@drawable/ic_pic" />
                         <TextView
@@ -75,7 +75,7 @@
                             android:layout_weight="1"
                             android:gravity="right|center"
                             android:paddingLeft="7dp"
-                            android:paddingRight="23dp"
+                            android:paddingRight="45dp"
                             android:textColor="@color/colorLogo" />
 
                     </LinearLayout>
@@ -101,7 +101,7 @@
                             android:orientation="horizontal"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="35dp"
                             android:tint="#0DC3B2"
                             android:src="@drawable/ic_lungs" />
                         <TextView
@@ -124,7 +124,7 @@
                             android:layout_weight="1"
                             android:gravity="right|center"
                             android:paddingLeft="7dp"
-                            android:paddingRight="23dp"
+                            android:paddingRight="45dp"
                             android:textColor="@color/colorLogo"
                             android:text="\tتمام تخصص ها"
 
@@ -153,7 +153,7 @@
                             android:orientation="horizontal"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="35dp"
                             android:tint="#0DC3B2"
                             android:src="@drawable/hospital" />
                         <TextView
@@ -176,7 +176,7 @@
                             android:layout_weight="1"
                             android:gravity="right|center"
                             android:paddingLeft="7dp"
-                            android:paddingRight="23dp"
+                            android:paddingRight="45dp"
                             android:textColor="@color/colorLogo"
                             android:text="\tتمام درمانگاه ها"
                            />
@@ -213,7 +213,7 @@
                             android:orientation="horizontal"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="35dp"
                             android:tint="#0DC3B2"
                             android:src="@drawable/ic_calendar" />
                         <TextView
@@ -226,7 +226,7 @@
                             android:layout_weight="1"
                             android:gravity="right|center"
                             android:paddingLeft="7dp"
-                            android:paddingRight="23dp"
+                            android:paddingRight="45dp"
                             android:textColor="@color/colorLogo"
                             android:text="\tتمام زمان ها"
                       />
@@ -263,7 +263,7 @@
                             android:orientation="horizontal"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="35dp"
                             android:tint="#0DC3B2"
                             android:src="@drawable/doctor" />
                         <TextView
@@ -276,7 +276,7 @@
                             android:layout_weight="1"
                             android:gravity="right|center"
                             android:paddingLeft="7dp"
-                            android:paddingRight="23dp"
+                            android:paddingRight="45dp"
                             android:textColor="@color/colorLogo"
                             android:text="\tتمام پزشک ها"
                          />
@@ -741,22 +741,32 @@
 
             <Button
                 android:id="@+id/btnFrRes_next"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
+                android:layout_marginRight="30dp"
                 android:layout_weight="0.5"
+                style="@style/loginButton"
+                android:layout_width="35px"
+                android:layout_height="45dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/colorPrimaryDark"
                 android:text="جستجو" />
 
             <Button
                 android:id="@+id/btnFrRes_filter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
+                android:paddingLeft="20dp"
+                android:layout_marginLeft="30dp"
                 android:layout_weight="0.5"
+                style="@style/loginButton"
+                android:layout_width="45px"
+                android:layout_height="45dp"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
                 android:text="حذف فیلترها" />
-
         </LinearLayout>
 
         <!--    linearResTimesBtn        -->
