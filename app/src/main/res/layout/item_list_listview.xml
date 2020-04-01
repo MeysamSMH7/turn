@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearItemListListView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/linearItemListListView"
     android:orientation="vertical">
 
     <TextView
@@ -10,14 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:gravity="right|center" />
+        android:gravity="right|center"
+        android:paddingRight="7dp"
+        android:text="asdfasd" />
 
     <TextView
         android:id="@+id/txtId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:visibility="gone"
-        android:gravity="right|center" />
+        android:gravity="right|center"
+        android:visibility="gone" />
 
 </LinearLayout>

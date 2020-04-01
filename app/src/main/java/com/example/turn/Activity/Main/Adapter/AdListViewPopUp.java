@@ -15,16 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ListViewAdapter extends BaseAdapter {
+public class AdListViewPopUp extends BaseAdapter {
 
     // Declare Variables
-
-    Context mContext;
-    LayoutInflater inflater;
+    private Context mContext;
+    private LayoutInflater inflater;
     private List<ModAlerts> modAlertsList = null;
     private ArrayList<ModAlerts> arraylist;
 
-    public ListViewAdapter(Context context, List<ModAlerts> modAlertsList) {
+    public AdListViewPopUp(Context context, List<ModAlerts> modAlertsList) {
         mContext = context;
         this.modAlertsList = modAlertsList;
         inflater = LayoutInflater.from(mContext);
