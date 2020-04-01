@@ -85,7 +85,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
     private ArrayList<ModResTime> arrayListResTimes;
 
-    private Button btnRT_previous;
+    private ImageView btnRT_previous;
 
     //------------ linearPazireshPage
     private LinearLayout linearPazireshPage;

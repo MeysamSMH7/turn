@@ -51,7 +51,7 @@
                             android:orientation="horizontal"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
-                          android:layout_marginLeft="35dp"
+                            android:layout_marginLeft="35dp"
                             android:tint="#0DC3B2"
                             android:src="@drawable/ic_pic" />
                         <TextView
@@ -179,7 +179,7 @@
                             android:paddingRight="45dp"
                             android:textColor="@color/colorLogo"
                             android:text="\tتمام درمانگاه ها"
-                           />
+                            />
 
                     </LinearLayout>
 
@@ -229,7 +229,7 @@
                             android:paddingRight="45dp"
                             android:textColor="@color/colorLogo"
                             android:text="\tتمام زمان ها"
-                      />
+                            />
 
                     </LinearLayout>
 
@@ -279,7 +279,7 @@
                             android:paddingRight="45dp"
                             android:textColor="@color/colorLogo"
                             android:text="\tتمام پزشک ها"
-                         />
+                            />
 
                     </LinearLayout>
 
@@ -776,15 +776,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <Button
+            <ImageView
                 android:id="@+id/btnRT_previous"
+                android:src="@drawable/ic_forward"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
+                android:scaleType="fitEnd"
+                android:tint="@color/colorPrimaryDark"
                 android:layout_marginRight="3dp"
-                android:layout_weight="0.5"
-                android:text="مرحله ی قبلی" />
+                android:layout_weight="0.5" />
 
         </LinearLayout>
 

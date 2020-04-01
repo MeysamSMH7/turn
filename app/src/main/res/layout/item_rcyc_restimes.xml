@@ -1,113 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/linearMain"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="7dp"
-    android:layout_marginTop="3dp"
-    android:layout_marginRight="7dp"
-    android:layout_marginBottom="3dp"
-    android:background="@drawable/selector_button_ds"
-    android:gravity="center"
-    android:layoutDirection="ltr"
     android:orientation="vertical"
-    android:padding="7dp">
+    android:padding="3dp">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="3dp">
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        app:cardCornerRadius="7dp">
 
-        <TextView
-            android:id="@+id/txtRcycRT_shift"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="0.5"
-            android:gravity="center"
-            android:text="شیفت صبح"
-            android:textColor="@color/colorAccent" />
+            android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtRcycRT_hospital"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:gravity="right|center"
-            android:paddingRight="17dp"
-            android:text="بیمارستان اون ور ابی ها"
-            android:textColor="@color/colorAccent" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_doctor" />
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/ic_num_1" />
+                <TextView
+                    android:id="@+id/txtRcycRT_doctorName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="7dp"
+                    android:textSize="16dp"
+                    android:text="دکتر"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/txtRcycRT_takhasos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="7dp"
+                    android:text="تخصص"
+                    android:textColor="@color/colorAccent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="3dp">
-
-        <TextView
-            android:id="@+id/txtRcycRT_takhasos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="0.5"
-            android:gravity="center"
-            android:text="تخصص داخلی موز موز موز موز"
-            android:textColor="@color/colorAccent" />
-
-        <TextView
-            android:id="@+id/txtRcycRT_doctorName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:gravity="right|center"
-            android:paddingRight="17dp"
-            android:text="دکتر اسم و فامیلی"
-            android:textColor="@color/colorAccent" />
-
-        <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/ic_num_2" />
-
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/txtRcycRT_hospital"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="7dp"
+                    android:text="بیمارستان"
+                    android:textColor="@color/colorAccent" />
 
 
-    <TextView
-        android:id="@+id/txtRcycRT_num"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        android:gravity="right|center"
-        android:paddingRight="17dp"
-        android:text="ایتنرنتی : 23"
-        android:textColor="@color/colorAccent" />
+                <TextView
+                    android:id="@+id/txtRcycRT_shift"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="7dp"
+                    android:text="شیفت"
+                    android:textColor="@color/colorAccent" />
 
-    <LinearLayout
-        android:id="@+id/linearRcycRT_status"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="3dp"
-        android:background="#39AB17">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/txtRcycRT_status"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="0.5"
-            android:gravity="center"
-            android:text="وضعیت: دریافت نوبت"
-            android:textColor="@color/colorWhite" />
-        <!--            android:text="وضعیت: دریافت نوبت\nتعاد باقی مانده 23"-->
+                    <TextView
+                        android:id="@+id/txtRcycRT_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:layout_weight="0.5"
+                        android:paddingRight="7dp"
+                        android:text="تاریخ"
+                        android:textColor="@color/colorAccent" />
+                    <Button
+                        android:id="@+id/txtRcycRT_status"
+                        style="@style/loginButton"
+                        android:layout_width="201dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
+                        android:layout_weight="0.5"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:text="وضعیت" />
 
-    </LinearLayout>
 
 
+                    <!--   <TextView
+                           android:id="@+id/txtRcycRT_status"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:gravity="right"
+                           android:paddingRight="7dp"
+                           android:text="وضعیت"
+                           android:textColor="@color/colorAccent" />-->
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
 

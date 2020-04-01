@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,7 +54,8 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             holder.txtRcycRT_shift.setText("شیفت " + data.get(position).shift_title);
             holder.txtRcycRT_doctorName.setText("دکتر " + data.get(position).dr_name);
             holder.txtRcycRT_takhasos.setText("تخصص " + data.get(position).spc_title);
-            holder.txtRcycRT_num.setText("اینترنتی: " + data.get(position).web_turn);
+            holder.txtRcycRT_date.setText("تاریخ " + data.get(position).prg_date);
+          //  holder.txtRcycRT_num.setText("اینترنتی: " + data.get(position).web_turn);
 
             if (data.get(position).web_turn.equals("0")) {
                 holder.linearRcycRT_status.setBackgroundColor(context.getResources().getColor(R.color.colorFinish));
@@ -89,11 +91,12 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
         LinearLayout linearMain;
         TextView txtRcycRT_hospital;
         TextView txtRcycRT_shift;
+        TextView txtRcycRT_date;
         TextView txtRcycRT_doctorName;
         TextView txtRcycRT_takhasos;
-        TextView txtRcycRT_num;
+       // TextView txtRcycRT_num;
         LinearLayout linearRcycRT_status;
-        TextView txtRcycRT_status;
+        Button txtRcycRT_status;
 
         ViewHolder(View view) {
             super(view);
@@ -103,8 +106,9 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             txtRcycRT_shift = view.findViewById(R.id.txtRcycRT_shift);
             txtRcycRT_doctorName = view.findViewById(R.id.txtRcycRT_doctorName);
             txtRcycRT_takhasos = view.findViewById(R.id.txtRcycRT_takhasos);
-            txtRcycRT_num = view.findViewById(R.id.txtRcycRT_num);
-            linearRcycRT_status = view.findViewById(R.id.linearRcycRT_status);
+            txtRcycRT_date = view.findViewById(R.id.txtRcycRT_date);
+         //   txtRcycRT_num = view.findViewById(R.id.txtRcycRT_num);
+            //linearRcycRT_status = view.findViewById(R.id.linearRcycRT_status);
             txtRcycRT_status = view.findViewById(R.id.txtRcycRT_status);
 
         }
