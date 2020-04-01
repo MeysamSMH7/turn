@@ -2,6 +2,7 @@ package com.example.turn.Activity.Main.Fragment;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -214,13 +215,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         rcycRT = view.findViewById(R.id.rcycRT);
         arrayListResTimes = new ArrayList();
 
-        JSONObject objectMain = new JSONObject();
-        try {
-            objectMain.put("ss", "ss");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         btnRT_previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -313,7 +307,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
         listSearchView = layout.findViewById(R.id.listviewFr);
         for (int i = 0; i < arrayList.size(); i++) {
-            ModAlerts modAlerts = new ModAlerts(arrayList.get(i) + "");
+            ModAlerts modAlerts = new ModAlerts(arrayList.get(i) + "", arrayListID.get(i) + "");
             arraylistSearchView.add(modAlerts);
         }
         adapterSearchView = new ListViewAdapter(getContext(), arraylistSearchView);
@@ -323,31 +317,37 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         editsearchSearchView.setOnQueryTextListener(this);
 
 
-        final ArrayList finalArrayListID = arrayListID;
         listSearchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (tag.equals("city"))
-                    txtFrRes_city.setText(dataCity.get(i) + "");
-                else if (tag.equals("takhasos"))
-                    txtFrRes_takhasos.setText(dataTakhasos.get(i) + "");
-                else if (tag.equals("darmonghah"))
-                    txtFrRes_darmonghah.setText(dataHospital.get(i) + "");
-                else if (tag.equals("time"))
-                    txtFrRes_time.setText(dataTime.get(i) + "");
-                else if (tag.equals("doctor"))
-                    txtFrRes_doctor.setText(dataDoctor.get(i) + "");
+
+
+                TextView txttitle = ((LinearLayout) view).findViewById(R.id.txtTitle);
+                TextView txtId = ((LinearLayout) view).findViewById(R.id.txtId);
+                String title = txttitle.getText().toString();
+                String id = txtId.getText().toString();
 
                 if (tag.equals("city"))
-                    cityId = finalArrayListID.get(i) + "";
+                    txtFrRes_city.setText(title + "");
                 else if (tag.equals("takhasos"))
-                    takhasosId = finalArrayListID.get(i) + "";
+                    txtFrRes_takhasos.setText(title + "");
                 else if (tag.equals("darmonghah"))
-                    hospiralId = finalArrayListID.get(i) + "";
+                    txtFrRes_darmonghah.setText(title + "");
                 else if (tag.equals("time"))
-                    timeId = finalArrayListID.get(i) + "";
+                    txtFrRes_time.setText(title + "");
                 else if (tag.equals("doctor"))
-                    doctorId = finalArrayListID.get(i) + "";
+                    txtFrRes_doctor.setText(title + "");
+
+                if (tag.equals("city"))
+                    cityId = id;
+                else if (tag.equals("takhasos"))
+                    takhasosId = id;
+                else if (tag.equals("darmonghah"))
+                    hospiralId = id;
+                else if (tag.equals("time"))
+                    timeId = id;
+                else if (tag.equals("doctor"))
+                    doctorId = id;
 
                 alertDialog.dismiss();
             }

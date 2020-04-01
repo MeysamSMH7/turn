@@ -33,7 +33,8 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     public class ViewHolder {
-        TextView name;
+        TextView txtTitle;
+        TextView txtId;
     }
 
     @Override
@@ -57,13 +58,15 @@ public class ListViewAdapter extends BaseAdapter {
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.item_list_listview, null);
             // Locate the TextViews in listview_item.xml
-            holder.name = (TextView) view.findViewById(R.id.txtTitle);
+            holder.txtTitle = (TextView) view.findViewById(R.id.txtTitle);
+            holder.txtId = (TextView) view.findViewById(R.id.txtId);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
         }
         // Set the results into TextViews
-        holder.name.setText(modAlertsList.get(position).getAnimalName());
+        holder.txtTitle.setText(modAlertsList.get(position).getTitle());
+        holder.txtId.setText(modAlertsList.get(position).getId());
         return view;
     }
 
@@ -75,7 +78,7 @@ public class ListViewAdapter extends BaseAdapter {
             modAlertsList.addAll(arraylist);
         } else {
             for (ModAlerts wp : arraylist) {
-                if (wp.getAnimalName().toLowerCase(Locale.getDefault()).contains(charText)) {
+                if (wp.getTitle().toLowerCase(Locale.getDefault()).contains(charText)) {
                     modAlertsList.add(wp);
                 }
             }
