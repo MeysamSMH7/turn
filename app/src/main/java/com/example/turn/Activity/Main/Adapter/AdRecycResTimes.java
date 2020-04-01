@@ -55,18 +55,26 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             holder.txtRcycRT_doctorName.setText("دکتر " + data.get(position).dr_name);
             holder.txtRcycRT_takhasos.setText("تخصص " + data.get(position).spc_title);
             holder.txtRcycRT_date.setText("تاریخ " + data.get(position).prg_date);
-          //  holder.txtRcycRT_num.setText("اینترنتی: " + data.get(position).web_turn);
+            //  holder.txtRcycRT_num.setText("اینترنتی: " + data.get(position).web_turn);
 
-            if (data.get(position).web_turn.equals("0")) {
-                holder.linearRcycRT_status.setBackgroundColor(context.getResources().getColor(R.color.colorFinish));
-                holder.txtRcycRT_status.setText("وضعیت: " + data.get(position).status_type);
-            } else {
-                holder.linearRcycRT_status.setBackgroundColor(context.getResources().getColor(R.color.colorNoFinish));
-                holder.txtRcycRT_status.setText("وضعیت: " + data.get(position).status_type);
-            }
+            if (data.get(position).web_turn.equals("0"))
+                holder.btnRcycRT_status.setBackground(context.getResources().getDrawable(R.drawable.button_background_red));
+            else
+                holder.btnRcycRT_status.setBackground(context.getResources().getDrawable(R.drawable.button_background_green));
+            holder.btnRcycRT_status.setText("" + data.get(position).status_type);
 
 
             holder.linearMain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (data.get(position).web_turn.equals("0"))
+                        onClickInterface.setClick(position, false);
+                    else
+                        onClickInterface.setClick(position, true);
+                }
+            });
+
+            holder.btnRcycRT_status.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (data.get(position).web_turn.equals("0"))
@@ -94,9 +102,9 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
         TextView txtRcycRT_date;
         TextView txtRcycRT_doctorName;
         TextView txtRcycRT_takhasos;
-       // TextView txtRcycRT_num;
+        // TextView txtRcycRT_num;
         LinearLayout linearRcycRT_status;
-        Button txtRcycRT_status;
+        Button btnRcycRT_status;
 
         ViewHolder(View view) {
             super(view);
@@ -107,9 +115,9 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             txtRcycRT_doctorName = view.findViewById(R.id.txtRcycRT_doctorName);
             txtRcycRT_takhasos = view.findViewById(R.id.txtRcycRT_takhasos);
             txtRcycRT_date = view.findViewById(R.id.txtRcycRT_date);
-         //   txtRcycRT_num = view.findViewById(R.id.txtRcycRT_num);
+            //   txtRcycRT_num = view.findViewById(R.id.txtRcycRT_num);
             //linearRcycRT_status = view.findViewById(R.id.linearRcycRT_status);
-            txtRcycRT_status = view.findViewById(R.id.txtRcycRT_status);
+            btnRcycRT_status = view.findViewById(R.id.btnRcycRT_status);
 
         }
     }
