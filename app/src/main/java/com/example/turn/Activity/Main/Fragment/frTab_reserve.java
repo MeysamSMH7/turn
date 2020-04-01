@@ -57,8 +57,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private LinearLayout linearFrRes_time;
     private LinearLayout linearFrRes_doctor;
 
-    private ImageView btnFrRes_filter;
-    private ImageView btnFrRes_next;
+    private Button btnFrRes_filter;
+    private Button btnFrRes_next;
 
     private ArrayList dataCity;
     private ArrayList dataTakhasos;
