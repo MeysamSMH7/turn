@@ -105,6 +105,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private TextView txtPP_doctorName;
     private TextView txtPP_motakhasesName;
     private TextView txtPP_datePP;
+    private TextView txtPP_shift;
     private RadioGroup radioGPPP_CodMeli;
     private EditText edtFrPP_Cod;
     private Button btnPP_search;
@@ -189,10 +190,10 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         txtPP_doctorName = view.findViewById(R.id.txtPP_doctorName);
         txtPP_motakhasesName = view.findViewById(R.id.txtPP_motakhasesName);
         txtPP_datePP = view.findViewById(R.id.txtPP_datePP);
+        txtPP_shift = view.findViewById(R.id.txtPP_shift);
         radioGPPP_CodMeli = view.findViewById(R.id.radioGPPP_CodMeli);
         edtFrPP_Cod = view.findViewById(R.id.edtFrPP_Cod);
         btnPP_search = view.findViewById(R.id.btnPP_search);
-
 
         btnPP_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,7 +227,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 //                    }
 //                });
 
-                String res = "";
+                String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":{\"ins_id\":\"بیمه ی تکمیلی\",\"home_adr\":\"اراک انتهای خیابان\",\"is_sex\":\"0\",\"city_id\":\"1\",\"home_mbl\":\"09386977100\",\"father_name\":\"علی\",\"last_name\":\"حسینی\",\"first_name\":\"سیدمیثم\"}}";
                 setDataFromSamane(res);
 
 
@@ -295,11 +296,11 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                 edtFrPP_name.setText(firstNameSamane + "");
                 edtFrPP_name.setEnabled(false);
-                edtFrPP_name.setText(firstNameSamane + "");
-                edtFrPP_name.setEnabled(false);
+                edtFrPP_family.setText(lastNameSamane + "");
+                edtFrPP_family.setEnabled(false);
                 edtFrPP_fatherName.setText(fatherNameSamane + "");
                 edtFrPP_phone.setText(phoneNumSamane + "");
-                txtFrPP_city.setText(cityIdSamane + "");
+                txtFrPP_city.setText(cityIdSamane + " =cityID");
                 edtFrPP_address.setText(addressSamane + "");
                 txtFrPP_bime.setText(bimeSamane + "");
 
@@ -330,7 +331,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         btnRT_previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 previousPage(linearResTimes, linearResTimesBtn, linearSelectFilters, linearSelectFiltersBtn);
             }
         });
@@ -381,13 +381,23 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                 public void onClick(View view) {
 
                                     linearPazireshPage2.setVisibility(View.GONE);
-
                                     dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
                                     positionItemRecycleView = position;
-
                                     nextPage(linearResTimes, linearResTimesBtn, linearPazireshPage, linearPazireshPageBtn);
-
                                     alertDialogResTimes.dismiss();
+
+// set data in pazireshPage
+                                    ModResTime modResTime = arrayListResTimes.get(positionItemRecycleView);
+
+                                    String hospitalName = modResTime.hsp_title;
+                                    hospitalName.replace("بیمارستان", "");
+                                    hospitalName.replace("بیمارستان", "");
+                                    txtPP_markazName.setText("بیمارستان " + hospitalName);
+                                    txtPP_shift.setText("شیفت " + modResTime.shift_title);
+                                    txtPP_doctorName.setText("دکتر " + modResTime.dr_name);
+                                    txtPP_motakhasesName.setText("تخصص " + modResTime.spc_title);
+                                    txtPP_datePP.setText("تاریخ " + modResTime.prg_date);
+
                                 }
                             });
 

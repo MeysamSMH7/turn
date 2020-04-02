@@ -28,13 +28,15 @@
             android:layout_below="@+id/search" />
 
         <Button
-            style="@style/loginButton"
-            android:layout_margin="7dp"
-            android:backgroundTint="@color/colorPrimary"
             android:id="@+id/btnFr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="بستن" />
+            android:layout_margin="7dp"
+            android:background="@drawable/button_background_blue"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="بستن"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

@@ -3,8 +3,8 @@
     <color name="colorPrimary">#0DC3B2</color>
     <color name="colorLogo">#000000</color>
     <color name="colorPrimaryDark">#0DC3B2</color>
-    <color name="colorAccent">#000706</color>
-   <color name="colorWhite">#FFFFFF</color>
+    <color name="colorAccent">#0DC3B2</color>
+    <color name="colorWhite">#FFFFFF</color>
     <color name="colorGreen">#25c24f</color>
     <color name="colorBlue">#62bdfc</color>
     <color name="colorBlue2">#154c7a</color>
@@ -38,6 +38,9 @@
     <color name="complementaryColor">#157a43</color>
     <color name="colorOrange">#F05228</color>
     <color name="colorYellow3">#FFF78B</color>
+
+    <color name="colorBlueBtn">#00ADC1</color>
+    <color name="colorIcons">#0DC3B2</color>
 
     <array name="array_dark_inactive">
         <item>#f98da5</item>
