@@ -53,8 +53,8 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             holder.txtRcycRT_hospital.setText("بیمارستان " + hospitalName);
             holder.txtRcycRT_shift.setText("شیفت " + data.get(position).shift_title);
             holder.txtRcycRT_doctorName.setText("دکتر " + data.get(position).dr_name);
-            holder.txtRcycRT_takhasos.setText("تخصص " + data.get(position).spc_title);
-            holder.txtRcycRT_date.setText("تاریخ " + data.get(position).prg_date);
+            holder.txtRcycRT_takhasos.setText("تخصص: " + data.get(position).spc_title);
+            holder.txtRcycRT_date.setText("تاریخ: " + data.get(position).prg_date);
             //  holder.txtRcycRT_num.setText("اینترنتی: " + data.get(position).web_turn);
 
             if (data.get(position).web_turn.equals("0"))
