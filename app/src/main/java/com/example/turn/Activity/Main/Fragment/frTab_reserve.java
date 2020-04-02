@@ -137,6 +137,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private String firstNameSamane;
 
     //------------------------------------
+    private AlertDialog alertDialogLoding;
 
     public static frTab_reserve newInstance() {
 
@@ -165,10 +166,11 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         linearPazireshPageBtn.setVisibility(View.GONE);
         linearPazireshPage2.setVisibility(View.GONE);
 
+        loading();
+
         return view;
     }
 
-    AlertDialog alertDialogLoding;
 
     private void loading() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
