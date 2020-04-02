@@ -314,7 +314,8 @@
                 android:id="@+id/linearPazireshPage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -730,7 +731,7 @@
                                         android:layout_weight="0.5"
                                         android:gravity="right|center"
                                         android:paddingLeft="7dp"
-                                        android:text="انتخاب بیمه"
+                                        android:text="انتخاب شهر"
                                         android:textColor="@color/colorPurple7" />
 
                                 </LinearLayout>
@@ -890,7 +891,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="7dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/btnPP_paziresh"

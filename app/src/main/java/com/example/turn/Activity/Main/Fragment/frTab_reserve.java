@@ -318,7 +318,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             e.printStackTrace();
         }
 
-
     }
 
     private void reservationTimes(View view) {
