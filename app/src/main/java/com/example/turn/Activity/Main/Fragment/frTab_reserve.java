@@ -172,6 +172,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     }
 
 
+
     private void loading() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.loading, null, false);
