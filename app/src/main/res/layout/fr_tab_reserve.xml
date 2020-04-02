@@ -10,17 +10,19 @@
         android:scaleType="centerCrop"
         android:src="@drawable/main_background"
         android:tint="#EBFFFFFF" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/linearBtns"
         android:paddingLeft="7dp"
         android:paddingRight="7dp">
+
         <LinearLayout
-            android:paddingTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="7dp">
 
             <!--    linearSelectFilters        -->
             <LinearLayout
@@ -42,15 +44,16 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
                         android:orientation="horizontal"
-                        android:padding="7dp"
-                        >
+                        android:padding="7dp">
+
                         <ImageView
-                            android:orientation="horizontal"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
                             android:layout_marginLeft="35dp"
-                            android:tint="#0DC3B2"
-                            android:src="@drawable/ic_pic" />
+                            android:orientation="horizontal"
+                            android:src="@drawable/ic_pic"
+                            android:tint="#0DC3B2" />
+
                         <TextView
                             android:id="@+id/txtFrResTitle_city"
                             android:layout_width="match_parent"
@@ -63,8 +66,6 @@
 
                         <TextView
                             android:id="@+id/txtFrRes_city"
-                            android:text="\tتمام شهرها"
-                            android:textStyle="bold"
                             android:layout_width="381dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="13dp"
@@ -73,7 +74,9 @@
                             android:gravity="right|center"
                             android:paddingLeft="7dp"
                             android:paddingRight="45dp"
-                            android:textColor="@color/colorLogo" />
+                            android:text="\tتمام شهرها"
+                            android:textColor="@color/colorLogo"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -94,13 +97,15 @@
                         android:background="@drawable/bg_white_corner_"
                         android:orientation="horizontal"
                         android:padding="7dp">
+
                         <ImageView
-                            android:orientation="horizontal"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
                             android:layout_marginLeft="35dp"
-                            android:tint="#0DC3B2"
-                            android:src="@drawable/ic_lungs" />
+                            android:orientation="horizontal"
+                            android:src="@drawable/ic_lungs"
+                            android:tint="#0DC3B2" />
+
                         <TextView
                             android:id="@+id/txtFrResTitle_takhasos"
                             android:layout_width="match_parent"
@@ -113,7 +118,6 @@
 
                         <TextView
                             android:id="@+id/txtFrRes_takhasos"
-                            android:textStyle="bold"
                             android:layout_width="381dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="13dp"
@@ -122,8 +126,9 @@
                             android:gravity="right|center"
                             android:paddingLeft="7dp"
                             android:paddingRight="45dp"
-                            android:textColor="@color/colorLogo"
                             android:text="\tتمام تخصص ها"
+                            android:textColor="@color/colorLogo"
+                            android:textStyle="bold"
 
                             />
 
@@ -146,13 +151,15 @@
                         android:background="@drawable/bg_white_corner_"
                         android:orientation="horizontal"
                         android:padding="7dp">
+
                         <ImageView
-                            android:orientation="horizontal"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
                             android:layout_marginLeft="35dp"
-                            android:tint="#0DC3B2"
-                            android:src="@drawable/hospital" />
+                            android:orientation="horizontal"
+                            android:src="@drawable/hospital"
+                            android:tint="#0DC3B2" />
+
                         <TextView
                             android:id="@+id/txtFrResTitle_darmonghah"
                             android:layout_width="match_parent"
@@ -165,7 +172,6 @@
 
                         <TextView
                             android:id="@+id/txtFrRes_darmonghah"
-                            android:textStyle="bold"
                             android:layout_width="381dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="13dp"
@@ -174,9 +180,9 @@
                             android:gravity="right|center"
                             android:paddingLeft="7dp"
                             android:paddingRight="45dp"
-                            android:textColor="@color/colorLogo"
                             android:text="\tتمام درمانگاه ها"
-                            />
+                            android:textColor="@color/colorLogo"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -206,16 +212,17 @@
                             android:text="انتخاب بازه زمانی"
                             android:textColor="@color/colorLogo"
                             android:visibility="gone" />
+
                         <ImageView
-                            android:orientation="horizontal"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
                             android:layout_marginLeft="35dp"
-                            android:tint="#0DC3B2"
-                            android:src="@drawable/ic_calendar" />
+                            android:orientation="horizontal"
+                            android:src="@drawable/ic_calendar"
+                            android:tint="#0DC3B2" />
+
                         <TextView
                             android:id="@+id/txtFrRes_time"
-                            android:textStyle="bold"
                             android:layout_width="381dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="13dp"
@@ -224,9 +231,9 @@
                             android:gravity="right|center"
                             android:paddingLeft="7dp"
                             android:paddingRight="45dp"
-                            android:textColor="@color/colorLogo"
                             android:text="\tتمام زمان ها"
-                            />
+                            android:textColor="@color/colorLogo"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -256,16 +263,17 @@
                             android:text="انتخاب پزشک"
                             android:textColor="@color/colorLogo"
                             android:visibility="gone" />
+
                         <ImageView
-                            android:orientation="horizontal"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
                             android:layout_marginLeft="35dp"
-                            android:tint="#0DC3B2"
-                            android:src="@drawable/doctor" />
+                            android:orientation="horizontal"
+                            android:src="@drawable/doctor"
+                            android:tint="#0DC3B2" />
+
                         <TextView
                             android:id="@+id/txtFrRes_doctor"
-                            android:textStyle="bold"
                             android:layout_width="381dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="13dp"
@@ -274,9 +282,9 @@
                             android:gravity="right|center"
                             android:paddingLeft="7dp"
                             android:paddingRight="45dp"
-                            android:textColor="@color/colorLogo"
                             android:text="\tتمام پزشک ها"
-                            />
+                            android:textColor="@color/colorLogo"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -319,7 +327,6 @@
                         android:orientation="vertical">
 
 
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -341,6 +348,7 @@
                                 android:textColor="@color/colorBlack"
                                 android:textCursorDrawable="@color/colorPrimaryDark"
                                 android:textSize="15sp" />
+
                             <RadioGroup
                                 android:id="@+id/radioGPPP_CodMeli"
                                 android:layout_width="match_parent"
@@ -366,19 +374,19 @@
                                     android:text="شماره ارجا" />
 
                             </RadioGroup>
+
                             <Button
                                 android:id="@+id/btnPP_search"
+                                style="@style/loginButton"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="0.5"
-                                android:paddingRight="20dp"
-                                style="@style/loginButton"
                                 android:layout_centerHorizontal="true"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="20dp"
+                                android:layout_weight="0.5"
                                 android:backgroundTint="@color/colorPrimaryDark"
-                                android:text="جستجو"
-                                />
+                                android:paddingRight="20dp"
+                                android:text="جستجو" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -400,33 +408,33 @@
                                     android:id="@+id/txtPP_markazName"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:gravity="right|center"
                                     android:layout_margin="3dp"
-                                    android:textStyle="bold"
-                                    android:text="@string/markazName" />
+                                    android:gravity="right|center"
+                                    android:text="@string/markazName"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/txtPP_doctorName"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:gravity="right|center"
                                     android:layout_margin="3dp"
+                                    android:gravity="right|center"
                                     android:text="@string/doctorName" />
 
                                 <TextView
                                     android:id="@+id/txtPP_motakhasesName"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:gravity="right|center"
                                     android:layout_margin="3dp"
+                                    android:gravity="right|center"
                                     android:text="@string/motakhasesName" />
 
                                 <TextView
                                     android:id="@+id/txtPP_datePP"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:gravity="right|center"
                                     android:layout_margin="3dp"
+                                    android:gravity="right|center"
                                     android:text="@string/datePP" />
 
 
@@ -745,55 +753,51 @@
             android:id="@+id/linearSelectFiltersBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="7dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnFrRes_next"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="0.5"
                 style="@style/loginButton"
-                android:layout_width="35px"
-                android:layout_height="45dp"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:text="جستجو" />
 
             <Button
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="7dp"
                 android:id="@+id/btnFrRes_filter"
-                android:layout_marginRight="3dp"
-                android:paddingLeft="20dp"
-                android:layout_marginLeft="30dp"
-                android:layout_weight="0.5"
                 style="@style/loginButton"
-                android:layout_width="45px"
-                android:layout_height="45dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
                 android:backgroundTint="@color/colorPrimaryDark"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
                 android:text="حذف فیلترها" />
+
         </LinearLayout>
 
         <!--    linearResTimesBtn        -->
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/linearResTimesBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
+
             <ImageView
                 android:id="@+id/btnRT_previous"
-                android:src="@drawable/ic_forward"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
-                android:scaleType="fitEnd"
-                android:tint="@color/colorPrimaryDark"
                 android:layout_marginRight="3dp"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.5"
+                android:scaleType="fitEnd"
+                android:src="@drawable/ic_forward"
+                android:tint="@color/colorPrimaryDark" />
 
         </LinearLayout>
 

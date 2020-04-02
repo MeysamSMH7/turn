@@ -168,6 +168,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     }
 
     AlertDialog alertDialogLoding;
+
     private void loading() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.loading, null, false);
@@ -179,8 +180,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         alertDialogLoding = builder.create();
         alertDialogLoding.show();
     }
-
-
 
     private void paziresh(View view) {
         final boolean meliOrErja = false; // default is meli and its false
@@ -268,10 +267,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             @Override
             public void onClick(View view) {
 
-                linearResTimes.setVisibility(View.VISIBLE);
-                linearResTimesBtn.setVisibility(View.VISIBLE);
-                linearPazireshPage.setVisibility(View.GONE);
-                linearPazireshPageBtn.setVisibility(View.GONE);
+                previousPage(linearPazireshPage, linearPazireshPageBtn, linearResTimes, linearResTimesBtn);
 
             }
         });
@@ -335,7 +331,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             @Override
             public void onClick(View view) {
 
-                previousPage(linearResTimes,linearResTimesBtn,linearSelectFilters,linearSelectFiltersBtn);
+                previousPage(linearResTimes, linearResTimesBtn, linearSelectFilters, linearSelectFiltersBtn);
             }
         });
 
@@ -384,16 +380,12 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                 @Override
                                 public void onClick(View view) {
 
-                                    linearResTimes.setVisibility(View.GONE);
-                                    linearResTimesBtn.setVisibility(View.GONE);
-
-                                    linearPazireshPage.setVisibility(View.VISIBLE);
-                                    linearPazireshPageBtn.setVisibility(View.VISIBLE);
                                     linearPazireshPage2.setVisibility(View.GONE);
 
                                     dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
                                     positionItemRecycleView = position;
 
+                                    nextPage(linearResTimes, linearResTimesBtn, linearPazireshPage, linearPazireshPageBtn);
 
                                     alertDialogResTimes.dismiss();
                                 }
@@ -404,14 +396,14 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                             alertDialogResTimes.show();
 //----- end of alert
                         } else
-                            Toast.makeText(getContext(), "نمیتونی داییه", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "این نوبت به پایین رسیده است.", Toast.LENGTH_SHORT).show();
 
                     }
                 };
                 AdRecycResTimes adapterResTimes = new AdRecycResTimes(getContext(), arrayListResTimes, onclickInterface);
                 rcycRT.setAdapter(adapterResTimes);
 
-                nextPage(linearSelectFilters,linearSelectFiltersBtn,linearResTimes,linearResTimesBtn);
+                nextPage(linearSelectFilters, linearSelectFiltersBtn, linearResTimes, linearResTimesBtn);
 
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
@@ -426,6 +418,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private void alertDialogShow(final String tag) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.item_list_first_fr, null, false);
+
         Button btnFr = layout.findViewById(R.id.btnFr);
         btnFr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -484,7 +477,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
 //        JSONObject object = new JSONObject();
 //        try {
-//            object.put("id", "-1");
+//            object.put("id", id);
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
@@ -519,6 +512,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         builder.setView(layout);
         alertDialogFilter = builder.create();
         alertDialogFilter.show();
+        alertDialogFilter.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
     }
 
     private void selectFilters(View view) {
@@ -592,7 +587,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     arrayListResTimes.clear();
 
                 // TODO: Sent data and get ResTimes data (RecycleView) | link2--------------------------------------------------------
-                String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":[{\"dr_prg_hsp_mdc_spc_date_id\":\"1\",\"hsp_title\":\"بیمارستان شهید بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"مهسا طاهری\",\"spc_title\":\"اطفال\",\"prg_date\":\"1399/01/06\",\"web_turn\":\"1\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"12\",\"hsp_title\":\"بیمارستان شهید حسینی\",\"shift_title\":\"عصر\",\"dr_name\":\"مهدی منصوری\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/02/07\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"13\",\"hsp_title\":\"بیمارستان شهید صالحی\",\"shift_title\":\"ش\",\"dr_name\":\"فرزاد اکبری\",\"spc_title\":\"عمومی\",\"prg_date\":\"1399/03/09\",\"web_turn\":\"5\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"14\",\"hsp_title\":\"بیمارستان شهید عابدزاده\",\"shift_title\":\"عصر\",\"dr_name\":\"علی ملکی\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/04/19\",\"web_turn\":\"3\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"15\",\"hsp_title\":\"بیمارستان  بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"نجمه مقدم\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/09/05\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"}]}";
+                String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":[{\"dr_prg_hsp_mdc_spc_date_id\":\"1\",\"hsp_title\":\"بیمارستان شهید بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"مهسا طاهری\",\"spc_title\":\"اطفال\",\"prg_date\":\"1399/01/06\",\"web_turn\":\"1\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"12\",\"hsp_title\":\"بیمارستان شهید حسینی\",\"shift_title\":\"عصر\",\"dr_name\":\"مهدی منصوری\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/02/07\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"13\",\"hsp_title\":\"بیمارستان شهید صالحی\",\"shift_title\":\"شب\",\"dr_name\":\"فرزاد اکبری\",\"spc_title\":\"عمومی\",\"prg_date\":\"1399/03/09\",\"web_turn\":\"5\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"14\",\"hsp_title\":\"بیمارستان شهید عابدزاده\",\"shift_title\":\"عصر\",\"dr_name\":\"علی ملکی\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/04/19\",\"web_turn\":\"3\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"15\",\"hsp_title\":\"بیمارستان  بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"نجمه مقدم\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/09/05\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"}]}";
                 setRecycViewData(res);
 
 
@@ -750,8 +745,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private void nextPage(final LinearLayout first, final LinearLayout firstBtn,
                           final LinearLayout second, final LinearLayout secondBtn) {
 // anim next - center to right (forFirstLinear) | left to center (forSecondLinear)
-        Animation  animCenterToRight = AnimationUtils.loadAnimation(getContext(), R.anim.center_to_right);
-        final Animation  animLeftToCenter = AnimationUtils.loadAnimation(getContext(), R.anim.left_to_center);
+        Animation animCenterToRight = AnimationUtils.loadAnimation(getContext(), R.anim.center_to_right);
+        final Animation animLeftToCenter = AnimationUtils.loadAnimation(getContext(), R.anim.left_to_center);
 
         first.startAnimation(animCenterToRight);
         firstBtn.startAnimation(animCenterToRight);

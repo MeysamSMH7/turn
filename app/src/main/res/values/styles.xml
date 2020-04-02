@@ -19,7 +19,7 @@
     <style name="loginButton" >
         <item name="android:typeface">serif</item>
         <item name="android:background">@drawable/button_background_red</item>
-        <item name="android:textColor">@color/colorWhite</item>
+         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textStyle">bold</item>
     </style>
 
