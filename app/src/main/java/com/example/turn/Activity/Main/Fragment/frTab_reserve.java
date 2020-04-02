@@ -37,6 +37,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class frTab_reserve extends Fragment implements SearchView.OnQueryTextListener {
 
     //  linearSelectFilters
@@ -162,10 +164,23 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         linearPazireshPageBtn.setVisibility(View.GONE);
         linearPazireshPage2.setVisibility(View.GONE);
 
-
-
         return view;
     }
+
+    AlertDialog alertDialogLoding;
+    private void loading() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.loading, null, false);
+
+        GifImageView gifImage = layout.findViewById(R.id.gifImage);
+        gifImage.setImageResource(R.drawable.loading);
+
+        builder.setView(layout);
+        alertDialogLoding = builder.create();
+        alertDialogLoding.show();
+    }
+
+
 
     private void paziresh(View view) {
         final boolean meliOrErja = false; // default is meli and its false
