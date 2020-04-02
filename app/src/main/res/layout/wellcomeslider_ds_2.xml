@@ -6,17 +6,20 @@
     android:layoutDirection="ltr"
     android:layout_height="match_parent"
     >
+
     <ImageView
-        android:src="@drawable/main_background"
-        android:scaleType="centerCrop"
         android:layout_width="match_parent"
-        android:tint="#BAFFFFFF"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/main_background"
+        android:tint="#BAFFFFFF" />
+
     <ImageView
         android:id="@+id/img123"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_above="@+id/textasdf3"
+        android:tint="@color/colorPrimaryDark"
         android:layout_centerHorizontal="true"
         android:src="@drawable/doctor" />
 
@@ -29,8 +32,8 @@
         android:layout_marginBottom="7dp"
         android:text="استعلام نوبت "
         android:textAlignment="center"
-        android:textColor="#009688"
-        android:textSize="25dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="13dp"
         android:textStyle="bold"
         android:typeface="serif" />
 
@@ -45,7 +48,7 @@
         android:paddingRight="35dp"
         android:text="امکان مشاهده لیست تمامی نوبت های اخذ شده "
         android:textAlignment="center"
-        android:textColor="#009688"
-        android:textSize="20dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="11dp"
         android:typeface="serif" />
 </RelativeLayout>

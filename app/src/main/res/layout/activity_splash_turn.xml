@@ -5,6 +5,7 @@
     android:id="@+id/layoutMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:layoutDirection="ltr"
     tools:context=".Activity.Splash.Activity_Splash_Turn">
     <ImageView
@@ -13,41 +14,40 @@
         android:layout_width="match_parent"
         android:tint="#EBFFFFFF"
         android:layout_height="match_parent"/>
-
     <ImageView
         android:id="@+id/img123"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/textasdf3"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/solidarity" />
+        android:src="@drawable/ic_app_4" />
 
     <TextView
         android:id="@+id/textasdf3"
         android:layout_width="365dp"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="7dp"
-        android:text="سامانه نوبت دهی دانشگاه علوم پزشکی مازندران"
-        android:textAlignment="center"
-        android:textColor="#009688"
-        android:textSize="12dp"
-        android:textStyle="bold"
-        android:typeface="serif" />
-
-    <TextView
-        android:id="@+id/textasdf4"
-        android:layout_width="365dp"
-        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="7dp"
-        android:text="ساdران"
+        android:text=" سامانه نوبت دهی درمانگاه ها و کلینیک های تخصصی دانشگاه علوم پزشکی مازندران"
         android:textAlignment="center"
-        android:textColor="#009688"
-        android:textSize="12dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="13dp"
         android:textStyle="bold"
+        android:typeface="serif" />
+    <TextView
+        android:layout_width="461dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textasdf3"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:paddingLeft="35dp"
+        android:paddingRight="35dp"
+        android:text="جستجو و دریافت نوبت پزشکان،استعلام و لغو نوبت"
+        android:textAlignment="center"
+        android:textColor="@color/colorBlack"
+        android:textSize="12dp"
         android:typeface="serif" />
 
     <ProgressBar
