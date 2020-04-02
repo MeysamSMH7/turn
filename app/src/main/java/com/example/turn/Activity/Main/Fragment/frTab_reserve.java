@@ -3,9 +3,12 @@ package com.example.turn.Activity.Main.Fragment;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,13 +30,14 @@ import com.example.turn.Activity.Main.Adapter.onClickInterface;
 import com.example.turn.Activity.Main.Model.ModAlerts;
 import com.example.turn.Activity.Main.Adapter.AdListViewPopUp;
 import com.example.turn.Activity.Main.Model.ModResTime;
-import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import pl.droidsonroids.gif.GifImageView;
 
 public class frTab_reserve extends Fragment implements SearchView.OnQueryTextListener {
 
@@ -160,9 +164,23 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         linearPazireshPageBtn.setVisibility(View.GONE);
         linearPazireshPage2.setVisibility(View.GONE);
 
-
         return view;
     }
+
+    AlertDialog alertDialogLoding;
+    private void loading() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.loading, null, false);
+
+        GifImageView gifImage = layout.findViewById(R.id.gifImage);
+        gifImage.setImageResource(R.drawable.loading);
+
+        builder.setView(layout);
+        alertDialogLoding = builder.create();
+        alertDialogLoding.show();
+    }
+
+
 
     private void paziresh(View view) {
         final boolean meliOrErja = false; // default is meli and its false
@@ -260,7 +278,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
     }
 
-
     private void setDataFromSamane(String res) {
         try {
             JSONObject object = new JSONObject(res);
@@ -318,11 +335,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             @Override
             public void onClick(View view) {
 
-                linearSelectFilters.setVisibility(View.VISIBLE);
-                linearSelectFiltersBtn.setVisibility(View.VISIBLE);
-                linearResTimes.setVisibility(View.GONE);
-                linearResTimesBtn.setVisibility(View.GONE);
-
+                previousPage(linearResTimes,linearResTimesBtn,linearSelectFilters,linearSelectFiltersBtn);
             }
         });
 
@@ -351,7 +364,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     time.status_type = objectTemp.getString("status_type");
                     arrayListResTimes.add(time);
                 }
-
 
                 onClickInterface onclickInterface = new onClickInterface() {
                     @Override
@@ -398,6 +410,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 };
                 AdRecycResTimes adapterResTimes = new AdRecycResTimes(getContext(), arrayListResTimes, onclickInterface);
                 rcycRT.setAdapter(adapterResTimes);
+
+                nextPage(linearSelectFilters,linearSelectFiltersBtn,linearResTimes,linearResTimesBtn);
 
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
@@ -574,10 +588,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         btnFrRes_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                linearSelectFilters.setVisibility(View.GONE);
-                linearSelectFiltersBtn.setVisibility(View.GONE);
-                linearResTimes.setVisibility(View.VISIBLE);
-                linearResTimesBtn.setVisibility(View.VISIBLE);
+                if (arrayListResTimes.size() != 0)
+                    arrayListResTimes.clear();
 
                 // TODO: Sent data and get ResTimes data (RecycleView) | link2--------------------------------------------------------
                 String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":[{\"dr_prg_hsp_mdc_spc_date_id\":\"1\",\"hsp_title\":\"بیمارستان شهید بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"مهسا طاهری\",\"spc_title\":\"اطفال\",\"prg_date\":\"1399/01/06\",\"web_turn\":\"1\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"12\",\"hsp_title\":\"بیمارستان شهید حسینی\",\"shift_title\":\"عصر\",\"dr_name\":\"مهدی منصوری\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/02/07\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"13\",\"hsp_title\":\"بیمارستان شهید صالحی\",\"shift_title\":\"ش\",\"dr_name\":\"فرزاد اکبری\",\"spc_title\":\"عمومی\",\"prg_date\":\"1399/03/09\",\"web_turn\":\"5\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"14\",\"hsp_title\":\"بیمارستان شهید عابدزاده\",\"shift_title\":\"عصر\",\"dr_name\":\"علی ملکی\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/04/19\",\"web_turn\":\"3\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"15\",\"hsp_title\":\"بیمارستان  بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"نجمه مقدم\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/09/05\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"}]}";
@@ -733,6 +745,65 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         hospiralId = dataHospitalID.get(0) + "";
         timeId = dataTimeID.get(0) + "";
         doctorId = dataDoctorID.get(0) + "";
+    }
+
+    private void nextPage(final LinearLayout first, final LinearLayout firstBtn,
+                          final LinearLayout second, final LinearLayout secondBtn) {
+// anim next - center to right (forFirstLinear) | left to center (forSecondLinear)
+        Animation  animCenterToRight = AnimationUtils.loadAnimation(getContext(), R.anim.center_to_right);
+        final Animation  animLeftToCenter = AnimationUtils.loadAnimation(getContext(), R.anim.left_to_center);
+
+        first.startAnimation(animCenterToRight);
+        firstBtn.startAnimation(animCenterToRight);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                second.setVisibility(View.VISIBLE);
+                secondBtn.setVisibility(View.VISIBLE);
+                second.startAnimation(animLeftToCenter);
+                secondBtn.startAnimation(animLeftToCenter);
+            }
+        }, 300);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                first.setVisibility(View.GONE);
+                firstBtn.setVisibility(View.GONE);
+
+            }
+        }, 600);
+    }
+
+    private void previousPage(final LinearLayout first, final LinearLayout firstBtn,
+                              final LinearLayout second, final LinearLayout secondBtn) {
+
+// anim previous - center to left (First) | right to center (Second)
+        final Animation animRightToCenter = AnimationUtils.loadAnimation(getContext(), R.anim.right_to_center);
+        Animation animCenterToLeft = AnimationUtils.loadAnimation(getContext(), R.anim.center_to_left);
+
+        first.startAnimation(animCenterToLeft);
+        firstBtn.startAnimation(animCenterToLeft);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                second.setVisibility(View.VISIBLE);
+                secondBtn.setVisibility(View.VISIBLE);
+                second.startAnimation(animRightToCenter);
+                secondBtn.startAnimation(animRightToCenter);
+            }
+        }, 300);
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                first.setVisibility(View.GONE);
+                firstBtn.setVisibility(View.GONE);
+            }
+        }, 600);
+
     }
 
 }

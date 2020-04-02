@@ -9,6 +9,7 @@ import com.example.turn.Activity.Main.Adapter.ViewPagerAdapter;
 import com.example.turn.Activity.Main.Fragment.frTab_estelam;
 import com.example.turn.Activity.Main.Fragment.frTab_laghv;
 import com.example.turn.Activity.Main.Fragment.frTab_reserve;
+import com.example.turn.Classes.ShowMessage;
 import com.example.turn.R;
 
 import android.view.View;
@@ -35,6 +36,7 @@ import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +57,9 @@ public class Activity_Main_Turn extends AppCompatActivity
             R.drawable.ic_num_2,
             R.drawable.bandage
     };
+
+    private static final int Time_Between_Two_Back = 2000;
+    private long TimeBackPressed;
 
     private SharedPreferences preferences;
 
@@ -83,7 +88,6 @@ public class Activity_Main_Turn extends AppCompatActivity
         editor.apply();
 
     }
-
 
     private void findViews() {
         preferences = getSharedPreferences("TuRn", 0);
@@ -131,13 +135,20 @@ public class Activity_Main_Turn extends AppCompatActivity
         tl_tabLayout.getTabAt(2).setIcon(tabIcons[2]);
 
     }
-   @Override
+
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (TimeBackPressed + Time_Between_Two_Back > System.currentTimeMillis()) {
+                super.onBackPressed();
+                return;
+            } else
+                Toast.makeText(context, "برای خروج دوباره کلیک کنید", Toast.LENGTH_SHORT).show();
+
+            TimeBackPressed = System.currentTimeMillis();
         }
     }
 
