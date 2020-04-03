@@ -53,6 +53,7 @@
                             android:textColor="@color/colorLogo" />
 
                         <EditText
+                            android:id="@+id/edtLaghv_codMeli"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/colorPurple7"
@@ -84,6 +85,7 @@
                             android:textColor="@color/colorLogo" />
 
                         <EditText
+                            android:id="@+id/edtLaghv_cod"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/colorPurple7"
@@ -107,6 +109,7 @@
                         android:padding="7dp">
 
                         <TextView
+                            android:id="@+id/txtLaghv_chooseHospital"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="7dp"
@@ -120,6 +123,7 @@
                     </LinearLayout>
 
                     <Button
+                        android:id="@+id/btnLaghv_search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -137,6 +141,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewLaghv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
@@ -164,6 +169,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/txtLaghv_drName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
@@ -174,6 +180,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/txtLaghv_takhasos"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
@@ -182,6 +189,7 @@
                             android:textColor="@color/colorAccent" />
 
                         <TextView
+                            android:id="@+id/txtLaghv_hospital"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
@@ -191,6 +199,7 @@
 
 
                         <TextView
+                            android:id="@+id/txtLaghv_nameNobat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
@@ -204,6 +213,7 @@
                             android:orientation="horizontal">
 
                             <TextView
+                                android:id="@+id/txtLaghv_date"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.5"
@@ -213,6 +223,7 @@
                                 android:textColor="@color/colorAccent" />
 
                             <Button
+                                android:id="@+id/btnLaghv_laghv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="7dp"
