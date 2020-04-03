@@ -2,6 +2,7 @@ package com.example.turn.Classes;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -43,8 +44,9 @@ public class onErrorListener {
             try {
                 String result = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
                 String a = result;
+                Log.e("Error!!!", result + "");
 //                Toast.makeText(context, result+"", Toast.LENGTH_SHORT).show();
-            } catch (UnsupportedEncodingException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

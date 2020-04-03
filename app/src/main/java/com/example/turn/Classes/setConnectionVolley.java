@@ -37,7 +37,8 @@ public class setConnectionVolley {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                new onErrorListener().onErrorListener(context, error);
+                new ShowMessage(context).ShowMessType2_NoBtn(
+                        new onErrorListener().onErrorListener(context, error) + "", true, 0);
                 OnResponse.OnResponse("null");
             }
         }) {
