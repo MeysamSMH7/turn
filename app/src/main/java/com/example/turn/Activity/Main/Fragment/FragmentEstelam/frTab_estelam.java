@@ -19,7 +19,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.turn.Activity.Main.Adapter.AdListViewPopUp;
+import com.example.turn.Activity.Main.Adapter.AdRecycPopUp;
 import com.example.turn.Activity.Main.Fragment.FragmentEstelam.Adapter.AdRecycEstelam;
 import com.example.turn.Activity.Main.Adapter.onClickInterface;
 import com.example.turn.Activity.Main.Model.ModAlerts;
@@ -137,7 +137,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
 
     private void alertDialogShow() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.item_list_first_fr, null, false);
+        LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.item_listview_chooser, null, false);
 
         Button btnFr = layout.findViewById(R.id.btnFr);
         btnFr.setOnClickListener(new View.OnClickListener() {
@@ -150,20 +150,15 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
         ArrayList arrayList = new ArrayList(dataHospital);
         ArrayList arrayListID = new ArrayList(dataHospitalID);
 
-        listSearchView = layout.findViewById(R.id.listviewFr);
         for (int i = 0; i < arrayList.size(); i++) {
             ModAlerts modAlerts = new ModAlerts(arrayList.get(i) + "", arrayListID.get(i) + "");
             arraylistSearchView.add(modAlerts);
         }
-        adapterSearchView = new AdListViewPopUp(getContext(), arraylistSearchView);
-        listSearchView.setAdapter(adapterSearchView);
 
-        editsearchSearchView = layout.findViewById(R.id.searchFr);
-        editsearchSearchView.setOnQueryTextListener(this);
-
-        listSearchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        RecyclerView recycFitler = layout.findViewById(R.id.recycFitler);
+        adRecycPopUp = new AdRecycPopUp(getContext(), arraylistSearchView, new onClickInterface() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void setClick(int position, boolean canUse, View view) {
 
                 TextView txttitle = ((LinearLayout) view).findViewById(R.id.txtTitle);
                 TextView txtId = ((LinearLayout) view).findViewById(R.id.txtId);
@@ -175,6 +170,10 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                 alertDialogHospital.dismiss();
             }
         });
+        recycFitler.setAdapter(adRecycPopUp);
+
+        editsearchSearchView = layout.findViewById(R.id.searchFr);
+        editsearchSearchView.setOnQueryTextListener(this);
 
         builder.setView(layout);
         alertDialogHospital = builder.create();
@@ -213,7 +212,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
 
                 AdRecycEstelam adRecycEstelam = new AdRecycEstelam(getContext(), arrayListEstelam, new onClickInterface() {
                     @Override
-                    public void setClick(int position, boolean canUse) {
+                    public void setClick(int position, boolean canUse, View view) {
                         Toast.makeText(getContext(), "بریم برای چاپ دوباره", Toast.LENGTH_SHORT).show();
 
 // TODO: send "prg_turn_date_pp_rcp_pat_pay_pat_id" to show new reserve page
@@ -240,15 +239,14 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
     }
 
     //  SearchView -------------------------------------------------------------
-    private ListView listSearchView;
-    private AdListViewPopUp adapterSearchView;
+    private com.example.turn.Activity.Main.Adapter.AdRecycPopUp  adRecycPopUp;
     private SearchView editsearchSearchView;
     private ArrayList<ModAlerts> arraylistSearchView = new ArrayList<ModAlerts>();
 
     @Override
     public boolean onQueryTextChange(String newText) {
         String text = newText;
-        adapterSearchView.filter(text);
+        adRecycPopUp.filter(text);
         return true;
     }
 

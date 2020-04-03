@@ -67,7 +67,7 @@ public class Activity_Splash_Turn extends AppCompatActivity {
             public void run() {
                 startAActivity();
             }
-        }, 4000);
+        }, 0);
 
     }
 

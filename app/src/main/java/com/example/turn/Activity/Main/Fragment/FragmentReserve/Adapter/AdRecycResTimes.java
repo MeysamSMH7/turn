@@ -67,9 +67,9 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
                 @Override
                 public void onClick(View view) {
                     if (data.get(position).web_turn.equals("0"))
-                        onClickInterface.setClick(position, false);
+                        onClickInterface.setClick(position, false, holder.itemView);
                     else
-                        onClickInterface.setClick(position, true);
+                        onClickInterface.setClick(position, true, holder.itemView);
                 }
             });
 
@@ -77,9 +77,9 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
                 @Override
                 public void onClick(View view) {
                     if (data.get(position).web_turn.equals("0"))
-                        onClickInterface.setClick(position, false);
+                        onClickInterface.setClick(position, false, holder.itemView);
                     else
-                        onClickInterface.setClick(position, true);
+                        onClickInterface.setClick(position, true, holder.itemView);
                 }
             });
 

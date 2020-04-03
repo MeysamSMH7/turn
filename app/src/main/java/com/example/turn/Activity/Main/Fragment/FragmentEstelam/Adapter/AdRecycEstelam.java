@@ -56,7 +56,7 @@ public class AdRecycEstelam extends RecyclerView.Adapter<AdRecycEstelam.ViewHold
             holder.btnEstRecy_status.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onClickInterface.setClick(position, true);
+                    onClickInterface.setClick(position, true,holder.itemView);
                 }
             });
 

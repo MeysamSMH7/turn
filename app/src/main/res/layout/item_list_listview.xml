@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearItemListListView"
+    android:id="@+id/layoutMain"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal|center_vertical"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="right|center"
-        android:textAlignment="center"
-        android:textColor="@color/mdtp_transparent_black"
-        android:paddingRight="5dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="6dp"
-        android:text="asdfasd" />
+        android:layout_margin="3dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="asdfasd"
+        android:textColor="@color/mdtp_transparent_black" />
 
     <TextView
         android:id="@+id/txtId"
@@ -24,8 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:gravity="right|center"
-        android:textStyle="bold"
         android:textAlignment="center"
+        android:textStyle="bold"
         android:visibility="gone" />
 
 </LinearLayout>

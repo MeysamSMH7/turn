@@ -14,24 +14,29 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchFr"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0.1"
             android:iconifiedByDefault="false">
 
             <requestFocus />
         </androidx.appcompat.widget.SearchView>
 
-        <ListView
-            android:id="@+id/listviewFr"
-            android:layout_width="fill_parent"
-            android:layout_height="619dp"
-            android:layout_below="@+id/search" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycFitler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:layout_weight="0.8"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <Button
             android:id="@+id/btnFr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="7dp"
+            android:layout_weight="0.1"
             android:background="@drawable/button_background_blue"
             android:backgroundTint="@color/colorPrimary"
             android:text="بستن"
