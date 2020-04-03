@@ -4,6 +4,7 @@ package com.example.turn.Activity.Main.Fragment.FragmentReserve;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.azimolabs.maskformatter.MaskFormatter;
 import com.example.turn.Activity.Main.Adapter.AdRecycPopUp;
 import com.example.turn.Activity.Main.Fragment.FragmentReserve.Adapter.AdRecycResTimes;
 import com.example.turn.Activity.Main.Adapter.onClickInterface;
@@ -262,6 +264,11 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         edtFrPP_address = view.findViewById(R.id.edtFrPP_address);
         linearFrPP_bime = view.findViewById(R.id.linearFrPP_bime);
         txtFrPP_bime = view.findViewById(R.id.txtFrPP_bime);
+
+        MaskFormatter maskFormatter = new MaskFormatter("999 999 9999", edtFrPP_phone);
+        edtFrPP_phone.setInputType(InputType.TYPE_CLASS_NUMBER);
+        edtFrPP_phone.setHint("99 999 99999");
+        edtFrPP_phone.addTextChangedListener(maskFormatter);
 
         btnPP_previous = view.findViewById(R.id.btnPP_previous);
         btnPP_previous.setOnClickListener(new View.OnClickListener() {
@@ -777,7 +784,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 second.startAnimation(animLeftToCenter);
                 secondBtn.startAnimation(animLeftToCenter);
             }
-        }, 300);
+        }, 150);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -786,7 +793,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 firstBtn.setVisibility(View.GONE);
 
             }
-        }, 600);
+        }, 300);
     }
 
     private void previousPage(final LinearLayout first, final LinearLayout firstBtn,
@@ -806,7 +813,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 second.startAnimation(animRightToCenter);
                 secondBtn.startAnimation(animRightToCenter);
             }
-        }, 300);
+        }, 150);
 
 
         new Handler().postDelayed(new Runnable() {
@@ -815,7 +822,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 first.setVisibility(View.GONE);
                 firstBtn.setVisibility(View.GONE);
             }
-        }, 600);
+        }, 300);
 
     }
 

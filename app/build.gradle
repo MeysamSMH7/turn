@@ -30,6 +30,8 @@ dependencies {
     implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
 //  Gif
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
+//  https://github.com/AzimoLabs/MaskFormatter
+    implementation 'com.azimolabs.maskformatter:maskformatter:0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
