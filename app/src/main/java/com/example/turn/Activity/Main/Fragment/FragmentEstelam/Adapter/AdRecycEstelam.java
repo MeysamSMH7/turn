@@ -24,7 +24,7 @@ public class AdRecycEstelam extends RecyclerView.Adapter<AdRecycEstelam.ViewHold
     private Context context;
     private List<ModEstelam> data;
     private int lastPosition = -1;
-    com.example.turn.Activity.Main.Adapter.onClickInterface onClickInterface;
+    private com.example.turn.Activity.Main.Adapter.onClickInterface onClickInterface;
 
     public AdRecycEstelam(Context context, List<ModEstelam> data, onClickInterface onClickInterface) {
         this.context = context;
@@ -49,9 +49,9 @@ public class AdRecycEstelam extends RecyclerView.Adapter<AdRecycEstelam.ViewHold
 
             holder.txtEstRecy_drname.setText("دکتر " + data.get(position).dr_name);
             holder.txtEstRecy_takhasos.setText("تخصص: " + data.get(position).spc_title);
-            holder.txtEstRecy_date.setText("تاریخ: " + data.get(position).prg_date);
-            holder.txtEstRecy_typeRes.setText("نحوه ی دریافت نوبت: " + data.get(position).type_res);
-            holder.txtEstRecy_typeRes.setText("وضعیت نوبت: " + data.get(position).status);
+            holder.txtEstRecy_date.setText("تاریخ: " + data.get(position).date_string);
+            holder.txtEstRecy_typeRes.setText("نحوه ی دریافت نوبت: " + data.get(position).status_title);
+            holder.txtEstRecy_typeRes.setText("وضعیت نوبت: " + data.get(position).status_detail);
 
             holder.btnEstRecy_status.setOnClickListener(new View.OnClickListener() {
                 @Override

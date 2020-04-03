@@ -91,7 +91,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
 //                JSONObject obj = new JSONObject();
 //                try {
 //                    obj.put("pp_id", cod);
-//                    obj.put("id", hospiralId);
+//                    obj.put("hsp_id", hospiralId);
 //                } catch (JSONException e) {
 //                    e.printStackTrace();
 //                }
@@ -196,26 +196,32 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
 
                     JSONObject jsonObject = arrayData.getJSONObject(i);
                     ModEstelam modEstelam = new ModEstelam();
-                    String temp = jsonObject.getString("prg_title");
-                    temp.replace(")","");
+                    modEstelam.prg_turn_date_pp_rcp_pat_pay_pat_id = jsonObject.getString("prg_turn_date_pp_rcp_pat_pay_pat_id"); // split
+                    String temp = jsonObject.getString("prg_title"); // split
+                    temp.replace(")", "");
                     String[] tempAr = temp.split("\\(");
                     modEstelam.dr_name = tempAr[0];
                     modEstelam.spc_title = tempAr[1];
 
-                    modEstelam.prg_date =  jsonObject.getString("prg_date");
-                    modEstelam.status = "لغو شده"; //=  jsonObject.getString("prg_date");
-                    modEstelam.type_res = "وب"; //=  jsonObject.getString("prg_date");
+                    modEstelam.date_string = jsonObject.getString("date_string");
+                    modEstelam.status_title = jsonObject.getString("status_title");
+                    modEstelam.status_detail = jsonObject.getString("status_detail");
 
                     arrayListEstelam.add(modEstelam);
-                    AdRecycEstelam adRecycEstelam = new AdRecycEstelam(getContext(), arrayListEstelam, new onClickInterface() {
-                        @Override
-                        public void setClick(int position, boolean canUse) {
-                            Toast.makeText(getContext(), "بریم برای چاپ دوباره", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    rcycEstelam.setAdapter(adRecycEstelam);
-
                 }
+
+
+                AdRecycEstelam adRecycEstelam = new AdRecycEstelam(getContext(), arrayListEstelam, new onClickInterface() {
+                    @Override
+                    public void setClick(int position, boolean canUse) {
+                        Toast.makeText(getContext(), "بریم برای چاپ دوباره", Toast.LENGTH_SHORT).show();
+
+// TODO: send "prg_turn_date_pp_rcp_pat_pay_pat_id" to show new reserve page
+
+
+                    }
+                });
+                rcycEstelam.setAdapter(adRecycEstelam);
 
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
