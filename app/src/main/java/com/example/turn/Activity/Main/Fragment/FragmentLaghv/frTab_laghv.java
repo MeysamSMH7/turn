@@ -118,8 +118,7 @@ public class frTab_laghv extends Fragment {
 
                 cardViewLaghv.setVisibility(View.VISIBLE);
 
-                hospitalName.replace("بیمارستان", "");
-                hospitalName.replace("بیمارستان", "");
+                hospitalName = hospitalName.replace("بیمارستان", "");
                 txtLaghv_hospital.setText("بیمارستان " + hospitalName);
                 txtLaghv_drName.setText("دکتر " + drName);
                 txtLaghv_takhasos.setText("تخصص: " + takhasos);
