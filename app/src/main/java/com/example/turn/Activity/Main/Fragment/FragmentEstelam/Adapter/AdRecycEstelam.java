@@ -1,4 +1,4 @@
-package com.example.turn.Activity.Main.Adapter;
+package com.example.turn.Activity.Main.Fragment.FragmentEstelam.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,7 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.turn.Activity.Main.Model.ModEstelam;
+import com.example.turn.Activity.Main.Adapter.onClickInterface;
+import com.example.turn.Activity.Main.Fragment.FragmentEstelam.Model.ModEstelam;
 import com.example.turn.R;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class AdRecycEstelam extends RecyclerView.Adapter<AdRecycEstelam.ViewHold
     private Context context;
     private List<ModEstelam> data;
     private int lastPosition = -1;
-    onClickInterface onClickInterface;
+    com.example.turn.Activity.Main.Adapter.onClickInterface onClickInterface;
 
     public AdRecycEstelam(Context context, List<ModEstelam> data, onClickInterface onClickInterface) {
         this.context = context;

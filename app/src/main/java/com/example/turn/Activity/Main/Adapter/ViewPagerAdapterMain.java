@@ -8,12 +8,12 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.List;
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapterMain extends FragmentPagerAdapter {
 
     List<Fragment> fragments;
     String[] title;
 
-    public ViewPagerAdapter(FragmentManager fm, List<Fragment> fragments, String[] title) {
+    public ViewPagerAdapterMain(FragmentManager fm, List<Fragment> fragments, String[] title) {
         super(fm);
         this.fragments = fragments;
         this.title = title;

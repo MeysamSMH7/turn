@@ -1,4 +1,4 @@
-package com.example.turn.Activity.Main.Fragment;
+package com.example.turn.Activity.Main.Fragment.FragmentReserve;
 
 
 import android.app.AlertDialog;
@@ -25,11 +25,11 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.turn.Activity.Main.Adapter.AdRecycResTimes;
+import com.example.turn.Activity.Main.Fragment.FragmentReserve.Adapter.AdRecycResTimes;
 import com.example.turn.Activity.Main.Adapter.onClickInterface;
 import com.example.turn.Activity.Main.Model.ModAlerts;
 import com.example.turn.Activity.Main.Adapter.AdListViewPopUp;
-import com.example.turn.Activity.Main.Model.ModResTime;
+import com.example.turn.Activity.Main.Fragment.FragmentReserve.Model.ModResTime;
 import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
 

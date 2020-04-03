@@ -1,4 +1,4 @@
-package com.example.turn.Activity.Main.Model;
+package com.example.turn.Activity.Main.Fragment.FragmentReserve.Model;
 
 public class ModResTime {
 

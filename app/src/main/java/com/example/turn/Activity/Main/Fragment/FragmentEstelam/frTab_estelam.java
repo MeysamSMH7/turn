@@ -1,4 +1,4 @@
-package com.example.turn.Activity.Main.Fragment;
+package com.example.turn.Activity.Main.Fragment.FragmentEstelam;
 
 
 import android.app.AlertDialog;
@@ -20,16 +20,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.turn.Activity.Main.Adapter.AdListViewPopUp;
-import com.example.turn.Activity.Main.Adapter.AdRecycEstelam;
+import com.example.turn.Activity.Main.Fragment.FragmentEstelam.Adapter.AdRecycEstelam;
 import com.example.turn.Activity.Main.Adapter.onClickInterface;
 import com.example.turn.Activity.Main.Model.ModAlerts;
-import com.example.turn.Activity.Main.Model.ModEstelam;
-import com.example.turn.Activity.Main.Model.ModResTime;
-import com.example.turn.Classes.setConnectionVolley;
+import com.example.turn.Activity.Main.Fragment.FragmentEstelam.Model.ModEstelam;
 import com.example.turn.R;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;

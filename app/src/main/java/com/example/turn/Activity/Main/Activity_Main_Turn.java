@@ -5,11 +5,10 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
-import com.example.turn.Activity.Main.Adapter.ViewPagerAdapter;
-import com.example.turn.Activity.Main.Fragment.frTab_estelam;
-import com.example.turn.Activity.Main.Fragment.frTab_laghv;
-import com.example.turn.Activity.Main.Fragment.frTab_reserve;
-import com.example.turn.Classes.ShowMessage;
+import com.example.turn.Activity.Main.Adapter.ViewPagerAdapterMain;
+import com.example.turn.Activity.Main.Fragment.FragmentEstelam.frTab_estelam;
+import com.example.turn.Activity.Main.Fragment.FragmentLaghv.frTab_laghv;
+import com.example.turn.Activity.Main.Fragment.FragmentReserve.frTab_reserve;
 import com.example.turn.R;
 
 import android.view.View;
@@ -34,7 +33,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -123,7 +121,7 @@ public class Activity_Main_Turn extends AppCompatActivity
 
         titles = new String[]{"خانه ", "استعلام نوبت", " لغو نوبت"};
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
+        ViewPagerAdapterMain adapter = new ViewPagerAdapterMain(getSupportFragmentManager(), fragments, titles);
         vp_viewPager.setAdapter(adapter);
         tl_tabLayout.setupWithViewPager(vp_viewPager);
         int limit = (adapter.getCount() > 1 ? adapter.getCount() - 1 : 1);

@@ -1,4 +1,4 @@
-package com.example.turn.Activity.Main.Model;
+package com.example.turn.Activity.Main.Fragment.FragmentEstelam.Model;
 
 public class ModEstelam {
 

@@ -1,4 +1,4 @@
-package com.example.turn.Activity.Main.Adapter;
+package com.example.turn.Activity.Main.Fragment.FragmentReserve.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,12 +9,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.turn.Activity.Main.Model.ModResTime;
+import com.example.turn.Activity.Main.Adapter.onClickInterface;
+import com.example.turn.Activity.Main.Fragment.FragmentReserve.Model.ModResTime;
 import com.example.turn.R;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
     private Context context;
     private List<ModResTime> data;
     private int lastPosition = -1;
-    onClickInterface onClickInterface;
+    com.example.turn.Activity.Main.Adapter.onClickInterface onClickInterface;
 
     public AdRecycResTimes(Context context, List<ModResTime> data, onClickInterface onClickInterface) {
         this.context = context;
