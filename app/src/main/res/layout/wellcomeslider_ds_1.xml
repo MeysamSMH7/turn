@@ -10,12 +10,12 @@
         android:src="@drawable/main_background"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
-        android:tint="#BAFFFFFF"
+        android:tint="#E8FFFFFF"
         android:layout_height="match_parent"/>
     <ImageView
         android:id="@+id/img123"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/textasdf3"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_app_1" />
