@@ -43,8 +43,7 @@ public class Activity_Welcome_Turn extends AppCompatActivity {
         layouts = new int[]{
                 R.layout.wellcomeslider_ds_1,
                 R.layout.wellcomeslider_ds_2,
-                R.layout.wellcomeslider_ds_3,
-                R.layout.wellcomeslider_ds_4
+                R.layout.wellcomeslider_ds_3
         };
 
         AddBottomDots(0);
@@ -102,7 +101,7 @@ public class Activity_Welcome_Turn extends AppCompatActivity {
             } else {
                 btnBack.setVisibility(View.VISIBLE);
             }
-            if (position == 3)
+            if (position == 2)
                 btnNext.setText("ورود");
             else
                 btnNext.setText("بعدی");

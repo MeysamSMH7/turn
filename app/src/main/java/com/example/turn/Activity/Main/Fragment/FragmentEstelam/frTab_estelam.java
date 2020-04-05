@@ -102,7 +102,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
 //                    }
 //                });
 
-                String res = "";
+                String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":[{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"},{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"},{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"},{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"}]}";
                 getData(res);
 
 
@@ -197,7 +197,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                     ModEstelam modEstelam = new ModEstelam();
                     modEstelam.prg_turn_date_pp_rcp_pat_pay_pat_id = jsonObject.getString("prg_turn_date_pp_rcp_pat_pay_pat_id"); // split
                     String temp = jsonObject.getString("prg_title"); // split
-                    temp.replace(")", "");
+                    temp = temp.replace(")", "");
                     String[] tempAr = temp.split("\\(");
                     modEstelam.dr_name = tempAr[0];
                     modEstelam.spc_title = tempAr[1];
@@ -239,7 +239,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
     }
 
     //  SearchView -------------------------------------------------------------
-    private com.example.turn.Activity.Main.Adapter.AdRecycPopUp  adRecycPopUp;
+    private com.example.turn.Activity.Main.Adapter.AdRecycPopUp adRecycPopUp;
     private SearchView editsearchSearchView;
     private ArrayList<ModAlerts> arraylistSearchView = new ArrayList<ModAlerts>();
 

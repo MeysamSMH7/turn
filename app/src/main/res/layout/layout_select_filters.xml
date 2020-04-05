@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:id="@+id/linearFrRes_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:orientation="horizontal"
+                    android:padding="7dp">
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="35dp"
+                        android:orientation="horizontal"
+                        android:src="@drawable/ic_pic"
+                        android:tint="@color/colorIcons" />
+
+                    <TextView
+                        android:id="@+id/txtFrRes_city"
+                        android:layout_width="381dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="right|center"
+                        android:paddingLeft="7dp"
+                        android:paddingRight="45dp"
+                        android:text="تمامی شهرها"
+                        android:textColor="@color/colorLogo"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:paddingTop="10dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:id="@+id/linearFrRes_takhasos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/bg_white_corner_"
+                    android:orientation="horizontal"
+                    android:padding="7dp">
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="35dp"
+                        android:orientation="horizontal"
+                        android:src="@drawable/ic_lungs"
+                        android:tint="@color/colorIcons" />
+
+                    <TextView
+                        android:id="@+id/txtFrRes_takhasos"
+                        android:layout_width="381dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="right|center"
+                        android:paddingLeft="7dp"
+                        android:paddingRight="45dp"
+                        android:text="تمامی تخصص ها"
+                        android:textColor="@color/colorLogo"
+                        android:textStyle="bold"
+
+                        />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:paddingTop="10dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:id="@+id/linearFrRes_darmonghah"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/bg_white_corner_"
+                    android:orientation="horizontal"
+                    android:padding="7dp">
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="35dp"
+                        android:orientation="horizontal"
+                        android:src="@drawable/hospital"
+                        android:tint="@color/colorIcons" />
+
+                    <TextView
+                        android:id="@+id/txtFrRes_darmonghah"
+                        android:layout_width="381dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="right|center"
+                        android:paddingLeft="7dp"
+                        android:paddingRight="45dp"
+                        android:text="تمامی درمانگاه ها"
+                        android:textColor="@color/colorLogo"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:id="@+id/linearFrRes_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/bg_white_corner_"
+                    android:orientation="horizontal"
+                    android:padding="7dp">
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="35dp"
+                        android:orientation="horizontal"
+                        android:src="@drawable/ic_calendar"
+                        android:tint="@color/colorIcons" />
+
+                    <TextView
+                        android:id="@+id/txtFrRes_time"
+                        android:layout_width="381dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="right|center"
+                        android:paddingLeft="7dp"
+                        android:paddingRight="45dp"
+                        android:text="تمامی زمان ها"
+                        android:textColor="@color/colorLogo"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:id="@+id/linearFrRes_doctor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/bg_white_corner_"
+                    android:orientation="horizontal"
+                    android:padding="7dp">
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="35dp"
+                        android:orientation="horizontal"
+                        android:src="@drawable/doctor"
+                        android:tint="@color/colorIcons" />
+
+                    <TextView
+                        android:id="@+id/txtFrRes_doctor"
+                        android:layout_width="381dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="right|center"
+                        android:paddingLeft="7dp"
+                        android:paddingRight="45dp"
+                        android:text="تمامی پزشک ها"
+                        android:textColor="@color/colorLogo"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- this layout is for linearResTimes -->
+            <LinearLayout
+                android:id="@+id/layoutBtnsRT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnRT_reset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/button_background_blue"
+                        android:text="حذف فیلتر"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btnRT_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/button_background_blue"
+                        android:text="اعمال"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/btnRT_dismis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/button_background_blue"
+                    android:text="بستن"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

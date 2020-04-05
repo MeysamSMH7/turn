@@ -2,26 +2,38 @@ package com.example.turn.Activity.Splash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.turn.Activity.Main.Activity_Main_Turn;
+import com.example.turn.Activity.Main.Model.ModAlerts;
 import com.example.turn.Activity.Wellcome.Activity_Welcome_Turn;
 import com.example.turn.Classes.CheckInternet;
 import com.example.turn.Classes.ShowMessage;
 import com.example.turn.R;
+import com.example.turn.SearchAlertDialog;
+
+import java.util.ArrayList;
 
 public class Activity_Splash_Turn extends AppCompatActivity {
 
@@ -39,6 +51,23 @@ public class Activity_Splash_Turn extends AppCompatActivity {
         defaults();
         clicks();
 
+
+        ImageView img123 = findViewById(R.id.img123);
+        img123.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SearchAlertDialog dialog = new SearchAlertDialog(context, view);
+                ArrayList<SearchAlertDialog.ModAlerts123> arraylistSearchView = new ArrayList<>();
+
+                for (int i = 0; i < 10; i++) {
+                    SearchAlertDialog.ModAlerts123 modAlerts = new SearchAlertDialog.ModAlerts123("title " + i, "id " + i);
+                    arraylistSearchView.add(modAlerts);
+                }
+
+            }
+        });
+
     }
 
     private void findViews() {
@@ -46,9 +75,9 @@ public class Activity_Splash_Turn extends AppCompatActivity {
         internet = new CheckInternet(context);
         preferences = getSharedPreferences("TuRn", 0);
         RelativeLayout layoutMain = findViewById(R.id.layoutMain);
-      //  ImageView imgAcS_Logo = findViewById(R.id.imgAcS_Logo);
-      //  TextView txtAcs_DDL = findViewById(R.id.txtAcs_DDL);
-       // AnimationStartActivity(layoutMain, imgAcS_Logo, txtAcs_DDL);
+        //  ImageView imgAcS_Logo = findViewById(R.id.imgAcS_Logo);
+        //  TextView txtAcs_DDL = findViewById(R.id.txtAcs_DDL);
+        // AnimationStartActivity(layoutMain, imgAcS_Logo, txtAcs_DDL);
 
         txtAcS_tryAgain = findViewById(R.id.txtAcS_tryAgain);
 
@@ -67,7 +96,7 @@ public class Activity_Splash_Turn extends AppCompatActivity {
             public void run() {
                 startAActivity();
             }
-        }, 0);
+        }, 1000);
 
     }
 
