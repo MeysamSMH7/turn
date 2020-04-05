@@ -22,17 +22,17 @@ import org.json.JSONObject;
 
 public class frTab_laghv extends Fragment {
 
-    EditText edtLaghv_codMeli;
-    EditText edtLaghv_cod;
-    TextView txtLaghv_chooseHospital;
-    Button btnLaghv_search;
-    TextView txtLaghv_drName;
-    TextView txtLaghv_takhasos;
-    TextView txtLaghv_hospital;
-    TextView txtLaghv_nameNobat;
-    TextView txtLaghv_date;
-    Button btnLaghv_laghv;
-    CardView cardViewLaghv;
+    private EditText edtLaghv_codMeli;
+    private EditText edtLaghv_cod;
+    private TextView txtLaghv_chooseHospital;
+    private Button btnLaghv_search;
+    private TextView txtLaghv_drName;
+    private TextView txtLaghv_takhasos;
+    private TextView txtLaghv_hospital;
+    private TextView txtLaghv_nameNobat;
+    private TextView txtLaghv_date;
+    private Button btnLaghv_laghv;
+    private CardView cardViewLaghv;
 
     String hospitalId;
 
@@ -92,6 +92,9 @@ public class frTab_laghv extends Fragment {
 //                    }
 //                });
 
+                String data = "{\"status\":\"yes\",\"message\":\"\",\"data\":{\"id\":\"12334\",\"dr_name\":\"علی کریمی\",\"date_string\":\"1399/03/03\",\"prg_title\":\"کریمی(داخلی)\",\"hsp_title\":\"بیمارستان شهید بهشتی\"}}";
+                getData(data);
+
             }
         });
 
@@ -108,12 +111,12 @@ public class frTab_laghv extends Fragment {
 
                 String id = objectData.getString("id");
                 String drName = objectData.getString("dr_name");
-                String hospitalName = objectData.getString("sec_title");
+                String hospitalName = objectData.getString("hsp_title");
                 String date = objectData.getString("date_string");
                 String nobatName = objectData.getString("prg_title");
-
-                nobatName.replace(")", "");
-                String[] tempAr = nobatName.split("\\(");
+                String temp = nobatName;
+                temp = temp.replace(")", "");
+                String[] tempAr = temp.split("\\(");
                 String takhasos = tempAr[1];
 
                 cardViewLaghv.setVisibility(View.VISIBLE);

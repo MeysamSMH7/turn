@@ -116,8 +116,8 @@ public class Activity_Main_Turn extends AppCompatActivity
 
         fragments = new ArrayList<>();
         fragments.add(frTab_reserve.newInstance());
-        fragments.add(frTab_laghv.newInstance());
         fragments.add(frTab_estelam.newInstance());
+        fragments.add(frTab_laghv.newInstance());
 
         titles = new String[]{"خانه ", "استعلام نوبت", " لغو نوبت"};
 
