@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,6 +62,9 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             else
                 holder.btnRcycRT_status.setBackground(context.getResources().getDrawable(R.drawable.button_background_green));
             holder.btnRcycRT_status.setText("" + data.get(position).status_type);
+
+
+            holder.btnRcycRT_status.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100));
 
 
             holder.linearMain.setOnClickListener(new View.OnClickListener() {

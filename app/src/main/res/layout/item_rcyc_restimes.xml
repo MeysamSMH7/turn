@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
     android:orientation="vertical"
     android:padding="3dp">
 
@@ -19,19 +20,22 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="90dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.7"
                 android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_doctor" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
                 android:orientation="vertical">
 
                 <TextView
@@ -54,6 +58,7 @@
                     android:text="تخصص"
                     android:textColor="@color/colorAccent" />
 
+
                 <TextView
                     android:id="@+id/txtRcycRT_hospital"
                     android:layout_width="match_parent"
@@ -62,7 +67,6 @@
                     android:paddingRight="7dp"
                     android:text="بیمارستان"
                     android:textColor="@color/colorAccent" />
-
 
                 <TextView
                     android:id="@+id/txtRcycRT_shift"
@@ -73,46 +77,40 @@
                     android:text="شیفت"
                     android:textColor="@color/colorAccent" />
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="7dp"
+                    android:text="وضعیت "
+                    android:textColor="@color/colorAccent" />
 
-                    <TextView
-                        android:id="@+id/txtRcycRT_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:gravity="right"
-                        android:paddingRight="7dp"
-                        android:text="تاریخ"
-                        android:textColor="@color/colorAccent" />
+                <TextView
+                    android:id="@+id/txtRcycRT_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="7dp"
+                    android:text="تاریخ"
+                    android:textColor="@color/colorAccent" />
 
-                    <Button
-                        android:id="@+id/btnRcycRT_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="7dp"
-                        android:layout_weight="0.5"
-                        android:background="@drawable/button_background_red"
-                        android:text="وضعیت"
-                        android:padding="3dp"
-                        android:textColor="@color/colorWhite"
-                        android:textStyle="bold" />
-
-                    <!--   <TextView
-                           android:id="@+id/txtRcycRT_status"
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:gravity="right"
-                           android:paddingRight="7dp"
-                           android:text="وضعیت"
-                           android:textColor="@color/colorAccent" />-->
-                </LinearLayout>
+                <Button
+                    android:id="@+id/btnRcycRT_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/button_background_red"
+                    android:text="وضعیت"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
 
             </LinearLayout>
+
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
+
+
 </LinearLayout>
 
 

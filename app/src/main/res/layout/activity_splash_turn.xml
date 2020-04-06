@@ -5,15 +5,17 @@
     android:id="@+id/layoutMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="rtl"
     android:orientation="vertical"
-    android:layoutDirection="ltr"
     tools:context=".Activity.Splash.Activity_Splash_Turn">
+
     <ImageView
-        android:src="@drawable/main_background"
-        android:scaleType="centerCrop"
         android:layout_width="match_parent"
-        android:tint="#EBFFFFFF"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/main_background"
+        android:tint="#EBFFFFFF" />
+
     <ImageView
         android:id="@+id/img123"
         android:layout_width="wrap_content"
@@ -24,19 +26,19 @@
 
     <TextView
         android:id="@+id/textasdf3"
-        android:layout_width="365dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="7dp"
+        android:layout_margin="7dp"
         android:text=" سامانه نوبت دهی درمانگاه ها و کلینیک های تخصصی دانشگاه علوم پزشکی مازندران"
         android:textAlignment="center"
         android:textColor="@color/colorBlack"
         android:textSize="13dp"
         android:textStyle="bold"
         android:typeface="serif" />
+
     <TextView
-        android:layout_width="461dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textasdf3"
         android:layout_alignParentStart="true"
@@ -59,6 +61,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:indeterminate="true" />
+
     <TextView
         android:id="@+id/txtAcS_Version"
         android:layout_width="match_parent"
