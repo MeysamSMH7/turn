@@ -24,8 +24,7 @@
             android:id="@+id/linearSelectFilters"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:orientation="vertical">
 
             <include layout="@layout/layout_select_filters" />
 
@@ -34,6 +33,7 @@
         <!--    linearResTimes             -->
         <LinearLayout
             android:id="@+id/linearResTimes"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -76,8 +76,7 @@
             android:id="@+id/linearPazireshPage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:orientation="vertical">
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -112,6 +111,7 @@
                                     android:orientation="vertical">
 
                                     <ImageView
+                                        android:id="@+id/imgPP_drPic"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:src="@drawable/ic_doctor" />
@@ -153,17 +153,7 @@
                                         android:gravity="right"
                                         android:paddingRight="7dp"
                                         android:text="بیمارستان"
-                                        android:textColor="@color/colorAccent" />
-
-                                    <TextView
-                                        android:id="@+id/txtPP_shift"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.5"
-                                        android:gravity="right"
-                                        android:paddingRight="7dp"
-                                        android:text="شیفت"
-                                        android:textColor="@color/colorAccent" />
+                                        android:textColor="@color/colorAccent"/>
 
                                     <TextView
                                         android:id="@+id/txtPP_datePP"
@@ -260,8 +250,7 @@
                             android:id="@+id/linearPazireshPage2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:visibility="gone">
+                            android:orientation="vertical">
 
                             <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
@@ -604,7 +593,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="7dp"
-            android:visibility="gone"
             android:orientation="horizontal">
 
             <Button
@@ -635,6 +623,7 @@
 
         <!--    linearResTimesBtn        -->
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/linearResTimesBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -654,12 +643,12 @@
 
         <!--    linearPazireshPageBtn        -->
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/linearPazireshPageBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="7dp"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnPP_paziresh"
