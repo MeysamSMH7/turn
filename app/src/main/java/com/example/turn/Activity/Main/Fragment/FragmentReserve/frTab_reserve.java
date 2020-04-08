@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,9 +26,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -109,6 +112,12 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private String dr_prg_hsp_mdc_spc_date_id = "";
     private int positionItemRecycleView = -1;
 
+    private Boolean isScrollingFP = false;
+    private int currentItemFP = 0, totalItemsFP = 0, scrollOutItemsFP = 0;
+    private LinearLayoutManager rowManager;
+    private Boolean boolCheckNetFP = false;
+    private int pageNumber = -1;
+
     //------------ linearPazireshPage
     private LinearLayout linearPazireshPage;
     private LinearLayout linearPazireshPageBtn;
@@ -162,6 +171,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_tab_reserve, container, false);
 
+        loading();
+
         selectFilters(view);
         reservationTimes(view);
         paziresh(view);
@@ -176,8 +187,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         linearPazireshPageBtn.setVisibility(View.GONE);
         linearPazireshPage2.setVisibility(View.GONE);
 
-//        loading();
-
         return view;
     }
 
@@ -190,7 +199,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
         builder.setView(layout);
         alertDialogLoding = builder.create();
-        alertDialogLoding.show();
+        alertDialogLoding.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
     }
 
     private void paziresh(View view) {
@@ -213,10 +223,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 //                TODO: Send id , meli and erja to link3 -----------------------------------------
 
 
-
-
-
-
                 String meliOrEjra = edtFrPP_Cod.getText().toString();
                 JSONObject object = new JSONObject();
                 // in khat 214 chie   صاشفwhatspp
@@ -235,7 +241,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     e.printStackTrace();
                 }
 
-                new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/TurnAppApi/turn/fSearchPatByPpId?hsp_id=" +"" +  "&pp_id=" +""  , object
+                new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/TurnAppApi/turn/fSearchPatByPpId?hsp_id=" + "" + "&pp_id=" + "", object
                 ).connectStringRequest(new setConnectionVolley.OnResponse() {
                     @Override
                     public void OnResponse(String response) {
@@ -462,6 +468,38 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             }
         });
 
+
+        rowManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        rcycRT.setLayoutManager(rowManager);
+
+// after scroll to end and get new data (next page in web)
+        rcycRT.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
+                    isScrollingFP = true;
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                currentItemFP = rowManager.getChildCount();
+                totalItemsFP = rowManager.getItemCount();
+                scrollOutItemsFP = rowManager.findFirstVisibleItemPosition();
+
+                if (dx < 10) {
+                    if (isScrollingFP && (currentItemFP + scrollOutItemsFP == totalItemsFP)) {
+                        isScrollingFP = false;
+                        if (!boolCheckNetFP) {
+                            pageNumber++;
+                        }
+                        doSearch();
+                    }
+                }
+            }
+        });
+
     }
 
     private void setRecycViewData(String res) {
@@ -469,13 +507,11 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             JSONObject object = new JSONObject(res);
             String status = object.getString("status");
             String message = object.getString("message");
-            //beram jolo?are?
             if (status.equals("yes")) {
                 String data = object.getString("data"); // data! nvase chi whatsapp
                 JSONObject arrayData1 = new JSONObject(data);
 
                 JSONArray arrayData = arrayData1.getJSONArray("turnList");  // chish moishkel dare
-                //sabr :d خخخخخ kh khkh
                 for (int i = 0; i < arrayData.length(); i++) {
                     JSONObject objectTemp = arrayData.getJSONObject(i);
                     ModResTime time = new ModResTime();
@@ -486,7 +522,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     time.dr_name = objectTemp.getString("dr_name");
                     time.spc_title = objectTemp.getString("spc_title");
                     time.prg_date = objectTemp.getString("prg_date");
-                    //  time.web_turn = objectTemp.getString("web_turn");
+                    time.web_turn = objectTemp.getString("web_turn");
                     time.status_type = objectTemp.getString("status_type");
                     arrayListResTimes.add(time);
                 }
@@ -516,7 +552,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                     //2_242_4781779718_45367_291_13990120
                                     //dr_prg_hsp_mdc_spc_date
                                     dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
-                                    String[] temp = dr_prg_hsp_mdc_spc_date_id.toString().split("_");
+                                    String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
                                     JSONObject jsonObject = new JSONObject();
 
                                     try {
@@ -530,6 +566,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                         e.printStackTrace();
                                     }
 
+                                    alertDialogLoding.show();
 
                                     positionItemRecycleView = position;
                                     nextPage(linearResTimes, linearResTimesBtn, linearPazireshPage, linearPazireshPageBtn);
@@ -539,7 +576,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                     new setConnectionVolley(getContext(), "linkCheck", jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
                                         @Override
                                         public void OnResponse(String response) {
-setDataInPazireshPage(response);
+                                            setDataInPazireshPage(response);
 
                                         }
                                     });
@@ -569,15 +606,13 @@ setDataInPazireshPage(response);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
-
-
     }
 
     private void setDataInPazireshPage(String res) {
         try {
+
+            alertDialogLoding.show();
+
             JSONObject object = new JSONObject(res);
             String status = object.getString("status");
             String message = object.getString("message");
@@ -591,7 +626,7 @@ setDataInPazireshPage(response);
 //hspInfo:{hsp_title}
 //}
                 //get  f
-                JSONObject jsonTSF  = objData.getJSONObject("turnSpecification");
+                JSONObject jsonTSF = objData.getJSONObject("turnSpecification");
                 String dr_name = jsonTSF.getString("dr_name");
                 String dr_image = jsonTSF.getString("dr_image");
                 String sec_id = jsonTSF.getString("sec_id");
@@ -599,7 +634,7 @@ setDataInPazireshPage(response);
                 String spc_title = jsonTSF.getString("spc_title");
                 String spc_level_title = jsonTSF.getString("spc_level_title");
                 // get hspInfo
-                JSONObject jsonhspInfo  = objData.getJSONObject("hspInfo");
+                JSONObject jsonhspInfo = objData.getJSONObject("hspInfo");
                 String hsp_id = jsonhspInfo.getString("hsp_id");
                 String hsp_title = jsonhspInfo.getString("hsp_title");
 
@@ -607,14 +642,14 @@ setDataInPazireshPage(response);
                 txtPP_markazName.setText("" + hsp_title);
                 txtPP_doctorName.setText("دکتر " + dr_name);
                 txtPP_motakhasesName.setText("تخصص " + spc_title);
-                txtPP_datePP.setText("تاریخ " +spc_level_title);
+                txtPP_datePP.setText("تاریخ " + spc_level_title);
 
                 try {
-                    byte[] decodeString = Base64.decode(dr_image,Base64.NO_WRAP);
+                    byte[] decodeString = Base64.decode(dr_image, Base64.NO_WRAP);
                     InputStream inputStream = new ByteArrayInputStream(decodeString);
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                     imgPP_drPic.setImageBitmap(bitmap);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -626,8 +661,6 @@ setDataInPazireshPage(response);
         }
 
 
-
-
 // in jasho nemidonam jash kojas
         try {
             JSONObject object = new JSONObject(res);
@@ -637,7 +670,7 @@ setDataInPazireshPage(response);
                 String data = object.getString("data");
                 JSONObject objData = new JSONObject(data);
                 //get  patient
-                JSONObject jsonPatient  = objData.getJSONObject("patient");
+                JSONObject jsonPatient = objData.getJSONObject("patient");
                 String first_name = jsonPatient.getString("first_name");
                 String last_name = jsonPatient.getString("last_name");
                 String father_name = jsonPatient.getString("father_name");
@@ -666,12 +699,11 @@ setDataInPazireshPage(response);
                 String ost_title = jsonostans.getString("title");
 
 
-               // hsp_title = hsp_title.replace("بیمارستان", "");
+                // hsp_title = hsp_title.replace("بیمارستان", "");
             /*    tx.setText("" + first_name);
                 txtPP_doctorName.setText("دکتر " + dr_name);
                 txtPP_motakhasesName.setText("تخصص " + spc_title);
                 txtPP_datePP.setText("تاریخ " +spc_level_title);*/
-
 
 
             } else
@@ -682,8 +714,8 @@ setDataInPazireshPage(response);
         }
 
 
-
     }
+
     //    SearchView
     private void alertDialogShow(final String tag) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -763,6 +795,8 @@ setDataInPazireshPage(response);
                             e.printStackTrace();
                         }
 
+                        alertDialogLoding.show();
+
                         new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/TurnAppApi/Search?city_id=" + cityId, object
                         ).connectStringRequest(new setConnectionVolley.OnResponse() {
                             @Override
@@ -797,6 +831,9 @@ setDataInPazireshPage(response);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+
+                        alertDialogLoding.show();
+
                         new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/TurnAppApi/Search?hsp_id=" + hospiralId + "&spc_id=" + takhasosId, object  // inja chi bayad gozasht?  takhasos va hospital
                         ).connectStringRequest(new setConnectionVolley.OnResponse() {
                             @Override
@@ -805,7 +842,6 @@ setDataInPazireshPage(response);
                             }
                         });
                     }
-
 
                 } else if (tag.equals("darmonghah")) {
                     txtFrRes_darmonghah.setText(title + "");
@@ -831,6 +867,9 @@ setDataInPazireshPage(response);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+
+                        alertDialogLoding.show();
+
                         new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/TurnAppApi/Search?hsp_id=" + hospiralId + "&spc_id=" + takhasosId, object  // inja chi bayad gozasht?  takhasos va hospital
                         ).connectStringRequest(new setConnectionVolley.OnResponse() {
                             @Override
@@ -931,11 +970,11 @@ setDataInPazireshPage(response);
             @Override
             public void onClick(View view) {
 //                Toast.makeText(getContext(), "اجرا شدن لودینگ 2 ثانیه", Toast.LENGTH_SHORT).show();
+                alertDialogLoding.show();
                 nextPage(linearSelectFilters, linearSelectFiltersBtn, linearResTimes, linearResTimesBtn);
                 refreshData();
             }
         });
-
 
         dataCity = new ArrayList();
         dataTakhasos = new ArrayList();
@@ -967,6 +1006,8 @@ setDataInPazireshPage(response);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        alertDialogLoding.show();
 
         new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/turnappApi/Search?spc_id=0&dr_id=0&city_id=0&hsp_id=0&prg_date=0", object
         ).connectStringRequest(new setConnectionVolley.OnResponse() {
@@ -1002,6 +1043,11 @@ setDataInPazireshPage(response);
     }
 
     private void doSearch() {
+
+        if (alertDialogLoding.isShowing())
+            alertDialogLoding.dismiss();
+
+        pageNumber++;
         if (arrayListResTimes.size() != 0)
             arrayListResTimes.clear();
         // here
@@ -1020,14 +1066,15 @@ setDataInPazireshPage(response);
             object.put("first_name", txtFrRes_doctor.getText().toString() + "");
             object.put("last_name", "0");
             object.put("date_period", timeId + "");
-            object.put("page_number", "1");
+            object.put("page_number", pageNumber);
             object.put("item_per_page", "10");
         } catch (Exception e) {
             e.printStackTrace();
         }
         // + "&first_name=" +txtFrRes_doctor.getText().toString()+""
         new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
-                hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period=" + timeId + "&page_number=" + "0" + "&item_per_page=" + "10", object
+                hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
+                + timeId + "&page_number=" + pageNumber + "&item_per_page=" + "10", object
         ).connectStringRequest(new setConnectionVolley.OnResponse() {
             @Override
             public void OnResponse(String response) {
@@ -1041,8 +1088,10 @@ setDataInPazireshPage(response);
         // setRecycViewData(res);
     }
 
-    private void setDropDownsData(String res , String  tag) {
+    private void setDropDownsData(String res, String tag) {
         try {
+            alertDialogLoding.dismiss();
+
             JSONObject object = new JSONObject(res);
             String status = object.getString("status");
             String message = object.getString("message");
@@ -1146,8 +1195,6 @@ setDataInPazireshPage(response);
         }
 
     }
-
-
 
     //  SearchView -------------------------------------------------------------
     private SearchView editsearchSearchView;

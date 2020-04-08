@@ -78,14 +78,6 @@
                     android:textColor="@color/colorAccent" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:paddingRight="7dp"
-                    android:text="وضعیت "
-                    android:textColor="@color/colorAccent" />
-
-                <TextView
                     android:id="@+id/txtRcycRT_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -98,7 +90,6 @@
                     android:id="@+id/btnRcycRT_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
                     android:background="@drawable/button_background_red"
                     android:text="وضعیت"
                     android:textColor="@color/colorWhite"
@@ -110,17 +101,4 @@
 
     </androidx.cardview.widget.CardView>
 
-
 </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-

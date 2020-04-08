@@ -48,6 +48,8 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             holder.itemView.startAnimation(animation);
             lastPosition = position;
 
+            ModResTime time = data.get(position);
+
             String hospitalName = data.get(position).hsp_title;
             hospitalName = hospitalName.replace("بیمارستان", "");
             holder.txtRcycRT_hospital.setText("بیمارستان " + hospitalName);
@@ -55,7 +57,7 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             holder.txtRcycRT_doctorName.setText("دکتر " + data.get(position).dr_name);
             holder.txtRcycRT_takhasos.setText("تخصص: " + data.get(position).spc_title);
             holder.txtRcycRT_date.setText("تاریخ: " + data.get(position).prg_date);
-            //  holder.txtRcycRT_num.setText("اینترنتی: " + data.get(position).web_turn);
+//              holder.txtRcycRT_num.setText("اینترنتی: " + data.get(position).web_turn);
 
             if (data.get(position).web_turn.equals("0"))
                 holder.btnRcycRT_status.setBackground(context.getResources().getDrawable(R.drawable.button_background_red));
