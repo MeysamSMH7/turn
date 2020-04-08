@@ -21,6 +21,7 @@
 
         <!--    linearSelectFilters        -->
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/linearSelectFilters"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -94,13 +95,14 @@
                         android:orientation="vertical">
 
                         <androidx.cardview.widget.CardView
+                            android:visibility="gone" شش
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="3dp"
                             app:cardCornerRadius="7dp">
 
                             <LinearLayout
-                                android:id="@+id/linearMain"
+                                android:id="@+id/linearPP_pazireshData"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:orientation="horizontal">
@@ -173,6 +175,7 @@
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
+                            android:visibility="gone" شش
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="3dp"
@@ -482,6 +485,39 @@
 
                                     <TextView
                                         android:id="@+id/txtFrPP_city"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="7dp"
+                                        android:layout_marginBottom="7dp"
+                                        android:layout_weight="0.5"
+                                        android:gravity="right|center"
+                                        android:paddingLeft="7dp"
+                                        android:text="انتخاب شهر"
+                                        android:textColor="@color/colorPurple7" />
+
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="3dp"
+                                app:cardCornerRadius="7dp">
+
+                                <LinearLayout
+                                    android:id="@+id/linearFrPP_ostan"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="3dp"
+                                    android:background="@drawable/bg_white_corner_"
+                                    android:orientation="vertical"
+                                    android:padding="7dp">
+
+                                    <TextView
+                                        android:id="@+id/txtFrPP_ostan"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="7dp"

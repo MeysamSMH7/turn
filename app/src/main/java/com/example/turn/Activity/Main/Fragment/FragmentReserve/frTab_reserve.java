@@ -121,6 +121,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     //------------ linearPazireshPage
     private LinearLayout linearPazireshPage;
     private LinearLayout linearPazireshPageBtn;
+    private LinearLayout linearPP_pazireshData;
     private TextView txtPP_markazName;
     private TextView txtPP_doctorName;
     private TextView txtPP_motakhasesName;
@@ -139,12 +140,15 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private EditText edtFrPP_phone;
     private LinearLayout linearFrPP_City;
     private TextView txtFrPP_city;
+    private LinearLayout linearFrPP_ostan;
+    private TextView txtFrPP_ostan;
     private EditText edtFrPP_address;
     private LinearLayout linearFrPP_bime;
     private TextView txtFrPP_bime;
     private ImageView imgPP_drPic;
 
     private Button btnPP_previous;
+    private String hsp_pp;
 
     private String bimeSamane;
     private String addressSamane;
@@ -195,7 +199,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.loading, null, false);
 
         GifImageView gifImage = layout.findViewById(R.id.gifImage);
-        gifImage.setImageResource(R.drawable.loading);
+        gifImage.setImageResource(R.drawable.load6);
 
         builder.setView(layout);
         alertDialogLoding = builder.create();
@@ -207,6 +211,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         final boolean meliOrErja = false; // default is meli and its false
         linearPazireshPage = view.findViewById(R.id.linearPazireshPage);
         linearPazireshPageBtn = view.findViewById(R.id.linearPazireshPageBtn);
+        linearPP_pazireshData = view. findViewById(R.id.  linearPP_pazireshData  );
         txtPP_markazName = view.findViewById(R.id.txtPP_markazName);
         txtPP_doctorName = view.findViewById(R.id.txtPP_doctorName);
         txtPP_motakhasesName = view.findViewById(R.id.txtPP_motakhasesName);
@@ -222,13 +227,12 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 linearPazireshPage2.setVisibility(View.VISIBLE);
 //                TODO: Send id , meli and erja to link3 -----------------------------------------
 
-
                 String meliOrEjra = edtFrPP_Cod.getText().toString();
                 JSONObject object = new JSONObject();
                 // in khat 214 chie   صاشفwhatspp
                 try {
-                    object.put("mdc_id", dr_prg_hsp_mdc_spc_date_id);
-
+//                    object.put("mdc_id", dr_prg_hsp_mdc_spc_date_id);
+//meliOrErja az  radio btn miad
                     if (meliOrErja) {
                         object.put("pp_id", meliOrEjra);
                         object.put("srv_id", "");
@@ -241,7 +245,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     e.printStackTrace();
                 }
 
-                new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/TurnAppApi/turn/fSearchPatByPpId?hsp_id=" + "" + "&pp_id=" + "", object
+                new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/TurnAppApi/turn/fSearchPatByPpId?hsp_id=" + hsp_pp + ""
+                        + "&pp_id=" + meliOrEjra, object
                 ).connectStringRequest(new setConnectionVolley.OnResponse() {
                     @Override
                     public void OnResponse(String response) {
@@ -262,10 +267,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 switch (i) {
                     case R.id.radioBtnPP_CodMeli:
                         edtFrPP_Cod.setHint("کد ملی");
-
                         break;
                     case R.id.radioBtnPP_NumErja:
-                        edtFrPP_Cod.setHint("کد ارجا");
+                        edtFrPP_Cod.setHint("کد ارجاع");
                         break;
                 }
             }
@@ -280,6 +284,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         radioBtnPP_male = view.findViewById(R.id.radioBtnPP_male);
         edtFrPP_phone = view.findViewById(R.id.edtFrPP_phone);
         linearFrPP_City = view.findViewById(R.id.linearFrPP_City);
+        txtFrPP_city = view.findViewById(R.id.txtFrPP_city);
+        linearFrPP_City = view.findViewById(R.id.linearFrPP_ostan);
         txtFrPP_city = view.findViewById(R.id.txtFrPP_city);
         edtFrPP_address = view.findViewById(R.id.edtFrPP_address);
         linearFrPP_bime = view.findViewById(R.id.linearFrPP_bime);
@@ -302,50 +308,80 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         });
 
     }
-
+// استعلام هویت  estelame hoviyat
     private void setDataFromSamane(String res) {
-        try {
-            JSONObject object = new JSONObject(res);
-            String status = object.getString("status");
-            String message = object.getString("message");
-            if (status.equals("yes")) {
-                linearPazireshPage2.setVisibility(View.VISIBLE);
-                String data = object.getString("data");
-                JSONObject objectData = new JSONObject(data);
 
-                bimeSamane = objectData.getString("ins_id");
-                addressSamane = objectData.getString("home_adr");
-                sexSamane = objectData.getString("is_sex"); // zero = man | one = woman
-                cityIdSamane = objectData.getString("city_id");
-                phoneNumSamane = objectData.getString("home_mbl");
-                fatherNameSamane = objectData.getString("father_name");
-                lastNameSamane = objectData.getString("last_name");
-                firstNameSamane = objectData.getString("first_name");
+            try {
+                JSONObject object = new JSONObject(res);
+                String status = object.getString("status");
+                String message = object.getString("message");
+                if (status.equals("yes")) {
+                    linearPazireshPage2.setVisibility(View.VISIBLE);
+                    String data = object.getString("data");
+                    JSONObject objectData = new JSONObject(data);
+                    //get  patient
+                    JSONObject jsonPatient = objectData.getJSONObject("patient");
 
-                edtFrPP_name.setText(firstNameSamane + "");
-                edtFrPP_name.setEnabled(false);
-                edtFrPP_family.setText(lastNameSamane + "");
-                edtFrPP_family.setEnabled(false);
-                edtFrPP_fatherName.setText(fatherNameSamane + "");
-                edtFrPP_phone.setText(phoneNumSamane + "");
-                txtFrPP_city.setText(cityIdSamane + " =cityID");
-                edtFrPP_address.setText(addressSamane + "");
-                txtFrPP_bime.setText(bimeSamane + "");
-
-                if (sexSamane.equals("0"))
-                    radioBtnPP_male.setChecked(true);
-                else if (sexSamane.equals("1"))
-                    radioBtnPP_female.setChecked(true);
+                    ArrayList arrayListSamane;
+                    arrayListSamane = new ArrayList();
 
 
-            } else
+                    // get insList
+                    JSONObject jsoninsList = objectData.getJSONObject("insList");
+                    String ins_id = jsoninsList.getString("id");
+                    String ins_title = jsoninsList.getString("title");
+
+                    // get orgs
+                    JSONObject jsonorgs = objectData.getJSONObject("orgs");
+                    String org_id = jsonorgs.getString("id");
+                    String org_title = jsonorgs.getString("title");
+
+                    // get cities
+                    JSONObject jsoncities = objectData.getJSONObject("cities");
+                    String city_id = jsoncities.getString("id");
+                    String city_title = jsoncities.getString("title");
+
+                    // get ostans
+                    JSONObject jsonostans = objectData.getJSONObject("ostans");
+                    String ost_id = jsonostans.getString("id");
+                    String ost_title = jsonostans.getString("title");
+
+         //---------------------
+                    firstNameSamane = jsonPatient.getString("first_name");
+                    lastNameSamane = jsonPatient.getString("last_name");
+                    fatherNameSamane = jsonPatient.getString("father_name");
+                    cityIdSamane = jsonPatient.getString("city_id");
+                    sexSamane = jsonPatient.getString("is_sex"); // zero = man | one = woman
+                    addressSamane = jsonPatient.getString("home_adr");
+                    phoneNumSamane = jsonPatient.getString("home_mbl");
+
+                    bimeSamane = jsonPatient.getString("ins_id");
+// ino migi dg?
+
+                    edtFrPP_name.setText(firstNameSamane + "");
+                    edtFrPP_name.setEnabled(false);
+                    edtFrPP_family.setText(lastNameSamane + "");
+                    edtFrPP_family.setEnabled(false);
+                    edtFrPP_fatherName.setText(fatherNameSamane + "");
+                    edtFrPP_phone.setText(phoneNumSamane + "");
+                    txtFrPP_city.setText(cityIdSamane + " =cityID");
+                    edtFrPP_address.setText(addressSamane + "");
+                    txtFrPP_bime.setText(bimeSamane + "");
+
+                    if (sexSamane.equals("0"))
+                        radioBtnPP_male.setChecked(true);
+                    else if (sexSamane.equals("1"))
+                        radioBtnPP_female.setChecked(true);
+
+
+                }
+                else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 
     private void reservationTimes(final View view) {
@@ -362,6 +398,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             @Override
             public void onClick(View v) {
                 previousPage(linearResTimes, linearResTimesBtn, linearSelectFilters, linearSelectFiltersBtn);
+
+                if(arrayListResTimes.size()!=0)
+                    arrayListResTimes.clear();
 
                 txtFrRes_city = view.findViewById(R.id.txtFrRes_city);
                 txtFrRes_takhasos = view.findViewById(R.id.txtFrRes_takhasos);
@@ -547,11 +586,14 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                 public void onClick(View view) {
 
                                     linearPazireshPage2.setVisibility(View.GONE);
-
+                                    alertDialogLoding.show();
+                                    positionItemRecycleView = position;
+                                    nextPage(linearResTimes, linearResTimesBtn, linearPazireshPage, linearPazireshPageBtn);
+                                    alertDialogTavafoghName.dismiss();
+                                    dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
 
                                     //2_242_4781779718_45367_291_13990120
                                     //dr_prg_hsp_mdc_spc_date
-                                    dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
                                     String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
                                     JSONObject jsonObject = new JSONObject();
 
@@ -565,27 +607,18 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-
-                                    alertDialogLoding.show();
-
-                                    positionItemRecycleView = position;
-                                    nextPage(linearResTimes, linearResTimesBtn, linearPazireshPage, linearPazireshPageBtn);
-                                    alertDialogTavafoghName.dismiss();
-
-
-                                    new setConnectionVolley(getContext(), "linkCheck", jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
+// TODO: link check
+                                    // set data in pazireshPage
+                                    String link = "http://nobat.mazums.ac.ir/TurnAppApi/turn/TurnSpecification?dr_id=" + temp[0] + "" + "&prg_id=" + temp[1] + "" + "&hsp_id=" + temp[2] + "" + "&mdc_id=" + temp[3] + "" + "&spc_id=" + temp[4] + "&turn_date=" + temp[5] + "";
+                                    new setConnectionVolley(getContext(), link, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
                                         @Override
                                         public void OnResponse(String response) {
                                             setDataInPazireshPage(response);
-
                                         }
                                     });
 
-
-// set data in pazireshPage
                                 }
                             });
-                            //sabr
 
                             builder.setView(layout);
                             alertDialogTavafoghName = builder.create();
@@ -609,10 +642,10 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     }
 
     private void setDataInPazireshPage(String res) {
+
         try {
 
             alertDialogLoding.show();
-
             JSONObject object = new JSONObject(res);
             String status = object.getString("status");
             String message = object.getString("message");
@@ -621,11 +654,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 String data = object.getString("data");
                 JSONObject objData = new JSONObject(data);
 
-// turnSpecification:{
-//sec_id:0,srv_id:0, spc_level_title:"",dr_name:"", dr_image:"", spc_title:""},
-//hspInfo:{hsp_title}
-//}
+
                 //get  f
+                //      sec_id:0,srv_id:0, spc_level_title:"",dr_name:"", dr_image:"", spc_title:"",turn_date:'',ref_count:0},
                 JSONObject jsonTSF = objData.getJSONObject("turnSpecification");
                 String dr_name = jsonTSF.getString("dr_name");
                 String dr_image = jsonTSF.getString("dr_image");
@@ -633,17 +664,21 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 String srv_id = jsonTSF.getString("srv_id");
                 String spc_title = jsonTSF.getString("spc_title");
                 String spc_level_title = jsonTSF.getString("spc_level_title");
+                String ref_count = jsonTSF.getString("ref_count");
+                String turn_date = jsonTSF.getString("turn_date");
                 // get hspInfo
                 JSONObject jsonhspInfo = objData.getJSONObject("hspInfo");
-                String hsp_id = jsonhspInfo.getString("hsp_id");
+                hsp_pp = jsonhspInfo.getString("hsp_id");
                 String hsp_title = jsonhspInfo.getString("hsp_title");
+
+                linearPP_pazireshData.setVisibility(View.VISIBLE);
 
                 hsp_title = hsp_title.replace("بیمارستان", "");
                 txtPP_markazName.setText("" + hsp_title);
                 txtPP_doctorName.setText("دکتر " + dr_name);
-                txtPP_motakhasesName.setText("تخصص " + spc_title);
-                txtPP_datePP.setText("تاریخ " + spc_level_title);
-
+                txtPP_motakhasesName.setText(spc_level_title +": "+ spc_title );
+                txtPP_datePP.setText("تاریخ " + turn_date);
+/*
                 try {
                     byte[] decodeString = Base64.decode(dr_image, Base64.NO_WRAP);
                     InputStream inputStream = new ByteArrayInputStream(decodeString);
@@ -652,6 +687,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+*/
+                alertDialogLoding.dismiss();
 
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
@@ -659,60 +696,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-// in jasho nemidonam jash kojas
-        try {
-            JSONObject object = new JSONObject(res);
-            String status = object.getString("status");
-            String message = object.getString("message");
-            if (status.equals("yes")) {
-                String data = object.getString("data");
-                JSONObject objData = new JSONObject(data);
-                //get  patient
-                JSONObject jsonPatient = objData.getJSONObject("patient");
-                String first_name = jsonPatient.getString("first_name");
-                String last_name = jsonPatient.getString("last_name");
-                String father_name = jsonPatient.getString("father_name");
-                String is_sex = jsonPatient.getString("is_sex");
-                String home_adr = jsonPatient.getString("home_adr");
-                String home_mbl = jsonPatient.getString("home_mbl");
-
-                // get insList
-                JSONObject jsoninsList = objData.getJSONObject("insList");
-                String ins_id = jsoninsList.getString("id");
-                String ins_title = jsoninsList.getString("title");
-
-                // get orgs
-                JSONObject jsonorgs = objData.getJSONObject("orgs");
-                String org_id = jsonorgs.getString("id");
-                String org_title = jsonorgs.getString("title");
-
-                // get cities
-                JSONObject jsoncities = objData.getJSONObject("cities");
-                String city_id = jsoncities.getString("id");
-                String city_title = jsoncities.getString("title");
-
-                // get ostans
-                JSONObject jsonostans = objData.getJSONObject("ostans");
-                String ost_id = jsonostans.getString("id");
-                String ost_title = jsonostans.getString("title");
-
-
-                // hsp_title = hsp_title.replace("بیمارستان", "");
-            /*    tx.setText("" + first_name);
-                txtPP_doctorName.setText("دکتر " + dr_name);
-                txtPP_motakhasesName.setText("تخصص " + spc_title);
-                txtPP_datePP.setText("تاریخ " +spc_level_title);*/
-
-
-            } else
-//                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
 
     }
 
@@ -1001,7 +984,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             object.put("hsp_id", "0");
             object.put("spc_id", "0");
             object.put("dr_id", "0");
-            object.put("prg_date", "0");
+            object.put("date_period", "0");
             object.put("city_id", "0");
         } catch (Exception e) {
             e.printStackTrace();
@@ -1009,7 +992,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
         alertDialogLoding.show();
 
-        new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/turnappApi/Search?spc_id=0&dr_id=0&city_id=0&hsp_id=0&prg_date=0", object
+        new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/turnappApi/Search?spc_id=0&dr_id=0&city_id=0&hsp_id=0&date_period=0", object
         ).connectStringRequest(new setConnectionVolley.OnResponse() {
             @Override
             public void OnResponse(String response) {
@@ -1048,8 +1031,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             alertDialogLoding.dismiss();
 
         pageNumber++;
-        if (arrayListResTimes.size() != 0)
-            arrayListResTimes.clear();
+
         // here
         // TODO: Sent new id to link2 and change HOSPITAL NAMES --------------------------------------------------------
         //city_id:0,hsp_id:0,spc_id:0,first_name:'',last_name:'', date_period:0,page_number:0,item_per_page:10}
