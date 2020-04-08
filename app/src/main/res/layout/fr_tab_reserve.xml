@@ -95,7 +95,6 @@
                         android:orientation="vertical">
 
                         <androidx.cardview.widget.CardView
-                            android:visibility="gone" شش
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="3dp"
@@ -175,7 +174,6 @@
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
-                            android:visibility="gone" شش
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="3dp"
@@ -211,7 +209,7 @@
                                         android:layout_gravity="right"
                                         android:gravity="right|center"
                                         android:layoutDirection="rtl"
-                                        android:text="شماره ارجا" />
+                                        android:text="شماره ارجاع" />
 
                                 </RadioGroup>
 
@@ -244,7 +242,6 @@
                                     android:textStyle="bold" />
 
                             </LinearLayout>
-
 
                         </androidx.cardview.widget.CardView>
 
@@ -500,7 +497,37 @@
 
                             </androidx.cardview.widget.CardView>
 
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardViewFrPP_org"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="3dp"
+                                app:cardCornerRadius="7dp">
 
+                                <LinearLayout
+                                    android:id="@+id/linearFrPP_org"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="3dp"
+                                    android:background="@drawable/bg_white_corner_"
+                                    android:orientation="vertical"
+                                    android:padding="7dp">
+
+                                    <TextView
+                                        android:id="@+id/txtFrPP_org"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="7dp"
+                                        android:layout_marginBottom="7dp"
+                                        android:layout_weight="0.5"
+                                        android:gravity="right|center"
+                                        android:paddingLeft="7dp"
+                                        android:text="انتخاب ارگان"
+                                        android:textColor="@color/colorPurple7" />
+
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
@@ -601,6 +628,33 @@
 
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
+                            <androidx.cardview.widget.CardView
+                                android:visibility="invisible"
+                                android:layout_width="match_parent"
+                                android:layout_height="?attr/actionBarSize"
+                                android:layout_margin="3dp"
+                                app:cardCornerRadius="7dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="3dp"
+                                    android:background="@drawable/bg_white_corner_"
+                                    android:orientation="vertical"
+                                    android:padding="7dp">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="7dp"
+                                        android:layout_marginBottom="7dp"
+                                        android:layout_weight="0.5"
+                                        android:gravity="right|center"
+                                        android:paddingLeft="7dp"
+                                        android:textColor="@color/colorPurple7" />
+
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
 
 
                         </LinearLayout>
@@ -697,6 +751,7 @@
                 android:background="@drawable/button_background_blue"
                 android:enabled="false"
                 android:text="ثبت پذیرش"
+                android:visibility="gone"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold" />
 
