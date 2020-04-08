@@ -150,6 +150,14 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private Button btnPP_previous;
     private String hsp_pp;
 
+    private  ArrayList arrayListOstan;
+    private  ArrayList arrayListCity;
+    private  ArrayList arrayListBime;
+    private  ArrayList arrayListOstanID;
+    private  ArrayList arrayListCityID;
+    private ArrayList arrayListBimeID;
+
+
     private String bimeSamane;
     private String addressSamane;
     private String sexSamane;
@@ -211,7 +219,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         final boolean meliOrErja = false; // default is meli and its false
         linearPazireshPage = view.findViewById(R.id.linearPazireshPage);
         linearPazireshPageBtn = view.findViewById(R.id.linearPazireshPageBtn);
-        linearPP_pazireshData = view. findViewById(R.id.  linearPP_pazireshData  );
+        linearPP_pazireshData = view.findViewById(R.id.linearPP_pazireshData);
         txtPP_markazName = view.findViewById(R.id.txtPP_markazName);
         txtPP_doctorName = view.findViewById(R.id.txtPP_doctorName);
         txtPP_motakhasesName = view.findViewById(R.id.txtPP_motakhasesName);
@@ -219,6 +227,13 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         radioGPPP_CodMeli = view.findViewById(R.id.radioGPPP_CodMeli);
         edtFrPP_Cod = view.findViewById(R.id.edtFrPP_Cod);
         btnPP_search = view.findViewById(R.id.btnPP_search);
+
+        arrayListOstan = new ArrayList();
+        arrayListCity = new ArrayList();
+        arrayListBime = new ArrayList();
+        arrayListOstanID = new ArrayList();
+        arrayListCityID = new ArrayList();
+        arrayListBimeID = new ArrayList();
 
         btnPP_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -285,8 +300,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         edtFrPP_phone = view.findViewById(R.id.edtFrPP_phone);
         linearFrPP_City = view.findViewById(R.id.linearFrPP_City);
         txtFrPP_city = view.findViewById(R.id.txtFrPP_city);
-        linearFrPP_City = view.findViewById(R.id.linearFrPP_ostan);
-        txtFrPP_city = view.findViewById(R.id.txtFrPP_city);
+        linearFrPP_ostan = view.findViewById(R.id.linearFrPP_ostan);
+        txtFrPP_ostan = view.findViewById(R.id.txtFrPP_ostan);
         edtFrPP_address = view.findViewById(R.id.edtFrPP_address);
         linearFrPP_bime = view.findViewById(R.id.linearFrPP_bime);
         txtFrPP_bime = view.findViewById(R.id.txtFrPP_bime);
@@ -307,81 +322,112 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             }
         });
 
+
+        linearFrPP_City.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // open popup choose city
+            }
+        });
+
+
+        linearFrPP_ostan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // open popup choose ostan
+            }
+        });
+
+
+        linearFrPP_bime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // open popup choose bime
+            }
+        });
+
+
     }
-// استعلام هویت  estelame hoviyat
+
+    // استعلام هویت  estelame hoviyat
     private void setDataFromSamane(String res) {
 
-            try {
-                JSONObject object = new JSONObject(res);
-                String status = object.getString("status");
-                String message = object.getString("message");
-                if (status.equals("yes")) {
-                    linearPazireshPage2.setVisibility(View.VISIBLE);
-                    String data = object.getString("data");
-                    JSONObject objectData = new JSONObject(data);
-                    //get  patient
-                    JSONObject jsonPatient = objectData.getJSONObject("patient");
+        try {
+            JSONObject object = new JSONObject(res);
+            String status = object.getString("status");
+            String message = object.getString("message");
+            if (status.equals("yes")) {
+                linearPazireshPage2.setVisibility(View.VISIBLE);
+                String data = object.getString("data");
+                JSONObject objectData = new JSONObject(data);
+                //get  patient
 
-                    ArrayList arrayListSamane;
-                    arrayListSamane = new ArrayList();
+                // get orgs  ------ in chie ?
+                JSONObject jsonorgs = objectData.getJSONObject("orgs");
+                String org_id = jsonorgs.getString("id");
+                String org_title = jsonorgs.getString("title");
 
-
-                    // get insList
-                    JSONObject jsoninsList = objectData.getJSONObject("insList");
-                    String ins_id = jsoninsList.getString("id");
-                    String ins_title = jsoninsList.getString("title");
-
-                    // get orgs
-                    JSONObject jsonorgs = objectData.getJSONObject("orgs");
-                    String org_id = jsonorgs.getString("id");
-                    String org_title = jsonorgs.getString("title");
-
-                    // get cities
-                    JSONObject jsoncities = objectData.getJSONObject("cities");
-                    String city_id = jsoncities.getString("id");
-                    String city_title = jsoncities.getString("title");
-
-                    // get ostans
-                    JSONObject jsonostans = objectData.getJSONObject("ostans");
-                    String ost_id = jsonostans.getString("id");
-                    String ost_title = jsonostans.getString("title");
-
-         //---------------------
-                    firstNameSamane = jsonPatient.getString("first_name");
-                    lastNameSamane = jsonPatient.getString("last_name");
-                    fatherNameSamane = jsonPatient.getString("father_name");
-                    cityIdSamane = jsonPatient.getString("city_id");
-                    sexSamane = jsonPatient.getString("is_sex"); // zero = man | one = woman
-                    addressSamane = jsonPatient.getString("home_adr");
-                    phoneNumSamane = jsonPatient.getString("home_mbl");
-
-                    bimeSamane = jsonPatient.getString("ins_id");
-// ino migi dg?
-
-                    edtFrPP_name.setText(firstNameSamane + "");
-                    edtFrPP_name.setEnabled(false);
-                    edtFrPP_family.setText(lastNameSamane + "");
-                    edtFrPP_family.setEnabled(false);
-                    edtFrPP_fatherName.setText(fatherNameSamane + "");
-                    edtFrPP_phone.setText(phoneNumSamane + "");
-                    txtFrPP_city.setText(cityIdSamane + " =cityID");
-                    edtFrPP_address.setText(addressSamane + "");
-                    txtFrPP_bime.setText(bimeSamane + "");
-
-                    if (sexSamane.equals("0"))
-                        radioBtnPP_male.setChecked(true);
-                    else if (sexSamane.equals("1"))
-                        radioBtnPP_female.setChecked(true);
-
-
+                // get ostan
+                JSONArray arrayOstan = objectData.getJSONArray("ostans");
+                for (int i = 0; i < arrayOstan.length(); i++) {
+                    JSONObject temp = arrayOstan.getJSONObject(i);
+                    arrayListOstan.add(temp.getString("title"));
+                    arrayListOstanID.add(temp.getString("id"));
                 }
-                else
-//                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-                    Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                // get city
+                JSONArray arrayCity = objectData.getJSONArray("cities");
+                for (int i = 0; i < arrayCity.length(); i++) {
+                    JSONObject temp = arrayCity.getJSONObject(i);
+                    arrayListCity.add(temp.getString("title"));
+                    arrayListCityID.add(temp.getString("id"));
+                }
+
+                // get bime
+                JSONArray arrayBime = objectData.getJSONArray("insList");
+                for (int i = 0; i < arrayBime.length(); i++) {
+                    JSONObject temp = arrayBime.getJSONObject(i);
+                    arrayListBime.add(temp.getString("title"));
+                    arrayListBimeID.add(temp.getString("id"));
+                }
+
+                JSONObject jsonPatient = objectData.getJSONObject("patient");
+                firstNameSamane = jsonPatient.getString("first_name");
+                lastNameSamane = jsonPatient.getString("last_name");
+                fatherNameSamane = jsonPatient.getString("father_name");
+                cityIdSamane = jsonPatient.getString("city_id");
+                sexSamane = jsonPatient.getString("is_sex"); // zero = man | one = woman
+                addressSamane = jsonPatient.getString("home_adr");
+                phoneNumSamane = jsonPatient.getString("home_mbl");
+                bimeSamane = jsonPatient.getString("ins_id");
+
+                edtFrPP_name.setText(firstNameSamane + "");
+                edtFrPP_name.setEnabled(false);
+                edtFrPP_family.setText(lastNameSamane + "");
+                edtFrPP_family.setEnabled(false);
+                edtFrPP_fatherName.setText(fatherNameSamane + "");
+                edtFrPP_phone.setText(phoneNumSamane + "");
+                txtFrPP_city.setText(cityIdSamane + " =cityID");
+                edtFrPP_address.setText(addressSamane + "");
+                txtFrPP_bime.setText(bimeSamane + "");
+
+                if (sexSamane.equals("0"))
+                    radioBtnPP_male.setChecked(true);
+                else if (sexSamane.equals("1"))
+                    radioBtnPP_female.setChecked(true);
+                else {
+                    radioBtnPP_male.setChecked(false);
+                    radioBtnPP_female.setChecked(false);
+                }
+
+
+            } else
+//                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
+                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void reservationTimes(final View view) {
@@ -399,7 +445,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             public void onClick(View v) {
                 previousPage(linearResTimes, linearResTimesBtn, linearSelectFilters, linearSelectFiltersBtn);
 
-                if(arrayListResTimes.size()!=0)
+                if (arrayListResTimes.size() != 0)
                     arrayListResTimes.clear();
 
                 txtFrRes_city = view.findViewById(R.id.txtFrRes_city);
@@ -676,7 +722,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 hsp_title = hsp_title.replace("بیمارستان", "");
                 txtPP_markazName.setText("" + hsp_title);
                 txtPP_doctorName.setText("دکتر " + dr_name);
-                txtPP_motakhasesName.setText(spc_level_title +": "+ spc_title );
+                txtPP_motakhasesName.setText(spc_level_title + ": " + spc_title);
                 txtPP_datePP.setText("تاریخ " + turn_date);
 /*
                 try {

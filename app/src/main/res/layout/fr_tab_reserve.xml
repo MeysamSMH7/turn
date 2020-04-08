@@ -526,7 +526,7 @@
                                         android:layout_weight="0.5"
                                         android:gravity="right|center"
                                         android:paddingLeft="7dp"
-                                        android:text="انتخاب شهر"
+                                        android:text="انتخاب استان"
                                         android:textColor="@color/colorPurple7" />
 
                                 </LinearLayout>
