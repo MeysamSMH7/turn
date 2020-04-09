@@ -141,6 +141,19 @@
 
             </androidx.cardview.widget.CardView>
 
+            <Button
+                android:id="@+id/btnLaghv_laghv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/button_background_red"
+                android:padding="3dp"
+                android:text="لغو نوبت"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
+
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewLaghv"
                 android:layout_width="match_parent"
@@ -223,17 +236,6 @@
                                 android:text="تاریخ"
                                 android:textColor="@color/colorAccent" />
 
-                            <Button
-                                android:id="@+id/btnLaghv_laghv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="7dp"
-                                android:layout_weight="0.5"
-                                android:background="@drawable/button_background_red"
-                                android:padding="3dp"
-                                android:text="لغو نوبت"
-                                android:textColor="@color/colorWhite"
-                                android:textStyle="bold" />
 
                         </LinearLayout>
 

@@ -50,17 +50,16 @@
         android:textAlignment="center"
         android:textColor="@color/colorBlack"
         android:textSize="12dp"
+        android:id="@+id/txttxt"
         android:typeface="serif" />
 
     <ProgressBar
         android:id="@+id/progressAcS"
-        style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:indeterminate="true" />
+        android:layout_height="60dp"
+        android:outlineAmbientShadowColor="@color/colorPrimaryDark"
+        android:indeterminateTint="@color/colorPrimaryDark"
+        android:layout_below="@+id/txttxt"/>
 
     <TextView
         android:id="@+id/txtAcS_Version"
@@ -69,6 +68,7 @@
         android:layout_above="@+id/progressAcS"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="7dp"
+
         android:textColor="@color/colorWhite" />
 
     <TextView

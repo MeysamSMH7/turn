@@ -216,9 +216,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.loading, null, false);
 
-        GifImageView gifImage = layout.findViewById(R.id.gifImage);
-        gifImage.setImageResource(R.drawable.load6);
-
         builder.setView(layout);
         alertDialogLoding = builder.create();
         alertDialogLoding.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
