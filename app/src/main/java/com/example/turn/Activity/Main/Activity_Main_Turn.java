@@ -11,6 +11,7 @@ import com.example.turn.Activity.Main.Fragment.FragmentLaghv.frTab_laghv;
 import com.example.turn.Activity.Main.Fragment.FragmentReserve.frTab_reserve;
 import com.example.turn.R;
 
+import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatTextView;
@@ -33,6 +34,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,6 +88,30 @@ public class Activity_Main_Turn extends AppCompatActivity
         editor.putBoolean("FirstTime?", false);
         editor.apply();
 
+
+        customTab();
+
+
+    }
+
+    private void customTab() {
+
+
+        titles = new String[]{"خانه ", "استعلام نوبت", " لغو نوبت"};
+        for (int i = 0; i < tl_tabLayout.getTabCount(); i++) {
+            LinearLayout tab = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_tablayout, null);
+            TextView tab_label = (TextView) tab.findViewById(R.id.nav_label);
+            ImageView tab_icon = (ImageView) tab.findViewById(R.id.nav_icon);
+
+            tab_label.setText(titles[i]);
+
+            tab_label.setTextColor(getResources().getColor(R.color.colorBlack));
+            tab_icon.setImageResource(tabIcons[i]);
+
+
+            // finally publish this custom view to navigation tab
+            tl_tabLayout.getTabAt(i).setCustomView(tab);
+        }
     }
 
     private void findViews() {
