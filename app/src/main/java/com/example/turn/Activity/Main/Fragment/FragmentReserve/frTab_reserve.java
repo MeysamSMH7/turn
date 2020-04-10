@@ -57,6 +57,10 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class frTab_reserve extends Fragment implements SearchView.OnQueryTextListener {
 
+    private LinearLayout linearLinears;
+    private LinearLayout linearBtns;
+    private LinearLayout linearPrint;
+
     //  linearSelectFilters
     private AlertDialog alertDialogFilter;
     private LinearLayout linearSelectFilters;
@@ -177,6 +181,25 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private String lastNameSamane;
     private String firstNameSamane;
     private String srv_id;
+    //
+
+    private TextView txtPrint_date;
+    private TextView txtPrint_time;
+    private TextView txtPrint_hours;
+    private TextView txtPrint_shit;
+    private TextView txtPrint_doctor;
+    private TextView txtPrint_type;
+    private TextView txtPrint_typeBime;
+    private TextView txtPrint_firstLastName;
+    private TextView txtPrint_price;
+    private TextView txtPrint_pakhsh;
+    private TextView txtPrint_codNobat;
+    private TextView txtPrint_numberNobat;
+    private ImageView imgPrint_batcod;
+    private TextView txtPrint_ghabzNumber;
+    private TextView txtPrint_time2;
+
+
     //------------------------------------
     private AlertDialog alertDialogLoding;
 
@@ -198,6 +221,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         selectFilters(view);
         reservationTimes(view);
         paziresh(view);
+        print(view);
 
         linearSelectFilters.setVisibility(View.VISIBLE);
         linearSelectFiltersBtn.setVisibility(View.VISIBLE);
@@ -209,7 +233,38 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         linearPazireshPageBtn.setVisibility(View.GONE);
         linearPazireshPage2.setVisibility(View.GONE);
 
+
+        linearLinears = view.findViewById(R.id.linearLinears);
+        linearBtns = view.findViewById(R.id.linearBtns);
+        linearPrint = view.findViewById(R.id.linearPrint);
+
+//----------------------------------------------------------------------------
+        linearLinears.setVisibility(View.VISIBLE);
+        linearBtns.setVisibility(View.VISIBLE);
+        linearPrint.setVisibility(View.GONE);
+
+        
         return view;
+    }
+
+    private void print(View view) {
+
+        txtPrint_date = view.findViewById(R.id.txtPrint_date);
+        txtPrint_time = view.findViewById(R.id.txtPrint_time);
+        txtPrint_hours = view.findViewById(R.id.txtPrint_hours);
+        txtPrint_shit = view.findViewById(R.id.txtPrint_shit);
+        txtPrint_doctor = view.findViewById(R.id.txtPrint_doctor);
+        txtPrint_type = view.findViewById(R.id.txtPrint_type);
+        txtPrint_typeBime = view.findViewById(R.id.txtPrint_typeBime);
+        txtPrint_firstLastName = view.findViewById(R.id.txtPrint_firstLastName);
+        txtPrint_price = view.findViewById(R.id.txtPrint_price);
+        txtPrint_pakhsh = view.findViewById(R.id.txtPrint_pakhsh);
+        txtPrint_codNobat = view.findViewById(R.id.txtPrint_codNobat);
+        txtPrint_numberNobat = view.findViewById(R.id.txtPrint_numberNobat);
+        imgPrint_batcod = view.findViewById(R.id.imgPrint_batcod);
+        txtPrint_ghabzNumber = view.findViewById(R.id.txtPrint_ghabzNumber);
+        txtPrint_time2 = view.findViewById(R.id.txtPrint_time2);
+
     }
 
     private void loading() {
@@ -248,6 +303,12 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         btnPP_paziresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+//----------- when print is ok this 3 lines will be there (after get data rom server!!!!!)
+                linearLinears.setVisibility(View.GONE);
+                linearBtns.setVisibility(View.GONE);
+                linearPrint.setVisibility(View.VISIBLE);
+
                 //2_242_4781779718_45367_291_13990120
                 //dr_prg_hsp_mdc_spc_date
                 String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
@@ -281,7 +342,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         + "&father_name=" + edtFrPP_fatherName.getText().toString()
                         + "&ins_id=" + bimeIdSamane
                         + "&ost_id=" + ostanIdSamane
-                        + "&org_id=" + orgIdSamane ;
+                        + "&org_id=" + orgIdSamane;
 
                 new setConnectionVolley(getContext(), link, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
                     @Override
@@ -822,7 +883,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 String dr_name = jsonTSF.getString("dr_name");
                 String dr_image = jsonTSF.getString("dr_image");
                 String sec_id = jsonTSF.getString("sec_id");
-                 srv_id = jsonTSF.getString("srv_id");
+                srv_id = jsonTSF.getString("srv_id");
                 String spc_title = jsonTSF.getString("spc_title");
                 String spc_level_title = jsonTSF.getString("spc_level_title");
                 String ref_count = jsonTSF.getString("ref_count");

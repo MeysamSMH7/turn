@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layoutDirection="rtl"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl">
 
     <ImageView
         android:layout_width="match_parent"
@@ -14,6 +14,7 @@
 
     <!-- layouts -->
     <LinearLayout
+        android:id="@+id/linearLinears"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -21,11 +22,11 @@
 
         <!--    linearSelectFilters        -->
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/linearSelectFilters"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <include layout="@layout/layout_select_filters" />
 
@@ -34,10 +35,10 @@
         <!--    linearResTimes             -->
         <LinearLayout
             android:id="@+id/linearResTimes"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/refreshRT"
@@ -154,7 +155,7 @@
                                         android:gravity="right"
                                         android:paddingRight="7dp"
                                         android:text="بیمارستان"
-                                        android:textColor="@color/colorAccent"/>
+                                        android:textColor="@color/colorAccent" />
 
                                     <TextView
                                         android:id="@+id/txtPP_datePP"
@@ -628,11 +629,12 @@
 
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
+
                             <androidx.cardview.widget.CardView
-                                android:visibility="invisible"
                                 android:layout_width="match_parent"
                                 android:layout_height="?attr/actionBarSize"
                                 android:layout_margin="3dp"
+                                android:visibility="invisible"
                                 app:cardCornerRadius="7dp">
 
                                 <LinearLayout
@@ -684,6 +686,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="7dp"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <Button
@@ -714,18 +717,18 @@
 
         <!--    linearResTimesBtn        -->
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/linearResTimesBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/btnRT_previous"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="3dp"
                 android:layout_gravity="right"
+                android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
                 android:scaleType="fitEnd"
                 android:src="@drawable/double_arrow" />
@@ -734,7 +737,6 @@
 
         <!--    linearPazireshPageBtn        -->
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/linearPazireshPageBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -751,9 +753,9 @@
                 android:background="@drawable/button_background_blue"
                 android:enabled="false"
                 android:text="ثبت پذیرش"
-                android:visibility="gone"
                 android:textColor="@color/colorWhite"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/btnPP_previous"
@@ -766,6 +768,246 @@
                 android:text="مرحله ی قبلی"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearPrint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_corner_white"
+        android:orientation="vertical"
+        android:padding="7dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="دانشگاه علوم پزشکی مازندارن"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="مجتمع تخصصی و فوق تخصصی باعبان(طوبی)" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="آدرس: ساری - بلوار خزر" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="تفلن مرکز:-" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtPrint_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="right"
+                    android:text="تاریخ نوبت: شنبه 23 فروردین 1399" />
+
+                <TextView
+                    android:id="@+id/txtPrint_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="right"
+                    android:text="ساعت اخذ نوبت: 12:12" />
+
+                <TextView
+                    android:id="@+id/txtPrint_hours"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="right"
+                    android:text="ساعت حضو بیمار: " />
+
+                <TextView
+                    android:id="@+id/txtPrint_shit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="right"
+                    android:text="شیفت: عصر" />
+
+                <TextView
+                    android:id="@+id/txtPrint_doctor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="right"
+                    android:text="پزشک: مهدی نیکخواه" />
+
+                <TextView
+                    android:id="@+id/txtPrint_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="right"
+                    android:text="نوع خدمت: ویزیت متخصص استادیار" />
+
+                <TextView
+                    android:id="@+id/txtPrint_typeBime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="right"
+                    android:text="نوع بیمه: تامین اجتماعی (عادی)" />
+
+                <TextView
+                    android:id="@+id/txtPrint_firstLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="right"
+                    android:text="نام و نام خانوادگی بیمار: مهسا طاهری" />
+
+                <TextView
+                    android:id="@+id/txtPrint_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="right"
+                    android:text="مبلغ قابل پرداخت: 48,000 ریال" />
+
+                <TextView
+                    android:id="@+id/txtPrint_pakhsh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="right"
+                    android:text="نام پخش: درمانگاه4" />
+
+                <TextView
+                    android:id="@+id/txtPrint_codNobat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="right"
+                    android:text="کد پیگیری نوبت: 43215" />
+
+                <TextView
+                    android:id="@+id/txtPrint_numberNobat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="right"
+                    android:paddingRight="7dp"
+                    android:text="شماره نوبت: 10"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="right"
+                    android:text="کد پیگیری پرداخت:" />
+
+
+                <ImageView
+                    android:id="@+id/imgPrint_batcod"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@color/colorRed" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtPrint_ghabzNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="شماره قبض: 0" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="nobat.mazums.ac.ir" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:text="مهرپذیرش کلینیک:" />
+
+                        <TextView
+                            android:id="@+id/txtPrint_time2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:text="12:12" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:rotation="90"
+                    android:text="*لطفا در تاریخ اخذ شده به پذیرش درمانگاه مراجعه فرمایید." />
+
+            </LinearLayout>
 
         </LinearLayout>
 
