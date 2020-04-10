@@ -49,7 +49,7 @@
                         android:gravity="right|center"
                         android:paddingLeft="7dp"
                         android:paddingRight="45dp"
-                        android:text="تمامی شهرها"
+                        android:text="انتخاب شهر"
                         android:textColor="@color/colorLogo"
                         android:textStyle="bold" />
 
@@ -91,7 +91,7 @@
                         android:gravity="right|center"
                         android:paddingLeft="7dp"
                         android:paddingRight="45dp"
-                        android:text="تمامی تخصص ها"
+                        android:text="انتخاب تخصص"
                         android:textColor="@color/colorLogo"
                         android:textStyle="bold"
 
@@ -135,7 +135,7 @@
                         android:gravity="right|center"
                         android:paddingLeft="7dp"
                         android:paddingRight="45dp"
-                        android:text="تمامی درمانگاه ها"
+                        android:text="انتخاب درمانگاه"
                         android:textColor="@color/colorLogo"
                         android:textStyle="bold" />
 
@@ -176,7 +176,7 @@
                         android:gravity="right|center"
                         android:paddingLeft="7dp"
                         android:paddingRight="45dp"
-                        android:text="تمامی زمان ها"
+                        android:text="انتخاب بازه زمانیا"
                         android:textColor="@color/colorLogo"
                         android:textStyle="bold" />
 
@@ -217,7 +217,7 @@
                         android:gravity="right|center"
                         android:paddingLeft="7dp"
                         android:paddingRight="45dp"
-                        android:text="تمامی پزشک ها"
+                        android:text="انتخاب پزشک"
                         android:textColor="@color/colorLogo"
                         android:textStyle="bold" />
 
@@ -250,7 +250,7 @@
                         android:layout_weight="0.5"
                         android:background="@drawable/button_background_blue"
                         android:text="حذف فیلتر"
-                        android:textColor="@color/colorWhite"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textStyle="bold" />
 
                     <Button
@@ -262,7 +262,7 @@
                         android:layout_weight="0.5"
                         android:background="@drawable/button_background_blue"
                         android:text="اعمال"
-                        android:textColor="@color/colorWhite"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -277,7 +277,7 @@
                     android:layout_weight="0.5"
                     android:background="@drawable/button_background_blue"
                     android:text="بستن"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold" />
 
 

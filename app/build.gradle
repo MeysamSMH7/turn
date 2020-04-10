@@ -28,8 +28,6 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1'
 //  Persian Calender
     implementation 'com.mohamadamin:persianmaterialdatetimepicker:1.2.1'
-//  Gif
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
 //  https://github.com/AzimoLabs/MaskFormatter
     implementation 'com.azimolabs.maskformatter:maskformatter:0.2'
 //    implementation 'com.android.tools.lint:lint-checks:26.6.2'

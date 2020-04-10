@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/main_background"
-        android:tint="#BAFFFFFF" />
+        android:tint="#E9FFFFFF" />
 
     <ImageView
         android:id="@+id/img123"

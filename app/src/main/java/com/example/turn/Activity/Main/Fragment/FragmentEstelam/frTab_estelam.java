@@ -109,6 +109,8 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
         btnEstelam_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (arrayListEstelam.size() != 0 )
+                    arrayListEstelam.clear();
 //                TODO: send cod meli and id hospital to link
                 String cod = edtEstelam_codMeli.getText().toString();
                 JSONObject obj = new JSONObject();
@@ -173,13 +175,15 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                 for (int i = 0; i < arrayData.length(); i++) {
 
                     JSONObject jsonObject = arrayData.getJSONObject(i);
+                    JSONObject jsonObject1 = jsonObject.getJSONObject("patient");
+                    JSONObject jsonObject2 = jsonObject.getJSONObject("pay");
                     ModEstelam modEstelam = new ModEstelam();
-                 /*   modEstelam.prg_turn_date_pp_rcp_pat_pay_pat_id = jsonObject.getString("prg_turn_date_pp_rcp_pat_pay_pat_id"); // split
-                    String temp = jsonObject.getString("prg_title"); // split
+                    //modEstelam.prg_turn_date_pp_rcp_pat_pay_pat_id = jsonObject.getString("prg_turn_date_pp_rcp_pat_pay_pat_id"); // split
+                    String temp = jsonObject.getString("prg_title"); // split docotr and hospital title in chiee?bezar dakhele json bebinim
                     temp = temp.replace(")", "");
                     String[] tempAr = temp.split("\\(");
                     modEstelam.dr_name = tempAr[0];
-                    modEstelam.spc_title = tempAr[1];*/
+                    modEstelam.spc_title = tempAr[1];
                /*     prg_title:"",date_string:"",status_title:"",status_detail:"",
                             prg_id:0,turn_date:"",pp_id:"",rcp_id:0,pat_id:0,pat_pay:0,hsp_id:0}*/
                     modEstelam.prg_title = jsonObject.getString("prg_title");
@@ -191,11 +195,14 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                     modEstelam.turn_date = jsonObject.getString("turn_date");
                     modEstelam.pp_id = jsonObject.getString("pp_id");
                     modEstelam.rcp_id = jsonObject.getString("rcp_id");
-                    modEstelam.pat_id = jsonObject.getString("pat_id");
-                    modEstelam.pat_pay = jsonObject.getString("pat_pay");
+                    modEstelam.pat_id =jsonObject1.getString("pat_id");
+                    modEstelam.pat_pay = jsonObject2.getString("pat_pay");
                     modEstelam.hsp_id = jsonObject.getString("hsp_id");
                     arrayListEstelam.add(modEstelam);
                 }
+
+
+
 
 
                 AdRecycEstelam adRecycEstelam = new AdRecycEstelam(getContext(), arrayListEstelam, new onClickInterface() {

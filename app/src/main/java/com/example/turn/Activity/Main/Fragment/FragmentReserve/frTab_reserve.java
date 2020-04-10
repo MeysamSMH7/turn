@@ -41,6 +41,7 @@ import com.example.turn.Activity.Main.Fragment.FragmentReserve.Adapter.AdRecycRe
 import com.example.turn.Activity.Main.Adapter.onClickInterface;
 import com.example.turn.Activity.Main.Model.ModAlerts;
 import com.example.turn.Activity.Main.Fragment.FragmentReserve.Model.ModResTime;
+import com.example.turn.Classes.ShowMessage;
 import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
 
@@ -53,7 +54,6 @@ import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import pl.droidsonroids.gif.GifImageView;
 
 public class frTab_reserve extends Fragment implements SearchView.OnQueryTextListener {
 
@@ -300,59 +300,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         arrayListBimeID = new ArrayList();
         arrayListOrg = new ArrayList();
         arrayListOrgID = new ArrayList();
-        btnPP_paziresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-//----------- when print is ok this 3 lines will be there (after get data rom server!!!!!)
-                linearLinears.setVisibility(View.GONE);
-                linearBtns.setVisibility(View.GONE);
-                linearPrint.setVisibility(View.VISIBLE);
-
-                //2_242_4781779718_45367_291_13990120
-                //dr_prg_hsp_mdc_spc_date
-                String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
-                JSONObject jsonObject = new JSONObject();
-
-                try {
-                    jsonObject.put("dr_id", temp[0] + "");
-                    jsonObject.put("prg_id", temp[1] + "");
-                    jsonObject.put("hsp_id", temp[2] + "");
-                    jsonObject.put("mdc_id", temp[3] + "");
-                    jsonObject.put("spc_id", temp[4] + "");
-                    jsonObject.put("prg_date", temp[5] + "");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-// TODO: link check
-                // set data in pazireshPage
-
-
-              /*  {turn_date:'',prg_id:0,spc_id:0,hsp_id:0,city_id:0,srv_id:0,pp_id:'0',familiy_code:'',
-                        patient:{home_mbl:'',home_adr:'',first_name:'',last_name:'',is_sex:0,father_name:'',ins_id:0}
-                }*/
-
-                String link = "http://nobat.mazums.ac.ir/TurnAppApi/turn/TurnSpecification?city_id=" + cityIdSamane + "" +
-                        "&prg_id=" + temp[1] + "" + "&hsp_id=" + temp[2] + "" + "&srv_id=" + srv_id + "" +
-                        "&spc_id=" + temp[4] + "&turn_date=" + temp[5] + "" + "&pp_id=" + edtFrPP_Cod.getText().toString()
-                        + "&home_mbl=" + edtFrPP_phone.getText().toString() + "&home_adr=" + edtFrPP_address.getText().toString()
-                        + "&last_name=" + edtFrPP_family.getText().toString() + "&first_name=" + edtFrPP_name.getText().toString()
-                        + "&first_name=" + edtFrPP_name.getText().toString()
-                        + "&is_sex=" + sexSamane
-                        + "&father_name=" + edtFrPP_fatherName.getText().toString()
-                        + "&ins_id=" + bimeIdSamane
-                        + "&ost_id=" + ostanIdSamane
-                        + "&org_id=" + orgIdSamane;
-
-                new setConnectionVolley(getContext(), link, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
-                    @Override
-                    public void OnResponse(String response) {
-                        setDataInPazireshPage(response);
-                    }
-                });
-
-            }
-        });
         btnPP_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -599,10 +547,70 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
                 Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+            btnPP_paziresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    sendDataToPaziresh();
+                }
+
+
+            });
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void sendDataToPaziresh() {
+
+
+//----------- when print is ok this 3 lines will be there (after get data rom server!!!!!)
+        linearLinears.setVisibility(View.GONE);
+        linearBtns.setVisibility(View.GONE);
+        linearPrint.setVisibility(View.VISIBLE);
+
+        //2_242_4781779718_45367_291_13990120
+        //dr_prg_hsp_mdc_spc_date
+        String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("dr_id", temp[0] + "");
+            jsonObject.put("prg_id", temp[1] + "");
+            jsonObject.put("hsp_id", temp[2] + "");
+            jsonObject.put("mdc_id", temp[3] + "");
+            jsonObject.put("spc_id", temp[4] + "");
+            jsonObject.put("prg_date", temp[5] + "");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+// TODO: link check
+        // set data in pazireshPage
+
+
+                /*{turn_date:'',prg_id:0,spc_id:0,hsp_id:0,city_id:0,srv_id:0,pp_id:'0',familiy_code:'',
+                        patient:{mome_mbl:'',home_adr:'',first_name:'',last_name:'',is_sex:0,father_name:'',ins_id:0}*/
+
+        String vPazireshlink = "http://nobat.mazums.ac.ir/TurnAppApi/turn/MakeTurn?" +
+                "&prg_id=" + temp[1] + "" + "&hsp_id=" + temp[2] + "" + "&srv_id=" + srv_id + "" +
+                "&spc_id=" + temp[4] + "&turn_date=" + temp[5] + "" + "&pp_id=" + edtFrPP_Cod.getText().toString()
+                + "&home_mbl=" + edtFrPP_phone.getText().toString() + "&home_adr=" + edtFrPP_address.getText().toString()
+                + "&last_name=" + edtFrPP_family.getText().toString() + "&first_name=" + edtFrPP_name.getText().toString()
+                + "&first_name=" + edtFrPP_name.getText().toString()
+                + "&is_sex=" + sexSamane
+                + "&father_name=" + edtFrPP_fatherName.getText().toString()
+                + "&ins_id=" + bimeIdSamane
+                + "&ost_id=" + ostanIdSamane
+                + "&org_id=" + orgIdSamane;
+
+        new setConnectionVolley(getContext(), vPazireshlink, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
+            @Override
+            public void OnResponse(String response) {
+
+            }
+        });
+
     }
 
     private void reservationTimes(final View view) {

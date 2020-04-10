@@ -47,16 +47,21 @@ public class AdRecycEstelam extends RecyclerView.Adapter<AdRecycEstelam.ViewHold
             holder.itemView.startAnimation(animation);
             lastPosition = position;
 
-            holder.txtEstRecy_drname.setText("دکتر " + data.get(position).dr_name);
+            holder.txtEstRecy_drname.setText(" " + data.get(position).dr_name);
             holder.txtEstRecy_takhasos.setText("تخصص: " + data.get(position).spc_title);
             holder.txtEstRecy_date.setText("تاریخ: " + data.get(position).date_string);
-            holder.txtEstRecy_typeRes.setText("نحوه ی دریافت نوبت: " + data.get(position).status_title);
-            holder.txtEstRecy_typeRes.setText("وضعیت نوبت: " + data.get(position).status_detail);
+            holder.txtEstRecy_typeRes.setText("نحوه ی دریافت نوبت: " + data.get(position).status_detail);
+            holder.txtEstRecy_status.setText("وضعیت نوبت: " + data.get(position).status_title);
 
-            holder.btnEstRecy_status.setOnClickListener(new View.OnClickListener() {
+            if (data.get(position).status_title.equals("لغو شده"))
+                holder.btnEstRecy_print.setVisibility(View.GONE);
+            else
+                holder.btnEstRecy_print.setVisibility(View.VISIBLE);
+
+            holder.btnEstRecy_print.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onClickInterface.setClick(position, true,holder.itemView);
+                    onClickInterface.setClick(position, true, holder.itemView);
                 }
             });
 
@@ -77,7 +82,8 @@ public class AdRecycEstelam extends RecyclerView.Adapter<AdRecycEstelam.ViewHold
         TextView txtEstRecy_drname;
         TextView txtEstRecy_takhasos;
         TextView txtEstRecy_typeRes;
-        Button btnEstRecy_status;
+        TextView txtEstRecy_status;
+        Button btnEstRecy_print;
 
         ViewHolder(View view) {
             super(view);
@@ -87,7 +93,8 @@ public class AdRecycEstelam extends RecyclerView.Adapter<AdRecycEstelam.ViewHold
             txtEstRecy_takhasos = view.findViewById(R.id.txtEstRecy_takhasos);
             txtEstRecy_date = view.findViewById(R.id.txtEstRecy_date);
             txtEstRecy_typeRes = view.findViewById(R.id.txtEstRecy_typeRes);
-            btnEstRecy_status = view.findViewById(R.id.btnEstRecy_status);
+            txtEstRecy_status = view.findViewById(R.id.txtEstRecy_status);
+            btnEstRecy_print = view.findViewById(R.id.btnEstRecy_print);
 
         }
     }

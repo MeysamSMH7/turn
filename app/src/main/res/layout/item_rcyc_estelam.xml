@@ -87,22 +87,22 @@
                         android:id="@+id/txtEstRecy_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.7"
                         android:gravity="right"
                         android:paddingRight="7dp"
                         android:text="تاریخ"
                         android:textColor="@color/colorAccent" />
 
                     <Button
-                        android:id="@+id/btnEstRecy_status"
+                        android:id="@+id/btnEstRecy_print"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="7dp"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.3"
                         android:background="@drawable/button_background_blue"
                         android:padding="3dp"
                         android:text="چاپ دوباره"
-                        android:textColor="@color/colorWhite"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textStyle="bold" />
 
                 </LinearLayout>

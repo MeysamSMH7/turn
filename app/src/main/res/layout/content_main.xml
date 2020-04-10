@@ -20,6 +20,7 @@
 
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tl_tabLayout"
                 android:layout_width="match_parent"
@@ -35,6 +36,8 @@
                 app:tabIconTint="@color/colorWhite"
                 app:tabPadding="2dp"
                 app:tabTextColor="@color/colorPrimaryDark" />
+
+
         </androidx.viewpager.widget.ViewPager>
 
     </LinearLayout>

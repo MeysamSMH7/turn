@@ -105,7 +105,7 @@ public class Activity_Main_Turn extends AppCompatActivity
 
             tab_label.setText(titles[i]);
 
-            tab_label.setTextColor(getResources().getColor(R.color.colorBlack));
+            tab_label.setTextColor(getResources().getColor(R.color.colorWhite));
             tab_icon.setImageResource(tabIcons[i]);
 
 

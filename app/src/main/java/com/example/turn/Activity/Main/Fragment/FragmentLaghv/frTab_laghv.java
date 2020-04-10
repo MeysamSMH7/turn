@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.turn.Activity.Main.Adapter.AdRecycPopUp;
 import com.example.turn.Activity.Main.Adapter.onClickInterface;
 import com.example.turn.Activity.Main.Model.ModAlerts;
+import com.example.turn.Classes.ShowMessage;
 import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
 
@@ -46,6 +47,11 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
 
     private AlertDialog alertDialogFilter;
     private String hospitalId;
+    private String prg_id;
+    private String turn_date;
+    private String turn_time;
+    private String q_type;
+
 
     public static frTab_laghv newInstance() {
 
@@ -56,11 +62,11 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_tab_laghv, container, false);
 // cods here
         findViews(view);
-
 
         return view;
     }
@@ -93,31 +99,70 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                 String codMeli = edtLaghv_codMeli.getText().toString();
                 String cod = edtLaghv_cod.getText().toString();
                 // TODO:
-              JSONObject object = new JSONObject();
-               try {
+                JSONObject object = new JSONObject();
+                try {
                     object.put("pp_id", codMeli);
-                   object.put("rcp_no", cod);
-                   object.put("hsp_id", hospitalId);
+                    object.put("rcp_no", cod);
+                    object.put("hsp_id", hospitalId);
                     object.put("id", "0");
                 } catch (JSONException e) {
                     e.printStackTrace();
-               }
-String vLghvUrl="http://nobat.mazums.ac.ir/TurnAppApi/turn/cancelTurnList?pp_id=" +
-        edtLaghv_codMeli.getText().toString()+ "&rcp_no=" + edtLaghv_cod.getText() +"&hsp_id=" + hospitalId ;
+                }
+                String vLghvUrl = "http://nobat.mazums.ac.ir/TurnAppApi/turn/cancelTurnList?pp_id=" +
+                        edtLaghv_codMeli.getText().toString() + "&rcp_no=" + edtLaghv_cod.getText().toString() + "&hsp_id=" + hospitalId;
 
-                new setConnectionVolley(getContext(),vLghvUrl,object).connectStringRequest(new setConnectionVolley.OnResponse() {
-                   @Override
-                   public void OnResponse(String response) {
-                       getData(response);
-                   }
-               });
+                new setConnectionVolley(getContext(), vLghvUrl, object).connectStringRequest(new setConnectionVolley.OnResponse() {
+                    @Override
+                    public void OnResponse(String response) {
+                        getData(response);
+                    }
+                });
 
               /*  String data = "{\"status\":\"yes\",\"message\":\"\",\"data\":{\"id\":\"12334\",\"dr_name\":\"علی کریمی\",\"date_string\":\"1399/03/03\",\"prg_title\":\"کریمی(داخلی)\",\"hsp_title\":\"بیمارستان شهید بهشتی\"}}";
                 getData(data);*/
 
             }
         });
+        btnLaghv_laghv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                // TODO:
+                JSONObject object = new JSONObject();
+             /*   try {
+                    object.put("id", id);
+                    object.put("pp_id", "0");
+//                  object.put("rcp_no", "0");
+//                  object.put("hsp_id", "0");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }*/
+                //  :)))))))))))))))))))))))))))
+                String vLaghvUrl = "http://nobat.mazums.ac.ir/turnappApi/turn/cancelTurn?pp_id="
+                        + edtLaghv_codMeli.getText().toString() +
+                        "&prg_id=" + prg_id +
+                        "&turn_date=" + turn_date +
+                        "&turn_time=" + turn_time +
+                        "&hsp_id=" + hospitalId +
+                        "&q_type=" + q_type +
+                        "&rcp_id=" + edtLaghv_cod.getText().toString();
+
+                new setConnectionVolley(getContext(), vLaghvUrl, object).connectStringRequest(new setConnectionVolley.OnResponse() {
+                    @Override
+                    public void OnResponse(String response) {
+                       try{
+                           JSONObject jsonObject = new JSONObject(response);
+//                           String tatus = jsonObject.getString("status");
+                           String message = jsonObject.getString("message");
+                           new ShowMessage(getContext()).ShowMessType2_NoBtn(message,true,0);
+                       }catch (Exception e){
+                           e.printStackTrace();
+                       }
+                    }
+                });
+
+            }
+        });
 //TODO------ Connection data for dropDowns link1
 
         JSONObject object = new JSONObject();
@@ -139,6 +184,7 @@ String vLghvUrl="http://nobat.mazums.ac.ir/TurnAppApi/turn/cancelTurnList?pp_id=
         });
 
     }
+
     private void setDropDownsData(String res) {
         try {
             JSONObject object = new JSONObject(res);
@@ -150,13 +196,13 @@ String vLghvUrl="http://nobat.mazums.ac.ir/TurnAppApi/turn/cancelTurnList?pp_id=
                 JSONObject objData = new JSONObject(data);
                 JSONArray arrayHospital = objData.getJSONArray("hospital");
 
-                    for (int i = 0; i < arrayHospital.length(); i++) {
-                        JSONObject object1 = arrayHospital.getJSONObject(i);
-                        dataHospitalID.add(object1.getString("id"));
-                        dataHospital.add(object1.getString("title"));
-                    }
-                    txtLaghv_chooseHospital.setText(dataHospital.get(0)+ "");
-                    hospitalId = dataHospitalID.get(0) + "";
+                for (int i = 0; i < arrayHospital.length(); i++) {
+                    JSONObject object1 = arrayHospital.getJSONObject(i);
+                    dataHospitalID.add(object1.getString("id"));
+                    dataHospital.add(object1.getString("title"));
+                }
+                txtLaghv_chooseHospital.setText(dataHospital.get(0) + "");
+                hospitalId = dataHospitalID.get(0) + "";
 
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
@@ -175,9 +221,9 @@ String vLghvUrl="http://nobat.mazums.ac.ir/TurnAppApi/turn/cancelTurnList?pp_id=
             if (status.equals("yes")) {
                 String data = object.getString("data");
                 JSONObject objectData1 = new JSONObject(data);
-              //  JSONObject objectData = objectData1.getJSONObject("othTurnList");
+                //  JSONObject objectData = objectData1.getJSONObject("othTurnList");
                 JSONArray jsonArray = objectData1.getJSONArray("othTurnList");
-                JSONObject objectData =jsonArray.getJSONObject(0);
+                JSONObject objectData = jsonArray.getJSONObject(0);
                 JSONObject objecthspTitle = objectData.getJSONObject("cityhsp");
 
            /*     data:{
@@ -187,13 +233,16 @@ String vLghvUrl="http://nobat.mazums.ac.ir/TurnAppApi/turn/cancelTurnList?pp_id=
                 }]
             }*/
 
+                //  String id = objectData.getString("id");
 
-              //  String id = objectData.getString("id");
                 String drName = objectData.getString("dr_name");
                 String hospitalName = objecthspTitle.getString("hsp_title");
                 String date = objectData.getString("date_string");
                 String nobatName = objectData.getString("prg_title");
-
+                prg_id = objectData.getString("prg_id");
+                turn_date = objectData.getString("turn_date");
+                turn_time = objectData.getString("turn_time");
+                q_type = objectData.getString("q_type");
                 // dast be in tike naza plz. ta line 122. faghat json haro avaz kon
 
                 String temp = nobatName;
@@ -210,30 +259,6 @@ String vLghvUrl="http://nobat.mazums.ac.ir/TurnAppApi/turn/cancelTurnList?pp_id=
                 txtLaghv_date.setText("تاریخ: " + date);
                 txtLaghv_nameNobat.setText("نام نوبت: " + nobatName);
 
-                btnLaghv_laghv.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        // TODO:
-//                JSONObject object = new JSONObject();
-//                try {
-//                    object.put("id", id);
-//                    object.put("pp_id", "0");
-////                  object.put("rcp_no", "0");
-////                  object.put("hsp_id", "0");
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                new setConnectionVolley(getContext(),"link",object).connectStringRequest(new setConnectionVolley.OnResponse() {
-//                    @Override
-//                    public void OnResponse(String response) {
-//                        getData(response);
-//                    }
-//                });
-
-                    }
-                });
 
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
@@ -245,7 +270,7 @@ String vLghvUrl="http://nobat.mazums.ac.ir/TurnAppApi/turn/cancelTurnList?pp_id=
 
     }
 
-    ArrayList  dataHospital = new ArrayList();
+    ArrayList dataHospital = new ArrayList();
     ArrayList dataHospitalID = new ArrayList();
 
     private void alertDialogShow(final String tag) {
@@ -256,13 +281,13 @@ String vLghvUrl="http://nobat.mazums.ac.ir/TurnAppApi/turn/cancelTurnList?pp_id=
         btnFr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-alertDialogFilter.dismiss();
+                alertDialogFilter.dismiss();
             }
         });
 
         ArrayList arrayList = new ArrayList();
         ArrayList arrayListID = new ArrayList();
-if (tag.equals("darmonghah")) {
+        if (tag.equals("darmonghah")) {
             arrayList = new ArrayList(dataHospital);
             arrayListID = new ArrayList(dataHospitalID);
         }
@@ -302,6 +327,7 @@ if (tag.equals("darmonghah")) {
         alertDialogFilter.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
     }
+
     //  SearchView -------------------------------------------------------------
     private SearchView editsearchSearchView;
     private AdRecycPopUp AdRecycPopUp;

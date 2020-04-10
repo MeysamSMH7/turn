@@ -58,7 +58,7 @@
                         android:layout_marginRight="7dp"
                         android:background="@drawable/button_background_blue"
                         android:text="فیلترکردن"
-                        android:textColor="@color/colorWhite"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textStyle="bold" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -239,7 +239,7 @@
                                     android:background="@drawable/button_background_blue"
                                     android:paddingRight="20dp"
                                     android:text="جستجو"
-                                    android:textColor="@color/colorWhite"
+                                    android:textColor="@color/colorPrimaryDark"
                                     android:textStyle="bold" />
 
                             </LinearLayout>
@@ -698,7 +698,7 @@
                 android:layout_weight="0.5"
                 android:background="@drawable/button_background_blue"
                 android:text="جستجو"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
 
             <Button
@@ -710,7 +710,7 @@
                 android:layout_weight="0.5"
                 android:background="@drawable/button_background_blue"
                 android:text="حذف فیلترها"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -753,7 +753,7 @@
                 android:background="@drawable/button_background_blue"
                 android:enabled="false"
                 android:text="ثبت پذیرش"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
                 android:visibility="invisible" />
 
@@ -766,7 +766,7 @@
                 android:layout_weight="0.5"
                 android:background="@drawable/button_background_blue"
                 android:text="مرحله ی قبلی"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
 
         </LinearLayout>
