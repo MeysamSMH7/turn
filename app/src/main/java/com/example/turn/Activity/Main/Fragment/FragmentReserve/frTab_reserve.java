@@ -192,7 +192,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private TextView txtPrint_typeBime;
     private TextView txtPrint_firstLastName;
     private TextView txtPrint_price;
-    private TextView txtPrint_pakhsh;
+    private TextView txtPrint_bakhsh;
     private TextView txtPrint_codNobat;
     private TextView txtPrint_numberNobat;
     private ImageView imgPrint_batcod;
@@ -259,7 +259,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         txtPrint_typeBime = view.findViewById(R.id.txtPrint_typeBime);
         txtPrint_firstLastName = view.findViewById(R.id.txtPrint_firstLastName);
         txtPrint_price = view.findViewById(R.id.txtPrint_price);
-        txtPrint_pakhsh = view.findViewById(R.id.txtPrint_pakhsh);
+        txtPrint_bakhsh = view.findViewById(R.id.txtPrint_bakhsh);
         txtPrint_codNobat = view.findViewById(R.id.txtPrint_codNobat);
         txtPrint_numberNobat = view.findViewById(R.id.txtPrint_numberNobat);
         imgPrint_batcod = view.findViewById(R.id.imgPrint_batcod);
@@ -403,7 +403,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     @Override
                     public void OnResponse(String response) {
 
-                    setDataPrint(response);
+                        setDataPrint(response);
                     }
                 });
 
@@ -538,26 +538,55 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             String status = object.getString("status");
             String message = object.getString("message");
             if (status.equals("yes")) {
-                linearPazireshPage2.setVisibility(View.VISIBLE);
                 String data = object.getString("data");
                 JSONObject objectData = new JSONObject(data);
                 //get  patient
-              /*  data:{
-                    turnSpecification:{prg_id:0,srv_id:0,rcp_id:0,hsp_id:0,date_string:'',rcp_time_str:'',attent_time:'',
-                            shif_title:'',dr_name:'',spc_title:'',srv_title:'',print_img:''// بارکد
-                            ,sec_title:'',rcp_no:''csh_rcp_no:0,is_pay_status:0//پزداخت شده یا نه
-                    },*/
-                JSONObject jsonPrint = objectData.getJSONObject("turnSpecification");
-                firstNameSamane = jsonPrint.getString("date_string") + "";
-                lastNameSamane = jsonPrint.getString("rcp_time_str") + "";
-                lastNameSamane = jsonPrint.getString("dr_name") + "";
-                lastNameSamane = jsonPrint.getString("spc_title") + "";
-                lastNameSamane = jsonPrint.getString("print_img") + "";
-                lastNameSamane = jsonPrint.getString("sec_title") + "";
-                lastNameSamane = jsonPrint.getString("rcp_no") + "";
-                lastNameSamane = jsonPrint.getString("csh_rcp_no") + "";
-                lastNameSamane = jsonPrint.getString("is_pay_status") + "";
 
+                JSONObject jsonHospitalInfo = objectData.getJSONObject("hspInfo");
+                String hospitalName = jsonHospitalInfo.getString("hsp_title") + "";
+                String hospitalAddress = jsonHospitalInfo.getString("hsp_addr") + "";
+                String hospitalTel = jsonHospitalInfo.getString("hsp_tel") + "";
+
+                JSONObject jsonTSF = objectData.getJSONObject("turnSpecification");
+                String date = jsonTSF.getString("date_string") + "";
+                String timeRes = jsonTSF.getString("rcp_time_str") + "";
+                String timeHozor = jsonTSF.getString("prg_time") + "";
+                String shift = jsonTSF.getString("shift_title") + "";
+                String doctorName = jsonTSF.getString("dr_name") + "";
+                String typeRes = jsonTSF.getString("srv_title") + "";
+
+                JSONObject bimeData = jsonTSF.getJSONObject("pInsurance");
+                String bimeTitle = bimeData.getString("ins_title");
+
+
+                JSONObject jsonPatient = objectData.getJSONObject("patient");
+                String nameFamily = jsonPatient.getString("first_name") + " " + jsonPatient.getString("last_name");
+
+                JSONObject jsonPay = objectData.getJSONObject("pay");
+                String price = jsonPay.getString("pat_pay_str") + "";
+
+                String pakhshName = jsonTSF.getString("sec_title") + "";
+                String codNobat = jsonTSF.getString("rcp_no") + "";
+                String numberNobat = jsonTSF.getString("csh_rcp_no") + "";
+//---------------------------------
+                txtPrint_hospitalName.setText(hospitalName);
+                txtPrint_hospitalAddress.setText("آدرس: " + hospitalAddress);
+                txtPrint_hospitalTell.setText("تلفن مرکز: " + hospitalTel);
+
+                txtPrint_date.setText("تاریخ اخذ نوبت: " + date);
+                txtPrint_time.setText("ساعت اخذ نوبت: " + timeRes);
+                txtPrint_hours.setText("ساخت حضور بیمار: " + timeHozor);
+                txtPrint_shit.setText("شیفت: " + shift);
+                txtPrint_doctor.setText("پزشک: " + doctorName);
+                txtPrint_type.setText("نوع خدمت: " + typeRes);
+                txtPrint_typeBime.setText("نوبع بیمه: " + bimeTitle);
+
+                txtPrint_firstLastName.setText("نام و نام خانوادگی بیمار: " + nameFamily);
+                txtPrint_price.setText("مبلع قابل پرداخت: " + price);
+
+                txtPrint_bakhsh.setText("نام بخش: " + pakhshName);
+                txtPrint_codNobat.setText("کد پیگیری: " + codNobat);
+                txtPrint_numberNobat.setText("شماره نوبت: " + numberNobat);
 
 
             } else
@@ -577,7 +606,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             JSONObject object = new JSONObject(res);
             String status = object.getString("status");
             String message = object.getString("message");
-            if (status.equals("yes")) {
+         //   if (status.equals("yes")) {
                 linearPazireshPage2.setVisibility(View.VISIBLE);
                 String data = object.getString("data");
                 JSONObject objectData = new JSONObject(data);
@@ -587,15 +616,17 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 JSONObject jsonPatient = objectData.getJSONObject("patient");
                 firstNameSamane = jsonPatient.getString("first_name") + "";
                 lastNameSamane = jsonPatient.getString("last_name") + "";
-                if (!firstNameSamane.equals("") || !lastNameSamane.equals("")) {
+                if (!firstNameSamane.equals("null") || !lastNameSamane.equals("null")) {
                     cardViewFrPP_org.setVisibility(View.GONE);
                     fatherNameSamane = jsonPatient.getString("father_name") + "";
+                    if (fatherNameSamane.equals("null")) fatherNameSamane = "";
                     cityIdSamane = jsonPatient.getString("city_id");
                     //               cityTitleSamane = jsonPatient.getString("city_title");
                     sexSamane = jsonPatient.getString("is_sex"); // zero = man | one = woman
                     addressSamane = jsonPatient.getString("home_adr");
                     phoneNumSamane = jsonPatient.getString("home_mbl");
                     bimeIdSamane = jsonPatient.getString("ins_id");
+                    if (bimeIdSamane.equals("null")) bimeIdSamane = "1";
                     bimeTitleSamane = jsonPatient.getString("ins_title");
 
                     edtFrPP_name.setText(firstNameSamane + "");
@@ -625,6 +656,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         arrayListOrgID.add(temp.getString("id"));
                     }
                     edtFrPP_name.setEnabled(true);
+                    edtFrPP_family.setEnabled(true);
 
                 }
 
@@ -652,9 +684,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     arrayListOstanID.add(temp.getString("id"));
                 }
 
-            } else
+            //} else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
 
 
         } catch (Exception e) {

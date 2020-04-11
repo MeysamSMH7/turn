@@ -201,10 +201,6 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                     arrayListEstelam.add(modEstelam);
                 }
 
-
-
-
-
                 AdRecycEstelam adRecycEstelam = new AdRecycEstelam(getContext(), arrayListEstelam, new onClickInterface() {
                     @Override
                     public void setClick(int position, boolean canUse, View view) {
