@@ -59,10 +59,10 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             holder.txtRcycRT_date.setText("تاریخ: " + data.get(position).prg_date);
 //              holder.txtRcycRT_num.setText("اینترنتی: " + data.get(position).web_turn);
 
-            if (data.get(position).web_turn.equals("0"))
-                holder.btnRcycRT_status.setBackground(context.getResources().getDrawable(R.drawable.button_background_red));
-            else
-                holder.btnRcycRT_status.setBackground(context.getResources().getDrawable(R.drawable.button_background_green));
+    //        if (data.get(position).web_turn.equals("0"))
+   //             holder.btnRcycRT_status.setBackground(context.getResources().getDrawable(R.drawable.button_background_red));
+   //         else
+   //             holder.btnRcycRT_status.setBackground(context.getResources().getDrawable(R.drawable.button_background_green));
             holder.btnRcycRT_status.setText("" + data.get(position).status_type);
 
 

@@ -17,12 +17,10 @@
         android:layout_height="match_parent"
         android:paddingLeft="7dp"
         android:paddingRight="7dp">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,19 +139,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/btnLaghv_laghv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:layout_weight="0.5"
-                android:background="@drawable/button_background_red"
-                android:padding="3dp"
-                android:text="لغو نوبت"
-                android:textColor="@color/colorWhite"
-                android:textStyle="bold" />
-
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewLaghv"
                 android:layout_width="match_parent"
@@ -162,12 +147,14 @@
                 app:cardCornerRadius="7dp">
 
                 <LinearLayout
+                    android:id="@+id/linearMain"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="90dp"
+                        android:layout_weight="0.7"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
@@ -175,11 +162,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_doctor" />
+
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_weight="0.3"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <TextView
@@ -192,17 +181,6 @@
                             android:textColor="@color/colorAccent"
                             android:textSize="16dp"
                             android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/txtLaghv_takhasos"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:paddingRight="7dp"
-                            android:text="تخصص"
-                            android:visibility="gone"
-                            android:textColor="@color/colorAccent" />
-
                         <TextView
                             android:id="@+id/txtLaghv_hospital"
                             android:layout_width="match_parent"
@@ -222,21 +200,40 @@
                             android:text="نام نوبت"
                             android:textColor="@color/colorAccent" />
 
+                        <TextView
+                            android:id="@+id/txtLaghv_takhasos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:paddingRight="7dp"
+                            android:text="تخصص"
+                            android:textColor="@color/colorAccent" />
+
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/txtLaghv_date"
-                                android:layout_width="match_parent"
+                                android:id="@+id/txtLaghv_date"                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="0.5"
+                                android:layout_weight="0.7"
                                 android:gravity="right"
                                 android:paddingRight="7dp"
                                 android:text="تاریخ"
                                 android:textColor="@color/colorAccent" />
-
+                            <Button
+                                android:id="@+id/btnLaghv_laghv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="7dp"
+                                android:layout_weight="0.3"
+                                android:background="@drawable/button_background_blue"
+                                android:padding="3dp"
+                                android:text=" لغو نوبت"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -245,6 +242,8 @@
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
+
 
         </LinearLayout>
 

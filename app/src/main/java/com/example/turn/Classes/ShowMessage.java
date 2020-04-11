@@ -257,17 +257,6 @@ public class ShowMessage {
 
                             }
                         });
-            } else {
-
-                prettyDialog.setIcon(
-                        R.drawable.pdlg_icon_info,
-                        R.color.pdlg_color_red,
-                        new PrettyDialogCallback() {
-                            @Override
-                            public void onClick() {
-
-                            }
-                        });
             }
 
 
