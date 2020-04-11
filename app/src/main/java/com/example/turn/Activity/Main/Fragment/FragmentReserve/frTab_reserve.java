@@ -560,7 +560,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
 
 
-
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
                 Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
