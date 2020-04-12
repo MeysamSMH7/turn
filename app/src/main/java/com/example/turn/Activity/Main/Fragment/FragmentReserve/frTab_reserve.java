@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,6 +103,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private Button btnRT_filter;
     private SwipeRefreshLayout refreshRT;
 
+    AdRecycResTimes adapterResTimes ;
     private ArrayList<ModResTime> arrayListResTimes;
 
     private ImageView btnRT_previous;
@@ -263,7 +265,26 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         btnPrint_pay = view.findViewById(R.id.btnPrint_pay);
         btnPrint_pay.setVisibility(View.VISIBLE);
         btnPrint_dismis = view.findViewById(R.id.btnPrint_dismis);
-        btnPrint_dismis.setVisibility(View.GONE);
+        btnPrint_dismis.setVisibility(View.VISIBLE);
+
+        btnPrint_dismis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//--------- back to main page
+                linearSelectFilters.setVisibility(View.VISIBLE);
+                linearSelectFiltersBtn.setVisibility(View.VISIBLE);
+                linearResTimes.setVisibility(View.GONE);
+                linearResTimesBtn.setVisibility(View.GONE);
+                linearPazireshPage.setVisibility(View.GONE);
+                linearPazireshPageBtn.setVisibility(View.GONE);
+                linearPazireshPage2.setVisibility(View.GONE);
+                linearLinears.setVisibility(View.VISIBLE);
+                linearBtns.setVisibility(View.VISIBLE);
+                linearPrint.setVisibility(View.GONE);
+
+            }
+        });
 
         btnPrint_pay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -511,7 +532,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
         MaskFormatter maskFormatter = new MaskFormatter("999 999 9999", edtFrPP_phone);
         edtFrPP_phone.setInputType(InputType.TYPE_CLASS_NUMBER);
-        edtFrPP_phone.setHint("999 999 99999");
+        edtFrPP_phone.setHint("911 345 6789");
         edtFrPP_phone.addTextChangedListener(maskFormatter);
 
         btnPP_previous = view.findViewById(R.id.btnPP_previous);
@@ -869,6 +890,74 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             }
         });
 
+        onClickInterface onclickInterface = new onClickInterface() {
+            @Override
+            public void setClick(final int position, boolean canUse, View view) {
+                if (canUse) {
+//// alert tavafoghname
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.tavafoghname, null, false);
+                    Button btnTavafogh_no = layout.findViewById(R.id.btnTavafogh_no);
+                    final Button btnTavafogh_ok = layout.findViewById(R.id.btnTavafogh_ok);
+                    btnTavafogh_no.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialogTavafoghName.dismiss();
+                        }
+                    });
+                    btnTavafogh_ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            linearPazireshPage2.setVisibility(View.GONE);
+                            btnPP_paziresh.setVisibility(View.INVISIBLE);
+                            alertDialogLoding.show();
+                            positionItemRecycleView = position;
+                            nextPage(linearResTimes, linearResTimesBtn, linearPazireshPage, linearPazireshPageBtn);
+                            alertDialogTavafoghName.dismiss();
+                            dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
+                            //2_242_4781779718_45367_291_13990120
+                            //dr_prg_hsp_mdc_spc_date
+                            String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
+                            JSONObject jsonObject = new JSONObject();
+                            hospiralId = temp[2];
+
+                            try {
+                                jsonObject.put("dr_id", temp[0] + "");
+                                jsonObject.put("prg_id", temp[1] + "");
+                                jsonObject.put("hsp_id", temp[2] + "");
+                                jsonObject.put("mdc_id", temp[3] + "");
+                                jsonObject.put("spc_id", temp[4] + "");
+                                jsonObject.put("prg_date", temp[5] + "");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+// TODO: link check
+                            // set data in pazireshPage
+                            alertDialogLoding.show();
+                            String link = "http://nobat.mazums.ac.ir/TurnAppApi/turn/TurnSpecification?dr_id=" + temp[0] + "" + "&prg_id=" + temp[1] + "" + "&hsp_id=" + temp[2] + "" + "&mdc_id=" + temp[3] + "" + "&spc_id=" + temp[4] + "&turn_date=" + temp[5] + "";
+                            new setConnectionVolley(getContext(), link, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
+                                @Override
+                                public void OnResponse(String response) {
+                                    alertDialogLoding.dismiss();
+                                    setDataInPazireshPage(response);
+                                }
+                            });
+
+                        }
+                    });
+
+                    builder.setView(layout);
+                    alertDialogTavafoghName = builder.create();
+                    alertDialogTavafoghName.show();
+//----- end of alert
+                } else
+                    Toast.makeText(getContext(), "این نوبت به پایین رسیده است.", Toast.LENGTH_SHORT).show();
+            }
+        };
+        adapterResTimes = new AdRecycResTimes(getContext(), arrayListResTimes, onclickInterface);
+        rcycRT.setAdapter(adapterResTimes);
+
     }
 
     private void setRecycViewData(String res) {
@@ -896,74 +985,16 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     arrayListResTimes.add(time);
                 }
 
-                onClickInterface onclickInterface = new onClickInterface() {
-                    @Override
-                    public void setClick(final int position, boolean canUse, View view) {
-                        if (canUse) {
-//// alert tavafoghname
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                            LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.tavafoghname, null, false);
-                            Button btnTavafogh_no = layout.findViewById(R.id.btnTavafogh_no);
-                            final Button btnTavafogh_ok = layout.findViewById(R.id.btnTavafogh_ok);
-                            btnTavafogh_no.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    alertDialogTavafoghName.dismiss();
-                                }
-                            });
-                            btnTavafogh_ok.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
+                Log.i("asdfasdf" , arrayData.length() + "");
 
-                                    linearPazireshPage2.setVisibility(View.GONE);
-                                    btnPP_paziresh.setVisibility(View.INVISIBLE);
-                                    alertDialogLoding.show();
-                                    positionItemRecycleView = position;
-                                    nextPage(linearResTimes, linearResTimesBtn, linearPazireshPage, linearPazireshPageBtn);
-                                    alertDialogTavafoghName.dismiss();
-                                    dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
+                if (arrayData.length() !=0 && pageNumber == 1)
+                    Toast.makeText(getContext(), "اطلاعاتی وجود ندارد", Toast.LENGTH_SHORT).show();
 
-                                    //2_242_4781779718_45367_291_13990120
-                                    //dr_prg_hsp_mdc_spc_date
-                                    String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
-                                    JSONObject jsonObject = new JSONObject();
+                if(arrayData.length() !=10)
+                    Toast.makeText(getContext(), "اطلاعات بیشتری وجود ندارد", Toast.LENGTH_SHORT).show();
 
-                                    try {
-                                        jsonObject.put("dr_id", temp[0] + "");
-                                        jsonObject.put("prg_id", temp[1] + "");
-                                        jsonObject.put("hsp_id", temp[2] + "");
-                                        jsonObject.put("mdc_id", temp[3] + "");
-                                        jsonObject.put("spc_id", temp[4] + "");
-                                        jsonObject.put("prg_date", temp[5] + "");
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-// TODO: link check
-                                    // set data in pazireshPage
-                                    alertDialogLoding.show();
-                                    String link = "http://nobat.mazums.ac.ir/TurnAppApi/turn/TurnSpecification?dr_id=" + temp[0] + "" + "&prg_id=" + temp[1] + "" + "&hsp_id=" + temp[2] + "" + "&mdc_id=" + temp[3] + "" + "&spc_id=" + temp[4] + "&turn_date=" + temp[5] + "";
-                                    new setConnectionVolley(getContext(), link, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
-                                        @Override
-                                        public void OnResponse(String response) {
-                                            alertDialogLoding.dismiss();
-                                            setDataInPazireshPage(response);
-                                        }
-                                    });
+                adapterResTimes.notifyDataSetChanged();
 
-                                }
-                            });
-
-                            builder.setView(layout);
-                            alertDialogTavafoghName = builder.create();
-                            alertDialogTavafoghName.show();
-//----- end of alert
-                        } else
-                            Toast.makeText(getContext(), "این نوبت به پایین رسیده است.", Toast.LENGTH_SHORT).show();
-
-                    }
-                };
-                AdRecycResTimes adapterResTimes = new AdRecycResTimes(getContext(), arrayListResTimes, onclickInterface);
-                rcycRT.setAdapter(adapterResTimes);
 
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
