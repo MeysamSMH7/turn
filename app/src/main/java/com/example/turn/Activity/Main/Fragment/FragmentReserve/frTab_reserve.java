@@ -211,6 +211,10 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_tab_reserve, container, false);
 
+        linearLinears = view.findViewById(R.id.linearLinears);
+        linearBtns = view.findViewById(R.id.linearBtns);
+        linearPrint = view.findViewById(R.id.linearPrint);
+
         loading();
 
         selectFilters(view);
@@ -227,10 +231,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         linearPazireshPage.setVisibility(View.GONE);
         linearPazireshPageBtn.setVisibility(View.GONE);
         linearPazireshPage2.setVisibility(View.GONE);
-
-        linearLinears = view.findViewById(R.id.linearLinears);
-        linearBtns = view.findViewById(R.id.linearBtns);
-        linearPrint = view.findViewById(R.id.linearPrint);
 
 //----------------------------------------------------------------------------
         linearLinears.setVisibility(View.VISIBLE);
@@ -279,9 +279,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 linearPazireshPage.setVisibility(View.GONE);
                 linearPazireshPageBtn.setVisibility(View.GONE);
                 linearPazireshPage2.setVisibility(View.GONE);
-                linearLinears = view.findViewById(R.id.linearLinears);
-                linearBtns = view.findViewById(R.id.linearBtns);
-                linearPrint = view.findViewById(R.id.linearPrint);
                 linearLinears.setVisibility(View.VISIBLE);
                 linearBtns.setVisibility(View.VISIBLE);
                 linearPrint.setVisibility(View.GONE);
