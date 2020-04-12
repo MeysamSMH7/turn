@@ -221,13 +221,12 @@ public class ShowMessage {
 
     }
 
-    public void ShowMessType2_NoBtn(String textBody, boolean btn, int status) {
+    public void ShowMessType2_NoBtn(String textBody, boolean btn, int setIcon) {
         try {
 
             final PrettyDialog prettyDialog = new PrettyDialog(context);
 
-            if (status == 1) {
-
+            if (setIcon == 1) {
                 prettyDialog.setIcon(
                         R.drawable.icon_ok_green,
                         null,
@@ -237,7 +236,7 @@ public class ShowMessage {
 
                             }
                         });
-            } else if (status == 2) {
+            } else if (setIcon == 2) {
                 prettyDialog.setIcon(
                         R.drawable.icon_warning,
                         null,
@@ -247,7 +246,7 @@ public class ShowMessage {
 
                             }
                         });
-            } else if (status == 3) {
+            } else if (setIcon == 3) {
                 prettyDialog.setIcon(
                         R.drawable.icon_error_red,
                         null,
@@ -259,12 +258,11 @@ public class ShowMessage {
                         });
             }
 
-
             if (btn)
                 prettyDialog.addButton(
                         "خُب!",
                         R.color.pdlg_color_white,
-                        R.color.pdlg_color_red,
+                        R.color.colorBlue,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {

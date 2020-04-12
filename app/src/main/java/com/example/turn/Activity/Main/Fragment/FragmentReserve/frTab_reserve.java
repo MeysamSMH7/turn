@@ -37,6 +37,7 @@ import com.example.turn.Activity.Main.Adapter.onClickInterface;
 import com.example.turn.Activity.Main.Fragment.FragmentReserve.Adapter.AdRecycResTimes;
 import com.example.turn.Activity.Main.Fragment.FragmentReserve.Model.ModResTime;
 import com.example.turn.Activity.Main.Model.ModAlerts;
+import com.example.turn.Classes.ShowMessage;
 import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
 
@@ -103,7 +104,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private Button btnRT_filter;
     private SwipeRefreshLayout refreshRT;
 
-    AdRecycResTimes adapterResTimes ;
+    private AdRecycResTimes adapterResTimes;
     private ArrayList<ModResTime> arrayListResTimes;
 
     private ImageView btnRT_previous;
@@ -200,6 +201,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     //------------------------------------
     private AlertDialog alertDialogLoding;
 
+
     public static frTab_reserve newInstance() {
 
         Bundle args = new Bundle();
@@ -212,6 +214,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_tab_reserve, container, false);
+
 
         linearLinears = view.findViewById(R.id.linearLinears);
         linearBtns = view.findViewById(R.id.linearBtns);
@@ -271,14 +274,14 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             @Override
             public void onClick(View view) {
 
-//--------- back to main page
-                linearSelectFilters.setVisibility(View.VISIBLE);
-                linearSelectFiltersBtn.setVisibility(View.VISIBLE);
+//--------- back to previous
+                linearSelectFilters.setVisibility(View.GONE);
+                linearSelectFiltersBtn.setVisibility(View.GONE);
                 linearResTimes.setVisibility(View.GONE);
                 linearResTimesBtn.setVisibility(View.GONE);
-                linearPazireshPage.setVisibility(View.GONE);
-                linearPazireshPageBtn.setVisibility(View.GONE);
-                linearPazireshPage2.setVisibility(View.GONE);
+                linearPazireshPage.setVisibility(View.VISIBLE);
+                linearPazireshPageBtn.setVisibility(View.VISIBLE);
+                linearPazireshPage2.setVisibility(View.VISIBLE);
                 linearLinears.setVisibility(View.VISIBLE);
                 linearBtns.setVisibility(View.VISIBLE);
                 linearPrint.setVisibility(View.GONE);
@@ -289,9 +292,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         btnPrint_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String link = "http://nobat.mazums.ac.ir/Pay/Apprdr/?r="+rcp_id+"&h="+hospiralId;
-                startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(link)));
-
+                String link = "http://nobat.mazums.ac.ir/Pay/Apprdr/?r=" + rcp_id + "&h=" + hospiralId;
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
+                setAllDataToDefault();
 //--------- back to main page
                 linearSelectFilters.setVisibility(View.VISIBLE);
                 linearSelectFiltersBtn.setVisibility(View.VISIBLE);
@@ -594,7 +597,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 String shift = jsonTSF.getString("shift_title") + "";
                 String doctorName = jsonTSF.getString("dr_name") + "";
                 String typeRes = jsonTSF.getString("srv_title") + "";
-                 rcp_id = jsonTSF.getString("rcp_id") + "";
+                rcp_id = jsonTSF.getString("rcp_id") + "";
 
                 JSONObject bimeData = jsonTSF.getJSONObject("pInsurance");
                 String bimeTitle = bimeData.getString("ins_title");
@@ -630,9 +633,32 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 txtPrint_numberNobat.setText("شماره نوبت: " + numberNobat);
 
 
-            } else
-//                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+            } else if (message.equals("Error creating window handle.")) {
+//--------- back to previous
+                linearSelectFilters.setVisibility(View.GONE);
+                linearSelectFiltersBtn.setVisibility(View.GONE);
+                linearResTimes.setVisibility(View.GONE);
+                linearResTimesBtn.setVisibility(View.GONE);
+                linearPazireshPage.setVisibility(View.VISIBLE);
+                linearPazireshPageBtn.setVisibility(View.VISIBLE);
+                linearPazireshPage2.setVisibility(View.VISIBLE);
+                linearLinears.setVisibility(View.VISIBLE);
+                linearBtns.setVisibility(View.VISIBLE);
+                linearPrint.setVisibility(View.GONE);
+            } else {
+//--------- back to previous
+                linearSelectFilters.setVisibility(View.GONE);
+                linearSelectFiltersBtn.setVisibility(View.GONE);
+                linearResTimes.setVisibility(View.GONE);
+                linearResTimesBtn.setVisibility(View.GONE);
+                linearPazireshPage.setVisibility(View.VISIBLE);
+                linearPazireshPageBtn.setVisibility(View.VISIBLE);
+                linearPazireshPage2.setVisibility(View.VISIBLE);
+                linearLinears.setVisibility(View.VISIBLE);
+                linearBtns.setVisibility(View.VISIBLE);
+                linearPrint.setVisibility(View.GONE);
+                new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
+            }
 
 
         } catch (Exception e) {
@@ -727,7 +753,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
             //} else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-            //   Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+            //   new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
 
 
         } catch (Exception e) {
@@ -985,12 +1011,12 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     arrayListResTimes.add(time);
                 }
 
-                Log.i("asdfasdf" , arrayData.length() + "");
+                Log.i("asdfasdf", arrayData.length() + "");
 
-                if (arrayData.length() !=0 && pageNumber == 1)
+                if (arrayData.length() != 0 && pageNumber == 1)
                     Toast.makeText(getContext(), "اطلاعاتی وجود ندارد", Toast.LENGTH_SHORT).show();
 
-                if(arrayData.length() !=10)
+                if (arrayData.length() != 10)
                     Toast.makeText(getContext(), "اطلاعات بیشتری وجود ندارد", Toast.LENGTH_SHORT).show();
 
                 adapterResTimes.notifyDataSetChanged();
@@ -998,7 +1024,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+                new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1057,7 +1083,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+                new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1306,7 +1332,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 }
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+                new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1604,7 +1630,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 }
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+                new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1710,6 +1736,27 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             }
         }, 300);
 
+    }
+
+    private void setAllDataToDefault() {
+
+        dr_prg_hsp_mdc_spc_date_id = "";
+        positionItemRecycleView = -1;
+
+        isScrollingFP = false;
+        currentItemFP = 0;
+        totalItemsFP = 0;
+        scrollOutItemsFP = 0;
+        boolCheckNetFP = false;
+        pageNumber = -1;
+
+        cityId = "";
+        takhasosId = "";
+        hospiralId = "";
+        timeId = "";
+        doctorId = "";
+
+        defaultDataDropDown();
     }
 
 }

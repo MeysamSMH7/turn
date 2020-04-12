@@ -2,6 +2,7 @@ package com.example.turn.Activity.Main.Fragment.FragmentLaghv;
 
 
 import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,6 +53,11 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
     private String turn_time;
     private String q_type;
 
+    private ArrayList dataHospital = new ArrayList();
+    private ArrayList dataHospitalID = new ArrayList();
+
+    private AlertDialog alertDialogLoding;
+    private boolean laghvDone = false;
 
     public static frTab_laghv newInstance() {
 
@@ -66,6 +72,7 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_tab_laghv, container, false);
 // cods here
+        loading();
         findViews(view);
 
         return view;
@@ -108,13 +115,15 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
                 String vLghvUrl = "http://nobat.mazums.ac.ir/TurnAppApi/turn/cancelTurnList?pp_id=" +
                         edtLaghv_codMeli.getText().toString() + "&rcp_no=" + edtLaghv_cod.getText().toString() + "&hsp_id=" + hospitalId;
-
+                alertDialogLoding.show();
                 new setConnectionVolley(getContext(), vLghvUrl, object).connectStringRequest(new setConnectionVolley.OnResponse() {
                     @Override
                     public void OnResponse(String response) {
-                        getData(response);
+                        alertDialogLoding.dismiss();
+                        getDataForLagv(response);
                     }
                 });
 
@@ -123,46 +132,56 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
 
             }
         });
+
+
         btnLaghv_laghv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                // TODO:
-                JSONObject object = new JSONObject();
-             /*   try {
-                    object.put("id", id);
-                    object.put("pp_id", "0");
-//                  object.put("rcp_no", "0");
-//                  object.put("hsp_id", "0");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }*/
-                //  :)))))))))))))))))))))))))))
-                String vLaghvUrl = "http://nobat.mazums.ac.ir/turnappApi/turn/cancelTurn?pp_id="
-                        + edtLaghv_codMeli.getText().toString() +
-                        "&prg_id=" + prg_id +
-                        "&turn_date=" + turn_date +
-                        "&turn_time=" + turn_time +
-                        "&hsp_id=" + hospitalId +
-                        "&q_type=" + q_type +
-                        "&rcp_id=" + edtLaghv_cod.getText().toString();
-
-                new setConnectionVolley(getContext(), vLaghvUrl, object).connectStringRequest(new setConnectionVolley.OnResponse() {
-                    @Override
-                    public void OnResponse(String response) {
-                       try{
-                           JSONObject jsonObject = new JSONObject(response);
-//                           String tatus = jsonObject.getString("status");
-                           String message = jsonObject.getString("message");
-                           new ShowMessage(getContext()).ShowMessType2_NoBtn(message,true,0);
-                       }catch (Exception e){
-                           e.printStackTrace();
-                       }
+                if (!laghvDone) {
+                    // TODO:
+                    JSONObject object = new JSONObject();
+                    try {
+                        object.put("pp_id", "0");
+                        object.put("rcp_no", "0");
+                        object.put("hsp_id", "0");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                });
+                    String vLaghvUrl = "http://nobat.mazums.ac.ir/turnappApi/turn/cancelTurn?pp_id="
+                            + edtLaghv_codMeli.getText().toString() +
+                            "&prg_id=" + prg_id +
+                            "&turn_date=" + turn_date +
+                            "&turn_time=" + turn_time +
+                            "&hsp_id=" + hospitalId +
+                            "&q_type=" + q_type +
+                            "&rcp_id=" + edtLaghv_cod.getText().toString();
+                    alertDialogLoding.show();
 
+                    new setConnectionVolley(getContext(), vLaghvUrl, object).connectStringRequest(new setConnectionVolley.OnResponse() {
+                        @Override
+                        public void OnResponse(String response) {
+                            try {
+                                alertDialogLoding.dismiss();
+                                new ShowMessage(getContext()).ShowMessType2_NoBtn("درخواست شما با موفقیت لغو شد", true, 2);
+                                laghvDone = true;
+                                btnLaghv_laghv.setText("لغو شده");
+
+                                SharedPreferences preferences = getContext().getSharedPreferences("TuRn", 0);
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean("laghV", true);
+                                editor.apply();
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } else {
+                    Toast.makeText(getContext(), "قابلیت لغو نداره", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
 //TODO------ Connection data for dropDowns link1
 
         JSONObject object = new JSONObject();
@@ -175,10 +194,12 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
             e.printStackTrace();
         }
 
+        alertDialogLoding.show();
         new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/turnappApi/turn/getHosptals", object
         ).connectStringRequest(new setConnectionVolley.OnResponse() {
             @Override
             public void OnResponse(String response) {
+                alertDialogLoding.dismiss();
                 setDropDownsData(response);
             }
         });
@@ -205,26 +226,26 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                 hospitalId = dataHospitalID.get(0) + "";
 
             } else
-//                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+                new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    private void getData(String res) {
+    private void getDataForLagv(String res) {
         try {
             JSONObject object = new JSONObject(res);
             String status = object.getString("status");
             String message = object.getString("message");
-            if (status.equals("yes")) {
-                String data = object.getString("data");
-                JSONObject objectData1 = new JSONObject(data);
-                //  JSONObject objectData = objectData1.getJSONObject("othTurnList");
-                JSONArray jsonArray = objectData1.getJSONArray("othTurnList");
-                JSONObject objectData = jsonArray.getJSONObject(0);
-                JSONObject objecthspTitle = objectData.getJSONObject("cityhsp");
+            if (message.equals("")) {
+                if (status.equals("yes")) {
+                    String data = object.getString("data");
+                    JSONObject objectData1 = new JSONObject(data);
+                    //  JSONObject objectData = objectData1.getJSONObject("othTurnList");
+                    JSONArray jsonArray = objectData1.getJSONArray("othTurnList");
+                    JSONObject objectData = jsonArray.getJSONObject(0);
+                    JSONObject objecthspTitle = objectData.getJSONObject("cityhsp");
 
            /*     data:{
                     othturnList:[{
@@ -233,45 +254,43 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                 }]
             }*/
 
-                //  String id = objectData.getString("id");
+                    //  String id = objectData.getString("id");
 
-                String drName = objectData.getString("dr_name");
-                String hospitalName = objecthspTitle.getString("hsp_title");
-                String date = objectData.getString("date_string");
-                String nobatName = objectData.getString("prg_title");
-                prg_id = objectData.getString("prg_id");
-                turn_date = objectData.getString("turn_date");
-                turn_time = objectData.getString("turn_time");
-                q_type = objectData.getString("q_type");
-                // dast be in tike naza plz. ta line 122. faghat json haro avaz kon
+                    String drName = objectData.getString("dr_name");
+                    String hospitalName = objecthspTitle.getString("hsp_title");
+                    String date = objectData.getString("date_string");
+                    String nobatName = objectData.getString("prg_title");
+                    prg_id = objectData.getString("prg_id");
+                    turn_date = objectData.getString("turn_date");
+                    turn_time = objectData.getString("turn_time");
+                    q_type = objectData.getString("q_type");
+                    // dast be in tike naza plz. ta line 122. faghat json haro avaz kon
 
-                String temp = nobatName;
-                temp = temp.replace(")", "");
-                String[] tempAr = temp.split("\\(");
-                String takhasos = tempAr[1];
+                    String temp = nobatName;
+                    temp = temp.replace(")", "");
+                    String[] tempAr = temp.split("\\(");
+                    String takhasos = tempAr[1];
 
-                cardViewLaghv.setVisibility(View.VISIBLE);
+                    cardViewLaghv.setVisibility(View.VISIBLE);
 
-                hospitalName = hospitalName.replace("بیمارستان", "");
-                txtLaghv_hospital.setText("بیمارستان " + hospitalName);
-                txtLaghv_drName.setText("دکتر " + drName);
-                txtLaghv_takhasos.setText("تخصص: " + takhasos);
-                txtLaghv_date.setText("تاریخ: " + date);
-                txtLaghv_nameNobat.setText("نام نوبت: " + nobatName);
+                    hospitalName = hospitalName.replace("بیمارستان", "");
+                    txtLaghv_hospital.setText("بیمارستان " + hospitalName);
+                    txtLaghv_drName.setText("دکتر " + drName);
+                    txtLaghv_takhasos.setText("تخصص: " + takhasos);
+                    txtLaghv_date.setText("تاریخ: " + date);
+                    txtLaghv_nameNobat.setText("نام نوبت: " + nobatName);
+                    laghvDone = false;
 
-
+                } else
+                    new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
             } else
-//                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+                new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
-    ArrayList dataHospital = new ArrayList();
-    ArrayList dataHospitalID = new ArrayList();
 
     private void alertDialogShow(final String tag) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -325,6 +344,17 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
         alertDialogFilter = builder.create();
         alertDialogFilter.show();
         alertDialogFilter.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+    }
+
+    private void loading() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setCancelable(false);
+        LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.loading, null, false);
+
+        builder.setView(layout);
+        alertDialogLoding = builder.create();
+        alertDialogLoding.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
     }
 

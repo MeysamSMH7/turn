@@ -233,35 +233,37 @@
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/btnPrint_dismis"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/button_background_blue"
-                    android:paddingRight="20dp"
-                    android:text="بازگشت"
-                    android:visibility="gone"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btnPrint_pay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/button_background_blue"
-                    android:paddingRight="20dp"
-                    android:text="پرداخت"
-                    android:visibility="gone"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                  <Button
+                      android:id="@+id/btnPrint_dismis"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center_horizontal"
+                      android:layout_marginRight="3dp"
+                      android:layout_weight="0.5"
+                      android:background="@drawable/button_background_blue"
+                      android:text="بازگشت"
+                      android:textColor="@color/colorPrimaryDark"
+                      android:textStyle="bold" />
+
+                  <Button
+                      android:id="@+id/btnPrint_pay"
+                      android:layout_width="match_parent"
+                      android:layout_marginLeft="3dp"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center_horizontal"
+                      android:layout_weight="0.5"
+                      android:background="@drawable/button_background_blue"
+                      android:text="پرداخت"
+                      android:textColor="@color/colorPrimaryDark"
+                      android:textStyle="bold" />
+
+
+              </LinearLayout>
 
             </LinearLayout>
 

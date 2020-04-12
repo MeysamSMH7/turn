@@ -13,16 +13,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.Wellcome.Activity_Welcome_Turn"></activity>
+        <activity android:name=".tempActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="com.example.turn.tempActivity" />-->
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--                <category android:name="android.intent.category.BROWSABLE" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".Activity.Wellcome.Activity_Welcome_Turn" />
         <activity android:name=".Activity.Splash.Activity_Splash_Turn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Activity.Main.Activity_Main_Turn" />
+
+
     </application>
 
 </manifest>

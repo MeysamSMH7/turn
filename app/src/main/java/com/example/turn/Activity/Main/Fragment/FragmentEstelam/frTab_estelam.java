@@ -2,7 +2,9 @@ package com.example.turn.Activity.Main.Fragment.FragmentEstelam;
 
 
 import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ import com.example.turn.Activity.Main.Fragment.FragmentEstelam.Adapter.AdRecycEs
 import com.example.turn.Activity.Main.Adapter.onClickInterface;
 import com.example.turn.Activity.Main.Model.ModAlerts;
 import com.example.turn.Activity.Main.Fragment.FragmentEstelam.Model.ModEstelam;
+import com.example.turn.Classes.ShowMessage;
 import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
 
@@ -59,7 +62,6 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
         return fragment;
     }
 
-
     private TextView txtPrint_date;
     private TextView txtPrint_time;
     private TextView txtPrint_hours;
@@ -85,15 +87,18 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
     private NestedScrollView nestedMain;
     private LinearLayout linearPrint;
 
+    private boolean estelamDone = false;
+    private SharedPreferences preferences;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_tab_estelam, container, false);
 // cods here
+        loading();
         findViews(view);
         print(view);
-        loading();
 
         nestedMain.setVisibility(View.VISIBLE);
         linearPrint.setVisibility(View.GONE);
@@ -102,6 +107,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
     }
 
     private void findViews(View view) {
+        preferences = getContext().getSharedPreferences("TuRn", 0);
 
         nestedMain = view.findViewById(R.id.nestedMain);
         edtEstelam_codMeli = view.findViewById(R.id.edtEstelam_codMeli);
@@ -120,7 +126,6 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
             }
         });
 
-
         JSONObject object = new JSONObject();
         try {
             //     object.put("hospital", "-1");
@@ -130,11 +135,12 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        alertDialogLoding.show();
         new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/turnappApi/turn/getHosptals", object
         ).connectStringRequest(new setConnectionVolley.OnResponse() {
             @Override
             public void OnResponse(String response) {
+                alertDialogLoding.dismiss();
                 setDropDownsData(response);
             }
         });
@@ -144,32 +150,64 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
         btnEstelam_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (arrayListEstelam.size() != 0)
-                    arrayListEstelam.clear();
-//                TODO: send cod meli and id hospital to link
-                String cod = edtEstelam_codMeli.getText().toString();
-                JSONObject obj = new JSONObject();
-                try {
-                    obj.put("pp_id", cod);
-                    obj.put("hsp_id", hospiralId);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String vEstelamUrl = "http://nobat.mazums.ac.ir/turnappApi/turn/turnlist?pPpId="
-                        + edtEstelam_codMeli.getText().toString() + "&pHspId=" + hospitalId;
-                new setConnectionVolley(getContext(), vEstelamUrl, obj).connectStringRequest(new setConnectionVolley.OnResponse() {
-                    @Override
-                    public void OnResponse(String response) {
-                        getData(response);
-                    }
-                });
 
-            /*    String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":[{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"},{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"},{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"},{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"}]}";
-                getData(res);*/
+                doSearch();
+
 
 
             }
         });
+    }
+
+    private void doSearch() {
+        if (arrayListEstelam.size() != 0)
+            arrayListEstelam.clear();
+//                TODO: send cod meli and id hospital to link
+        String cod = edtEstelam_codMeli.getText().toString();
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("pp_id", cod);
+            obj.put("hsp_id", hospiralId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String vEstelamUrl = "http://nobat.mazums.ac.ir/turnappApi/turn/turnlist?pPpId="
+                + edtEstelam_codMeli.getText().toString() + "&pHspId=" + hospitalId;
+        alertDialogLoding.show();
+        new setConnectionVolley(getContext(), vEstelamUrl, obj).connectStringRequest(new setConnectionVolley.OnResponse() {
+            @Override
+            public void OnResponse(String response) {
+                alertDialogLoding.dismiss();
+                getData(response);
+            }
+        });
+
+        estelamDone = true;
+        checkForRefresh();
+
+            /*    String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":[{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"},{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"},{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"},{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"}]}";
+                getData(res);*/
+    }
+
+    private void checkForRefresh() {
+
+        try {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (estelamDone) {
+                        boolean isLaghvDone = preferences.getBoolean("laghV", false);
+                        if (isLaghvDone)
+                            doSearch();
+                    }
+                    checkForRefresh();
+                }
+            }, 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     private void setDropDownsData(String res) {
@@ -190,8 +228,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                 }
 
             } else
-//                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+                new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -256,7 +293,8 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                         //2_242_4781779718_45367_291_13990120
                         //dr_prg_hsp_mdc_spc_date
 
-                        nestedMain.setVisibility(View.GONE);linearPrint.setVisibility(View.VISIBLE);
+                        nestedMain.setVisibility(View.GONE);
+                        linearPrint.setVisibility(View.VISIBLE);
 
                         JSONObject jsonObject = new JSONObject();
                         try {
@@ -286,8 +324,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                 rcycEstelam.setAdapter(adRecycEstelam);
 
             } else
-//                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+                new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -388,8 +425,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
 
 
             } else
-//                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+                new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
 
 
         } catch (Exception e) {
@@ -431,7 +467,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
         }
 
         RecyclerView recycFitler = layout.findViewById(R.id.recycFitler);
-         adRecycPopUp = new AdRecycPopUp(getContext(), arraylistSearchView, new onClickInterface() {
+        adRecycPopUp = new AdRecycPopUp(getContext(), arraylistSearchView, new onClickInterface() {
             @Override
             public void setClick(int position, boolean canUse, View view) {
 
