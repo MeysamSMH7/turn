@@ -242,7 +242,7 @@
             android:layout_weight="0.5"
             android:background="@drawable/button_background_blue"
             android:paddingRight="20dp"
-            android:text="استعلام نوبت"
+           android:text="بازگشت"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold" />
 
