@@ -301,7 +301,7 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
         }
 
         RecyclerView recycFitler = layout.findViewById(R.id.recycFitler);
-        AdRecycPopUp = new AdRecycPopUp(getContext(), arraylistSearchView, new onClickInterface() {
+        adRecycPopUp = new AdRecycPopUp(getContext(), arraylistSearchView, new onClickInterface() {
             @Override
             public void setClick(int position, boolean canUse, View view) {
 
@@ -316,7 +316,7 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                 alertDialogFilter.dismiss();
             }
         });
-        recycFitler.setAdapter(AdRecycPopUp);
+        recycFitler.setAdapter(adRecycPopUp);
 
         editsearchSearchView = layout.findViewById(R.id.searchFr);
         editsearchSearchView.setOnQueryTextListener(this);
@@ -330,7 +330,7 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
 
     //  SearchView -------------------------------------------------------------
     private SearchView editsearchSearchView;
-    private AdRecycPopUp AdRecycPopUp;
+    private AdRecycPopUp adRecycPopUp;
     private ArrayList<ModAlerts> arraylistSearchView = new ArrayList<ModAlerts>();
 
     @Override
@@ -341,7 +341,7 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
     @Override
     public boolean onQueryTextChange(String newText) {
         String text = newText;
-        AdRecycPopUp.filter(text);
+        adRecycPopUp.filter(text);
         return true;
     }
 

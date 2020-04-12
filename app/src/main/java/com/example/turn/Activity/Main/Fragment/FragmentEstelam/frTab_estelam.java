@@ -79,6 +79,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
     private TextView txtPrint_hospitalAddress;
     private TextView txtPrint_hospitalTell;
     private Button btnPrint_dismis;
+    private Button btnPrint_pay;
 
     private AlertDialog alertDialogLoding;
     private NestedScrollView nestedMain;
@@ -314,6 +315,8 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
         txtPrint_hospitalName = view.findViewById(R.id.txtPrint_hospitalName);
         txtPrint_hospitalAddress = view.findViewById(R.id.txtPrint_hospitalAddress);
         txtPrint_hospitalTell = view.findViewById(R.id.txtPrint_hospitalTell);
+        btnPrint_pay = view.findViewById(R.id.btnPrint_pay);
+        btnPrint_pay.setVisibility(View.GONE);
         btnPrint_dismis = view.findViewById(R.id.btnPrint_dismis);
         btnPrint_dismis.setVisibility(View.VISIBLE);
 
@@ -427,7 +430,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
         }
 
         RecyclerView recycFitler = layout.findViewById(R.id.recycFitler);
-        AdRecycPopUp adRecycPopUp = new AdRecycPopUp(getContext(), arraylistSearchView, new onClickInterface() {
+         adRecycPopUp = new AdRecycPopUp(getContext(), arraylistSearchView, new onClickInterface() {
             @Override
             public void setClick(int position, boolean canUse, View view) {
 

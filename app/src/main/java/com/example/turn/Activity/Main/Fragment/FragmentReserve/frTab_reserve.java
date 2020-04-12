@@ -1,6 +1,8 @@
 package com.example.turn.Activity.Main.Fragment.FragmentReserve;
 
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
@@ -169,6 +171,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private String lastNameSamane;
     private String firstNameSamane;
     private String srv_id;
+    private String rcp_id;
     //
 
     private TextView txtPrint_date;
@@ -189,6 +192,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private TextView txtPrint_hospitalName;
     private TextView txtPrint_hospitalAddress;
     private TextView txtPrint_hospitalTell;
+    private Button btnPrint_dismis;
+    private Button btnPrint_pay;
 
     //------------------------------------
     private AlertDialog alertDialogLoding;
@@ -223,7 +228,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         linearPazireshPageBtn.setVisibility(View.GONE);
         linearPazireshPage2.setVisibility(View.GONE);
 
-
         linearLinears = view.findViewById(R.id.linearLinears);
         linearBtns = view.findViewById(R.id.linearBtns);
         linearPrint = view.findViewById(R.id.linearPrint);
@@ -256,6 +260,34 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         txtPrint_hospitalName = view.findViewById(R.id.txtPrint_hospitalName);
         txtPrint_hospitalAddress = view.findViewById(R.id.txtPrint_hospitalAddress);
         txtPrint_hospitalTell = view.findViewById(R.id.txtPrint_hospitalTell);
+        btnPrint_pay = view.findViewById(R.id.btnPrint_pay);
+        btnPrint_pay.setVisibility(View.VISIBLE);
+        btnPrint_dismis = view.findViewById(R.id.btnPrint_dismis);
+        btnPrint_dismis.setVisibility(View.GONE);
+
+        btnPrint_pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String link = "http://nobat.mazums.ac.ir/Pay/Apprdr/?r="+rcp_id+"&h="+hospiralId;
+                startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(link)));
+
+//--------- back to main page
+                linearSelectFilters.setVisibility(View.VISIBLE);
+                linearSelectFiltersBtn.setVisibility(View.VISIBLE);
+                linearResTimes.setVisibility(View.GONE);
+                linearResTimesBtn.setVisibility(View.GONE);
+                linearPazireshPage.setVisibility(View.GONE);
+                linearPazireshPageBtn.setVisibility(View.GONE);
+                linearPazireshPage2.setVisibility(View.GONE);
+                linearLinears = view.findViewById(R.id.linearLinears);
+                linearBtns = view.findViewById(R.id.linearBtns);
+                linearPrint = view.findViewById(R.id.linearPrint);
+                linearLinears.setVisibility(View.VISIBLE);
+                linearBtns.setVisibility(View.VISIBLE);
+                linearPrint.setVisibility(View.GONE);
+
+            }
+        });
 
 
     }
@@ -544,6 +576,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 String shift = jsonTSF.getString("shift_title") + "";
                 String doctorName = jsonTSF.getString("dr_name") + "";
                 String typeRes = jsonTSF.getString("srv_title") + "";
+                 rcp_id = jsonTSF.getString("rcp_id") + "";
 
                 JSONObject bimeData = jsonTSF.getJSONObject("pInsurance");
                 String bimeTitle = bimeData.getString("ins_title");
@@ -1057,7 +1090,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         }
 
         RecyclerView recycFitler = layout.findViewById(R.id.recycFitler);
-        AdRecycPopUp = new AdRecycPopUp(getContext(), arraylistSearchView, new onClickInterface() {
+        adRecycPopUp = new AdRecycPopUp(getContext(), arraylistSearchView, new onClickInterface() {
             @Override
             public void setClick(int position, boolean canUse, View view) {
 
@@ -1216,7 +1249,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 alertDialogFilter.dismiss();
             }
         });
-        recycFitler.setAdapter(AdRecycPopUp);
+        recycFitler.setAdapter(adRecycPopUp);
 
         editsearchSearchView = layout.findViewById(R.id.searchFr);
         editsearchSearchView.setOnQueryTextListener(this);
@@ -1552,7 +1585,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
     //  SearchView -------------------------------------------------------------
     private SearchView editsearchSearchView;
-    private AdRecycPopUp AdRecycPopUp;
+    private AdRecycPopUp adRecycPopUp;
     private ArrayList<ModAlerts> arraylistSearchView = new ArrayList<ModAlerts>();
 
     @Override
@@ -1563,7 +1596,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     @Override
     public boolean onQueryTextChange(String newText) {
         String text = newText;
-        AdRecycPopUp.filter(text);
+        adRecycPopUp.filter(text);
         return true;
     }
 
