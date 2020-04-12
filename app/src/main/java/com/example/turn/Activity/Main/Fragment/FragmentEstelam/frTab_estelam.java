@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.cardview.widget.CardView;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,12 +51,38 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
     private ArrayList<ModEstelam> arrayListEstelam;
     private AlertDialog alertDialogFilter;
     private String hospitalId;
+
     public static frTab_estelam newInstance() {
 
         Bundle args = new Bundle();
         frTab_estelam fragment = new frTab_estelam();
         return fragment;
     }
+
+
+    private TextView txtPrint_date;
+    private TextView txtPrint_time;
+    private TextView txtPrint_hours;
+    private TextView txtPrint_shit;
+    private TextView txtPrint_doctor;
+    private TextView txtPrint_type;
+    private TextView txtPrint_typeBime;
+    private TextView txtPrint_firstLastName;
+    private TextView txtPrint_price;
+    private TextView txtPrint_bakhsh;
+    private TextView txtPrint_codNobat;
+    private TextView txtPrint_numberNobat;
+    private ImageView imgPrint_batcod;
+    private TextView txtPrint_ghabzNumber;
+    private TextView txtPrint_time2;
+    private TextView txtPrint_hospitalName;
+    private TextView txtPrint_hospitalAddress;
+    private TextView txtPrint_hospitalTell;
+    private Button btnPrint_dismis;
+
+    private AlertDialog alertDialogLoding;
+    private NestedScrollView nestedMain;
+    private LinearLayout linearPrint;
 
     @Nullable
     @Override
@@ -62,13 +91,15 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
         View view = inflater.inflate(R.layout.fr_tab_estelam, container, false);
 // cods here
         findViews(view);
-
+        print(view);
+        loading();
 
         return view;
     }
 
     private void findViews(View view) {
 
+        nestedMain = view.findViewById(R.id.nestedMain);
         edtEstelam_codMeli = view.findViewById(R.id.edtEstelam_codMeli);
         txtEstelam_hospital = view.findViewById(R.id.txtEstelam_hospital);
         btnEstelam_search = view.findViewById(R.id.btnEstelam_search);
@@ -109,7 +140,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
         btnEstelam_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (arrayListEstelam.size() != 0 )
+                if (arrayListEstelam.size() != 0)
                     arrayListEstelam.clear();
 //                TODO: send cod meli and id hospital to link
                 String cod = edtEstelam_codMeli.getText().toString();
@@ -120,9 +151,9 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                String vEstelamUrl="http://nobat.mazums.ac.ir/turnappApi/turn/turnlist?pPpId="
+                String vEstelamUrl = "http://nobat.mazums.ac.ir/turnappApi/turn/turnlist?pPpId="
                         + edtEstelam_codMeli.getText().toString() + "&pHspId=" + hospitalId;
-                new setConnectionVolley(getContext(),vEstelamUrl,obj).connectStringRequest(new setConnectionVolley.OnResponse() {
+                new setConnectionVolley(getContext(), vEstelamUrl, obj).connectStringRequest(new setConnectionVolley.OnResponse() {
                     @Override
                     public void OnResponse(String response) {
                         getData(response);
@@ -162,6 +193,17 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
         }
     }
 
+    private void loading() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setCancelable(false);
+        LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.loading, null, false);
+
+        builder.setView(layout);
+        alertDialogLoding = builder.create();
+        alertDialogLoding.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+    }
+
     private void getData(String res) {
         try {
             JSONObject object = new JSONObject(res);
@@ -195,7 +237,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                     modEstelam.turn_date = jsonObject.getString("turn_date");
                     modEstelam.pp_id = jsonObject.getString("pp_id");
                     modEstelam.rcp_id = jsonObject.getString("rcp_id");
-                    modEstelam.pat_id =jsonObject1.getString("pat_id");
+                    modEstelam.pat_id = jsonObject1.getString("pat_id");
                     modEstelam.pat_pay = jsonObject2.getString("pat_pay");
                     modEstelam.hsp_id = jsonObject.getString("hsp_id");
                     arrayListEstelam.add(modEstelam);
@@ -207,8 +249,36 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                         Toast.makeText(getContext(), "بریم برای چاپ دوباره", Toast.LENGTH_SHORT).show();
 
 // TODO: send "prg_turn_date_pp_rcp_pat_pay_pat_id" to show new reserve page
+                        //     {prg_id:0,turn_date:'',pp_id:0,rcp_id:0,hsp_id:0}
+                        //2_242_4781779718_45367_291_13990120
+                        //dr_prg_hsp_mdc_spc_date
+                        linearPrint.setVisibility(View.VISIBLE);
+                        nestedMain.setVisibility(View.GONE);
 
 
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("dr_id", "");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        ModEstelam modEstelam = arrayListEstelam.get(position);
+
+                        String vPazireshlink = "http://nobat.mazums.ac.ir/TurnAppApi/turn/showturn?"
+                                + "prg_id=" + modEstelam.prg_id
+                                + "&hsp_id=" + modEstelam.hsp_id
+                                + "&rcp_id=" + modEstelam.rcp_id
+                                + "&turn_date=" + modEstelam.turn_date
+                                + "&pp_id=" + edtEstelam_codMeli.getText().toString();
+                        alertDialogLoding.show();
+                        new setConnectionVolley(getContext(), vPazireshlink, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
+                            @Override
+                            public void OnResponse(String response) {
+                                alertDialogLoding.dismiss();
+                                setDataPrint(response);
+                            }
+                        });
                     }
                 });
                 rcycEstelam.setAdapter(adRecycEstelam);
@@ -221,6 +291,106 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
             e.printStackTrace();
         }
 
+    }
+
+    private void print(View view) {
+
+        linearPrint = view.findViewById(R.id.linearPrint);
+        txtPrint_date = view.findViewById(R.id.txtPrint_date);
+        txtPrint_time = view.findViewById(R.id.txtPrint_time);
+        txtPrint_hours = view.findViewById(R.id.txtPrint_hours);
+        txtPrint_shit = view.findViewById(R.id.txtPrint_shit);
+        txtPrint_doctor = view.findViewById(R.id.txtPrint_doctor);
+        txtPrint_type = view.findViewById(R.id.txtPrint_type);
+        txtPrint_typeBime = view.findViewById(R.id.txtPrint_typeBime);
+        txtPrint_firstLastName = view.findViewById(R.id.txtPrint_firstLastName);
+        txtPrint_price = view.findViewById(R.id.txtPrint_price);
+        txtPrint_bakhsh = view.findViewById(R.id.txtPrint_bakhsh);
+        txtPrint_codNobat = view.findViewById(R.id.txtPrint_codNobat);
+        txtPrint_numberNobat = view.findViewById(R.id.txtPrint_numberNobat);
+        imgPrint_batcod = view.findViewById(R.id.imgPrint_batcod);
+        txtPrint_ghabzNumber = view.findViewById(R.id.txtPrint_ghabzNumber);
+        txtPrint_time2 = view.findViewById(R.id.txtPrint_time2);
+        txtPrint_hospitalName = view.findViewById(R.id.txtPrint_hospitalName);
+        txtPrint_hospitalAddress = view.findViewById(R.id.txtPrint_hospitalAddress);
+        txtPrint_hospitalTell = view.findViewById(R.id.txtPrint_hospitalTell);
+        btnPrint_dismis = view.findViewById(R.id.btnPrint_dismis);
+        btnPrint_dismis.setVisibility(View.VISIBLE);
+
+        btnPrint_dismis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nestedMain.setVisibility(View.VISIBLE);
+                linearPrint.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void setDataPrint(String res) {
+        try {
+            JSONObject object = new JSONObject(res);
+            String status = object.getString("status");
+            String message = object.getString("message");
+            if (status.equals("yes")) {
+                String data = object.getString("data");
+                JSONObject objectData = new JSONObject(data);
+                //get  patient
+
+                JSONObject jsonHospitalInfo = objectData.getJSONObject("hspInfo");
+                String hospitalName = jsonHospitalInfo.getString("hsp_title") + "";
+                String hospitalAddress = jsonHospitalInfo.getString("hsp_addr") + "";
+                String hospitalTel = jsonHospitalInfo.getString("hsp_tel") + "";
+
+                JSONObject jsonTSF = objectData.getJSONObject("turnSpecification");
+                String date = jsonTSF.getString("date_string") + "";
+                String timeRes = jsonTSF.getString("rcp_time_str") + "";
+                String timeHozor = jsonTSF.getString("prg_time") + "";
+                String shift = jsonTSF.getString("shift_title") + "";
+                String doctorName = jsonTSF.getString("dr_name") + "";
+                String typeRes = jsonTSF.getString("srv_title") + "";
+
+                JSONObject bimeData = jsonTSF.getJSONObject("pInsurance");
+                String bimeTitle = bimeData.getString("ins_title");
+
+
+                JSONObject jsonPatient = objectData.getJSONObject("patient");
+                String nameFamily = jsonPatient.getString("first_name") + " " + jsonPatient.getString("last_name");
+
+                JSONObject jsonPay = objectData.getJSONObject("pay");
+                String price = jsonPay.getString("pat_pay_str") + "";
+
+                String pakhshName = jsonTSF.getString("sec_title") + "";
+                String codNobat = jsonTSF.getString("rcp_no") + "";
+                String numberNobat = jsonTSF.getString("csh_rcp_no") + "";
+//---------------------------------
+                txtPrint_hospitalName.setText(hospitalName);
+                txtPrint_hospitalAddress.setText("آدرس: " + hospitalAddress);
+                txtPrint_hospitalTell.setText("تلفن مرکز: " + hospitalTel);
+
+                txtPrint_date.setText("تاریخ اخذ نوبت: " + date);
+                txtPrint_time.setText("ساعت اخذ نوبت: " + timeRes);
+                txtPrint_hours.setText("ساخت حضور بیمار: " + timeHozor);
+                txtPrint_shit.setText("شیفت: " + shift);
+                txtPrint_doctor.setText("پزشک: " + doctorName);
+                txtPrint_type.setText("نوع خدمت: " + typeRes);
+                txtPrint_typeBime.setText("نوبع بیمه: " + bimeTitle);
+
+                txtPrint_firstLastName.setText("نام و نام خانوادگی بیمار: " + nameFamily);
+                txtPrint_price.setText("مبلع قابل پرداخت: " + price);
+
+                txtPrint_bakhsh.setText("نام بخش: " + pakhshName);
+                txtPrint_codNobat.setText("کد پیگیری: " + codNobat);
+                txtPrint_numberNobat.setText("شماره نوبت: " + numberNobat);
+
+
+            } else
+//                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
+                Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -283,6 +453,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
         alertDialogFilter.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
     }
+
     //  SearchView -------------------------------------------------------------
     private com.example.turn.Activity.Main.Adapter.AdRecycPopUp adRecycPopUp;
     private SearchView editsearchSearchView;

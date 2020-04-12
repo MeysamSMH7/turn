@@ -1,26 +1,19 @@
 package com.example.turn.Activity.Main.Fragment.FragmentReserve;
 
-
 import android.app.AlertDialog;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -37,11 +30,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.azimolabs.maskformatter.MaskFormatter;
 import com.example.turn.Activity.Main.Adapter.AdRecycPopUp;
-import com.example.turn.Activity.Main.Fragment.FragmentReserve.Adapter.AdRecycResTimes;
 import com.example.turn.Activity.Main.Adapter.onClickInterface;
-import com.example.turn.Activity.Main.Model.ModAlerts;
+import com.example.turn.Activity.Main.Fragment.FragmentReserve.Adapter.AdRecycResTimes;
 import com.example.turn.Activity.Main.Fragment.FragmentReserve.Model.ModResTime;
-import com.example.turn.Classes.ShowMessage;
+import com.example.turn.Activity.Main.Model.ModAlerts;
 import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
 
@@ -49,11 +41,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
 
 public class frTab_reserve extends Fragment implements SearchView.OnQueryTextListener {
 
@@ -334,10 +322,12 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 }
 
                 String vUrl = "http://nobat.mazums.ac.ir/TurnAppApi/turn/SearchByPpId?hsp_id=" + hsp_pp + "&pp_id=" + meliOrEjra;
+                alertDialogLoding.show();
                 new setConnectionVolley(getContext(), vUrl, object
                 ).connectStringRequest(new setConnectionVolley.OnResponse() {
                     @Override
                     public void OnResponse(String response) {
+                        alertDialogLoding.dismiss();
                         setDataFromSamane(response);
                     }
                 });
@@ -398,11 +388,11 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         + "&ins_id=" + bimeIdSamane
                         + "&ost_id=" + ostanIdSamane
                         + "&org_id=" + orgIdSamane;
-
+                alertDialogLoding.show();
                 new setConnectionVolley(getContext(), vPazireshlink, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
                     @Override
                     public void OnResponse(String response) {
-
+                        alertDialogLoding.dismiss();
                         setDataPrint(response);
                     }
                 });
@@ -606,87 +596,87 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             JSONObject object = new JSONObject(res);
             String status = object.getString("status");
             String message = object.getString("message");
-         //   if (status.equals("yes")) {
-                linearPazireshPage2.setVisibility(View.VISIBLE);
-                String data = object.getString("data");
-                JSONObject objectData = new JSONObject(data);
-                //get  patient
+            //   if (status.equals("yes")) {
+            linearPazireshPage2.setVisibility(View.VISIBLE);
+            String data = object.getString("data");
+            JSONObject objectData = new JSONObject(data);
+            //get  patient
 
 
-                JSONObject jsonPatient = objectData.getJSONObject("patient");
-                firstNameSamane = jsonPatient.getString("first_name") + "";
-                lastNameSamane = jsonPatient.getString("last_name") + "";
-                if (!firstNameSamane.equals("null") || !lastNameSamane.equals("null")) {
-                    cardViewFrPP_org.setVisibility(View.GONE);
-                    fatherNameSamane = jsonPatient.getString("father_name") + "";
-                    if (fatherNameSamane.equals("null")) fatherNameSamane = "";
-                    cityIdSamane = jsonPatient.getString("city_id");
-                    //               cityTitleSamane = jsonPatient.getString("city_title");
-                    sexSamane = jsonPatient.getString("is_sex"); // zero = man | one = woman
-                    addressSamane = jsonPatient.getString("home_adr");
-                    phoneNumSamane = jsonPatient.getString("home_mbl");
-                    bimeIdSamane = jsonPatient.getString("ins_id");
-                    if (bimeIdSamane.equals("null")) bimeIdSamane = "1";
-                    bimeTitleSamane = jsonPatient.getString("ins_title");
+            JSONObject jsonPatient = objectData.getJSONObject("patient");
+            firstNameSamane = jsonPatient.getString("first_name") + "";
+            lastNameSamane = jsonPatient.getString("last_name") + "";
+            if (!firstNameSamane.equals("null") || !lastNameSamane.equals("null")) {
+                cardViewFrPP_org.setVisibility(View.GONE);
+                fatherNameSamane = jsonPatient.getString("father_name") + "";
+                if (fatherNameSamane.equals("null")) fatherNameSamane = "";
+                cityIdSamane = jsonPatient.getString("city_id");
+                //               cityTitleSamane = jsonPatient.getString("city_title");
+                sexSamane = jsonPatient.getString("is_sex"); // zero = man | one = woman
+                addressSamane = jsonPatient.getString("home_adr");
+                phoneNumSamane = jsonPatient.getString("home_mbl");
+                bimeIdSamane = jsonPatient.getString("ins_id");
+                if (bimeIdSamane.equals("null")) bimeIdSamane = "1";
+                bimeTitleSamane = jsonPatient.getString("ins_title");
 
-                    edtFrPP_name.setText(firstNameSamane + "");
-                    edtFrPP_name.setEnabled(false);
-                    edtFrPP_family.setText(lastNameSamane + "");
-                    edtFrPP_family.setEnabled(false);
-                    edtFrPP_fatherName.setText(fatherNameSamane + "");
-                    edtFrPP_phone.setText(phoneNumSamane + "");
-                    txtFrPP_city.setText(cityIdSamane + "");
-                    edtFrPP_address.setText(addressSamane + "");
-                    txtFrPP_bime.setText(bimeTitleSamane + "");
+                edtFrPP_name.setText(firstNameSamane + "");
+                edtFrPP_name.setEnabled(false);
+                edtFrPP_family.setText(lastNameSamane + "");
+                edtFrPP_family.setEnabled(false);
+                edtFrPP_fatherName.setText(fatherNameSamane + "");
+                edtFrPP_phone.setText(phoneNumSamane + "");
+                txtFrPP_city.setText(cityIdSamane + "");
+                edtFrPP_address.setText(addressSamane + "");
+                txtFrPP_bime.setText(bimeTitleSamane + "");
 
-                    if (sexSamane.equals("0"))
-                        radioBtnPP_male.setChecked(true);
-                    else if (sexSamane.equals("1"))
-                        radioBtnPP_female.setChecked(true);
-                    else {
-                        radioBtnPP_male.setChecked(false);
-                        radioBtnPP_female.setChecked(false);
-                    }
-                } else {
-                    cardViewFrPP_org.setVisibility(View.VISIBLE);
-                    JSONArray arrayOrg = objectData.getJSONArray("orgs");
-                    for (int i = 0; i < arrayOrg.length(); i++) {
-                        JSONObject temp = arrayOrg.getJSONObject(i);
-                        arrayListOrg.add(temp.getString("title"));
-                        arrayListOrgID.add(temp.getString("id"));
-                    }
-                    edtFrPP_name.setEnabled(true);
-                    edtFrPP_family.setEnabled(true);
-
+                if (sexSamane.equals("0"))
+                    radioBtnPP_male.setChecked(true);
+                else if (sexSamane.equals("1"))
+                    radioBtnPP_female.setChecked(true);
+                else {
+                    radioBtnPP_male.setChecked(false);
+                    radioBtnPP_female.setChecked(false);
                 }
-
-                // get city
-                JSONArray arrayCity = objectData.getJSONArray("cities");
-                for (int i = 0; i < arrayCity.length(); i++) {
-                    JSONObject temp = arrayCity.getJSONObject(i);
-                    arrayListCity.add(temp.getString("title"));
-                    arrayListCityID.add(temp.getString("id"));
+            } else {
+                cardViewFrPP_org.setVisibility(View.VISIBLE);
+                JSONArray arrayOrg = objectData.getJSONArray("orgs");
+                for (int i = 0; i < arrayOrg.length(); i++) {
+                    JSONObject temp = arrayOrg.getJSONObject(i);
+                    arrayListOrg.add(temp.getString("title"));
+                    arrayListOrgID.add(temp.getString("id"));
                 }
+                edtFrPP_name.setEnabled(true);
+                edtFrPP_family.setEnabled(true);
 
-                // get bime
-                JSONArray arrayBime = objectData.getJSONArray("inslist");
-                for (int i = 0; i < arrayBime.length(); i++) {
-                    JSONObject temp = arrayBime.getJSONObject(i);
-                    arrayListBime.add(temp.getString("ins_title"));
-                    arrayListBimeID.add(temp.getString("ins_id"));
-                }
+            }
 
-                // get ostan
-                JSONArray arrayOstan = objectData.getJSONArray("ostans");
-                for (int i = 0; i < arrayOstan.length(); i++) {
-                    JSONObject temp = arrayOstan.getJSONObject(i);
-                    arrayListOstan.add(temp.getString("title"));
-                    arrayListOstanID.add(temp.getString("id"));
-                }
+            // get city
+            JSONArray arrayCity = objectData.getJSONArray("cities");
+            for (int i = 0; i < arrayCity.length(); i++) {
+                JSONObject temp = arrayCity.getJSONObject(i);
+                arrayListCity.add(temp.getString("title"));
+                arrayListCityID.add(temp.getString("id"));
+            }
+
+            // get bime
+            JSONArray arrayBime = objectData.getJSONArray("inslist");
+            for (int i = 0; i < arrayBime.length(); i++) {
+                JSONObject temp = arrayBime.getJSONObject(i);
+                arrayListBime.add(temp.getString("ins_title"));
+                arrayListBimeID.add(temp.getString("ins_id"));
+            }
+
+            // get ostan
+            JSONArray arrayOstan = objectData.getJSONArray("ostans");
+            for (int i = 0; i < arrayOstan.length(); i++) {
+                JSONObject temp = arrayOstan.getJSONObject(i);
+                arrayListOstan.add(temp.getString("title"));
+                arrayListOstanID.add(temp.getString("id"));
+            }
 
             //} else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
-             //   Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
+            //   Toast.makeText(getContext(), message + "", Toast.LENGTH_SHORT).show();
 
 
         } catch (Exception e) {
@@ -920,10 +910,12 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                     }
 // TODO: link check
                                     // set data in pazireshPage
+                                    alertDialogLoding.show();
                                     String link = "http://nobat.mazums.ac.ir/TurnAppApi/turn/TurnSpecification?dr_id=" + temp[0] + "" + "&prg_id=" + temp[1] + "" + "&hsp_id=" + temp[2] + "" + "&mdc_id=" + temp[3] + "" + "&spc_id=" + temp[4] + "&turn_date=" + temp[5] + "";
                                     new setConnectionVolley(getContext(), link, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
                                         @Override
                                         public void OnResponse(String response) {
+                                            alertDialogLoding.dismiss();
                                             setDataInPazireshPage(response);
                                         }
                                     });
@@ -1431,12 +1423,15 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             e.printStackTrace();
         }
         // + "&first_name=" +txtFrRes_doctor.getText().toString()+""
+        alertDialogLoding.show();
+
         new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
                 hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
                 + timeId + "&page_number=" + pageNumber + "&item_per_page=" + "10", object
         ).connectStringRequest(new setConnectionVolley.OnResponse() {
             @Override
             public void OnResponse(String response) {
+                alertDialogLoding.dismiss();
                 setRecycViewData(response);
             }
         });

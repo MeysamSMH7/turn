@@ -12,7 +12,10 @@
         android:src="@drawable/main_background"
         android:tint="#EBFFFFFF" />
 
+    <include layout="@layout/item_print"/>
+
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="7dp"
