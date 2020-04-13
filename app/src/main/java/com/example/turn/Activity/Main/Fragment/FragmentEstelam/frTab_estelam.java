@@ -4,9 +4,11 @@ package com.example.turn.Activity.Main.Fragment.FragmentEstelam;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -360,7 +362,7 @@ positionClick =  position;
         txtPrint_bakhsh = view.findViewById(R.id.txtPrint_bakhsh);
         txtPrint_codNobat = view.findViewById(R.id.txtPrint_codNobat);
         txtPrint_numberNobat = view.findViewById(R.id.txtPrint_numberNobat);
-        imgPrint_batcod = view.findViewById(R.id.imgPrint_batcod);
+        imgPrint_batcod = view.findViewById(R.id.imgPrint_barcod);
         txtPrint_ghabzNumber = view.findViewById(R.id.txtPrint_ghabzNumber);
         txtPrint_time2 = view.findViewById(R.id.txtPrint_time2);
         txtPrint_hospitalName = view.findViewById(R.id.txtPrint_hospitalName);
@@ -493,6 +495,14 @@ positionClick =  position;
                 txtPrint_codNobat.setText("کد پیگیری: " + codNobat);
                 txtPrint_numberNobat.setText("شماره نوبت: " + numberNobat);
 
+                try {
+                    String encodedDataString = jsonTSF.getString("print_img")  ;
+                    encodedDataString = encodedDataString.replace("data:image/png;base64,","");
+                    byte[] imageAsBytes = Base64.decode(encodedDataString.getBytes(), 0);
+                    imgPrint_batcod.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             } else
                 new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);

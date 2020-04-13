@@ -2,10 +2,12 @@ package com.example.turn.Activity.Main.Fragment.FragmentReserve;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -190,7 +192,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private TextView txtPrint_bakhsh;
     private TextView txtPrint_codNobat;
     private TextView txtPrint_numberNobat;
-    private ImageView imgPrint_batcod;
+    private ImageView imgPrint_barcod;
     private TextView txtPrint_ghabzNumber;
     private TextView txtPrint_time2;
     private TextView txtPrint_hospitalName;
@@ -265,7 +267,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         txtPrint_bakhsh = view.findViewById(R.id.txtPrint_bakhsh);
         txtPrint_codNobat = view.findViewById(R.id.txtPrint_codNobat);
         txtPrint_numberNobat = view.findViewById(R.id.txtPrint_numberNobat);
-        imgPrint_batcod = view.findViewById(R.id.imgPrint_batcod);
+        imgPrint_barcod = view.findViewById(R.id.imgPrint_barcod);
         txtPrint_ghabzNumber = view.findViewById(R.id.txtPrint_ghabzNumber);
         txtPrint_time2 = view.findViewById(R.id.txtPrint_time2);
         txtPrint_hospitalName = view.findViewById(R.id.txtPrint_hospitalName);
@@ -581,29 +583,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         });
 
 
-        linearFrPP_City.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // open popup choose city
-            }
-        });
-
-
-        linearFrPP_ostan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // open popup choose ostan
-            }
-        });
-
-
-        linearFrPP_bime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // open popup choose bime
-            }
-        });
-
 
     }
 
@@ -711,6 +690,15 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 txtPrint_numberNobat.setText("شماره نوبت: " + numberNobat);
 
 
+                try {
+                    String encodedDataString = jsonTSF.getString("print_img")  ;
+                    encodedDataString = encodedDataString.replace("data:image/png;base64,","");
+                    byte[] imageAsBytes = Base64.decode(encodedDataString.getBytes(), 0);
+                    imgPrint_barcod.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             } else if (message.equals("Error creating window handle.")) {
 //--------- back to previous
                 linearSelectFilters.setVisibility(View.GONE);
@@ -737,6 +725,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 linearPrint.setVisibility(View.GONE);
                 new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
             }
+
+
+
 
 
         } catch (Exception e) {
@@ -1217,16 +1208,20 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 txtPP_doctorName.setText("دکتر " + dr_name);
                 txtPP_motakhasesName.setText(spc_level_title + ": " + spc_title);
                 txtPP_datePP.setText("تاریخ " + turn_date);
-/*
+
+
+
                 try {
-                    byte[] decodeString = Base64.decode(dr_image, Base64.NO_WRAP);
-                    InputStream inputStream = new ByteArrayInputStream(decodeString);
-                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    imgPP_drPic.setImageBitmap(bitmap);
+                    String encodedDataString = dr_image;
+                    encodedDataString = encodedDataString.replace("data:image/png;base64,","");
+                    byte[] imageAsBytes = Base64.decode(encodedDataString.getBytes(), 0);
+                    imgPP_drPic.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-*/
+
+
+
                 if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
 
             } else {
@@ -1444,7 +1439,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 } else if (tag.equals("PPBime")) {
                     txtFrPP_bime.setText(title + "");
                     bimeIdSamane = id;
-                } else if (tag.equals("PPOrg")) {
+                }
+                else if (tag.equals("PPOrg")) {
                     txtFrPP_org.setText(title + "");
                     orgIdSamane = id;
                 }
@@ -1815,7 +1811,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
         txtFrRes_city.setText(dataCity.get(0) + "");
         txtFrRes_takhasos.setText(dataTakhasos.get(0) + "");
-        txtFrRes_darmonghah.setText(dataHospital.get(0) + "");
+        txtFrRes_darmonghah.setText(dataHospital2.get(0) + "");
         txtFrRes_time.setText(dataTime.get(0) + "");
         txtFrRes_doctor.setText(dataDoctor.get(0) + "");
 

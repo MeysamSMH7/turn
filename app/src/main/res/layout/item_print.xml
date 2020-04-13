@@ -70,7 +70,7 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/imgPrint_batcod"
+                            android:id="@+id/imgPrint_barcod"
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
                             android:background="@color/colorBlue"

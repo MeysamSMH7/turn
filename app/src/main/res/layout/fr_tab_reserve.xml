@@ -775,8 +775,4 @@
 
     <include layout="@layout/item_print"/>
 
-
-
-
-
 </RelativeLayout>
