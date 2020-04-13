@@ -617,6 +617,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 JSONObject objectData = new JSONObject(data);
                 //get  patient
 
+
                 JSONObject jsonHospitalInfo = objectData.getJSONObject("hspInfo");
                 String hospitalName = jsonHospitalInfo.getString("hsp_title");
                 String hospitalAddress = jsonHospitalInfo.getString("hsp_addr");
