@@ -115,6 +115,14 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                if (codMeli.length() != 10){
+                    Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (cod.length() != 10){
+                    Toast.makeText(getContext(), "کد پیگیری", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 String vLghvUrl = "http://nobat.mazums.ac.ir/TurnAppApi/turn/cancelTurnList?pp_id=" +
                         edtLaghv_codMeli.getText().toString() + "&rcp_no=" + edtLaghv_cod.getText().toString() + "&hsp_id=" + hospitalId;
@@ -147,7 +155,6 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
 
                     if (edtLaghv_codMeli.getText().toString().length() != 10) {
                         Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();

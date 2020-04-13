@@ -288,12 +288,6 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                     public void setClick(int position, boolean canUse, View view) {
 
 // TODO: send "prg_turn_date_pp_rcp_pat_pay_pat_id" to show new reserve page
-                        //     {prg_id:0,turn_date:'',pp_id:0,rcp_id:0,hsp_id:0}
-                        //2_242_4781779718_45367_291_13990120
-                        //dr_prg_hsp_mdc_spc_date
-
-                        nestedMain.setVisibility(View.GONE);
-                        linearPrint.setVisibility(View.VISIBLE);
 
                         JSONObject jsonObject = new JSONObject();
                         try {
@@ -314,6 +308,8 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
 
                         ModEstelam modEstelam = arrayListEstelam.get(position);
 
+                        nestedMain.setVisibility(View.GONE);
+                        linearPrint.setVisibility(View.VISIBLE);
                         String vPazireshlink = "http://nobat.mazums.ac.ir/TurnAppApi/turn/showturn?"
                                 + "prg_id=" + modEstelam.prg_id
                                 + "&hsp_id=" + modEstelam.hsp_id

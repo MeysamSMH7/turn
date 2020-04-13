@@ -357,21 +357,15 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         btnPP_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(getContext(), "اجرا شدن لودینگ", Toast.LENGTH_SHORT).show();
-                linearPazireshPage2.setVisibility(View.VISIBLE);
-                btnPP_paziresh.setVisibility(View.VISIBLE);
 //                TODO: Send id , meli and erja to link3 -----------------------------------------
 
                 String meliOrEjra = edtFrPP_Cod.getText().toString();
-                if (meliOrEjra.equals("")) {
+                if (meliOrEjra.length() != 10) {
                     Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 JSONObject object = new JSONObject();
-                // in khat 214 chie   صاشفwhatspp
                 try {
-//                    object.put("mdc_id", dr_prg_hsp_mdc_spc_date_id);
-//meliOrErja az  radio btn miad
                     if (meliOrErja) {
                         object.put("pp_id", meliOrEjra);
                         object.put("srv_id", "");
@@ -384,6 +378,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     e.printStackTrace();
                 }
 
+                linearPazireshPage2.setVisibility(View.VISIBLE);
+                btnPP_paziresh.setVisibility(View.VISIBLE);
                 String vUrl = "http://nobat.mazums.ac.ir/TurnAppApi/turn/SearchByPpId?hsp_id=" + hsp_pp + "&pp_id=" + meliOrEjra;
                 alertDialogLoding.show();
                 new setConnectionVolley(getContext(), vUrl, object
@@ -394,7 +390,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         setDataFromSamane(response);
                     }
                 });
-
 //                String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":{\"ins_id\":\"بیمه ی تکمیلی\",\"home_adr\":\"اراک انتهای خیابان\",\"is_sex\":\"0\",\"city_id\":\"1\",\"home_mbl\":\"09386977100\",\"father_name\":\"علی\",\"last_name\":\"حسینی\",\"first_name\":\"سیدمیثم\"}}";
 //                setDataFromSamane(res);
 
@@ -407,13 +402,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             public void onClick(View view) {
 
 
-//----------- when print is ok this 3 lines will be there (after get data rom server!!!!!)
-                linearLinears.setVisibility(View.GONE);
-                linearBtns.setVisibility(View.GONE);
-                linearPrint.setVisibility(View.VISIBLE);
-
-                //2_242_4781779718_45367_291_13990120
-                //dr_prg_hsp_mdc_spc_date
                 String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
                 JSONObject jsonObject = new JSONObject();
 
@@ -463,6 +451,10 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     return;
                 }
 
+//----------- when print is ok this 3 lines will be there (after get data rom server!!!!!)
+                linearLinears.setVisibility(View.GONE);
+                linearBtns.setVisibility(View.GONE);
+                linearPrint.setVisibility(View.VISIBLE);
 
                 /*{turn_date:'',prg_id:0,spc_id:0,hsp_id:0,city_id:0,srv_id:0,pp_id:'0',familiy_code:'',
                         patient:{mome_mbl:'',home_adr:'',first_name:'',last_name:'',is_sex:0,father_name:'',ins_id:0}*/
@@ -817,10 +809,11 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 edtFrPP_family.setEnabled(false);
                 edtFrPP_fatherName.setText(fatherNameSamane + "");
                 edtFrPP_phone.setText(phoneNumSamane + "");
+                if (!cityTitleSamane.equals(""))
                 txtFrPP_city.setText(cityTitleSamane + "");
                 edtFrPP_address.setText(addressSamane + "");
-                txtFrPP_bime.setText(bimeTitleSamane + "");
-
+                if (!bimeTitleSamane.equals(""))
+                    txtFrPP_bime.setText(bimeTitleSamane + "");
                 if (sexSamane.equals("0"))
                     radioBtnPP_male.setChecked(true);
                 else if (sexSamane.equals("1"))
