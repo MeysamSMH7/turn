@@ -173,6 +173,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private String fatherNameSamane;
     private String lastNameSamane;
     private String firstNameSamane;
+    private String cityTitleSamane;
     private String srv_id;
     private String rcp_id;
     //
@@ -775,7 +776,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 fatherNameSamane = jsonPatient.getString("father_name") + "";
                 if (fatherNameSamane.equals("null")) fatherNameSamane = "";
                 cityIdSamane = jsonPatient.getString("city_id");
-                //               cityTitleSamane = jsonPatient.getString("city_title");
+                cityTitleSamane = jsonPatient.getString("city_title");
                 sexSamane = jsonPatient.getString("is_sex"); // zero = man | one = woman
                 addressSamane = jsonPatient.getString("home_adr");
                 phoneNumSamane = jsonPatient.getString("home_mbl");
@@ -792,8 +793,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 if (fatherNameSamane.equals("null"))
                     fatherNameSamane = "";
 
-//                if (cityTitleSamane.equals("null"))
-//                    cityTitleSamane = "";
+                if (cityTitleSamane.equals("null"))
+                    cityTitleSamane = "";
 
                 if (sexSamane.equals("null"))
                     sexSamane = "-1";
@@ -816,7 +817,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 edtFrPP_family.setEnabled(false);
                 edtFrPP_fatherName.setText(fatherNameSamane + "");
                 edtFrPP_phone.setText(phoneNumSamane + "");
-                txtFrPP_city.setText(cityIdSamane + "");
+                txtFrPP_city.setText(cityTitleSamane + "");
                 edtFrPP_address.setText(addressSamane + "");
                 txtFrPP_bime.setText(bimeTitleSamane + "");
 
