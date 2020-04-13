@@ -78,7 +78,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
     private TextView txtPrint_bakhsh;
     private TextView txtPrint_codNobat;
     private TextView txtPrint_numberNobat;
-    private ImageView imgPrint_batcod;
+    private ImageView imgPrint_barcod;
     private TextView txtPrint_ghabzNumber;
     private TextView txtPrint_time2;
     private TextView txtPrint_hospitalName;
@@ -93,7 +93,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
 
     private boolean estelamDone = false;
     private SharedPreferences preferences;
-    private  int positionClick = -1;
+    private int positionClick = -1;
 
     @Nullable
     @Override
@@ -317,7 +317,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                         }
 
                         ModEstelam modEstelam = arrayListEstelam.get(position);
-positionClick =  position;
+                        positionClick = position;
                         nestedMain.setVisibility(View.GONE);
                         linearPrint.setVisibility(View.VISIBLE);
                         String vPazireshlink = "http://nobat.mazums.ac.ir/TurnAppApi/turn/showturn?"
@@ -362,7 +362,7 @@ positionClick =  position;
         txtPrint_bakhsh = view.findViewById(R.id.txtPrint_bakhsh);
         txtPrint_codNobat = view.findViewById(R.id.txtPrint_codNobat);
         txtPrint_numberNobat = view.findViewById(R.id.txtPrint_numberNobat);
-        imgPrint_batcod = view.findViewById(R.id.imgPrint_barcod);
+        imgPrint_barcod = view.findViewById(R.id.imgPrint_barcod);
         txtPrint_ghabzNumber = view.findViewById(R.id.txtPrint_ghabzNumber);
         txtPrint_time2 = view.findViewById(R.id.txtPrint_time2);
         txtPrint_hospitalName = view.findViewById(R.id.txtPrint_hospitalName);
@@ -495,14 +495,20 @@ positionClick =  position;
                 txtPrint_codNobat.setText("کد پیگیری: " + codNobat);
                 txtPrint_numberNobat.setText("شماره نوبت: " + numberNobat);
 
-                try {
-                    String encodedDataString = jsonTSF.getString("print_img")  ;
-                    encodedDataString = encodedDataString.replace("data:image/png;base64,","");
-                    byte[] imageAsBytes = Base64.decode(encodedDataString.getBytes(), 0);
-                    imgPrint_batcod.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
-                } catch (Exception e) {
-                    e.printStackTrace();
+                String img = jsonTSF.getString("print_img");
+                if (!img.equals("")) {
+                    if (!img.equals("null")) {
+                        try {
+                            String encodedDataString = img;
+                            encodedDataString = encodedDataString.replace("data:image/png;base64,", "");
+                            byte[] imageAsBytes = Base64.decode(encodedDataString.getBytes(), 0);
+                            imgPrint_barcod.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
+
 
             } else
                 new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);

@@ -178,6 +178,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private String cityTitleSamane;
     private String srv_id;
     private String rcp_id;
+    private String codMeliOrErja;
+
     //
 
     private TextView txtPrint_date;
@@ -380,7 +382,15 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                 linearPazireshPage2.setVisibility(View.VISIBLE);
                 btnPP_paziresh.setVisibility(View.VISIBLE);
-                String vUrl = "http://nobat.mazums.ac.ir/TurnAppApi/turn/SearchByPpId?hsp_id=" + hsp_pp + "&pp_id=" + meliOrEjra;
+
+                String vUrl = "";
+                if (codMeliOrErja.equals("کد ملی")) {
+                    vUrl = "http://nobat.mazums.ac.ir/TurnAppApi/turn/SearchByPpId?hsp_id=" + hsp_pp + "&pp_id=" + meliOrEjra;
+                } else {
+                    String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
+                    vUrl = "http://nobat.mazums.ac.ir/TurnAppApi/turn/SearchByRefId?hsp_id=" + hsp_pp + "&family_code=" + meliOrEjra + "&spc_id=" + temp[4];
+                }
+
                 alertDialogLoding.show();
                 new setConnectionVolley(getContext(), vUrl, object
                 ).connectStringRequest(new setConnectionVolley.OnResponse() {
@@ -495,9 +505,11 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i) {
                     case R.id.radioBtnPP_CodMeli:
+                        codMeliOrErja = "کد ملی";
                         edtFrPP_Cod.setHint("کد ملی");
                         break;
                     case R.id.radioBtnPP_NumErja:
+                        codMeliOrErja = "کد ارجاع";
                         edtFrPP_Cod.setHint("کد ارجاع");
                         break;
                 }
@@ -581,7 +593,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
             }
         });
-
 
 
     }
@@ -688,15 +699,19 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 txtPrint_bakhsh.setText("نام بخش: " + pakhshName);
                 txtPrint_codNobat.setText("کد پیگیری: " + codNobat);
                 txtPrint_numberNobat.setText("شماره نوبت: " + numberNobat);
+                String img = jsonTSF.getString("print_img");
 
-
-                try {
-                    String encodedDataString = jsonTSF.getString("print_img")  ;
-                    encodedDataString = encodedDataString.replace("data:image/png;base64,","");
-                    byte[] imageAsBytes = Base64.decode(encodedDataString.getBytes(), 0);
-                    imgPrint_barcod.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (!img.equals("")) {
+                    if (!img.equals("null")) {
+                        try {
+                            String encodedDataString = img;
+                            encodedDataString = encodedDataString.replace("data:image/png;base64,", "");
+                            byte[] imageAsBytes = Base64.decode(encodedDataString.getBytes(), 0);
+                            imgPrint_barcod.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
 
             } else if (message.equals("Error creating window handle.")) {
@@ -725,9 +740,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 linearPrint.setVisibility(View.GONE);
                 new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
             }
-
-
-
 
 
         } catch (Exception e) {
@@ -799,7 +811,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 edtFrPP_fatherName.setText(fatherNameSamane + "");
                 edtFrPP_phone.setText(phoneNumSamane + "");
                 if (!cityTitleSamane.equals(""))
-                txtFrPP_city.setText(cityTitleSamane + "");
+                    txtFrPP_city.setText(cityTitleSamane + "");
                 edtFrPP_address.setText(addressSamane + "");
                 if (!bimeTitleSamane.equals(""))
                     txtFrPP_bime.setText(bimeTitleSamane + "");
@@ -1096,7 +1108,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                 if (arrayData.length() != 0 && pageNumber == 1) {
                     previousPage(linearResTimes, linearResTimesBtn, linearSelectFilters, linearSelectFiltersBtn);
-                    Toast.makeText(getContext(), "اطلاعاتی وجود ندارد", Toast.LENGTH_SHORT).show();
+                    new ShowMessage(getContext()).ShowMessType2_NoBtn("اطلاعاتی وجود ندارد", true, 2);
+                    previousPage(linearResTimes, linearResTimesBtn, linearSelectFilters, linearSelectFiltersBtn);
                 }
 
                 if (arrayData.length() != 10)
@@ -1209,18 +1222,16 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 txtPP_motakhasesName.setText(spc_level_title + ": " + spc_title);
                 txtPP_datePP.setText("تاریخ " + turn_date);
 
-
-
-                try {
-                    String encodedDataString = dr_image;
-                    encodedDataString = encodedDataString.replace("data:image/png;base64,","");
-                    byte[] imageAsBytes = Base64.decode(encodedDataString.getBytes(), 0);
-                    imgPP_drPic.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (!dr_image.equals("null")) {
+                    try {
+                        String encodedDataString = dr_image;
+                        encodedDataString = encodedDataString.replace("data:image/png;base64,", "");
+                        byte[] imageAsBytes = Base64.decode(encodedDataString.getBytes(), 0);
+                        imgPP_drPic.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-
-
 
                 if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
 
@@ -1439,8 +1450,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 } else if (tag.equals("PPBime")) {
                     txtFrPP_bime.setText(title + "");
                     bimeIdSamane = id;
-                }
-                else if (tag.equals("PPOrg")) {
+                } else if (tag.equals("PPOrg")) {
                     txtFrPP_org.setText(title + "");
                     orgIdSamane = id;
                 }
