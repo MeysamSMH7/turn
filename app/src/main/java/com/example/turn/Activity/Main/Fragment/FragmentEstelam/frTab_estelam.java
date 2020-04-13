@@ -302,6 +302,16 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                             e.printStackTrace();
                         }
 
+                        if (edtEstelam_codMeli.getText().toString().equals("")) {
+                            Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        if (hospitalId.equals(dataHospitalID.get(0))) {
+                            Toast.makeText(getContext(), "لطفا یک بیمارستان انتخاب کنید", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                         ModEstelam modEstelam = arrayListEstelam.get(position);
 
                         String vPazireshlink = "http://nobat.mazums.ac.ir/TurnAppApi/turn/showturn?"

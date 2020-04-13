@@ -149,7 +149,7 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                     }
 
 
-                    if (edtLaghv_codMeli.getText().toString().length() == 10) {
+                    if (edtLaghv_codMeli.getText().toString().equals("")) {
                         Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -158,6 +158,10 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                         return;
                     }
 
+                    if (hospitalId.equals(dataHospitalID.get(0))) {
+                        Toast.makeText(getContext(), "لطفا یک بیمارستان انتخاب کنید", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                     String vLaghvUrl = "http://nobat.mazums.ac.ir/turnappApi/turn/cancelTurn?pp_id="
                             + edtLaghv_codMeli.getText().toString() +

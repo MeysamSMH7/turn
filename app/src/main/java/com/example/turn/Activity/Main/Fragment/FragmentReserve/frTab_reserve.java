@@ -362,7 +362,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 //                TODO: Send id , meli and erja to link3 -----------------------------------------
 
                 String meliOrEjra = edtFrPP_Cod.getText().toString();
-                if (meliOrEjra.length() == 10) {
+                if (meliOrEjra.equals("")) {
                     Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -431,34 +431,34 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                 String phoneNum = edtFrPP_phone.getText().toString().replace(" ", "");
 
-                if (phoneNum.length() == 10) {
+                if (phoneNum.equals("")) {
                     Toast.makeText(getContext(), "شماره ی موبایل نا معتبر است", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
 
-                if (edtFrPP_Cod.getText().toString().length() == 10) {
+                if (edtFrPP_Cod.getText().toString().equals("")) {
                     Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (edtFrPP_address.getText().toString().length() == 10) {
+                if (edtFrPP_address.getText().toString().equals("")) {
                     Toast.makeText(getContext(), "آدرس نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (edtFrPP_family.getText().toString().length() == 10) {
+                if (edtFrPP_family.getText().toString().equals("")) {
                     Toast.makeText(getContext(), "نام خانوادگی نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
 
                     return;
                 }
 
-                if (edtFrPP_name.getText().toString().length() == 10) {
+                if (edtFrPP_name.getText().toString().equals("")) {
                     Toast.makeText(getContext(), "نام نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (edtFrPP_fatherName.getText().toString().length() == 10) {
+                if (edtFrPP_fatherName.getText().toString().equals("")) {
                     Toast.makeText(getContext(), "نام پدر نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
                     return;
                 }
