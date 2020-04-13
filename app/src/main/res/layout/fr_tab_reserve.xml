@@ -223,6 +223,7 @@
                                     android:gravity="right"
                                     android:hint="کد ملی"
                                     android:maxLines="2"
+                                    android:inputType="number"
                                     android:paddingEnd="7dp"
                                     android:paddingRight="7dp"
                                     android:textColor="@color/colorBlack"
