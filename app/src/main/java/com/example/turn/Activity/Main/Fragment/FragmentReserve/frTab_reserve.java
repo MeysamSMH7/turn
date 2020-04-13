@@ -362,6 +362,10 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 //                TODO: Send id , meli and erja to link3 -----------------------------------------
 
                 String meliOrEjra = edtFrPP_Cod.getText().toString();
+                if (meliOrEjra.length() == 10) {
+                    Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 JSONObject object = new JSONObject();
                 // in khat 214 chie   صاشفwhatspp
                 try {
@@ -426,6 +430,39 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 // set data in pazireshPage
 
                 String phoneNum = edtFrPP_phone.getText().toString().replace(" ", "");
+
+                if (phoneNum.length() == 10) {
+                    Toast.makeText(getContext(), "شماره ی موبایل نا معتبر است", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                if (edtFrPP_Cod.getText().toString().length() == 10) {
+                    Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (edtFrPP_address.getText().toString().length() == 10) {
+                    Toast.makeText(getContext(), "آدرس نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (edtFrPP_family.getText().toString().length() == 10) {
+                    Toast.makeText(getContext(), "نام خانوادگی نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
+
+                    return;
+                }
+
+                if (edtFrPP_name.getText().toString().length() == 10) {
+                    Toast.makeText(getContext(), "نام نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (edtFrPP_fatherName.getText().toString().length() == 10) {
+                    Toast.makeText(getContext(), "نام پدر نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
 
                 /*{turn_date:'',prg_id:0,spc_id:0,hsp_id:0,city_id:0,srv_id:0,pp_id:'0',familiy_code:'',
                         patient:{mome_mbl:'',home_adr:'',first_name:'',last_name:'',is_sex:0,father_name:'',ins_id:0}*/
@@ -1163,10 +1200,12 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 JSONObject jsonhspInfo = objData.getJSONObject("hspInfo");
                 String hsp_title = jsonhspInfo.getString("hsp_title");
 
+                hsp_pp = jsonhspInfo.getString("hsp_id");
+                hsp_pp = hospiralId;
+                srv_id = jsonTSF.getString("srv_id");
 
                 if (dr_name.equals("null"))
                     dr_name = "";
-                srv_id = jsonTSF.getString("srv_id");
                 if (srv_id.equals("null"))
                     srv_id = "";
                 if (spc_title.equals("null"))
@@ -1177,8 +1216,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     turn_date = "";
                 if (hsp_pp.equals("null"))
                     hsp_pp = "";
-                hsp_pp = jsonhspInfo.getString("hsp_id");
-                hsp_pp = hospiralId;
                 if (hsp_title.equals("null"))
                     hsp_title = "";
 

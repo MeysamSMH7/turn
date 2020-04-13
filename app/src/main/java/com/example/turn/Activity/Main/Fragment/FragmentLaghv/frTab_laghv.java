@@ -147,6 +147,18 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+
+                    if (edtLaghv_codMeli.getText().toString().length() == 10) {
+                        Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (edtLaghv_codMeli.getText().toString().equals("")) {
+                        Toast.makeText(getContext(), "کد پیگیری نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+
                     String vLaghvUrl = "http://nobat.mazums.ac.ir/turnappApi/turn/cancelTurn?pp_id="
                             + edtLaghv_codMeli.getText().toString() +
                             "&prg_id=" + prg_id +
@@ -286,7 +298,7 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                     String[] tempAr = temp.split("\\(");
                     String takhasos = "";
                     if (tempAr.length != 1)
-                     takhasos = tempAr[1];
+                        takhasos = tempAr[1];
 
                     cardViewLaghv.setVisibility(View.VISIBLE);
 
