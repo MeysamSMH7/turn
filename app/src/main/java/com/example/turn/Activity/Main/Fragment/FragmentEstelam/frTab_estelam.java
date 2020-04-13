@@ -235,6 +235,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                     dataHospitalID.add(object1.getString("id"));
                     dataHospital.add(object1.getString("title"));
                 }
+                hospiralId=dataHospitalID.get(0) + "";
 
             } else
                 new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);

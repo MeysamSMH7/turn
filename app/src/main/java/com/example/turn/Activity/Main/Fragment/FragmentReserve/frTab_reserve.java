@@ -178,8 +178,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private String cityTitleSamane;
     private String srv_id;
     private String rcp_id;
-    private String codMeliOrErja;
-
+    private String codMeliOrErja="کد ملی";
+    private String ins_box_code ;
+    private String ins_box_val ;
     //
 
     private TextView txtPrint_date;
@@ -303,17 +304,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 String link = "http://nobat.mazums.ac.ir/Pay/Apprdr/?r=" + rcp_id + "&h=" + hospiralId;
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
                 setAllDataToDefault();
-//--------- back to main page
-                linearSelectFilters.setVisibility(View.VISIBLE);
-                linearSelectFiltersBtn.setVisibility(View.VISIBLE);
-                linearResTimes.setVisibility(View.GONE);
-                linearResTimesBtn.setVisibility(View.GONE);
-                linearPazireshPage.setVisibility(View.GONE);
-                linearPazireshPageBtn.setVisibility(View.GONE);
-                linearPazireshPage2.setVisibility(View.GONE);
-                linearLinears.setVisibility(View.VISIBLE);
-                linearBtns.setVisibility(View.VISIBLE);
-                linearPrint.setVisibility(View.GONE);
+
 
             }
         });
@@ -362,10 +353,22 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 //                TODO: Send id , meli and erja to link3 -----------------------------------------
 
                 String meliOrEjra = edtFrPP_Cod.getText().toString();
-                if (meliOrEjra.length() != 10) {
-                    Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
+                if ( codMeliOrErja.equals("کد ملی")) {
+                    if (  meliOrEjra.length() != 10)
+                    {
+                        Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                }
+                if ( codMeliOrErja.equals("کد ارجاع")) {
+                    if (meliOrEjra.equals("") )
+                    {
+                            Toast.makeText(getContext(), "شماره ارجاع نا معتبر است", Toast.LENGTH_SHORT).show();
                     return;
                 }
+            }
+
                 JSONObject object = new JSONObject();
                 try {
                     if (meliOrErja) {
@@ -434,11 +437,11 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     Toast.makeText(getContext(), "شماره ی موبایل نا معتبر است", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+/*
                 if (edtFrPP_Cod.getText().toString().length() != 10) {
                     Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
                     return;
-                }
+                }*/
 
                 if (edtFrPP_address.getText().toString().equals("")) {
                     Toast.makeText(getContext(), "آدرس نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
@@ -481,7 +484,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         + "&last_name=" + edtFrPP_family.getText().toString()
                         + "&first_name=" + edtFrPP_name.getText().toString()
                         + "&is_sex=" + sexSamane
-                        + "&father_name=" + edtFrPP_fatherName.getText().toString()
+                        + "&father_name=" + edtFrPP_fatherName.getText().toString().replace(" ","")
                         + "&ins_id=" + bimeIdSamane
                         + "&ost_id=" + ostanIdSamane
                         + "&org_id=" + orgIdSamane;
@@ -579,9 +582,16 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             }
         });
 
-        MaskFormatter maskFormatter = new MaskFormatter("999 999 9999", edtFrPP_phone);
+        cardViewFrPP_org.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialogShow("PPOrg");
+            }
+        });
+
+        MaskFormatter maskFormatter = new MaskFormatter("9999999999", edtFrPP_phone);
         edtFrPP_phone.setInputType(InputType.TYPE_CLASS_NUMBER);
-        edtFrPP_phone.setHint("911 345 6789");
+        edtFrPP_phone.setHint("09113456789");
         edtFrPP_phone.addTextChangedListener(maskFormatter);
 
         btnPP_previous = view.findViewById(R.id.btnPP_previous);
@@ -754,13 +764,15 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             JSONObject object = new JSONObject(res);
             String status = object.getString("status");
             String message = object.getString("message");
+
+            //dar halate code erja
+            if (message.contains("عدم تطابق تخصص"))
+                new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true , 2);
             //   if (status.equals("yes")) {
             linearPazireshPage2.setVisibility(View.VISIBLE);
             String data = object.getString("data");
             JSONObject objectData = new JSONObject(data);
             //get  patient
-
-
             JSONObject jsonPatient = objectData.getJSONObject("patient");
             firstNameSamane = jsonPatient.getString("first_name") + "";
             lastNameSamane = jsonPatient.getString("last_name") + "";
@@ -775,7 +787,21 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 phoneNumSamane = jsonPatient.getString("home_mbl");
                 bimeIdSamane = jsonPatient.getString("ins_id");
                 bimeTitleSamane = jsonPatient.getString("ins_title");
+
 //---------------------------
+/*
+                if (codMeliOrErja.equals("کد ارجاع")) {
+                    ins_box_code = jsonPatient.getString("ins_box_code");
+                    ins_box_val = jsonPatient.getString("ins_box_val");
+
+                    if (!ins_box_code.equals("null") || !ins_box_code.equals("")){
+
+                        txtFrPP_bime.setText(ins_box_val);
+                        txtFrPP_bime.setEnabled(false);
+
+                    }
+
+                }*/
 
                 if (firstNameSamane.equals("null"))
                     firstNameSamane = "";
@@ -803,6 +829,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                 if (bimeTitleSamane.equals("null"))
                     bimeTitleSamane = "";
+
+
 
                 edtFrPP_name.setText(firstNameSamane + "");
                 edtFrPP_name.setEnabled(false);
@@ -1450,9 +1478,22 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 } else if (tag.equals("PPBime")) {
                     txtFrPP_bime.setText(title + "");
                     bimeIdSamane = id;
-                } else if (tag.equals("PPOrg")) {
+                }
+                else if (tag.equals("PPOrg")) {
                     txtFrPP_org.setText(title + "");
                     orgIdSamane = id;
+                    // clicked on Org dropDown
+                    JSONObject jsonObject = new JSONObject();
+                    String linkpp = "http://nobat.mazums.ac.ir/TurnAppApi/turn/InsList?id=" + orgIdSamane + "&hsp_id=" + hsp_pp;
+                    new setConnectionVolley(getContext(), linkpp, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
+                        @Override
+                        public void OnResponse(String response) {
+                            // update city in pp
+                 updteBimePP(response);
+                        }
+                    });
+
+
                 }
 
                 alertDialogFilter.dismiss();
@@ -1494,7 +1535,30 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         }
 
     }
+    private void updteBimePP(String response) {
+        try {
+            JSONObject object = new JSONObject(response);
+            String status = object.getString("status");
+            String message = object.getString("message");
+            if (status.equals("yes")) {
+                String data = object.getString("data"); // data! nvase chi whatsapp
+                JSONObject arrayData1 = new JSONObject(data);
 
+                JSONArray arrayData = arrayData1.getJSONArray("inslist");  // chish moishkel dare
+                for (int i = 0; i < arrayData.length(); i++) {
+                    JSONObject objectTemp = arrayData.getJSONObject(i);
+                    arrayListBime.add(objectTemp.getString("title"));
+                    arrayListCityID.add(objectTemp.getString("id"));
+                }
+            } else
+//                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
+                new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
     private void selectFilters(View view) {
 
 //      this layout is for linearResTimes

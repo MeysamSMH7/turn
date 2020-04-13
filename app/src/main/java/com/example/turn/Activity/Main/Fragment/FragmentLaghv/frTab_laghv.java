@@ -123,6 +123,10 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                     Toast.makeText(getContext(), "کد پیگیری نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (hospitalId.equals(dataHospitalID.get(0))) {
+                    Toast.makeText(getContext(), "لطفا یک بیمارستان انتخاب کنید", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 String vLghvUrl = "http://nobat.mazums.ac.ir/TurnAppApi/turn/cancelTurnList?pp_id=" +
                         edtLaghv_codMeli.getText().toString() + "&rcp_no=" + edtLaghv_cod.getText().toString() + "&hsp_id=" + hospitalId;
@@ -202,7 +206,7 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                         }
                     });
                 } else {
-                    Toast.makeText(getContext(), "قابلیت لغو نداره", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "این نوبت قبلا لغو شده است.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

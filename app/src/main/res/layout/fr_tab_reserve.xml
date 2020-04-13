@@ -745,6 +745,18 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btnPP_previous"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/button_background_blue"
+                android:text="مرحله ی قبلی"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
+
+            <Button
                 android:id="@+id/btnPP_paziresh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -757,17 +769,7 @@
                 android:textStyle="bold"
                 android:visibility="invisible" />
 
-            <Button
-                android:id="@+id/btnPP_previous"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight="0.5"
-                android:background="@drawable/button_background_blue"
-                android:text="مرحله ی قبلی"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold" />
+
 
         </LinearLayout>
 
