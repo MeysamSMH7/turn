@@ -374,7 +374,7 @@ positionClick =  position;
             @Override
             public void onClick(View view) {
                 if (positionClick != -1) {
-                    String link = "http://nobat.mazums.ac.ir/Pay/Apprdr/?r=" + arrayListEstelam.get(positionClick).rcp_id + "&h=" + hospiralId;
+                    String link = "http://nobat.mazums.ac.ir/Pay/Apprdr/?r=" + arrayListEstelam.get(positionClick).rcp_id + "&h=" + arrayListEstelam.get(positionClick).hsp_id;
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
                 }
             }
