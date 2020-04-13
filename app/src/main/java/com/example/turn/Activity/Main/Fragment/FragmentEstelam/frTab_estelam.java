@@ -153,10 +153,15 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
         btnEstelam_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (edtEstelam_codMeli.getText().toString().length() != 10) {
+                    Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (hospitalId.equals(dataHospitalID.get(0))) {
+                    Toast.makeText(getContext(), "لطفا یک بیمارستان انتخاب کنید", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 doSearch();
-
-
             }
         });
     }
@@ -185,7 +190,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
         });
 
         estelamDone = true;
-        checkForRefresh();
+//        checkForRefresh();
 
             /*    String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":[{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"},{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"},{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"},{\"prg_turn_date_pp_rcp_pat_pay_pat_id\":\"1233\",\"prg_title\":\"دکتر مددی(داخلی)\",\"date_string\":\"1399/09/09\",\"status_title\":\"لغو شده\",\"status_detail\":\" وب\"}]}";
                 getData(res);*/

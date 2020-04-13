@@ -115,11 +115,11 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                if (codMeli.length() != 10){
+                if (codMeli.length() != 10) {
                     Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (cod.equals("")){
+                if (cod.equals("")) {
                     Toast.makeText(getContext(), "کد پیگیری نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -183,9 +183,11 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                     new setConnectionVolley(getContext(), vLaghvUrl, object).connectStringRequest(new setConnectionVolley.OnResponse() {
                         @Override
                         public void OnResponse(String response) {
-                            try {
+                            if (alertDialogLoding.isShowing())
                                 alertDialogLoding.dismiss();
-                                new ShowMessage(getContext()).ShowMessType2_NoBtn("درخواست شما با موفقیت لغو شد", true, 2);
+                            new ShowMessage(getContext()).ShowMessType2_NoBtn("درخواست شما با موفقیت لغو شد", true, 2);
+
+                            try {
                                 laghvDone = true;
                                 btnLaghv_laghv.setText("لغو شده");
 
