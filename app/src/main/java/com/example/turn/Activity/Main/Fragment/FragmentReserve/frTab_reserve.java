@@ -272,9 +272,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         txtPrint_hospitalAddress = view.findViewById(R.id.txtPrint_hospitalAddress);
         txtPrint_hospitalTell = view.findViewById(R.id.txtPrint_hospitalTell);
         btnPrint_pay = view.findViewById(R.id.btnPrint_pay);
-        btnPrint_pay.setVisibility(View.VISIBLE);
         btnPrint_dismis = view.findViewById(R.id.btnPrint_dismis);
-        btnPrint_dismis.setVisibility(View.VISIBLE);
 
         btnPrint_dismis.setOnClickListener(new View.OnClickListener() {
             @Override

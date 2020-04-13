@@ -119,8 +119,8 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                     Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (cod.length() != 10){
-                    Toast.makeText(getContext(), "کد پیگیری", Toast.LENGTH_SHORT).show();
+                if (cod.equals("")){
+                    Toast.makeText(getContext(), "کد پیگیری نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

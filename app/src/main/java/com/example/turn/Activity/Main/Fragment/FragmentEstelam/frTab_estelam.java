@@ -2,7 +2,9 @@ package com.example.turn.Activity.Main.Fragment.FragmentEstelam;
 
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -89,6 +91,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
 
     private boolean estelamDone = false;
     private SharedPreferences preferences;
+    private  int positionClick = -1;
 
     @Nullable
     @Override
@@ -307,7 +310,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                         }
 
                         ModEstelam modEstelam = arrayListEstelam.get(position);
-
+positionClick =  position;
                         nestedMain.setVisibility(View.GONE);
                         linearPrint.setVisibility(View.VISIBLE);
                         String vPazireshlink = "http://nobat.mazums.ac.ir/TurnAppApi/turn/showturn?"
@@ -359,9 +362,19 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
         txtPrint_hospitalAddress = view.findViewById(R.id.txtPrint_hospitalAddress);
         txtPrint_hospitalTell = view.findViewById(R.id.txtPrint_hospitalTell);
         btnPrint_pay = view.findViewById(R.id.btnPrint_pay);
-        btnPrint_pay.setVisibility(View.GONE);
         btnPrint_dismis = view.findViewById(R.id.btnPrint_dismis);
-        btnPrint_dismis.setVisibility(View.VISIBLE);
+
+
+        btnPrint_pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (positionClick != -1) {
+                    String link = "http://nobat.mazums.ac.ir/Pay/Apprdr/?r=" + arrayListEstelam.get(positionClick).rcp_id + "&h=" + hospiralId;
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
+                }
+            }
+        });
+
 
         btnPrint_dismis.setOnClickListener(new View.OnClickListener() {
             @Override

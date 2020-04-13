@@ -19,7 +19,7 @@
         android:layout_above="@+id/textasdf3"
         android:tint="@color/colorPrimaryDark"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/bandage" />
+        android:src="@drawable/bandage2" />
 
     <TextView
         android:id="@+id/textasdf3"
