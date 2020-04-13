@@ -154,7 +154,6 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                 doSearch();
 
 
-
             }
         });
     }
@@ -403,6 +402,53 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                 String pakhshName = jsonTSF.getString("sec_title") + "";
                 String codNobat = jsonTSF.getString("rcp_no") + "";
                 String numberNobat = jsonTSF.getString("csh_rcp_no") + "";
+
+
+                if (hospitalName.equals("null"))
+                    hospitalName = "";
+
+                if (hospitalAddress.equals("null"))
+                    hospitalAddress = "";
+
+                if (hospitalTel.equals("null"))
+                    hospitalTel = "";
+
+                if (date.equals("null"))
+                    date = "";
+
+                if (timeRes.equals("null"))
+                    timeRes = "";
+
+                if (timeHozor.equals("null"))
+                    timeHozor = "";
+
+                if (shift.equals("null"))
+                    shift = "";
+
+                if (doctorName.equals("null"))
+                    doctorName = "";
+
+                if (typeRes.equals("null"))
+                    typeRes = "";
+
+                if (bimeTitle.equals("null"))
+                    bimeTitle = "";
+
+                if (nameFamily.equals("null"))
+                    nameFamily = "";
+
+                if (price.equals("null"))
+                    price = "";
+
+                if (pakhshName.equals("null"))
+                    pakhshName = "";
+
+                if (codNobat.equals("null"))
+                    codNobat = "";
+
+                if (numberNobat.equals("null"))
+                    numberNobat = "";
+
 //---------------------------------
                 txtPrint_hospitalName.setText(hospitalName);
                 txtPrint_hospitalAddress.setText("آدرس: " + hospitalAddress);

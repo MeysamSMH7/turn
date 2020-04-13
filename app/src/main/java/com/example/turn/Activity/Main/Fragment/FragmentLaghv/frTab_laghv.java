@@ -254,7 +254,6 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                 }]
             }*/
 
-                    //  String id = objectData.getString("id");
 
                     String drName = objectData.getString("dr_name");
                     String hospitalName = objecthspTitle.getString("hsp_title");
@@ -264,12 +263,30 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                     turn_date = objectData.getString("turn_date");
                     turn_time = objectData.getString("turn_time");
                     q_type = objectData.getString("q_type");
-                    // dast be in tike naza plz. ta line 122. faghat json haro avaz kon
+
+                    if (drName.equals("null"))
+                        drName = "";
+                    if (hospitalName.equals("null"))
+                        hospitalName = "";
+                    if (date.equals("null"))
+                        date = "";
+                    if (nobatName.equals("null"))
+                        nobatName = "";
+                    if (prg_id.equals("null"))
+                        prg_id = "";
+                    if (turn_date.equals("null"))
+                        turn_date = "";
+                    if (turn_time.equals("null"))
+                        turn_time = "";
+                    if (q_type.equals("null"))
+                        q_type = "";
 
                     String temp = nobatName;
                     temp = temp.replace(")", "");
                     String[] tempAr = temp.split("\\(");
-                    String takhasos = tempAr[1];
+                    String takhasos = "";
+                    if (tempAr.length != 1)
+                     takhasos = tempAr[1];
 
                     cardViewLaghv.setVisibility(View.VISIBLE);
 

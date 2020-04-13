@@ -260,9 +260,9 @@ public class ShowMessage {
 
             if (btn)
                 prettyDialog.addButton(
-                        "خُب!",
+                        "بستن",
                         R.color.pdlg_color_white,
-                        R.color.colorBlue,
+                        R.color.colorPrimaryDark,
                         new PrettyDialogCallback() {
                             @Override
                             public void onClick() {
