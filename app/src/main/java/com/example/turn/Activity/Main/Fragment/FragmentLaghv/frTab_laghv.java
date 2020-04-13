@@ -149,7 +149,7 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                     }
 
 
-                    if (edtLaghv_codMeli.getText().toString().equals("")) {
+                    if (edtLaghv_codMeli.getText().toString().length() != 10) {
                         Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
                         return;
                     }

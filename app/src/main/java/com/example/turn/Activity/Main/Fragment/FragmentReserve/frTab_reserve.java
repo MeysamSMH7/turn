@@ -431,13 +431,12 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                 String phoneNum = edtFrPP_phone.getText().toString().replace(" ", "");
 
-                if (phoneNum.equals("")) {
+                if (phoneNum.length() != 10) {
                     Toast.makeText(getContext(), "شماره ی موبایل نا معتبر است", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-
-                if (edtFrPP_Cod.getText().toString().equals("")) {
+                if (edtFrPP_Cod.getText().toString().length() != 10) {
                     Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
                     return;
                 }

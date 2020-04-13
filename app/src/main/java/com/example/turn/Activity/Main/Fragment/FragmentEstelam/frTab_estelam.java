@@ -302,7 +302,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                             e.printStackTrace();
                         }
 
-                        if (edtEstelam_codMeli.getText().toString().equals("")) {
+                        if (edtEstelam_codMeli.getText().toString().length() != 10) {
                             Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
                             return;
                         }
