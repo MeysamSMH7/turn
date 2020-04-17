@@ -89,6 +89,11 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
                 }
             });
 
+            int po = position;
+            po++;
+            holder.txtRcycRT_postNumber.setText(po + "");
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -107,6 +112,7 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
         TextView txtRcycRT_date;
         TextView txtRcycRT_doctorName;
         TextView txtRcycRT_takhasos;
+        TextView txtRcycRT_postNumber;
         // TextView txtRcycRT_num;
         LinearLayout linearRcycRT_status;
         Button btnRcycRT_status;
@@ -123,6 +129,7 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             //   txtRcycRT_num = view.findViewById(R.id.txtRcycRT_num);
             //linearRcycRT_status = view.findViewById(R.id.linearRcycRT_status);
             btnRcycRT_status = view.findViewById(R.id.btnRcycRT_status);
+            txtRcycRT_postNumber = view.findViewById(R.id.txtRcycRT_postNumber);
 
         }
     }
