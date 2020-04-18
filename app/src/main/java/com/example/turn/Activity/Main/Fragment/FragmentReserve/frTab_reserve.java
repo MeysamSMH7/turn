@@ -117,7 +117,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private int currentItemFP = 0, totalItemsFP = 0, scrollOutItemsFP = 0;
     private LinearLayoutManager rowManager;
     private Boolean boolCheckNetFP = false;
-    private int pageNumber = -1;
+    private int pageNumber = 0;
+    boolean morePost = true;
 
     //------------ linearPazireshPage
     private LinearLayout linearPazireshPage;
@@ -178,9 +179,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private String cityTitleSamane;
     private String srv_id;
     private String rcp_id;
-    private String codMeliOrErja="کد ملی";
-    private String ins_box_code ;
-    private String ins_box_val ;
+    private String codMeliOrErja = "کد ملی";
+    private String ins_box_code;
+    private String ins_box_val;
     //
 
     private TextView txtPrint_date;
@@ -206,7 +207,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
     //------------------------------------
     private AlertDialog alertDialogLoding;
-
 
     public static frTab_reserve newInstance() {
 
@@ -257,354 +257,377 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     }
 
     private void print(View view) {
+        try {
+            txtPrint_date = view.findViewById(R.id.txtPrint_date);
+            txtPrint_time = view.findViewById(R.id.txtPrint_time);
+            txtPrint_hours = view.findViewById(R.id.txtPrint_hours);
+            txtPrint_shit = view.findViewById(R.id.txtPrint_shit);
+            txtPrint_doctor = view.findViewById(R.id.txtPrint_doctor);
+            txtPrint_type = view.findViewById(R.id.txtPrint_type);
+            txtPrint_typeBime = view.findViewById(R.id.txtPrint_typeBime);
+            txtPrint_firstLastName = view.findViewById(R.id.txtPrint_firstLastName);
+            txtPrint_price = view.findViewById(R.id.txtPrint_price);
+            txtPrint_bakhsh = view.findViewById(R.id.txtPrint_bakhsh);
+            txtPrint_codNobat = view.findViewById(R.id.txtPrint_codNobat);
+            txtPrint_numberNobat = view.findViewById(R.id.txtPrint_numberNobat);
+            imgPrint_barcod = view.findViewById(R.id.imgPrint_barcod);
+            txtPrint_ghabzNumber = view.findViewById(R.id.txtPrint_ghabzNumber);
+            txtPrint_time2 = view.findViewById(R.id.txtPrint_time2);
+            txtPrint_hospitalName = view.findViewById(R.id.txtPrint_hospitalName);
+            txtPrint_hospitalAddress = view.findViewById(R.id.txtPrint_hospitalAddress);
+            txtPrint_hospitalTell = view.findViewById(R.id.txtPrint_hospitalTell);
+            btnPrint_pay = view.findViewById(R.id.btnPrint_pay);
+            btnPrint_dismis = view.findViewById(R.id.btnPrint_dismis);
 
-        txtPrint_date = view.findViewById(R.id.txtPrint_date);
-        txtPrint_time = view.findViewById(R.id.txtPrint_time);
-        txtPrint_hours = view.findViewById(R.id.txtPrint_hours);
-        txtPrint_shit = view.findViewById(R.id.txtPrint_shit);
-        txtPrint_doctor = view.findViewById(R.id.txtPrint_doctor);
-        txtPrint_type = view.findViewById(R.id.txtPrint_type);
-        txtPrint_typeBime = view.findViewById(R.id.txtPrint_typeBime);
-        txtPrint_firstLastName = view.findViewById(R.id.txtPrint_firstLastName);
-        txtPrint_price = view.findViewById(R.id.txtPrint_price);
-        txtPrint_bakhsh = view.findViewById(R.id.txtPrint_bakhsh);
-        txtPrint_codNobat = view.findViewById(R.id.txtPrint_codNobat);
-        txtPrint_numberNobat = view.findViewById(R.id.txtPrint_numberNobat);
-        imgPrint_barcod = view.findViewById(R.id.imgPrint_barcod);
-        txtPrint_ghabzNumber = view.findViewById(R.id.txtPrint_ghabzNumber);
-        txtPrint_time2 = view.findViewById(R.id.txtPrint_time2);
-        txtPrint_hospitalName = view.findViewById(R.id.txtPrint_hospitalName);
-        txtPrint_hospitalAddress = view.findViewById(R.id.txtPrint_hospitalAddress);
-        txtPrint_hospitalTell = view.findViewById(R.id.txtPrint_hospitalTell);
-        btnPrint_pay = view.findViewById(R.id.btnPrint_pay);
-        btnPrint_dismis = view.findViewById(R.id.btnPrint_dismis);
-
-        btnPrint_dismis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
+            btnPrint_dismis.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
 //--------- back to previous
-                linearSelectFilters.setVisibility(View.GONE);
-                linearSelectFiltersBtn.setVisibility(View.GONE);
-                linearResTimes.setVisibility(View.GONE);
-                linearResTimesBtn.setVisibility(View.GONE);
-                linearPazireshPage.setVisibility(View.VISIBLE);
-                linearPazireshPageBtn.setVisibility(View.VISIBLE);
-                linearPazireshPage2.setVisibility(View.VISIBLE);
-                linearLinears.setVisibility(View.VISIBLE);
-                linearBtns.setVisibility(View.VISIBLE);
-                linearPrint.setVisibility(View.GONE);
+                        linearSelectFilters.setVisibility(View.GONE);
+                        linearSelectFiltersBtn.setVisibility(View.GONE);
+                        linearResTimes.setVisibility(View.GONE);
+                        linearResTimesBtn.setVisibility(View.GONE);
+                        linearPazireshPage.setVisibility(View.VISIBLE);
+                        linearPazireshPageBtn.setVisibility(View.VISIBLE);
+                        linearPazireshPage2.setVisibility(View.VISIBLE);
+                        linearLinears.setVisibility(View.VISIBLE);
+                        linearBtns.setVisibility(View.VISIBLE);
+                        linearPrint.setVisibility(View.GONE);
 
-            }
-        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
-        btnPrint_pay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String link = "http://nobat.mazums.ac.ir/Pay/Apprdr/?r=" + rcp_id + "&h=" + hospiralId;
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
-                setAllDataToDefault();
+            btnPrint_pay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        String link = "http://nobat.mazums.ac.ir/Pay/Apprdr/?r=" + rcp_id + "&h=" + hospiralId;
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
+                        setAllDataToDefault();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
 
-            }
-        });
-
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void loading() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setCancelable(false);
-        LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.loading, null, false);
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setCancelable(false);
+            LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.loading, null, false);
 
-        builder.setView(layout);
-        alertDialogLoding = builder.create();
-        alertDialogLoding.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
+            builder.setView(layout);
+            alertDialogLoding = builder.create();
+            alertDialogLoding.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void paziresh(View view) {
-        final boolean meliOrErja = false; // default is meli and its false
-        linearPazireshPage = view.findViewById(R.id.linearPazireshPage);
-        linearPazireshPageBtn = view.findViewById(R.id.linearPazireshPageBtn);
-        linearPP_pazireshData = view.findViewById(R.id.linearPP_pazireshData);
-        txtPP_markazName = view.findViewById(R.id.txtPP_markazName);
-        txtPP_doctorName = view.findViewById(R.id.txtPP_doctorName);
-        txtPP_motakhasesName = view.findViewById(R.id.txtPP_motakhasesName);
-        txtPP_datePP = view.findViewById(R.id.txtPP_datePP);
-        radioGPPP_CodMeli = view.findViewById(R.id.radioGPPP_CodMeli);
-        edtFrPP_Cod = view.findViewById(R.id.edtFrPP_Cod);
-        btnPP_search = view.findViewById(R.id.btnPP_search);
-        btnPP_paziresh = view.findViewById(R.id.btnPP_paziresh);
-        btnPP_paziresh.setVisibility(View.INVISIBLE);
+        try {
 
-        arrayListOstan = new ArrayList();
-        arrayListCity = new ArrayList();
-        arrayListBime = new ArrayList();
-        arrayListOstanID = new ArrayList();
-        arrayListCityID = new ArrayList();
-        arrayListBimeID = new ArrayList();
-        arrayListOrg = new ArrayList();
-        arrayListOrgID = new ArrayList();
+            final boolean meliOrErja = false; // default is meli and its false
+            linearPazireshPage = view.findViewById(R.id.linearPazireshPage);
+            linearPazireshPageBtn = view.findViewById(R.id.linearPazireshPageBtn);
+            linearPP_pazireshData = view.findViewById(R.id.linearPP_pazireshData);
+            txtPP_markazName = view.findViewById(R.id.txtPP_markazName);
+            txtPP_doctorName = view.findViewById(R.id.txtPP_doctorName);
+            txtPP_motakhasesName = view.findViewById(R.id.txtPP_motakhasesName);
+            txtPP_datePP = view.findViewById(R.id.txtPP_datePP);
+            radioGPPP_CodMeli = view.findViewById(R.id.radioGPPP_CodMeli);
+            edtFrPP_Cod = view.findViewById(R.id.edtFrPP_Cod);
+            btnPP_search = view.findViewById(R.id.btnPP_search);
+            btnPP_paziresh = view.findViewById(R.id.btnPP_paziresh);
+            btnPP_paziresh.setVisibility(View.INVISIBLE);
 
-        btnPP_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            arrayListOstan = new ArrayList();
+            arrayListCity = new ArrayList();
+            arrayListBime = new ArrayList();
+            arrayListOstanID = new ArrayList();
+            arrayListCityID = new ArrayList();
+            arrayListBimeID = new ArrayList();
+            arrayListOrg = new ArrayList();
+            arrayListOrgID = new ArrayList();
+
+            btnPP_search.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 //                TODO: Send id , meli and erja to link3 -----------------------------------------
+                    try {
+                        String meliOrEjra = edtFrPP_Cod.getText().toString();
+                        if (codMeliOrErja.equals("کد ملی")) {
+                            if (meliOrEjra.length() != 10) {
+                                Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
 
-                String meliOrEjra = edtFrPP_Cod.getText().toString();
-                if ( codMeliOrErja.equals("کد ملی")) {
-                    if (  meliOrEjra.length() != 10)
-                    {
-                        Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+                        }
+                        if (codMeliOrErja.equals("کد ارجاع")) {
+                            if (meliOrEjra.equals("")) {
+                                Toast.makeText(getContext(), "شماره ارجاع نا معتبر است", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
 
-                }
-                if ( codMeliOrErja.equals("کد ارجاع")) {
-                    if (meliOrEjra.equals("") )
-                    {
-                            Toast.makeText(getContext(), "شماره ارجاع نا معتبر است", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }
+                        JSONObject object = new JSONObject();
+                        try {
+                            if (meliOrErja) {
+                                object.put("pp_id", meliOrEjra);
+                                object.put("srv_id", "");
+                            } else {
+                                object.put("pp_id", "");
+                                object.put("srv_id", meliOrEjra);
+                            }
 
-                JSONObject object = new JSONObject();
-                try {
-                    if (meliOrErja) {
-                        object.put("pp_id", meliOrEjra);
-                        object.put("srv_id", "");
-                    } else {
-                        object.put("pp_id", "");
-                        object.put("srv_id", meliOrEjra);
-                    }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                        linearPazireshPage2.setVisibility(View.VISIBLE);
+                        btnPP_paziresh.setVisibility(View.VISIBLE);
 
-                linearPazireshPage2.setVisibility(View.VISIBLE);
-                btnPP_paziresh.setVisibility(View.VISIBLE);
+                        String vUrl = "";
+                        if (codMeliOrErja.equals("کد ملی")) {
+                            vUrl = "http://nobat.mazums.ac.ir/TurnAppApi/turn/SearchByPpId?hsp_id=" + hsp_pp + "&pp_id=" + meliOrEjra;
+                        } else {
+                            String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
+                            vUrl = "http://nobat.mazums.ac.ir/TurnAppApi/turn/SearchByRefId?hsp_id=" + hsp_pp + "&family_code=" + meliOrEjra + "&spc_id=" + temp[4];
+                        }
 
-                String vUrl = "";
-                if (codMeliOrErja.equals("کد ملی")) {
-                    vUrl = "http://nobat.mazums.ac.ir/TurnAppApi/turn/SearchByPpId?hsp_id=" + hsp_pp + "&pp_id=" + meliOrEjra;
-                } else {
-                    String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
-                    vUrl = "http://nobat.mazums.ac.ir/TurnAppApi/turn/SearchByRefId?hsp_id=" + hsp_pp + "&family_code=" + meliOrEjra + "&spc_id=" + temp[4];
-                }
-
-                alertDialogLoding.show();
-                new setConnectionVolley(getContext(), vUrl, object
-                ).connectStringRequest(new setConnectionVolley.OnResponse() {
-                    @Override
-                    public void OnResponse(String response) {
-                        if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
-                        setDataFromSamane(response);
-                    }
-                });
+                        alertDialogLoding.show();
+                        new setConnectionVolley(getContext(), vUrl, object
+                        ).connectStringRequest(new setConnectionVolley.OnResponse() {
+                            @Override
+                            public void OnResponse(String response) {
+                                if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
+                                setDataFromSamane(response);
+                            }
+                        });
 //                String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":{\"ins_id\":\"بیمه ی تکمیلی\",\"home_adr\":\"اراک انتهای خیابان\",\"is_sex\":\"0\",\"city_id\":\"1\",\"home_mbl\":\"09386977100\",\"father_name\":\"علی\",\"last_name\":\"حسینی\",\"first_name\":\"سیدمیثم\"}}";
 //                setDataFromSamane(res);
 
-
-            }
-        });
-
-        btnPP_paziresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
-                JSONObject jsonObject = new JSONObject();
-
-                try {
-                    jsonObject.put("dr_id", temp[0] + "");
-                    jsonObject.put("prg_id", temp[1] + "");
-                    jsonObject.put("hsp_id", temp[2] + "");
-                    jsonObject.put("mdc_id", temp[3] + "");
-                    jsonObject.put("spc_id", temp[4] + "");
-                    jsonObject.put("prg_date", temp[5] + "");
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
+            });
+
+            btnPP_paziresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    try {
+
+
+                        String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
+                        JSONObject jsonObject = new JSONObject();
+
+                        try {
+                            jsonObject.put("dr_id", temp[0] + "");
+                            jsonObject.put("prg_id", temp[1] + "");
+                            jsonObject.put("hsp_id", temp[2] + "");
+                            jsonObject.put("mdc_id", temp[3] + "");
+                            jsonObject.put("spc_id", temp[4] + "");
+                            jsonObject.put("prg_date", temp[5] + "");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 // TODO: link check
-                // set data in pazireshPage
+                        // set data in pazireshPage
 
-                String phoneNum = edtFrPP_phone.getText().toString().replace(" ", "");
+                        String phoneNum = edtFrPP_phone.getText().toString().replace(" ", "");
 
-                if (phoneNum.length() != 10) {
-                    Toast.makeText(getContext(), "شماره ی موبایل نا معتبر است", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                        if (phoneNum.length() != 10) {
+                            Toast.makeText(getContext(), "شماره ی موبایل نا معتبر است", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 /*
                 if (edtFrPP_Cod.getText().toString().length() != 10) {
                     Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
                     return;
                 }*/
 
-                if (edtFrPP_address.getText().toString().equals("")) {
-                    Toast.makeText(getContext(), "آدرس نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                        if (edtFrPP_address.getText().toString().equals("")) {
+                            Toast.makeText(getContext(), "آدرس نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-                if (edtFrPP_family.getText().toString().equals("")) {
-                    Toast.makeText(getContext(), "نام خانوادگی نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
+                        if (edtFrPP_family.getText().toString().equals("")) {
+                            Toast.makeText(getContext(), "نام خانوادگی نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
 
-                    return;
-                }
+                            return;
+                        }
 
-                if (edtFrPP_name.getText().toString().equals("")) {
-                    Toast.makeText(getContext(), "نام نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                        if (edtFrPP_name.getText().toString().equals("")) {
+                            Toast.makeText(getContext(), "نام نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-                if (edtFrPP_fatherName.getText().toString().equals("")) {
-                    Toast.makeText(getContext(), "نام پدر نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                        if (edtFrPP_fatherName.getText().toString().equals("")) {
+                            Toast.makeText(getContext(), "نام پدر نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
 //----------- when print is ok this 3 lines will be there (after get data rom server!!!!!)
-                linearLinears.setVisibility(View.GONE);
-                linearBtns.setVisibility(View.GONE);
-                linearPrint.setVisibility(View.VISIBLE);
+                        linearLinears.setVisibility(View.GONE);
+                        linearBtns.setVisibility(View.GONE);
+                        linearPrint.setVisibility(View.VISIBLE);
 
                 /*{turn_date:'',prg_id:0,spc_id:0,hsp_id:0,city_id:0,srv_id:0,pp_id:'0',familiy_code:'',
                         patient:{mome_mbl:'',home_adr:'',first_name:'',last_name:'',is_sex:0,father_name:'',ins_id:0}*/
 
-                String vPazireshlink = "http://nobat.mazums.ac.ir/TurnAppApi/turn/MakeTurn?"
-                        + "prg_id=" + temp[1]
-                        + "&hsp_id=" + temp[2]
-                        + "&srv_id=" + srv_id
-                        + "&spc_id=" + temp[4]
-                        + "&turn_date=" + temp[5]
-                        + "&pp_id=" + edtFrPP_Cod.getText().toString()
-                        + "&home_mbl=" + phoneNum
-                        + "&home_adr=" + edtFrPP_address.getText().toString()
-                        + "&last_name=" + edtFrPP_family.getText().toString()
-                        + "&first_name=" + edtFrPP_name.getText().toString()
-                        + "&is_sex=" + sexSamane
-                        + "&father_name=" + edtFrPP_fatherName.getText().toString().replace(" ","")
-                        + "&ins_id=" + bimeIdSamane
-                        + "&ost_id=" + ostanIdSamane
-                        + "&org_id=" + orgIdSamane;
-                alertDialogLoding.show();
-                new setConnectionVolley(getContext(), vPazireshlink, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
-                    @Override
-                    public void OnResponse(String response) {
-                        if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
-                        setDataPrint(response);
+                        String vPazireshlink = "http://nobat.mazums.ac.ir/TurnAppApi/turn/MakeTurn?"
+                                + "prg_id=" + temp[1]
+                                + "&hsp_id=" + temp[2]
+                                + "&srv_id=" + srv_id
+                                + "&spc_id=" + temp[4]
+                                + "&turn_date=" + temp[5]
+                                + "&pp_id=" + edtFrPP_Cod.getText().toString()
+                                + "&home_mbl=" + phoneNum
+                                + "&home_adr=" + edtFrPP_address.getText().toString()
+                                + "&last_name=" + edtFrPP_family.getText().toString()
+                                + "&first_name=" + edtFrPP_name.getText().toString()
+                                + "&is_sex=" + sexSamane
+                                + "&father_name=" + edtFrPP_fatherName.getText().toString().replace(" ", "")
+                                + "&ins_id=" + bimeIdSamane
+                                + "&ost_id=" + ostanIdSamane
+                                + "&org_id=" + orgIdSamane;
+                        alertDialogLoding.show();
+                        new setConnectionVolley(getContext(), vPazireshlink, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
+                            @Override
+                            public void OnResponse(String response) {
+                                if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
+                                setDataPrint(response);
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                });
-
-            }
-
-
-        });
-
-
-        radioGPPP_CodMeli.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i) {
-                    case R.id.radioBtnPP_CodMeli:
-                        codMeliOrErja = "کد ملی";
-                        edtFrPP_Cod.setHint("کد ملی");
-                        break;
-                    case R.id.radioBtnPP_NumErja:
-                        codMeliOrErja = "کد ارجاع";
-                        edtFrPP_Cod.setHint("کد ارجاع");
-                        break;
                 }
-            }
-        });
+
+
+            });
+
+
+            radioGPPP_CodMeli.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                    switch (i) {
+                        case R.id.radioBtnPP_CodMeli:
+                            codMeliOrErja = "کد ملی";
+                            edtFrPP_Cod.setHint("کد ملی");
+                            break;
+                        case R.id.radioBtnPP_NumErja:
+                            codMeliOrErja = "کد ارجاع";
+                            edtFrPP_Cod.setHint("کد ارجاع");
+                            break;
+                    }
+                }
+            });
 //-------------------------------------------------------------------------
-        linearPazireshPage2 = view.findViewById(R.id.linearPazireshPage2);
-        edtFrPP_name = view.findViewById(R.id.edtFrPP_name);
-        edtFrPP_family = view.findViewById(R.id.edtFrPP_family);
-        edtFrPP_fatherName = view.findViewById(R.id.edtFrPP_fatherName);
-        radioGPPP_sex = view.findViewById(R.id.radioGPPP_sex); // radioBtnPP_female - radioBtnPP_male
-        radioBtnPP_female = view.findViewById(R.id.radioBtnPP_female);
-        radioBtnPP_male = view.findViewById(R.id.radioBtnPP_male);
-        edtFrPP_phone = view.findViewById(R.id.edtFrPP_phone);
-        linearFrPP_City = view.findViewById(R.id.linearFrPP_City);
-        txtFrPP_city = view.findViewById(R.id.txtFrPP_city);
-        linearFrPP_ostan = view.findViewById(R.id.linearFrPP_ostan);
-        txtFrPP_ostan = view.findViewById(R.id.txtFrPP_ostan);
-        edtFrPP_address = view.findViewById(R.id.edtFrPP_address);
-        linearFrPP_bime = view.findViewById(R.id.linearFrPP_bime);
-        txtFrPP_bime = view.findViewById(R.id.txtFrPP_bime);
-        cardViewFrPP_org = view.findViewById(R.id.cardViewFrPP_org);
-        linearFrPP_org = view.findViewById(R.id.linearFrPP_org);
-        txtFrPP_org = view.findViewById(R.id.txtFrPP_org);
+            linearPazireshPage2 = view.findViewById(R.id.linearPazireshPage2);
+            edtFrPP_name = view.findViewById(R.id.edtFrPP_name);
+            edtFrPP_family = view.findViewById(R.id.edtFrPP_family);
+            edtFrPP_fatherName = view.findViewById(R.id.edtFrPP_fatherName);
+            radioGPPP_sex = view.findViewById(R.id.radioGPPP_sex); // radioBtnPP_female - radioBtnPP_male
+            radioBtnPP_female = view.findViewById(R.id.radioBtnPP_female);
+            radioBtnPP_male = view.findViewById(R.id.radioBtnPP_male);
+            edtFrPP_phone = view.findViewById(R.id.edtFrPP_phone);
+            linearFrPP_City = view.findViewById(R.id.linearFrPP_City);
+            txtFrPP_city = view.findViewById(R.id.txtFrPP_city);
+            linearFrPP_ostan = view.findViewById(R.id.linearFrPP_ostan);
+            txtFrPP_ostan = view.findViewById(R.id.txtFrPP_ostan);
+            edtFrPP_address = view.findViewById(R.id.edtFrPP_address);
+            linearFrPP_bime = view.findViewById(R.id.linearFrPP_bime);
+            txtFrPP_bime = view.findViewById(R.id.txtFrPP_bime);
+            cardViewFrPP_org = view.findViewById(R.id.cardViewFrPP_org);
+            linearFrPP_org = view.findViewById(R.id.linearFrPP_org);
+            txtFrPP_org = view.findViewById(R.id.txtFrPP_org);
 
-        imgPP_drPic = view.findViewById(R.id.imgPP_drPic);
+            imgPP_drPic = view.findViewById(R.id.imgPP_drPic);
 
-        radioGPPP_sex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i) {
-                    case R.id.radioBtnPP_male:
-                        sexSamane = "0";
-                        break;
-                    case R.id.radioBtnPP_female:
-                        sexSamane = "1";
-                        break;
+            radioGPPP_sex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                    switch (i) {
+                        case R.id.radioBtnPP_male:
+                            sexSamane = "0";
+                            break;
+                        case R.id.radioBtnPP_female:
+                            sexSamane = "1";
+                            break;
+                    }
                 }
-            }
-        });
+            });
 
-        txtFrPP_city.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialogShow("PPCity");
-            }
-        });
+            txtFrPP_city.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialogShow("PPCity");
+                }
+            });
 
-        txtFrPP_ostan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialogShow("PPOstan");
-            }
-        });
+            txtFrPP_ostan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialogShow("PPOstan");
+                }
+            });
 
-        txtFrPP_bime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialogShow("PPBime");
-            }
-        });
+            txtFrPP_bime.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialogShow("PPBime");
+                }
+            });
 
-        txtFrPP_org.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialogShow("PPOrg");
-            }
-        });
+            txtFrPP_org.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialogShow("PPOrg");
+                }
+            });
 
-        cardViewFrPP_org.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialogShow("PPOrg");
-            }
-        });
+            cardViewFrPP_org.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialogShow("PPOrg");
+                }
+            });
 
-        MaskFormatter maskFormatter = new MaskFormatter("9999999999", edtFrPP_phone);
-        edtFrPP_phone.setInputType(InputType.TYPE_CLASS_NUMBER);
-        edtFrPP_phone.setHint("09113456789");
-        edtFrPP_phone.addTextChangedListener(maskFormatter);
+            MaskFormatter maskFormatter = new MaskFormatter("9999999999", edtFrPP_phone);
+            edtFrPP_phone.setInputType(InputType.TYPE_CLASS_NUMBER);
+            edtFrPP_phone.setHint("09113456789");
+            edtFrPP_phone.addTextChangedListener(maskFormatter);
 
-        btnPP_previous = view.findViewById(R.id.btnPP_previous);
-        btnPP_previous.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            btnPP_previous = view.findViewById(R.id.btnPP_previous);
+            btnPP_previous.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        previousPage(linearPazireshPage, linearPazireshPageBtn, linearResTimes, linearResTimesBtn);
 
-                previousPage(linearPazireshPage, linearPazireshPageBtn, linearResTimes, linearResTimesBtn);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
-            }
-        });
 
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setDataPrint(String res) {
@@ -752,7 +775,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
             }
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -768,7 +790,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
             //dar halate code erja
             if (message.contains("عدم تطابق تخصص"))
-                new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true , 2);
+                new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
             //   if (status.equals("yes")) {
             linearPazireshPage2.setVisibility(View.VISIBLE);
             String data = object.getString("data");
@@ -830,7 +852,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                 if (bimeTitleSamane.equals("null"))
                     bimeTitleSamane = "";
-
 
 
                 edtFrPP_name.setText(firstNameSamane + "");
@@ -900,228 +921,266 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     }
 
     private void reservationTimes(final View view) {
-        linearResTimes = view.findViewById(R.id.linearResTimes);
-        linearResTimesBtn = view.findViewById(R.id.linearResTimesBtn);
-        btnRT_previous = view.findViewById(R.id.btnRT_previous);
-        rcycRT = view.findViewById(R.id.rcycRT);
-        btnRT_filter = view.findViewById(R.id.btnRT_filter);
-        refreshRT = view.findViewById(R.id.refreshRT);
+        try {
 
-        arrayListResTimes = new ArrayList();
+            linearResTimes = view.findViewById(R.id.linearResTimes);
+            linearResTimesBtn = view.findViewById(R.id.linearResTimesBtn);
+            btnRT_previous = view.findViewById(R.id.btnRT_previous);
+            rcycRT = view.findViewById(R.id.rcycRT);
+            btnRT_filter = view.findViewById(R.id.btnRT_filter);
+            refreshRT = view.findViewById(R.id.refreshRT);
 
-        btnRT_previous.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                previousPage(linearResTimes, linearResTimesBtn, linearSelectFilters, linearSelectFiltersBtn);
+            arrayListResTimes = new ArrayList();
 
-                if (arrayListResTimes.size() != 0)
-                    arrayListResTimes.clear();
+            btnRT_previous.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        previousPage(linearResTimes, linearResTimesBtn, linearSelectFilters, linearSelectFiltersBtn);
 
-                txtFrRes_city = view.findViewById(R.id.txtFrRes_city);
-                txtFrRes_takhasos = view.findViewById(R.id.txtFrRes_takhasos);
-                txtFrRes_darmonghah = view.findViewById(R.id.txtFrRes_darmonghah);
-                txtFrRes_time = view.findViewById(R.id.txtFrRes_time);
-                txtFrRes_doctor = view.findViewById(R.id.txtFrRes_doctor);
+                        if (arrayListResTimes.size() != 0)
+                            arrayListResTimes.clear();
 
-            }
-        });
-
-        refreshRT.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshData();
-            }
-        });
-
-
-        btnRT_filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setCancelable(false);
-                LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.layout_select_filters, null, false);
-                LinearLayout layoutBtnsRT = layout.findViewById(R.id.layoutBtnsRT);
-                layoutBtnsRT.setVisibility(View.VISIBLE);
-
-                Button btnRT_dismis = layout.findViewById(R.id.btnRT_dismis);
-                Button btnRT_reset = layout.findViewById(R.id.btnRT_reset);
-                Button btnRT_search = layout.findViewById(R.id.btnRT_search);
-
-                btnRT_dismis.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertFilterRT.dismiss();
-                    }
-                });
-
-                btnRT_reset.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        defaultDataDropDown();
-                    }
-                });
-
-                btnRT_search.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertFilterRT.dismiss();
-                        refreshData();
-                    }
-                });
-
-                LinearLayout linearFrRes_city = layout.findViewById(R.id.linearFrRes_city);
-                LinearLayout linearFrRes_takhasos = layout.findViewById(R.id.linearFrRes_takhasos);
-                LinearLayout linearFrRes_darmonghah = layout.findViewById(R.id.linearFrRes_darmonghah);
-                LinearLayout linearFrRes_time = layout.findViewById(R.id.linearFrRes_time);
-                LinearLayout linearFrRes_doctor = layout.findViewById(R.id.linearFrRes_doctor);
-
-                txtFrRes_city = layout.findViewById(R.id.txtFrRes_city);
-                txtFrRes_takhasos = layout.findViewById(R.id.txtFrRes_takhasos);
-                txtFrRes_darmonghah = layout.findViewById(R.id.txtFrRes_darmonghah);
-                txtFrRes_time = layout.findViewById(R.id.txtFrRes_time);
-                txtFrRes_doctor = layout.findViewById(R.id.txtFrRes_doctor);
-
-                //  Clicks
-                linearFrRes_city.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialogShow("city");
-                    }
-                });
-                linearFrRes_takhasos.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialogShow("takhasos");
-                    }
-                });
-                linearFrRes_darmonghah.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialogShow("darmonghah");
-                    }
-                });
-                linearFrRes_time.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialogShow("time");
-                    }
-                });
-
-                linearFrRes_doctor.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialogShow("doctor");
-                    }
-                });
-
-                defaultDataDropDown();
-                builder.setView(layout);
-                alertFilterRT = builder.create();
-                alertFilterRT.show();
-                alertFilterRT.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            }
-        });
-
-
-        rowManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        rcycRT.setLayoutManager(rowManager);
-
-// after scroll to end and get new data (next page in web)
-        rcycRT.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
-                    isScrollingFP = true;
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                currentItemFP = rowManager.getChildCount();
-                totalItemsFP = rowManager.getItemCount();
-                scrollOutItemsFP = rowManager.findFirstVisibleItemPosition();
-
-                if (dx < 10) {
-                    if (isScrollingFP && (currentItemFP + scrollOutItemsFP == totalItemsFP)) {
-                        isScrollingFP = false;
-                        if (!boolCheckNetFP) {
-                            pageNumber++;
-                        }
-                        doSearch();
+                        txtFrRes_city = view.findViewById(R.id.txtFrRes_city);
+                        txtFrRes_takhasos = view.findViewById(R.id.txtFrRes_takhasos);
+                        txtFrRes_darmonghah = view.findViewById(R.id.txtFrRes_darmonghah);
+                        txtFrRes_time = view.findViewById(R.id.txtFrRes_time);
+                        txtFrRes_doctor = view.findViewById(R.id.txtFrRes_doctor);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
-            }
-        });
+            });
 
-        onClickInterface onclickInterface = new onClickInterface() {
-            @Override
-            public void setClick(final int position, boolean canUse, View view) {
-                if (canUse) {
-//// alert tavafoghname
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.tavafoghname, null, false);
-                    Button btnTavafogh_no = layout.findViewById(R.id.btnTavafogh_no);
-                    final Button btnTavafogh_ok = layout.findViewById(R.id.btnTavafogh_ok);
-                    btnTavafogh_no.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            alertDialogTavafoghName.dismiss();
-                        }
-                    });
-                    btnTavafogh_ok.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                            linearPazireshPage2.setVisibility(View.GONE);
-                            btnPP_paziresh.setVisibility(View.INVISIBLE);
-                            alertDialogLoding.show();
-                            positionItemRecycleView = position;
-                            nextPage(linearResTimes, linearResTimesBtn, linearPazireshPage, linearPazireshPageBtn);
-                            alertDialogTavafoghName.dismiss();
-                            dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
-                            //2_242_4781779718_45367_291_13990120
-                            //dr_prg_hsp_mdc_spc_date
-                            String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
-                            JSONObject jsonObject = new JSONObject();
-                            hospiralId = temp[2];
-
-                            try {
-                                jsonObject.put("dr_id", temp[0] + "");
-                                jsonObject.put("prg_id", temp[1] + "");
-                                jsonObject.put("hsp_id", temp[2] + "");
-                                jsonObject.put("mdc_id", temp[3] + "");
-                                jsonObject.put("spc_id", temp[4] + "");
-                                jsonObject.put("prg_date", temp[5] + "");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+            refreshRT.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    try {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                arrayListResTimes.clear();
+                                adapterResTimes.notifyDataSetChanged();
+                                pageNumber = 0;
+                                doSearch(pageNumber);
+                                morePost = true;
+                                refreshRT.setRefreshing(false);
                             }
-// TODO: link check
-                            // set data in pazireshPage
-                            alertDialogLoding.show();
-                            String link = "http://nobat.mazums.ac.ir/TurnAppApi/turn/TurnSpecification?dr_id=" + temp[0] + "" + "&prg_id=" + temp[1] + "" + "&hsp_id=" + temp[2] + "" + "&mdc_id=" + temp[3] + "" + "&spc_id=" + temp[4] + "&turn_date=" + temp[5] + "";
-                            new setConnectionVolley(getContext(), link, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
-                                @Override
-                                public void OnResponse(String response) {
-                                    if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
-                                    setDataInPazireshPage(response);
+                        }, 2000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            btnRT_filter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setCancelable(false);
+                        LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.layout_select_filters, null, false);
+                        LinearLayout layoutBtnsRT = layout.findViewById(R.id.layoutBtnsRT);
+                        layoutBtnsRT.setVisibility(View.VISIBLE);
+
+                        Button btnRT_dismis = layout.findViewById(R.id.btnRT_dismis);
+                        Button btnRT_reset = layout.findViewById(R.id.btnRT_reset);
+                        Button btnRT_search = layout.findViewById(R.id.btnRT_search);
+
+                        btnRT_dismis.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                alertFilterRT.dismiss();
+                            }
+                        });
+
+                        btnRT_reset.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                defaultDataDropDown();
+                            }
+                        });
+
+                        btnRT_search.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                try {
+                                    alertFilterRT.dismiss();
+                                    arrayListResTimes.clear();
+                                    adapterResTimes.notifyDataSetChanged();
+                                    pageNumber = 0;
+                                    morePost = true;
+                                    doSearch(pageNumber);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
-                            });
+                            }
+                        });
 
+                        LinearLayout linearFrRes_city = layout.findViewById(R.id.linearFrRes_city);
+                        LinearLayout linearFrRes_takhasos = layout.findViewById(R.id.linearFrRes_takhasos);
+                        LinearLayout linearFrRes_darmonghah = layout.findViewById(R.id.linearFrRes_darmonghah);
+                        LinearLayout linearFrRes_time = layout.findViewById(R.id.linearFrRes_time);
+                        LinearLayout linearFrRes_doctor = layout.findViewById(R.id.linearFrRes_doctor);
+
+                        txtFrRes_city = layout.findViewById(R.id.txtFrRes_city);
+                        txtFrRes_takhasos = layout.findViewById(R.id.txtFrRes_takhasos);
+                        txtFrRes_darmonghah = layout.findViewById(R.id.txtFrRes_darmonghah);
+                        txtFrRes_time = layout.findViewById(R.id.txtFrRes_time);
+                        txtFrRes_doctor = layout.findViewById(R.id.txtFrRes_doctor);
+
+                        //  Clicks
+                        linearFrRes_city.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                alertDialogShow("city");
+                            }
+                        });
+                        linearFrRes_takhasos.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                alertDialogShow("takhasos");
+                            }
+                        });
+                        linearFrRes_darmonghah.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                alertDialogShow("darmonghah");
+                            }
+                        });
+                        linearFrRes_time.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                alertDialogShow("time");
+                            }
+                        });
+
+                        linearFrRes_doctor.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                alertDialogShow("doctor");
+                            }
+                        });
+
+                        defaultDataDropDown();
+                        builder.setView(layout);
+                        alertFilterRT = builder.create();
+                        alertFilterRT.show();
+                        alertFilterRT.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+
+            rowManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+            rcycRT.setLayoutManager(rowManager);
+
+// after scroll to end and get new data (next page in web)
+            rcycRT.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
+                        isScrollingFP = true;
+                }
+
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    currentItemFP = rowManager.getChildCount();
+                    totalItemsFP = rowManager.getItemCount();
+                    scrollOutItemsFP = rowManager.findFirstVisibleItemPosition();
+
+                    if (dx < 10) {
+                        if (isScrollingFP && (currentItemFP + scrollOutItemsFP == totalItemsFP)) {
+                            isScrollingFP = false;
+                            if (!boolCheckNetFP) {
+                                pageNumber++;
+                            }
+                            doSearch(pageNumber);
                         }
-                    });
+                    }
+                }
+            });
 
-                    builder.setView(layout);
-                    alertDialogTavafoghName = builder.create();
-                    alertDialogTavafoghName.show();
+            onClickInterface onclickInterface = new onClickInterface() {
+                @Override
+                public void setClick(final int position, boolean canUse, View view) {
+                    if (canUse) {
+//// alert tavafoghname
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.tavafoghname, null, false);
+                        Button btnTavafogh_no = layout.findViewById(R.id.btnTavafogh_no);
+                        final Button btnTavafogh_ok = layout.findViewById(R.id.btnTavafogh_ok);
+                        btnTavafogh_no.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                alertDialogTavafoghName.dismiss();
+                            }
+                        });
+                        btnTavafogh_ok.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                try {
+                                    linearPazireshPage2.setVisibility(View.GONE);
+                                    btnPP_paziresh.setVisibility(View.INVISIBLE);
+                                    alertDialogLoding.show();
+                                    positionItemRecycleView = position;
+                                    nextPage(linearResTimes, linearResTimesBtn, linearPazireshPage, linearPazireshPageBtn);
+                                    alertDialogTavafoghName.dismiss();
+                                    dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
+                                    //2_242_4781779718_45367_291_13990120
+                                    //dr_prg_hsp_mdc_spc_date
+                                    String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
+                                    JSONObject jsonObject = new JSONObject();
+                                    hospiralId = temp[2];
+
+                                    try {
+                                        jsonObject.put("dr_id", temp[0] + "");
+                                        jsonObject.put("prg_id", temp[1] + "");
+                                        jsonObject.put("hsp_id", temp[2] + "");
+                                        jsonObject.put("mdc_id", temp[3] + "");
+                                        jsonObject.put("spc_id", temp[4] + "");
+                                        jsonObject.put("prg_date", temp[5] + "");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+// TODO: link check
+                                    // set data in pazireshPage
+                                    alertDialogLoding.show();
+                                    String link = "http://nobat.mazums.ac.ir/TurnAppApi/turn/TurnSpecification?dr_id=" + temp[0] + "" + "&prg_id=" + temp[1] + "" + "&hsp_id=" + temp[2] + "" + "&mdc_id=" + temp[3] + "" + "&spc_id=" + temp[4] + "&turn_date=" + temp[5] + "";
+                                    new setConnectionVolley(getContext(), link, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
+                                        @Override
+                                        public void OnResponse(String response) {
+                                            if (alertDialogLoding.isShowing())
+                                                alertDialogLoding.dismiss();
+                                            setDataInPazireshPage(response);
+                                        }
+                                    });
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+                        builder.setView(layout);
+                        alertDialogTavafoghName = builder.create();
+                        alertDialogTavafoghName.show();
 //----- end of alert
-                } else
-                    Toast.makeText(getContext(), "این نوبت به پایین رسیده است.", Toast.LENGTH_SHORT).show();
-            }
-        };
-        adapterResTimes = new AdRecycResTimes(getContext(), arrayListResTimes, onclickInterface);
-        rcycRT.setAdapter(adapterResTimes);
+                    } else
+                        Toast.makeText(getContext(), "این نوبت به پایین رسیده است.", Toast.LENGTH_SHORT).show();
+                }
+            };
+            adapterResTimes = new AdRecycResTimes(getContext(), arrayListResTimes, onclickInterface);
+            rcycRT.setAdapter(adapterResTimes);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setRecycViewData(String res) {
@@ -1135,14 +1194,17 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                 JSONArray arrayData = arrayData1.getJSONArray("turnList");  // chish moishkel dare
 
-                if (arrayData.length() != 0 && pageNumber == 1) {
+                morePost = true;
+                if (arrayData.length() == 0 && pageNumber == 0) {
                     previousPage(linearResTimes, linearResTimesBtn, linearSelectFilters, linearSelectFiltersBtn);
                     new ShowMessage(getContext()).ShowMessType2_NoBtn("اطلاعاتی وجود ندارد", true, 2);
-                    previousPage(linearResTimes, linearResTimesBtn, linearSelectFilters, linearSelectFiltersBtn);
-                }
-
-                if (arrayData.length() != 10)
+                    morePost = true;
+                } else if (arrayData.length() != 0 && pageNumber == 0) {
+                    morePost = false;
+                } else if (arrayData.length() == 0 && pageNumber != 0) {
                     Toast.makeText(getContext(), "اطلاعات بیشتری وجود ندارد", Toast.LENGTH_SHORT).show();
+                    morePost = false;
+                }
 
                 for (int i = 0; i < arrayData.length(); i++) {
                     JSONObject objectTemp = arrayData.getJSONObject(i);
@@ -1276,240 +1338,247 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
     //    SearchView
     private void alertDialogShow(final String tag) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.item_listview_chooser, null, false);
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.item_listview_chooser, null, false);
 
-        Button btnFr = layout.findViewById(R.id.btnFr);
-        btnFr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialogFilter.dismiss();
+            Button btnFr = layout.findViewById(R.id.btnFr);
+            btnFr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialogFilter.dismiss();
+                }
+            });
+
+            ArrayList arrayList = new ArrayList();
+            ArrayList arrayListID = new ArrayList();
+
+            if (tag.equals("city")) {
+                arrayList = new ArrayList(dataCity);
+                arrayListID = new ArrayList(dataCityID);
+            } else if (tag.equals("takhasos")) {
+                arrayList = new ArrayList(dataTakhasos);
+                arrayListID = new ArrayList(dataTakhasosID);
+            } else if (tag.equals("darmonghah")) {
+                arrayList = new ArrayList(dataHospital);
+                arrayListID = new ArrayList(dataHospitalID);
+            } else if (tag.equals("time")) {
+                arrayList = new ArrayList(dataTime);
+                arrayListID = new ArrayList(dataTimeID);
+            } else if (tag.equals("doctor")) {
+                arrayList = new ArrayList(dataDoctor);
+                arrayListID = new ArrayList(dataDoctorID);
+            } else if (tag.equals("PPCity")) {
+                arrayList = new ArrayList(arrayListCity);
+                arrayListID = new ArrayList(arrayListCityID);
+            } else if (tag.equals("PPBime")) {
+                arrayList = new ArrayList(arrayListBime);
+                arrayListID = new ArrayList(arrayListBimeID);
+            } else if (tag.equals("PPOstan")) {
+                arrayList = new ArrayList(arrayListOstan);
+                arrayListID = new ArrayList(arrayListOstanID);
+            } else if (tag.equals("PPOrg")) {
+                arrayList = new ArrayList(arrayListOrg);
+                arrayListID = new ArrayList(arrayListOrgID);
             }
-        });
 
-        ArrayList arrayList = new ArrayList();
-        ArrayList arrayListID = new ArrayList();
+            if (arraylistSearchView.size() != 0)
+                arraylistSearchView.clear();
 
-        if (tag.equals("city")) {
-            arrayList = new ArrayList(dataCity);
-            arrayListID = new ArrayList(dataCityID);
-        } else if (tag.equals("takhasos")) {
-            arrayList = new ArrayList(dataTakhasos);
-            arrayListID = new ArrayList(dataTakhasosID);
-        } else if (tag.equals("darmonghah")) {
-            arrayList = new ArrayList(dataHospital);
-            arrayListID = new ArrayList(dataHospitalID);
-        } else if (tag.equals("time")) {
-            arrayList = new ArrayList(dataTime);
-            arrayListID = new ArrayList(dataTimeID);
-        } else if (tag.equals("doctor")) {
-            arrayList = new ArrayList(dataDoctor);
-            arrayListID = new ArrayList(dataDoctorID);
-        } else if (tag.equals("PPCity")) {
-            arrayList = new ArrayList(arrayListCity);
-            arrayListID = new ArrayList(arrayListCityID);
-        } else if (tag.equals("PPBime")) {
-            arrayList = new ArrayList(arrayListBime);
-            arrayListID = new ArrayList(arrayListBimeID);
-        } else if (tag.equals("PPOstan")) {
-            arrayList = new ArrayList(arrayListOstan);
-            arrayListID = new ArrayList(arrayListOstanID);
-        } else if (tag.equals("PPOrg")) {
-            arrayList = new ArrayList(arrayListOrg);
-            arrayListID = new ArrayList(arrayListOrgID);
-        }
+            for (int i = 0; i < arrayList.size(); i++) {
+                ModAlerts modAlerts = new ModAlerts(arrayList.get(i) + "", arrayListID.get(i) + "");
+                arraylistSearchView.add(modAlerts);
+            }
 
-        if (arraylistSearchView.size() != 0)
-            arraylistSearchView.clear();
-
-        for (int i = 0; i < arrayList.size(); i++) {
-            ModAlerts modAlerts = new ModAlerts(arrayList.get(i) + "", arrayListID.get(i) + "");
-            arraylistSearchView.add(modAlerts);
-        }
-
-        RecyclerView recycFitler = layout.findViewById(R.id.recycFitler);
-        adRecycPopUp = new AdRecycPopUp(getContext(), arraylistSearchView, new onClickInterface() {
-            @Override
-            public void setClick(int position, boolean canUse, View view) {
-
-                TextView txttitle = ((LinearLayout) view).findViewById(R.id.txtTitle);
-                TextView txtId = ((LinearLayout) view).findViewById(R.id.txtId);
-                String title = txttitle.getText().toString();
-                String id = txtId.getText().toString();
-
-                if (tag.equals("city")) {
-                    txtFrRes_city.setText(title + "");
-                    cityId = id;
-
-                    if (id.equals("0")) {
-                        if (dataHospital.size() != 0) {
-                            dataHospital.clear();
-                            dataHospitalID.clear();
-                        }
-
-                        dataHospital = new ArrayList(dataHospital2);
-                        dataHospitalID = new ArrayList(dataHospitalID2);
-
-                    } else {
-                        // TODO: Sent new id to link1 and change HOSPITAL NAMES --------------------------------------------------------
-
-                        JSONObject object = new JSONObject();
-                        try {
-                            //    object.put("id", id);
-                            object.put("hsp_id", "");
-                            object.put("spc_id", "0");
-                            object.put("dr_id", "0");
-                            object.put("prg_date", "0");
-                            object.put("city_id", cityId + "");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        alertDialogLoding.show();
-
-                        new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/TurnAppApi/Search?city_id=" + cityId, object
-                        ).connectStringRequest(new setConnectionVolley.OnResponse() {
-                            @Override
-                            public void OnResponse(String response) {
-                                setDropDownsData(response, "updateHospital");
-                            }
-                        });
-                    }
-                    //  String result = "{\"status\":\"yes\",\"message\":\"\",\"data\":{ \"hospital\":[{\"id\":\"0\",\"title\":\"تمامی بیمارستان ها\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید حسینی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید حسینی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید حسینی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید حسینی\"},{\"id\":\"1\",\"title\":\"بیمارستان عمومی ماساچوست\"}],\"doctor\":[],\"specialty\":[],\"time\":[],\"city\":[]}}";
-                    //  setDropDownsData(result, "update");
-                } else if (tag.equals("takhasos")) {
-                    txtFrRes_takhasos.setText(title + "");
-                    takhasosId = id;
-                    if (id.equals("0")) {
-                        if (dataTakhasos2.size() != 0) {
-                            dataTakhasos2.clear();
-                            dataTakhasosID2.clear();
-                        }
-                        dataTakhasos = new ArrayList(dataTakhasos2);
-                        dataTakhasosID2 = new ArrayList(dataTakhasosID2);
-                    } else {
-                        // TODO: Sent new id to link1 and change TAKASOS  --------------------------------------------------------
-
-                        JSONObject object = new JSONObject();
-                        try {
-                            //    object.put("id", id);
-                            object.put("hsp_id", hospiralId + "");
-                            object.put("spc_id", takhasosId + "");
-                            object.put("dr_id", "0");
-                            object.put("prg_date", "0");
-                            object.put("city_id", cityId);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        alertDialogLoding.show();
-
-                        new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/TurnAppApi/Search?hsp_id=" + hospiralId + "&spc_id=" + takhasosId, object  // inja chi bayad gozasht?  takhasos va hospital
-                        ).connectStringRequest(new setConnectionVolley.OnResponse() {
-                            @Override
-                            public void OnResponse(String response) {
-                                setDropDownsData(response, "updateDoctor");
-                            }
-                        });
-                    }
-
-                } else if (tag.equals("darmonghah")) {
-                    txtFrRes_darmonghah.setText(title + "");
-                    hospiralId = id;  // the last hsp_id save in here
-                    if (id.equals("0")) {
-                        if (dataHospitalID2.size() != 0) {
-                            dataHospital2.clear();
-                            dataHospitalID2.clear();
-                        }
-                        dataHospital = new ArrayList(dataHospital2);
-                        dataHospitalID = new ArrayList(dataTakhasosID2);
-                    } else {
-                        // TODO: Sent new id to link1 and change TAKASOS  --------------------------------------------------------
-
-                        JSONObject object = new JSONObject();
-                        try {
-                            //    object.put("id", id);
-                            object.put("hsp_id", hospiralId + "");
-                            object.put("spc_id", takhasosId + "");
-                            object.put("dr_id", "0");
-                            object.put("prg_date", "0");
-                            object.put("city_id", "0"); // ؟
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        alertDialogLoding.show();
-
-                        new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/TurnAppApi/Search?hsp_id=" + hospiralId + "&spc_id=" + takhasosId, object  // inja chi bayad gozasht?  takhasos va hospital
-                        ).connectStringRequest(new setConnectionVolley.OnResponse() {
-                            @Override
-                            public void OnResponse(String response) {
-                                setDropDownsData(response, "updateDoctor");
-                            }
-                        });
-                    }
-                } else if (tag.equals("time")) {
-                    txtFrRes_time.setText(title + "");
-                    timeId = id;
-                } else if (tag.equals("doctor")) {
-                    txtFrRes_doctor.setText(title + "");
-                    doctorId = id;
-                } else if (tag.equals("PPCity")) {
-                    txtFrPP_city.setText(title + "");
-                    cityIdSamane = id;
-                } else if (tag.equals("PPOstan")) {
-                    txtFrPP_ostan.setText(title + "");
-                    ostanIdSamane = id;
-//     TODO: set data to city in pp
-                    JSONObject jsonObject = new JSONObject();
+            RecyclerView recycFitler = layout.findViewById(R.id.recycFitler);
+            adRecycPopUp = new AdRecycPopUp(getContext(), arraylistSearchView, new onClickInterface() {
+                @Override
+                public void setClick(int position, boolean canUse, View view) {
                     try {
-                        jsonObject.put("id", ostanIdSamane);
-                    } catch (JSONException e) {
+
+                        TextView txttitle = ((LinearLayout) view).findViewById(R.id.txtTitle);
+                        TextView txtId = ((LinearLayout) view).findViewById(R.id.txtId);
+                        String title = txttitle.getText().toString();
+                        String id = txtId.getText().toString();
+
+                        if (tag.equals("city")) {
+                            txtFrRes_city.setText(title + "");
+                            cityId = id;
+
+                            if (id.equals("0")) {
+                                if (dataHospital.size() != 0) {
+                                    dataHospital.clear();
+                                    dataHospitalID.clear();
+                                }
+
+                                dataHospital = new ArrayList(dataHospital2);
+                                dataHospitalID = new ArrayList(dataHospitalID2);
+
+                            } else {
+                                // TODO: Sent new id to link1 and change HOSPITAL NAMES --------------------------------------------------------
+
+                                JSONObject object = new JSONObject();
+                                try {
+                                    //    object.put("id", id);
+                                    object.put("hsp_id", "");
+                                    object.put("spc_id", "0");
+                                    object.put("dr_id", "0");
+                                    object.put("prg_date", "0");
+                                    object.put("city_id", cityId + "");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                alertDialogLoding.show();
+
+                                new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/TurnAppApi/Search?city_id=" + cityId, object
+                                ).connectStringRequest(new setConnectionVolley.OnResponse() {
+                                    @Override
+                                    public void OnResponse(String response) {
+                                        setDropDownsData(response, "updateHospital");
+                                    }
+                                });
+                            }
+                            //  String result = "{\"status\":\"yes\",\"message\":\"\",\"data\":{ \"hospital\":[{\"id\":\"0\",\"title\":\"تمامی بیمارستان ها\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید حسینی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید حسینی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید حسینی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید حسینی\"},{\"id\":\"1\",\"title\":\"بیمارستان عمومی ماساچوست\"}],\"doctor\":[],\"specialty\":[],\"time\":[],\"city\":[]}}";
+                            //  setDropDownsData(result, "update");
+                        } else if (tag.equals("takhasos")) {
+                            txtFrRes_takhasos.setText(title + "");
+                            takhasosId = id;
+                            if (id.equals("0")) {
+                                if (dataTakhasos2.size() != 0) {
+                                    dataTakhasos2.clear();
+                                    dataTakhasosID2.clear();
+                                }
+                                dataTakhasos = new ArrayList(dataTakhasos2);
+                                dataTakhasosID2 = new ArrayList(dataTakhasosID2);
+                            } else {
+                                // TODO: Sent new id to link1 and change TAKASOS  --------------------------------------------------------
+
+                                JSONObject object = new JSONObject();
+                                try {
+                                    //    object.put("id", id);
+                                    object.put("hsp_id", hospiralId + "");
+                                    object.put("spc_id", takhasosId + "");
+                                    object.put("dr_id", "0");
+                                    object.put("prg_date", "0");
+                                    object.put("city_id", cityId);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                alertDialogLoding.show();
+
+                                new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/TurnAppApi/Search?hsp_id=" + hospiralId + "&spc_id=" + takhasosId, object  // inja chi bayad gozasht?  takhasos va hospital
+                                ).connectStringRequest(new setConnectionVolley.OnResponse() {
+                                    @Override
+                                    public void OnResponse(String response) {
+                                        setDropDownsData(response, "updateDoctor");
+                                    }
+                                });
+                            }
+
+                        } else if (tag.equals("darmonghah")) {
+                            txtFrRes_darmonghah.setText(title + "");
+                            hospiralId = id;  // the last hsp_id save in here
+                            if (id.equals("0")) {
+                                if (dataHospitalID2.size() != 0) {
+                                    dataHospital2.clear();
+                                    dataHospitalID2.clear();
+                                }
+                                dataHospital = new ArrayList(dataHospital2);
+                                dataHospitalID = new ArrayList(dataTakhasosID2);
+                            } else {
+                                // TODO: Sent new id to link1 and change TAKASOS  --------------------------------------------------------
+
+                                JSONObject object = new JSONObject();
+                                try {
+                                    //    object.put("id", id);
+                                    object.put("hsp_id", hospiralId + "");
+                                    object.put("spc_id", takhasosId + "");
+                                    object.put("dr_id", "0");
+                                    object.put("prg_date", "0");
+                                    object.put("city_id", "0"); // ؟
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                alertDialogLoding.show();
+
+                                new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/TurnAppApi/Search?hsp_id=" + hospiralId + "&spc_id=" + takhasosId, object  // inja chi bayad gozasht?  takhasos va hospital
+                                ).connectStringRequest(new setConnectionVolley.OnResponse() {
+                                    @Override
+                                    public void OnResponse(String response) {
+                                        setDropDownsData(response, "updateDoctor");
+                                    }
+                                });
+                            }
+                        } else if (tag.equals("time")) {
+                            txtFrRes_time.setText(title + "");
+                            timeId = id;
+                        } else if (tag.equals("doctor")) {
+                            txtFrRes_doctor.setText(title + "");
+                            doctorId = id;
+                        } else if (tag.equals("PPCity")) {
+                            txtFrPP_city.setText(title + "");
+                            cityIdSamane = id;
+                        } else if (tag.equals("PPOstan")) {
+                            txtFrPP_ostan.setText(title + "");
+                            ostanIdSamane = id;
+//     TODO: set data to city in pp
+                            JSONObject jsonObject = new JSONObject();
+                            try {
+                                jsonObject.put("id", ostanIdSamane);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            String linkpp = "http://nobat.mazums.ac.ir/TurnAppApi/turn/getCities?id=" + ostanIdSamane;
+                            new setConnectionVolley(getContext(), linkpp, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
+                                @Override
+                                public void OnResponse(String response) {
+                                    // update city in pp
+                                    updateCityPP(response);
+                                }
+                            });
+
+                        } else if (tag.equals("PPBime")) {
+                            txtFrPP_bime.setText(title + "");
+                            bimeIdSamane = id;
+                        } else if (tag.equals("PPOrg")) {
+                            txtFrPP_org.setText(title + "");
+                            orgIdSamane = id;
+                            // clicked on Org dropDown
+                            JSONObject jsonObject = new JSONObject();
+                            String linkpp = "http://nobat.mazums.ac.ir/TurnAppApi/turn/InsList?id=" + orgIdSamane + "&hsp_id=" + hsp_pp;
+                            new setConnectionVolley(getContext(), linkpp, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
+                                @Override
+                                public void OnResponse(String response) {
+                                    // update city in pp
+                                    updteBimePP(response);
+                                }
+                            });
+
+
+                        }
+
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    String linkpp = "http://nobat.mazums.ac.ir/TurnAppApi/turn/getCities?id=" + ostanIdSamane;
-                    new setConnectionVolley(getContext(), linkpp, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
-                        @Override
-                        public void OnResponse(String response) {
-                            // update city in pp
-                            updateCityPP(response);
-                        }
-                    });
-
-                } else if (tag.equals("PPBime")) {
-                    txtFrPP_bime.setText(title + "");
-                    bimeIdSamane = id;
+                    alertDialogFilter.dismiss();
                 }
-                else if (tag.equals("PPOrg")) {
-                    txtFrPP_org.setText(title + "");
-                    orgIdSamane = id;
-                    // clicked on Org dropDown
-                    JSONObject jsonObject = new JSONObject();
-                    String linkpp = "http://nobat.mazums.ac.ir/TurnAppApi/turn/InsList?id=" + orgIdSamane + "&hsp_id=" + hsp_pp;
-                    new setConnectionVolley(getContext(), linkpp, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
-                        @Override
-                        public void OnResponse(String response) {
-                            // update city in pp
-                 updteBimePP(response);
-                        }
-                    });
+            });
+            recycFitler.setAdapter(adRecycPopUp);
 
+            editsearchSearchView = layout.findViewById(R.id.searchFr);
+            editsearchSearchView.setOnQueryTextListener(this);
 
-                }
+            builder.setView(layout);
+            alertDialogFilter = builder.create();
+            alertDialogFilter.show();
+            alertDialogFilter.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-                alertDialogFilter.dismiss();
-            }
-        });
-        recycFitler.setAdapter(adRecycPopUp);
-
-        editsearchSearchView = layout.findViewById(R.id.searchFr);
-        editsearchSearchView.setOnQueryTextListener(this);
-
-        builder.setView(layout);
-        alertDialogFilter = builder.create();
-        alertDialogFilter.show();
-        alertDialogFilter.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateCityPP(String response) {
@@ -1536,6 +1605,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         }
 
     }
+
     private void updteBimePP(String response) {
         try {
             JSONObject object = new JSONObject(response);
@@ -1560,192 +1630,185 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         }
 
     }
+
     private void selectFilters(View view) {
+        try {
 
 //      this layout is for linearResTimes
-        LinearLayout layoutBtnsRT = view.findViewById(R.id.layoutBtnsRT);
-        layoutBtnsRT.setVisibility(View.GONE);
+            LinearLayout layoutBtnsRT = view.findViewById(R.id.layoutBtnsRT);
+            layoutBtnsRT.setVisibility(View.GONE);
 
 
-        linearSelectFilters = view.findViewById(R.id.linearSelectFilters);
-        linearSelectFiltersBtn = view.findViewById(R.id.linearSelectFiltersBtn);
-        txtFrRes_city = view.findViewById(R.id.txtFrRes_city);
-        txtFrRes_takhasos = view.findViewById(R.id.txtFrRes_takhasos);
-        txtFrRes_darmonghah = view.findViewById(R.id.txtFrRes_darmonghah);
-        txtFrRes_time = view.findViewById(R.id.txtFrRes_time);
-        txtFrRes_doctor = view.findViewById(R.id.txtFrRes_doctor);
+            linearSelectFilters = view.findViewById(R.id.linearSelectFilters);
+            linearSelectFiltersBtn = view.findViewById(R.id.linearSelectFiltersBtn);
+            txtFrRes_city = view.findViewById(R.id.txtFrRes_city);
+            txtFrRes_takhasos = view.findViewById(R.id.txtFrRes_takhasos);
+            txtFrRes_darmonghah = view.findViewById(R.id.txtFrRes_darmonghah);
+            txtFrRes_time = view.findViewById(R.id.txtFrRes_time);
+            txtFrRes_doctor = view.findViewById(R.id.txtFrRes_doctor);
 
-        linearFrRes_city = view.findViewById(R.id.linearFrRes_city);
-        linearFrRes_takhasos = view.findViewById(R.id.linearFrRes_takhasos);
-        linearFrRes_darmonghah = view.findViewById(R.id.linearFrRes_darmonghah);
-        linearFrRes_time = view.findViewById(R.id.linearFrRes_time);
-        linearFrRes_doctor = view.findViewById(R.id.linearFrRes_doctor);
+            linearFrRes_city = view.findViewById(R.id.linearFrRes_city);
+            linearFrRes_takhasos = view.findViewById(R.id.linearFrRes_takhasos);
+            linearFrRes_darmonghah = view.findViewById(R.id.linearFrRes_darmonghah);
+            linearFrRes_time = view.findViewById(R.id.linearFrRes_time);
+            linearFrRes_doctor = view.findViewById(R.id.linearFrRes_doctor);
 
-        btnFrRes_filter = view.findViewById(R.id.btnFrRes_filter);
-        btnFrRes_next = view.findViewById(R.id.btnFrRes_next);
+            btnFrRes_filter = view.findViewById(R.id.btnFrRes_filter);
+            btnFrRes_next = view.findViewById(R.id.btnFrRes_next);
 
 //  Clicks
-        linearFrRes_city.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialogShow("city");
-            }
-        });
-        linearFrRes_takhasos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialogShow("takhasos");
-            }
-        });
-        linearFrRes_darmonghah.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialogShow("darmonghah");
-            }
-        });
-        linearFrRes_time.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialogShow("time");
-            }
-        });
+            linearFrRes_city.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialogShow("city");
+                }
+            });
+            linearFrRes_takhasos.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialogShow("takhasos");
+                }
+            });
+            linearFrRes_darmonghah.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialogShow("darmonghah");
+                }
+            });
+            linearFrRes_time.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialogShow("time");
+                }
+            });
 
-        linearFrRes_doctor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialogShow("doctor");
-            }
-        });
+            linearFrRes_doctor.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialogShow("doctor");
+                }
+            });
 
-        btnFrRes_filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: clear all
-                defaultDataDropDown();
-            }
-        });
+            btnFrRes_filter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // TODO: clear all
+                    defaultDataDropDown();
+                }
+            });
 
-        btnFrRes_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            btnFrRes_next.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
 //                Toast.makeText(getContext(), "اجرا شدن لودینگ 2 ثانیه", Toast.LENGTH_SHORT).show();
-                alertDialogLoding.show();
-                nextPage(linearSelectFilters, linearSelectFiltersBtn, linearResTimes, linearResTimesBtn);
-                refreshData();
-            }
-        });
+                        alertDialogLoding.show();
+                        nextPage(linearSelectFilters, linearSelectFiltersBtn, linearResTimes, linearResTimesBtn);
+                        arrayListResTimes.clear();
+                        adapterResTimes.notifyDataSetChanged();
+                        pageNumber = 0;
+                        morePost = true;
+                        doSearch(pageNumber);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
-        dataCity = new ArrayList();
-        dataTakhasos = new ArrayList();
-        dataTakhasos2 = new ArrayList();
-        dataHospital = new ArrayList();
-        dataHospital2 = new ArrayList();
-        dataTime = new ArrayList();
-        dataDoctor = new ArrayList();
-        dataCityID = new ArrayList();
-        dataTakhasosID = new ArrayList();
-        dataTakhasosID2 = new ArrayList();
-        dataHospitalID = new ArrayList();
-        dataHospitalID2 = new ArrayList();
-        dataTimeID = new ArrayList();
-        dataDoctorID = new ArrayList();
+            dataCity = new ArrayList();
+            dataTakhasos = new ArrayList();
+            dataTakhasos2 = new ArrayList();
+            dataHospital = new ArrayList();
+            dataHospital2 = new ArrayList();
+            dataTime = new ArrayList();
+            dataDoctor = new ArrayList();
+            dataCityID = new ArrayList();
+            dataTakhasosID = new ArrayList();
+            dataTakhasosID2 = new ArrayList();
+            dataHospitalID = new ArrayList();
+            dataHospitalID2 = new ArrayList();
+            dataTimeID = new ArrayList();
+            dataDoctorID = new ArrayList();
 
 //TODO------ Connection data for dropDowns link1
 
-        JSONObject object = new JSONObject();
-        try {
-            //     object.put("hospital", "-1");
-            //  object.put("city", "-1");
-            // object.put("specialty", "-1");
-            object.put("hsp_id", "0");
-            object.put("spc_id", "0");
-            object.put("dr_id", "0");
-            object.put("date_period", "0");
-            object.put("city_id", "0");
+            JSONObject object = new JSONObject();
+            try {
+                //     object.put("hospital", "-1");
+                //  object.put("city", "-1");
+                // object.put("specialty", "-1");
+                object.put("hsp_id", "0");
+                object.put("spc_id", "0");
+                object.put("dr_id", "0");
+                object.put("date_period", "0");
+                object.put("city_id", "0");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            alertDialogLoding.show();
+
+            new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/turnappApi/Search?spc_id=0&dr_id=0&city_id=0&hsp_id=0&date_period=0", object
+            ).connectStringRequest(new setConnectionVolley.OnResponse() {
+                @Override
+                public void OnResponse(String response) {
+                    setDropDownsData(response, "new");
+                }
+            });
+
+            //  String response = "{\"status\":\"yes\",\"message\":\"\",\"data\":{ \"hospital\":[{\"id\":\"0\",\"title\":\"تمامی بیمارستان ها\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"1\",\"title\":\"بیمارستان عمومی ماساچوست\"}],\"doctor\":[{\"id\":\"0\",\"title\":\"تمامی دکترها\"},{\"id\":\"4\",\"title\":\"علی علیزاده\"},{\"id\":\"1\",\"title\":\"حسین زارعی\"}],\"specialty\":[{\"id\":\"0\",\"title\":\"تمامی تخصص ها\"},{\"id\":\"6\",\"title\":\"اطفال\"},{\"id\":\"1\",\"title\":\"عفونی\"}],\"time\":[{\"id\":\"0\",\"title\":\"تمامی زمان ها\"},{\"id\":\"4\",\"title\":\"فردا\"},{\"id\":\"5\",\"title\":\"هفته ی جاری\"},{\"id\":\"4\",\"title\":\"ماه جاری\"}],\"city\":[{\"id\":\"0\",\"title\":\"تمامی شهرها\"},{\"id\":\"1\",\"title\":\"اراک\"},{\"id\":\"2\",\"title\":\"امل\"},{\"id\":\"41\",\"title\":\"تهران\"}]}}";
+            //setDropDownsData(response, "new");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        alertDialogLoding.show();
-
-        new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/turnappApi/Search?spc_id=0&dr_id=0&city_id=0&hsp_id=0&date_period=0", object
-        ).connectStringRequest(new setConnectionVolley.OnResponse() {
-            @Override
-            public void OnResponse(String response) {
-                setDropDownsData(response, "new");
-            }
-        });
-
-        //  String response = "{\"status\":\"yes\",\"message\":\"\",\"data\":{ \"hospital\":[{\"id\":\"0\",\"title\":\"تمامی بیمارستان ها\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"4\",\"title\":\"بیمارستان شهید بهشتی\"},{\"id\":\"1\",\"title\":\"بیمارستان عمومی ماساچوست\"}],\"doctor\":[{\"id\":\"0\",\"title\":\"تمامی دکترها\"},{\"id\":\"4\",\"title\":\"علی علیزاده\"},{\"id\":\"1\",\"title\":\"حسین زارعی\"}],\"specialty\":[{\"id\":\"0\",\"title\":\"تمامی تخصص ها\"},{\"id\":\"6\",\"title\":\"اطفال\"},{\"id\":\"1\",\"title\":\"عفونی\"}],\"time\":[{\"id\":\"0\",\"title\":\"تمامی زمان ها\"},{\"id\":\"4\",\"title\":\"فردا\"},{\"id\":\"5\",\"title\":\"هفته ی جاری\"},{\"id\":\"4\",\"title\":\"ماه جاری\"}],\"city\":[{\"id\":\"0\",\"title\":\"تمامی شهرها\"},{\"id\":\"1\",\"title\":\"اراک\"},{\"id\":\"2\",\"title\":\"امل\"},{\"id\":\"41\",\"title\":\"تهران\"}]}}";
-        //setDropDownsData(response, "new");
-
     }
 
-    private void refreshData() {
-
-        refreshRT.setRefreshing(true);
-
-        refreshRT.setColorSchemeResources(
-                R.color.colorPurple6,
-                R.color.colorPink,
-                R.color.colorLogo,
-                R.color.colorIndigo);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                doSearch();
-                refreshRT.setRefreshing(false);
-            }
-        }, 2000);
-
-    }
-
-    private void doSearch() {
-
-        if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
-
-        pageNumber++;
-
-        // here
-        // TODO: Sent new id to link2 and change HOSPITAL NAMES --------------------------------------------------------
-        //city_id:0,hsp_id:0,spc_id:0,first_name:'',last_name:'', date_period:0,page_number:0,item_per_page:10}
-        // if (doctorId  0){
-        //     String[] temp = txtFrRes_doctor.getText().toString().split(" ");
-        //   }
-
-        JSONObject object = new JSONObject();
+    private void doSearch(int pageNumber) {
         try {
-            //    object.put("id", id);
-            object.put("hsp_id", hospiralId + "");
-            object.put("city_id", cityId + "");
-            object.put("spc_id", takhasosId + "");
-            object.put("first_name", txtFrRes_doctor.getText().toString() + "");
-            object.put("last_name", "0");
-            object.put("date_period", timeId + "");
-            object.put("page_number", pageNumber);
-            object.put("item_per_page", "10");
+            if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
+
+            // here
+            // TODO: Sent new id to link2 and change HOSPITAL NAMES --------------------------------------------------------
+            //city_id:0,hsp_id:0,spc_id:0,first_name:'',last_name:'', date_period:0,page_number:0,item_per_page:10}
+            // if (doctorId  0){
+            //     String[] temp = txtFrRes_doctor.getText().toString().split(" ");
+            //   }
+
+            JSONObject object = new JSONObject();
+            try {
+                object.put("hsp_id", hospiralId + "");
+                object.put("city_id", cityId + "");
+                object.put("spc_id", takhasosId + "");
+                object.put("first_name", txtFrRes_doctor.getText().toString() + "");
+                object.put("last_name", "0");
+                object.put("date_period", timeId + "");
+                object.put("page_number", pageNumber);
+                object.put("item_per_page", "10");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // + "&first_name=" +txtFrRes_doctor.getText().toString()+""
+            alertDialogLoding.show();
+
+            new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
+                    hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
+                    + timeId + "&page_number=" + pageNumber + "&item_per_page=" + "10", object
+            ).connectStringRequest(new setConnectionVolley.OnResponse() {
+                @Override
+                public void OnResponse(String response) {
+                    if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
+                    setRecycViewData(response);
+                }
+            });
+
+            // TODO: Sent data and get ResTimes data (RecycleView) | link2--------------------------------------------------------
+            // String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":[{\"dr_prg_hsp_mdc_spc_date_id\":\"1\",\"hsp_title\":\"بیمارستان شهید بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"مهسا طاهری\",\"spc_title\":\"اطفال\",\"prg_date\":\"1399/01/06\",\"web_turn\":\"1\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"12\",\"hsp_title\":\"بیمارستان شهید حسینی\",\"shift_title\":\"عصر\",\"dr_name\":\"مهدی منصوری\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/02/07\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"13\",\"hsp_title\":\"بیمارستان شهید صالحی\",\"shift_title\":\"شب\",\"dr_name\":\"فرزاد اکبری\",\"spc_title\":\"عمومی\",\"prg_date\":\"1399/03/09\",\"web_turn\":\"5\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"14\",\"hsp_title\":\"بیمارستان شهید عابدزاده\",\"shift_title\":\"عصر\",\"dr_name\":\"علی ملکی\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/04/19\",\"web_turn\":\"3\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"15\",\"hsp_title\":\"بیمارستان  بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"نجمه مقدم\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/09/05\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"}]}";
+            // setRecycViewData(res);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // + "&first_name=" +txtFrRes_doctor.getText().toString()+""
-        alertDialogLoding.show();
-
-        new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
-                hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
-                + timeId + "&page_number=" + pageNumber + "&item_per_page=" + "10", object
-        ).connectStringRequest(new setConnectionVolley.OnResponse() {
-            @Override
-            public void OnResponse(String response) {
-                if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
-                setRecycViewData(response);
-            }
-        });
-
-        // TODO: Sent data and get ResTimes data (RecycleView) | link2--------------------------------------------------------
-        //inja chi bayad respons bedim b setRecycViewData
-        // String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":[{\"dr_prg_hsp_mdc_spc_date_id\":\"1\",\"hsp_title\":\"بیمارستان شهید بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"مهسا طاهری\",\"spc_title\":\"اطفال\",\"prg_date\":\"1399/01/06\",\"web_turn\":\"1\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"12\",\"hsp_title\":\"بیمارستان شهید حسینی\",\"shift_title\":\"عصر\",\"dr_name\":\"مهدی منصوری\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/02/07\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"13\",\"hsp_title\":\"بیمارستان شهید صالحی\",\"shift_title\":\"شب\",\"dr_name\":\"فرزاد اکبری\",\"spc_title\":\"عمومی\",\"prg_date\":\"1399/03/09\",\"web_turn\":\"5\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"14\",\"hsp_title\":\"بیمارستان شهید عابدزاده\",\"shift_title\":\"عصر\",\"dr_name\":\"علی ملکی\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/04/19\",\"web_turn\":\"3\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"15\",\"hsp_title\":\"بیمارستان  بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"نجمه مقدم\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/09/05\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"}]}";
-        // setRecycViewData(res);
     }
 
     private void setDropDownsData(String res, String tag) {
@@ -1878,105 +1941,118 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     }
 
     private void defaultDataDropDown() {
-        dataHospital = new ArrayList(dataHospital2);
-        dataHospitalID = new ArrayList(dataHospitalID2);
-        dataTakhasos2 = new ArrayList(dataTakhasos2);
-        dataTakhasosID2 = new ArrayList(dataTakhasosID2);
+        try {
+            dataHospital = new ArrayList(dataHospital2);
+            dataHospitalID = new ArrayList(dataHospitalID2);
+            dataTakhasos2 = new ArrayList(dataTakhasos2);
+            dataTakhasosID2 = new ArrayList(dataTakhasosID2);
 
+            txtFrRes_city.setText(dataCity.get(0) + "");
+            txtFrRes_takhasos.setText(dataTakhasos.get(0) + "");
+            txtFrRes_darmonghah.setText(dataHospital2.get(0) + "");
+            txtFrRes_time.setText(dataTime.get(0) + "");
+            txtFrRes_doctor.setText(dataDoctor.get(0) + "");
 
-        txtFrRes_city.setText(dataCity.get(0) + "");
-        txtFrRes_takhasos.setText(dataTakhasos.get(0) + "");
-        txtFrRes_darmonghah.setText(dataHospital2.get(0) + "");
-        txtFrRes_time.setText(dataTime.get(0) + "");
-        txtFrRes_doctor.setText(dataDoctor.get(0) + "");
-
-        cityId = dataCityID.get(0) + "";
-        takhasosId = dataTakhasosID.get(0) + "";
-        hospiralId = dataHospitalID.get(0) + "";
-        timeId = dataTimeID.get(0) + "";
-        doctorId = dataDoctorID.get(0) + "";
+            cityId = dataCityID.get(0) + "";
+            takhasosId = dataTakhasosID.get(0) + "";
+            hospiralId = dataHospitalID.get(0) + "";
+            timeId = dataTimeID.get(0) + "";
+            doctorId = dataDoctorID.get(0) + "";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void nextPage(final LinearLayout first, final LinearLayout firstBtn,
                           final LinearLayout second, final LinearLayout secondBtn) {
+        try {
 // anim next - center to right (forFirstLinear) | left to center (forSecondLinear)
-        Animation animCenterToRight = AnimationUtils.loadAnimation(getContext(), R.anim.center_to_right);
-        final Animation animLeftToCenter = AnimationUtils.loadAnimation(getContext(), R.anim.left_to_center);
+            Animation animCenterToRight = AnimationUtils.loadAnimation(getContext(), R.anim.center_to_right);
+            final Animation animLeftToCenter = AnimationUtils.loadAnimation(getContext(), R.anim.left_to_center);
 
-        first.startAnimation(animCenterToRight);
-        firstBtn.startAnimation(animCenterToRight);
+            first.startAnimation(animCenterToRight);
+            firstBtn.startAnimation(animCenterToRight);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                second.setVisibility(View.VISIBLE);
-                secondBtn.setVisibility(View.VISIBLE);
-                second.startAnimation(animLeftToCenter);
-                secondBtn.startAnimation(animLeftToCenter);
-            }
-        }, 150);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    second.setVisibility(View.VISIBLE);
+                    secondBtn.setVisibility(View.VISIBLE);
+                    second.startAnimation(animLeftToCenter);
+                    secondBtn.startAnimation(animLeftToCenter);
+                }
+            }, 150);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                first.setVisibility(View.GONE);
-                firstBtn.setVisibility(View.GONE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    first.setVisibility(View.GONE);
+                    firstBtn.setVisibility(View.GONE);
 
-            }
-        }, 300);
+                }
+            }, 300);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void previousPage(final LinearLayout first, final LinearLayout firstBtn,
                               final LinearLayout second, final LinearLayout secondBtn) {
-
+        try {
 // anim previous - center to left (First) | right to center (Second)
-        final Animation animRightToCenter = AnimationUtils.loadAnimation(getContext(), R.anim.right_to_center);
-        Animation animCenterToLeft = AnimationUtils.loadAnimation(getContext(), R.anim.center_to_left);
+            final Animation animRightToCenter = AnimationUtils.loadAnimation(getContext(), R.anim.right_to_center);
+            Animation animCenterToLeft = AnimationUtils.loadAnimation(getContext(), R.anim.center_to_left);
 
-        first.startAnimation(animCenterToLeft);
-        firstBtn.startAnimation(animCenterToLeft);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                second.setVisibility(View.VISIBLE);
-                secondBtn.setVisibility(View.VISIBLE);
-                second.startAnimation(animRightToCenter);
-                secondBtn.startAnimation(animRightToCenter);
-            }
-        }, 150);
+            first.startAnimation(animCenterToLeft);
+            firstBtn.startAnimation(animCenterToLeft);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    second.setVisibility(View.VISIBLE);
+                    secondBtn.setVisibility(View.VISIBLE);
+                    second.startAnimation(animRightToCenter);
+                    secondBtn.startAnimation(animRightToCenter);
+                }
+            }, 150);
 
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                first.setVisibility(View.GONE);
-                firstBtn.setVisibility(View.GONE);
-            }
-        }, 300);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    first.setVisibility(View.GONE);
+                    firstBtn.setVisibility(View.GONE);
+                }
+            }, 300);
 
-        if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
+            if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setAllDataToDefault() {
+        try {
+            dr_prg_hsp_mdc_spc_date_id = "";
+            positionItemRecycleView = -1;
 
-        dr_prg_hsp_mdc_spc_date_id = "";
-        positionItemRecycleView = -1;
+            isScrollingFP = false;
+            currentItemFP = 0;
+            totalItemsFP = 0;
+            scrollOutItemsFP = 0;
+            boolCheckNetFP = false;
+            pageNumber = 0;
 
-        isScrollingFP = false;
-        currentItemFP = 0;
-        totalItemsFP = 0;
-        scrollOutItemsFP = 0;
-        boolCheckNetFP = false;
-        pageNumber = -1;
+            cityId = "";
+            takhasosId = "";
+            hospiralId = "";
+            timeId = "";
+            doctorId = "";
 
-        cityId = "";
-        takhasosId = "";
-        hospiralId = "";
-        timeId = "";
-        doctorId = "";
-
-        defaultDataDropDown();
+            defaultDataDropDown();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
