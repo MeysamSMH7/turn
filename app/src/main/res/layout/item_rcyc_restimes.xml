@@ -66,8 +66,7 @@
                         android:paddingRight="7dp"
                         android:text="123"
                         android:textColor="@color/colorAccent"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
+                        android:textSize="16dp" />
 
 
                 </LinearLayout>

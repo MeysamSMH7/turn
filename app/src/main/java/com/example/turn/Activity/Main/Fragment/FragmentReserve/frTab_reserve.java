@@ -1,6 +1,7 @@
 package com.example.turn.Activity.Main.Fragment.FragmentReserve;
 
 import android.app.AlertDialog;
+import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -82,6 +83,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private ArrayList dataHospital2;
     private ArrayList dataTime;
     private ArrayList dataDoctor;
+    private ArrayList dataDoctor2;
 
     private ArrayList dataCityID;
     private ArrayList dataTakhasosID;
@@ -90,12 +92,19 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private ArrayList dataHospitalID2;
     private ArrayList dataTimeID;
     private ArrayList dataDoctorID;
+    private ArrayList dataDoctorID2;
 
     private String cityId = "";
     private String takhasosId = "";
     private String hospiralId = "";
     private String timeId = "";
     private String doctorId = "";
+
+    private String citySt = "";
+    private String takhasosSt = "";
+    private String hospiralSt = "";
+    private String timeSt = "";
+    private String doctorSt = "";
 
     //------------ linearResTimes
     private AlertDialog alertDialogTavafoghName;
@@ -111,7 +120,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
     private ImageView btnRT_previous;
     private String dr_prg_hsp_mdc_spc_date_id = "";
-    private int positionItemRecycleView = -1;
+    private int positionItemRecycleViewFilter = -1;
 
     private Boolean isScrollingFP = false;
     private int currentItemFP = 0, totalItemsFP = 0, scrollOutItemsFP = 0;
@@ -640,7 +649,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 JSONObject objectData = new JSONObject(data);
                 //get  patient
 
-
                 JSONObject jsonHospitalInfo = objectData.getJSONObject("hspInfo");
                 String hospitalName = jsonHospitalInfo.getString("hsp_title");
                 String hospitalAddress = jsonHospitalInfo.getString("hsp_addr");
@@ -946,6 +954,18 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         txtFrRes_darmonghah = view.findViewById(R.id.txtFrRes_darmonghah);
                         txtFrRes_time = view.findViewById(R.id.txtFrRes_time);
                         txtFrRes_doctor = view.findViewById(R.id.txtFrRes_doctor);
+
+                        if (!citySt.equals(""))
+                        txtFrRes_city.setText(citySt + "");
+                        if (!takhasosSt.equals(""))
+                        txtFrRes_takhasos.setText(takhasosSt + "");
+                        if (!hospiralSt.equals(""))
+                        txtFrRes_darmonghah.setText(hospiralSt + "");
+                        if (!timeSt.equals(""))
+                        txtFrRes_time.setText(timeSt + "");
+                        if (!doctorSt.equals(""))
+                        txtFrRes_doctor.setText(doctorSt + "");
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -962,9 +982,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                 arrayListResTimes.clear();
                                 adapterResTimes.notifyDataSetChanged();
                                 pageNumber = 0;
-                                doSearch(pageNumber);
                                 morePost = true;
                                 refreshRT.setRefreshing(false);
+                                doSearch(pageNumber);
                             }
                         }, 2000);
                     } catch (Exception e) {
@@ -1030,6 +1050,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         txtFrRes_time = layout.findViewById(R.id.txtFrRes_time);
                         txtFrRes_doctor = layout.findViewById(R.id.txtFrRes_doctor);
 
+
                         //  Clicks
                         linearFrRes_city.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -1043,6 +1064,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                 alertDialogShow("takhasos");
                             }
                         });
+
                         linearFrRes_darmonghah.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -1063,7 +1085,18 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                             }
                         });
 
-                        defaultDataDropDown();
+
+                        if (!citySt.equals(""))
+                        txtFrRes_city.setText(citySt  + "");
+                        if (!takhasosSt.equals(""))
+                        txtFrRes_takhasos.setText(takhasosSt  + "");
+                        if (!hospiralSt.equals(""))
+                        txtFrRes_darmonghah.setText(hospiralSt  + "");
+                        if (!timeSt.equals(""))
+                        txtFrRes_time.setText(timeSt  + "");
+                        if (!doctorSt.equals(""))
+                        txtFrRes_doctor.setText(doctorSt  + "");
+
                         builder.setView(layout);
                         alertFilterRT = builder.create();
                         alertFilterRT.show();
@@ -1128,7 +1161,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                     linearPazireshPage2.setVisibility(View.GONE);
                                     btnPP_paziresh.setVisibility(View.INVISIBLE);
                                     alertDialogLoding.show();
-                                    positionItemRecycleView = position;
                                     nextPage(linearResTimes, linearResTimesBtn, linearPazireshPage, linearPazireshPageBtn);
                                     alertDialogTavafoghName.dismiss();
                                     dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
@@ -1194,12 +1226,11 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                 JSONArray arrayData = arrayData1.getJSONArray("turnList");  // chish moishkel dare
 
-                morePost = true;
                 if (arrayData.length() == 0 && pageNumber == 0) {
                     previousPage(linearResTimes, linearResTimesBtn, linearSelectFilters, linearSelectFiltersBtn);
                     new ShowMessage(getContext()).ShowMessType2_NoBtn("اطلاعاتی وجود ندارد", true, 2);
                     morePost = true;
-                } else if (arrayData.length() != 0 && pageNumber == 0) {
+                } else if (arrayData.length() < 10 && pageNumber == 0 ) {
                     morePost = false;
                 } else if (arrayData.length() == 0 && pageNumber != 0) {
                     Toast.makeText(getContext(), "اطلاعات بیشتری وجود ندارد", Toast.LENGTH_SHORT).show();
@@ -1395,7 +1426,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 @Override
                 public void setClick(int position, boolean canUse, View view) {
                     try {
-
+                        positionItemRecycleViewFilter = position;
                         TextView txttitle = ((LinearLayout) view).findViewById(R.id.txtTitle);
                         TextView txtId = ((LinearLayout) view).findViewById(R.id.txtId);
                         String title = txttitle.getText().toString();
@@ -1404,7 +1435,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         if (tag.equals("city")) {
                             txtFrRes_city.setText(title + "");
                             cityId = id;
-
+                            citySt = title;
                             if (id.equals("0")) {
                                 if (dataHospital.size() != 0) {
                                     dataHospital.clear();
@@ -1444,13 +1475,17 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         } else if (tag.equals("takhasos")) {
                             txtFrRes_takhasos.setText(title + "");
                             takhasosId = id;
+                            takhasosSt = title;
                             if (id.equals("0")) {
-                                if (dataTakhasos2.size() != 0) {
-                                    dataTakhasos2.clear();
-                                    dataTakhasosID2.clear();
+                                if (dataTakhasos.size() != 0) {
+                                    dataTakhasos.clear();
+                                    dataTakhasosID.clear();
                                 }
                                 dataTakhasos = new ArrayList(dataTakhasos2);
-                                dataTakhasosID2 = new ArrayList(dataTakhasosID2);
+                                dataTakhasosID = new ArrayList(dataTakhasosID2);
+                                dataDoctorID = new ArrayList(dataDoctorID2);
+                                dataDoctor = new ArrayList(dataDoctor2);
+
                             } else {
                                 // TODO: Sent new id to link1 and change TAKASOS  --------------------------------------------------------
 
@@ -1467,8 +1502,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                 }
 
                                 alertDialogLoding.show();
-
-                                new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/TurnAppApi/Search?hsp_id=" + hospiralId + "&spc_id=" + takhasosId, object  // inja chi bayad gozasht?  takhasos va hospital
+                                String vUrlTakhasos = "http://nobat.mazums.ac.ir/TurnAppApi/Search?hsp_id=" + hospiralId + "&spc_id=" + takhasosId;
+                                new setConnectionVolley(getContext(), vUrlTakhasos, object  // inja chi bayad gozasht?  takhasos va hospital
                                 ).connectStringRequest(new setConnectionVolley.OnResponse() {
                                     @Override
                                     public void OnResponse(String response) {
@@ -1480,13 +1515,17 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         } else if (tag.equals("darmonghah")) {
                             txtFrRes_darmonghah.setText(title + "");
                             hospiralId = id;  // the last hsp_id save in here
+                            hospiralSt = title;
                             if (id.equals("0")) {
                                 if (dataHospitalID2.size() != 0) {
                                     dataHospital2.clear();
                                     dataHospitalID2.clear();
                                 }
                                 dataHospital = new ArrayList(dataHospital2);
-                                dataHospitalID = new ArrayList(dataTakhasosID2);
+                                dataHospitalID = new ArrayList(dataHospitalID2);
+
+                                dataDoctorID = new ArrayList(dataDoctorID2);
+                                dataDoctor = new ArrayList(dataDoctor2);
                             } else {
                                 // TODO: Sent new id to link1 and change TAKASOS  --------------------------------------------------------
 
@@ -1515,9 +1554,11 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         } else if (tag.equals("time")) {
                             txtFrRes_time.setText(title + "");
                             timeId = id;
+                            timeSt = title;
                         } else if (tag.equals("doctor")) {
                             txtFrRes_doctor.setText(title + "");
                             doctorId = id;
+                            doctorSt = timeSt;
                         } else if (tag.equals("PPCity")) {
                             txtFrPP_city.setText(title + "");
                             cityIdSamane = id;
@@ -1722,6 +1763,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             dataHospital2 = new ArrayList();
             dataTime = new ArrayList();
             dataDoctor = new ArrayList();
+            dataDoctor2 = new ArrayList();
             dataCityID = new ArrayList();
             dataTakhasosID = new ArrayList();
             dataTakhasosID2 = new ArrayList();
@@ -1729,7 +1771,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             dataHospitalID2 = new ArrayList();
             dataTimeID = new ArrayList();
             dataDoctorID = new ArrayList();
-
+            dataDoctorID2 = new ArrayList();
 //TODO------ Connection data for dropDowns link1
 
             JSONObject object = new JSONObject();
@@ -1767,45 +1809,51 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private void doSearch(int pageNumber) {
         try {
             if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
+            if (morePost) {
+                // here
+                // TODO: Sent new id to link2 and change HOSPITAL NAMES --------------------------------------------------------
+                //city_id:0,hsp_id:0,spc_id:0,first_name:'',last_name:'', date_period:0,page_number:0,item_per_page:10}
+                // if (doctorId  0){
+                //     String[] temp = txtFrRes_doctor.getText().toString().split(" ");
+                //   }
+                String[] temp = txtFrRes_doctor.getText().toString().split("-");
+                JSONObject object = new JSONObject();
 
-            // here
-            // TODO: Sent new id to link2 and change HOSPITAL NAMES --------------------------------------------------------
-            //city_id:0,hsp_id:0,spc_id:0,first_name:'',last_name:'', date_period:0,page_number:0,item_per_page:10}
-            // if (doctorId  0){
-            //     String[] temp = txtFrRes_doctor.getText().toString().split(" ");
-            //   }
+                alertDialogLoding.show();
 
-            JSONObject object = new JSONObject();
-            try {
-                object.put("hsp_id", hospiralId + "");
-                object.put("city_id", cityId + "");
-                object.put("spc_id", takhasosId + "");
-                object.put("first_name", txtFrRes_doctor.getText().toString() + "");
-                object.put("last_name", "0");
-                object.put("date_period", timeId + "");
-                object.put("page_number", pageNumber);
-                object.put("item_per_page", "10");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            // + "&first_name=" +txtFrRes_doctor.getText().toString()+""
-            alertDialogLoding.show();
-
-            new setConnectionVolley(getContext(), "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
-                    hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
-                    + timeId + "&page_number=" + pageNumber + "&item_per_page=" + "10", object
-            ).connectStringRequest(new setConnectionVolley.OnResponse() {
-                @Override
-                public void OnResponse(String response) {
-                    if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
-                    setRecycViewData(response);
+                String vSearchUrl = "";
+                try {
+                    if (temp.length == 1)
+                        vSearchUrl = "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
+                                hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
+                                + timeId + "&page_number=" + pageNumber + "&first_name=" + "&doctor_id="
+                                + doctorId + "&item_per_page=" + "10" + "&last_name=" + "";
+                    else
+                        vSearchUrl = "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
+                                hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
+                                + timeId + "&page_number=" + pageNumber + "&first_name=" + temp[1] + "&doctor_id="
+                                + doctorId + "&item_per_page=" + "10" + "&last_name=" + temp[0];
+                } catch (Exception e) {
+                    vSearchUrl = "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
+                            hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
+                            + timeId + "&page_number=" + pageNumber + "&last_name=" + txtFrRes_doctor.getText().toString()
+                            + doctorId + "&item_per_page=" + "10";
+                    e.printStackTrace();
                 }
-            });
 
-            // TODO: Sent data and get ResTimes data (RecycleView) | link2--------------------------------------------------------
-            // String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":[{\"dr_prg_hsp_mdc_spc_date_id\":\"1\",\"hsp_title\":\"بیمارستان شهید بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"مهسا طاهری\",\"spc_title\":\"اطفال\",\"prg_date\":\"1399/01/06\",\"web_turn\":\"1\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"12\",\"hsp_title\":\"بیمارستان شهید حسینی\",\"shift_title\":\"عصر\",\"dr_name\":\"مهدی منصوری\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/02/07\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"13\",\"hsp_title\":\"بیمارستان شهید صالحی\",\"shift_title\":\"شب\",\"dr_name\":\"فرزاد اکبری\",\"spc_title\":\"عمومی\",\"prg_date\":\"1399/03/09\",\"web_turn\":\"5\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"14\",\"hsp_title\":\"بیمارستان شهید عابدزاده\",\"shift_title\":\"عصر\",\"dr_name\":\"علی ملکی\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/04/19\",\"web_turn\":\"3\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"15\",\"hsp_title\":\"بیمارستان  بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"نجمه مقدم\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/09/05\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"}]}";
-            // setRecycViewData(res);
+                new setConnectionVolley(getContext(), vSearchUrl, object
+                ).connectStringRequest(new setConnectionVolley.OnResponse() {
+                    @Override
+                    public void OnResponse(String response) {
+                        if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
+                        setRecycViewData(response);
+                    }
+                });
 
+                // TODO: Sent data and get ResTimes data (RecycleView) | link2--------------------------------------------------------
+                // String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":[{\"dr_prg_hsp_mdc_spc_date_id\":\"1\",\"hsp_title\":\"بیمارستان شهید بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"مهسا طاهری\",\"spc_title\":\"اطفال\",\"prg_date\":\"1399/01/06\",\"web_turn\":\"1\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"12\",\"hsp_title\":\"بیمارستان شهید حسینی\",\"shift_title\":\"عصر\",\"dr_name\":\"مهدی منصوری\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/02/07\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"13\",\"hsp_title\":\"بیمارستان شهید صالحی\",\"shift_title\":\"شب\",\"dr_name\":\"فرزاد اکبری\",\"spc_title\":\"عمومی\",\"prg_date\":\"1399/03/09\",\"web_turn\":\"5\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"14\",\"hsp_title\":\"بیمارستان شهید عابدزاده\",\"shift_title\":\"عصر\",\"dr_name\":\"علی ملکی\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/04/19\",\"web_turn\":\"3\",\"status_type\":\"دریافت نوبت\"},{\"dr_prg_hsp_mdc_spc_date_id\":\"15\",\"hsp_title\":\"بیمارستان  بهشتی\",\"shift_title\":\"صبح\",\"dr_name\":\"نجمه مقدم\",\"spc_title\":\"داخلی\",\"prg_date\":\"1399/09/05\",\"web_turn\":\"0\",\"status_type\":\"اتمام\"}]}";
+                // setRecycViewData(res);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1841,6 +1889,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         JSONObject object1 = arrayDoctor.getJSONObject(i);
                         dataDoctorID.add(object1.getString("id"));
                         dataDoctor.add(object1.getString("title"));
+                        dataDoctorID2.add(object1.getString("id"));
+                        dataDoctor2.add(object1.getString("title"));
                     }
                     for (int i = 0; i < arraySpecialty.length(); i++) {
                         JSONObject object1 = arraySpecialty.getJSONObject(i);
@@ -1944,12 +1994,14 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         try {
             dataHospital = new ArrayList(dataHospital2);
             dataHospitalID = new ArrayList(dataHospitalID2);
-            dataTakhasos2 = new ArrayList(dataTakhasos2);
-            dataTakhasosID2 = new ArrayList(dataTakhasosID2);
+            dataTakhasos = new ArrayList(dataTakhasos2);
+            dataTakhasosID = new ArrayList(dataTakhasosID2);
+            dataDoctor = new ArrayList(dataDoctor2);
+            dataDoctorID = new ArrayList(dataDoctorID2);
 
             txtFrRes_city.setText(dataCity.get(0) + "");
             txtFrRes_takhasos.setText(dataTakhasos.get(0) + "");
-            txtFrRes_darmonghah.setText(dataHospital2.get(0) + "");
+            txtFrRes_darmonghah.setText(dataHospital.get(0) + "");
             txtFrRes_time.setText(dataTime.get(0) + "");
             txtFrRes_doctor.setText(dataDoctor.get(0) + "");
 
@@ -2034,7 +2086,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private void setAllDataToDefault() {
         try {
             dr_prg_hsp_mdc_spc_date_id = "";
-            positionItemRecycleView = -1;
+            positionItemRecycleViewFilter = -1;
 
             isScrollingFP = false;
             currentItemFP = 0;

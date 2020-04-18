@@ -60,6 +60,7 @@
                         android:layout_marginRight="7dp"
                         android:background="@drawable/button_background_blue"
                         android:text="فیلترکردن"
+                        android:visibility="gone"
                         android:textColor="@color/colorPrimaryDark"
                         android:textStyle="bold" />
 
