@@ -478,6 +478,34 @@
                                 app:cardCornerRadius="7dp">
 
                                 <LinearLayout
+                                    android:id="@+id/linearFrPP_ostan"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="3dp"
+                                    android:background="@drawable/bg_white_corner_"
+                                    android:orientation="vertical"
+                                    android:padding="7dp">
+                                    <TextView
+                                        android:id="@+id/txtFrPP_ostan"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="7dp"
+                                        android:layout_marginBottom="7dp"
+                                        android:layout_weight="0.5"
+                                        android:gravity="right|center"
+                                        android:paddingLeft="7dp"
+                                        android:text="انتخاب استان"
+                                        android:textColor="@color/colorPurple7" />
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="3dp"
+                                app:cardCornerRadius="7dp">
+
+                                <LinearLayout
                                     android:id="@+id/linearFrPP_City"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -497,6 +525,8 @@
                                         android:paddingLeft="7dp"
                                         android:text="انتخاب شهر"
                                         android:textColor="@color/colorPurple7" />
+
+
 
                                 </LinearLayout>
 
@@ -541,7 +571,7 @@
                                 app:cardCornerRadius="7dp">
 
                                 <LinearLayout
-                                    android:id="@+id/linearFrPP_ostan"
+                                    android:id="@+id/linearFrPP_bime"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="3dp"
@@ -550,7 +580,7 @@
                                     android:padding="7dp">
 
                                     <TextView
-                                        android:id="@+id/txtFrPP_ostan"
+                                        android:id="@+id/txtFrPP_bime"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="7dp"
@@ -558,11 +588,10 @@
                                         android:layout_weight="0.5"
                                         android:gravity="right|center"
                                         android:paddingLeft="7dp"
-                                        android:text="انتخاب استان"
+                                        android:text="انتخاب بیمه"
                                         android:textColor="@color/colorPurple7" />
 
                                 </LinearLayout>
-
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
@@ -604,35 +633,7 @@
 
                             </androidx.cardview.widget.CardView>
 
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="3dp"
-                                app:cardCornerRadius="7dp">
 
-                                <LinearLayout
-                                    android:id="@+id/linearFrPP_bime"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="3dp"
-                                    android:background="@drawable/bg_white_corner_"
-                                    android:orientation="vertical"
-                                    android:padding="7dp">
-
-                                    <TextView
-                                        android:id="@+id/txtFrPP_bime"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="7dp"
-                                        android:layout_marginBottom="7dp"
-                                        android:layout_weight="0.5"
-                                        android:gravity="right|center"
-                                        android:paddingLeft="7dp"
-                                        android:text="انتخاب بیمه"
-                                        android:textColor="@color/colorPurple7" />
-
-                                </LinearLayout>
-                            </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
@@ -778,6 +779,6 @@
 
     </LinearLayout>
 
-    <include layout="@layout/item_print"/>
+    <include layout="@layout/item_print" android:visibility="gone"/>
 
 </RelativeLayout>

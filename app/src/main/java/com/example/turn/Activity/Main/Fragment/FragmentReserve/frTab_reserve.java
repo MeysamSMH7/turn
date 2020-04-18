@@ -1584,12 +1584,13 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         } else if (tag.equals("PPBime")) {
                             txtFrPP_bime.setText(title + "");
                             bimeIdSamane = id;
-                        } else if (tag.equals("PPOrg")) {
+                        }
+                        else if (tag.equals("PPOrg")) {
                             txtFrPP_org.setText(title + "");
                             orgIdSamane = id;
                             // clicked on Org dropDown
                             JSONObject jsonObject = new JSONObject();
-                            String linkpp = "http://nobat.mazums.ac.ir/TurnAppApi/turn/InsList?id=" + orgIdSamane + "&hsp_id=" + hsp_pp;
+                            String linkpp = "http://nobat.mazums.ac.ir/TurnAppApi/turn/InsList?id=" + orgIdSamane + "&hspId=" + hsp_pp;
                             new setConnectionVolley(getContext(), linkpp, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
                                 @Override
                                 public void OnResponse(String response) {
@@ -1649,6 +1650,10 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
     private void updteBimePP(String response) {
         try {
+            if (arrayListBime.size()!=0){
+                arrayListBime.clear();
+                arrayListBimeID.clear();
+            }
             JSONObject object = new JSONObject(response);
             String status = object.getString("status");
             String message = object.getString("message");
@@ -1659,8 +1664,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 JSONArray arrayData = arrayData1.getJSONArray("inslist");  // chish moishkel dare
                 for (int i = 0; i < arrayData.length(); i++) {
                     JSONObject objectTemp = arrayData.getJSONObject(i);
-                    arrayListBime.add(objectTemp.getString("title"));
-                    arrayListCityID.add(objectTemp.getString("id"));
+                    arrayListBimeID.add(objectTemp.getString("ins_id"));
+                    arrayListBime.add(objectTemp.getString("ins_title"));
                 }
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
