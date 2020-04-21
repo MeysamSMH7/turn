@@ -301,6 +301,26 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         linearBtns.setVisibility(View.VISIBLE);
                         linearPrint.setVisibility(View.GONE);
 
+                        txtPrint_hospitalName.setText("");
+                        txtPrint_hospitalAddress.setText("");
+                        txtPrint_hospitalTell.setText("");
+
+                        txtPrint_date.setText("");
+                        txtPrint_time.setText("");
+                        txtPrint_hours.setText("");
+                        txtPrint_shit.setText("");
+                        txtPrint_doctor.setText("");
+                        txtPrint_type.setText("");
+                        txtPrint_typeBime.setText("");
+
+                        txtPrint_firstLastName.setText("");
+                        txtPrint_price.setText("");
+
+                        txtPrint_bakhsh.setText("");
+                        txtPrint_codNobat.setText("");
+                        txtPrint_numberNobat.setText("");
+
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -314,6 +334,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         String link = "http://nobat.mazums.ac.ir/Pay/Apprdr/?r=" + rcp_id + "&h=" + hospiralId;
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
                         setAllDataToDefault();
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
