@@ -127,7 +127,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private LinearLayoutManager rowManager;
     private Boolean boolCheckNetFP = false;
     private int pageNumber = 0;
-    boolean morePost = true;
+    private boolean morePost = true;
 
     //------------ linearPazireshPage
     private LinearLayout linearPazireshPage;
@@ -174,23 +174,25 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private ArrayList arrayListOrg;
     private ArrayList arrayListOrgID;
 
-    private String bimeTitleSamane;
-    private String bimeIdSamane;
-    private String addressSamane;
-    private String sexSamane;
-    private String cityIdSamane;
-    private String ostanIdSamane;
-    private String orgIdSamane;
-    private String phoneNumSamane;
-    private String fatherNameSamane;
-    private String lastNameSamane;
-    private String firstNameSamane;
-    private String cityTitleSamane;
-    private String srv_id;
-    private String rcp_id;
+    private String bimeTitleSamane = "0";
+    private String bimeIdSamane= "0";
+    private String addressSamane= "0";
+    private String sexSamane= "0";
+    private String cityIdSamane= "0";
+    private String ostanIdSamane= "0";
+    private String orgIdSamane= "0";
+    private String phoneNumSamane= "0";
+    private String fatherNameSamane= "0";
+    private String lastNameSamane= "0";
+    private String firstNameSamane= "0";
+    private String cityTitleSamane= "0";
+    private String pp_id= "0";
+
+    private String srv_id= "0";
+    private String rcp_id= "0";
     private String codMeliOrErja = "کد ملی";
-    private String ins_box_code;
-    private String ins_box_val;
+    private String ins_box_code= "0";
+    private String ins_box_val= "0";
     //
 
     private TextView txtPrint_date;
@@ -231,7 +233,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_tab_reserve, container, false);
 
-
         linearLinears = view.findViewById(R.id.linearLinears);
         linearBtns = view.findViewById(R.id.linearBtns);
         linearPrint = view.findViewById(R.id.linearPrint);
@@ -257,10 +258,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
         linearLinears.setVisibility(View.VISIBLE);
         linearBtns.setVisibility(View.VISIBLE);
         linearPrint.setVisibility(View.GONE);
-
-
-        String txt = "null";
-        String txt2 = txt.equals("null") ? "" : txt;
 
         return view;
     }
@@ -496,22 +493,43 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 /*{turn_date:'',prg_id:0,spc_id:0,hsp_id:0,city_id:0,srv_id:0,pp_id:'0',familiy_code:'',
                         patient:{mome_mbl:'',home_adr:'',first_name:'',last_name:'',is_sex:0,father_name:'',ins_id:0}*/
 
-                        String vPazireshlink = "http://nobat.mazums.ac.ir/TurnAppApi/turn/MakeTurn?"
-                                + "prg_id=" + temp[1]
-                                + "&hsp_id=" + temp[2]
-                                + "&srv_id=" + srv_id
-                                + "&spc_id=" + temp[4]
-                                + "&turn_date=" + temp[5]
-                                + "&pp_id=" + edtFrPP_Cod.getText().toString()
-                                + "&home_mbl=" + phoneNum
-                                + "&home_adr=" + edtFrPP_address.getText().toString()
-                                + "&last_name=" + edtFrPP_family.getText().toString()
-                                + "&first_name=" + edtFrPP_name.getText().toString()
-                                + "&is_sex=" + sexSamane
-                                + "&father_name=" + edtFrPP_fatherName.getText().toString().replace(" ", "")
-                                + "&ins_id=" + bimeIdSamane
-                                + "&ost_id=" + ostanIdSamane
-                                + "&org_id=" + orgIdSamane;
+                        String vPazireshlink = "";
+
+                        if (codMeliOrErja.equals("کد ملی")) {
+                            vPazireshlink = "http://nobat.mazums.ac.ir/TurnAppApi/turn/MakeTurn?"
+                                    + "prg_id=" + temp[1]
+                                    + "&hsp_id=" + temp[2]
+                                    + "&srv_id=" + srv_id
+                                    + "&spc_id=" + temp[4]
+                                    + "&turn_date=" + temp[5]
+                                    + "&pp_id=" + edtFrPP_Cod.getText().toString().replace(" ", "")
+                                    + "&home_mbl=" + phoneNum
+                                    + "&home_adr=" + edtFrPP_address.getText().toString().replace(" ", "%20")
+                                    + "&last_name=" + edtFrPP_family.getText().toString().replace(" ", "%20")
+                                    + "&first_name=" + edtFrPP_name.getText().toString().replace(" ", "%20")
+                                    + "&is_sex=" + sexSamane
+                                    + "&father_name=" + edtFrPP_fatherName.getText().toString().replace(" ", "").replace(" ", "%20")
+                                    + "&ins_id=" + bimeIdSamane
+                                    + "&ost_id=" + ostanIdSamane
+                                    + "&org_id=" + orgIdSamane;
+                        } else {
+                            vPazireshlink = "http://nobat.mazums.ac.ir/TurnAppApi/turn/MakeTurn?"
+                                    + "prg_id=" + temp[1]
+                                    + "&hsp_id=" + temp[2]
+                                    + "&srv_id=" + srv_id
+                                    + "&spc_id=" + temp[4]
+                                    + "&turn_date=" + temp[5]
+                                    + "&pp_id=" + pp_id
+                                    + "&family_code" + edtFrPP_Cod.getText().toString().replace(" ", "")
+                                    + "&home_mbl=" + phoneNum
+                                    + "&home_adr=" + edtFrPP_address.getText().toString().replace(" ", "%20")
+                                    + "&last_name=" + edtFrPP_family.getText().toString().replace(" ", "%20")
+                                    + "&first_name=" + edtFrPP_name.getText().toString().replace(" ", "%20")
+                                    + "&is_sex=" + sexSamane
+                                    + "&father_name=" + edtFrPP_fatherName.getText().toString().replace(" ", "").replace(" ", "%20")
+                                    + "&ins_id=" + bimeIdSamane
+                                    + "&ost_id=" + ostanIdSamane
+                                    + "&org_id=" + orgIdSamane;                        }
                         alertDialogLoding.show();
                         new setConnectionVolley(getContext(), vPazireshlink, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
                             @Override
@@ -617,7 +635,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
             MaskFormatter maskFormatter = new MaskFormatter("9999999999", edtFrPP_phone);
             edtFrPP_phone.setInputType(InputType.TYPE_CLASS_NUMBER);
-            edtFrPP_phone.setHint("09113456789");
+            edtFrPP_phone.setHint("9113456789");
             edtFrPP_phone.addTextChangedListener(maskFormatter);
 
             btnPP_previous = view.findViewById(R.id.btnPP_previous);
@@ -818,6 +836,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 phoneNumSamane = jsonPatient.getString("home_mbl");
                 bimeIdSamane = jsonPatient.getString("ins_id");
                 bimeTitleSamane = jsonPatient.getString("ins_title");
+
+                if (jsonPatient.has("pp_id"))
+                    pp_id = jsonPatient.getString("pp_id");
 
 //---------------------------
 /*
@@ -1393,7 +1414,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             } else if (tag.equals("darmonghah")) {
                 arrayList = new ArrayList(dataHospital);
                 arrayListID = new ArrayList(dataHospitalID);
-            } else if (tag.equals("time")) {
+            }
+            else if (tag.equals("time")) {
                 arrayList = new ArrayList(dataTime);
                 arrayListID = new ArrayList(dataTimeID);
             } else if (tag.equals("doctor")) {
@@ -1425,13 +1447,13 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             adRecycPopUp = new AdRecycPopUp(getContext(), arraylistSearchView, new onClickInterface() {
                 @Override
                 public void setClick(int position, boolean canUse, View view) {
-                    try {
+                    try
+                    {
                         positionItemRecycleViewFilter = position;
                         TextView txttitle = ((LinearLayout) view).findViewById(R.id.txtTitle);
                         TextView txtId = ((LinearLayout) view).findViewById(R.id.txtId);
                         String title = txttitle.getText().toString();
                         String id = txtId.getText().toString();
-
                         if (tag.equals("city")) {
                             txtFrRes_city.setText(title + "");
                             cityId = id;
@@ -1551,7 +1573,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                     }
                                 });
                             }
-                        } else if (tag.equals("time")) {
+                        }
+                        else if (tag.equals("time")) {
                             txtFrRes_time.setText(title + "");
                             timeId = id;
                             timeSt = title;
@@ -1562,7 +1585,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         } else if (tag.equals("PPCity")) {
                             txtFrPP_city.setText(title + "");
                             cityIdSamane = id;
-                        } else if (tag.equals("PPOstan")) {
+                        }
+                        else if (tag.equals("PPOstan")) {
                             txtFrPP_ostan.setText(title + "");
                             ostanIdSamane = id;
 //     TODO: set data to city in pp
@@ -1625,6 +1649,11 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
     private void updateCityPP(String response) {
         try {
+            if (arrayListCity.size()!=0)
+            {
+                arrayListCity.clear();
+                arrayListCityID.clear();
+            }
             JSONObject object = new JSONObject(response);
             String status = object.getString("status");
             String message = object.getString("message");
@@ -1638,6 +1667,15 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     arrayListCity.add(objectTemp.getString("title"));
                     arrayListCityID.add(objectTemp.getString("id"));
                 }
+
+if (arrayListCity.size() !=0 ) {
+    txtFrPP_city.setText(arrayListCity.get(0) + "");
+    cityIdSamane = arrayListCityID.get(0) + "";
+}else{
+    txtFrPP_city.setText("");
+    cityIdSamane = "0";
+}
+
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
                 new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
@@ -1666,6 +1704,14 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     JSONObject objectTemp = arrayData.getJSONObject(i);
                     arrayListBimeID.add(objectTemp.getString("ins_id"));
                     arrayListBime.add(objectTemp.getString("ins_title"));
+                }
+
+                if (arrayListBime.size()!=0) {
+                    txtFrPP_bime.setText(arrayListBime.get(0) + "");
+                    bimeIdSamane = arrayListBimeID.get(0) + "";
+                }else {
+                    txtFrPP_bime.setText("");
+                    bimeIdSamane = "0";
                 }
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
@@ -1821,7 +1867,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 // if (doctorId  0){
                 //     String[] temp = txtFrRes_doctor.getText().toString().split(" ");
                 //   }
-                String[] temp = txtFrRes_doctor.getText().toString().split("-");
+                String nameFamily = txtFrRes_doctor.getText().toString();
+                nameFamily = nameFamily.replace(" ","%20");
+                String[] temp = nameFamily.split("-");
                 JSONObject object = new JSONObject();
 
                 alertDialogLoding.show();

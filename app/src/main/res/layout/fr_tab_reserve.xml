@@ -225,7 +225,6 @@
                                     android:gravity="right"
                                     android:hint="کد ملی"
                                     android:maxLines="2"
-                                    android:inputType="number"
                                     android:paddingEnd="7dp"
                                     android:paddingRight="7dp"
                                     android:textColor="@color/colorBlack"
@@ -779,6 +778,6 @@
 
     </LinearLayout>
 
-    <include layout="@layout/item_print" android:visibility="gone"/>
+    <include layout="@layout/item_print" />
 
 </RelativeLayout>
