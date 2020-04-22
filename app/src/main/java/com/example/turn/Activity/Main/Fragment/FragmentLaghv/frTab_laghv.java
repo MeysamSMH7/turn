@@ -194,7 +194,7 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                                 public void OnResponse(String response) {
                                     if (alertDialogLoding.isShowing())
                                         alertDialogLoding.dismiss();
-                                    new ShowMessage(getContext()).ShowMessType2_NoBtn("درخواست شما با موفقیت لغو شد", true, 2);
+                                    new ShowMessage(getContext()).ShowMessType2_NoBtn("نوبت شما با موفقیت لغو شد", true, 2);
 
                                     try {
                                         laghvDone = true;

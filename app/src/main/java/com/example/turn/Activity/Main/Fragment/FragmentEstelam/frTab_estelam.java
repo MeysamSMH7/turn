@@ -54,10 +54,9 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
 
     private ArrayList dataHospital;
     private ArrayList dataHospitalID;
-    private String hospiralId = "nothing";
     private ArrayList<ModEstelam> arrayListEstelam;
     private AlertDialog alertDialogFilter;
-    private String hospitalId;
+    private String hospitalId="0";
 
     public static frTab_estelam newInstance() {
 
@@ -181,7 +180,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
             JSONObject obj = new JSONObject();
             try {
                 obj.put("pp_id", cod);
-                obj.put("hsp_id", hospiralId);
+                obj.put("hsp_id", hospitalId);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -244,7 +243,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                     dataHospitalID.add(object1.getString("id"));
                     dataHospital.add(object1.getString("title"));
                 }
-                hospiralId = dataHospitalID.get(0) + "";
+                hospitalId = dataHospitalID.get(0) + "";
 
             } else
                 new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
