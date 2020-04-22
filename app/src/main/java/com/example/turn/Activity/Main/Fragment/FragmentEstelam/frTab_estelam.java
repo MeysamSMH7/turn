@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -495,27 +497,32 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                 if (numberNobat.equals("null"))
                     numberNobat = "";
 
-//---------------------------------
+                //---------------------------------
                 txtPrint_hospitalName.setText(hospitalName);
-                txtPrint_hospitalAddress.setText("آدرس: " + hospitalAddress);
-                txtPrint_hospitalTell.setText("تلفن مرکز: " + hospitalTel);
+                txtPrint_hospitalAddress.setText("آدرس: " + Html.fromHtml("<b>" + hospitalAddress+ "</b>"));
+                txtPrint_hospitalTell.setText("تلفن مرکز: " +Html.fromHtml("<b>" + hospitalTel+ "</b>"));
 
-                txtPrint_date.setText("تاریخ اخذ نوبت: " + date);
-                txtPrint_time.setText("ساعت اخذ نوبت: " + timeRes);
-                txtPrint_hours.setText("ساخت حضور بیمار: " + timeHozor);
-                txtPrint_shit.setText("شیفت: " + shift);
-                txtPrint_doctor.setText("پزشک: " + doctorName);
-                txtPrint_type.setText("نوع خدمت: " + typeRes);
-                txtPrint_typeBime.setText("نوبع بیمه: " + bimeTitle);
+                txtPrint_date.setText("تاریخ اخذ نوبت: " +Html.fromHtml("<b>" + date+ "</b>"));
+                txtPrint_time2.setText( Html.fromHtml("<b>" + timeRes+ "</b>"));
+                txtPrint_hours.setText("ساعت حضور بیمار: " +Html.fromHtml("<b>" + timeHozor+ "</b>"));
+                txtPrint_shit.setText("شیفت: " +Html.fromHtml("<b>" + shift+ "</b>"));
+                txtPrint_doctor.setText("پزشک: " +Html.fromHtml("<b>" + doctorName+ "</b>"));
+                txtPrint_type.setText("نوع خدمت: " +Html.fromHtml("<b>" + typeRes+ "</b>"));
+                txtPrint_typeBime.setText("نوبع بیمه: " +Html.fromHtml("<b>" + bimeTitle+ "</b>"));
 
-                txtPrint_firstLastName.setText("نام و نام خانوادگی بیمار: " + nameFamily);
-                txtPrint_price.setText("مبلع قابل پرداخت: " + price);
+                txtPrint_firstLastName.setText("نام و نام خانوادگی بیمار: " +Html.fromHtml("<b>" + nameFamily+ "</b>"));
+                txtPrint_price.setText("مبلع قابل پرداخت: " +Html.fromHtml("<b>" + price+ "</b>"));
 
-                txtPrint_bakhsh.setText("نام بخش: " + pakhshName);
-                txtPrint_codNobat.setText("کد پیگیری: " + codNobat);
-                txtPrint_numberNobat.setText("شماره نوبت: " + numberNobat);
-
+                txtPrint_bakhsh.setText("نام بخش: " +Html.fromHtml("<b>" + pakhshName+ "</b>"));
+                txtPrint_codNobat.setText("کد پیگیری: " +Html.fromHtml("<b>" + codNobat+ "</b>"));
+                txtPrint_numberNobat.setText("شماره نوبت: " +Html.fromHtml("<b>" + numberNobat+ "</b>"));
+                String shoamreGhbz = jsonTSF.getString("csh_rcp_no") + "";
+                txtPrint_ghabzNumber.setText("شماره ی قبض: " + Html.fromHtml("<b>" + shoamreGhbz+ "</b>" + ""));
                 String img = jsonTSF.getString("print_img");
+
+                Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/b_titr.ttf");
+                txtPrint_numberNobat.setTypeface(font);
+
                 if (!img.equals("")) {
                     if (!img.equals("null")) {
                         try {

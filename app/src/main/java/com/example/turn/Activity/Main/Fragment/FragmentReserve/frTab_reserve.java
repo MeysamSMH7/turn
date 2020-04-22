@@ -785,7 +785,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 txtPrint_hospitalTell.setText("تلفن مرکز: " +Html.fromHtml("<b>" + hospitalTel+ "</b>"));
 
                 txtPrint_date.setText("تاریخ اخذ نوبت: " +Html.fromHtml("<b>" + date+ "</b>"));
-                txtPrint_time.setText("ساعت اخذ نوبت: " +Html.fromHtml("<b>" + timeRes+ "</b>"));
+                txtPrint_time2.setText( Html.fromHtml("<b>" + timeRes+ "</b>"));
                 txtPrint_hours.setText("ساعت حضور بیمار: " +Html.fromHtml("<b>" + timeHozor+ "</b>"));
                 txtPrint_shit.setText("شیفت: " +Html.fromHtml("<b>" + shift+ "</b>"));
                 txtPrint_doctor.setText("پزشک: " +Html.fromHtml("<b>" + doctorName+ "</b>"));

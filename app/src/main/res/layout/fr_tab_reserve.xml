@@ -783,6 +783,6 @@
 
     </LinearLayout>
 
-    <include layout="@layout/item_print" android:visibility="gone" />
+    <include layout="@layout/item_print" />
 
 </RelativeLayout>
