@@ -39,13 +39,10 @@ public class setConnectionVolley {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                String txt = new onErrorListener().onErrorListener(context, error);
+                String txt = new onErrorListener().onErrorListener(context, error,url);
                 new ShowMessage(context).ShowMessType2_NoBtn( txt+ "", true, 2);
                 OnResponse.OnResponse("null");
 
-                ClipboardManager clipboard = (ClipboardManager)context. getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("Source Text", url + "\n"+txt);
-                clipboard.setPrimaryClip(clip);
 
             }
         }) {
