@@ -70,7 +70,6 @@ public class Activity_Splash_Turn extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void findViews() {

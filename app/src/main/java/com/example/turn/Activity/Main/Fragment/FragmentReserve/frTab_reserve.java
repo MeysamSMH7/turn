@@ -7,6 +7,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -785,7 +786,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                 txtPrint_date.setText("تاریخ اخذ نوبت: " +Html.fromHtml("<b>" + date+ "</b>"));
                 txtPrint_time.setText("ساعت اخذ نوبت: " +Html.fromHtml("<b>" + timeRes+ "</b>"));
-                txtPrint_hours.setText("ساخت حضور بیمار: " +Html.fromHtml("<b>" + timeHozor+ "</b>"));
+                txtPrint_hours.setText("ساعت حضور بیمار: " +Html.fromHtml("<b>" + timeHozor+ "</b>"));
                 txtPrint_shit.setText("شیفت: " +Html.fromHtml("<b>" + shift+ "</b>"));
                 txtPrint_doctor.setText("پزشک: " +Html.fromHtml("<b>" + doctorName+ "</b>"));
                 txtPrint_type.setText("نوع خدمت: " +Html.fromHtml("<b>" + typeRes+ "</b>"));
@@ -799,6 +800,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 txtPrint_numberNobat.setText("شماره نوبت: " +Html.fromHtml("<b>" + numberNobat+ "</b>"));
                 txtPrint_ghabzNumber.setText("شماره ی قبض: " + Html.fromHtml("<b>" + shoamreGhbz+ "</b>" + ""));
                 String img = jsonTSF.getString("print_img");
+
+                Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/b_titr.ttf");
+                txtPrint_numberNobat.setTypeface(font);
 
                 if (!img.equals("")) {
                     if (!img.equals("null")) {
