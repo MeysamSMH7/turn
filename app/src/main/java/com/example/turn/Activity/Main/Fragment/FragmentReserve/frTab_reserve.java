@@ -2,6 +2,9 @@ package com.example.turn.Activity.Main.Fragment.FragmentReserve;
 
 import android.app.AlertDialog;
 import android.app.ExpandableListActivity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -392,6 +395,10 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 public void onClick(View view) {
 //                TODO: Send id , meli and erja to link3 -----------------------------------------
                     try {
+                        if (arrayListBime.size()!=0){
+                            arrayListBime.clear();
+                            arrayListBimeID.clear();
+                        }
                         String meliOrEjra = edtFrPP_Cod.getText().toString();
                         if (codMeliOrErja.equals("کد ملی")) {
                             if (meliOrEjra.length() != 10) {
@@ -1445,7 +1452,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             } else if (tag.equals("PPCity")) {
                 arrayList = new ArrayList(arrayListCity);
                 arrayListID = new ArrayList(arrayListCityID);
-            } else if (tag.equals("PPBime")) {
+            }
+            else if (tag.equals("PPBime")) {
                 arrayList = new ArrayList(arrayListBime);
                 arrayListID = new ArrayList(arrayListBimeID);
             } else if (tag.equals("PPOstan")) {
@@ -1921,6 +1929,7 @@ if (arrayListCity.size() !=0 ) {
                     public void OnResponse(String response) {
                         if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
                         setRecycViewData(response);
+
                     }
                 });
 
@@ -2041,6 +2050,7 @@ if (arrayListCity.size() !=0 ) {
         }
 
     }
+
 
     //  SearchView -------------------------------------------------------------
     private SearchView editsearchSearchView;

@@ -1,6 +1,8 @@
 package com.example.turn.Classes;
 
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -37,8 +39,14 @@ public class setConnectionVolley {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                new ShowMessage(context).ShowMessType2_NoBtn(new onErrorListener().onErrorListener(context, error) + "", true, 2);
+                String txt = new onErrorListener().onErrorListener(context, error);
+                new ShowMessage(context).ShowMessType2_NoBtn( txt+ "", true, 2);
                 OnResponse.OnResponse("null");
+
+                ClipboardManager clipboard = (ClipboardManager)context. getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Source Text", url + "\n"+txt);
+                clipboard.setPrimaryClip(clip);
+
             }
         }) {
             @Override
@@ -63,6 +71,5 @@ public class setConnectionVolley {
     public interface OnResponse {
         void OnResponse(String response);
     }
-
 
 }
