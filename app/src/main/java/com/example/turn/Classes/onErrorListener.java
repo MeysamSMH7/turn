@@ -1,6 +1,8 @@
 package com.example.turn.Classes;
 
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.util.Log;
 
@@ -21,7 +23,7 @@ public class onErrorListener {
     Context context;
     VolleyError error;
 
-    public String onErrorListener(Context context, VolleyError error) {
+    public String onErrorListener(Context context, VolleyError error,String url) {
         this.context = context;
         this.error = error;
         String errorMessage = "";
@@ -44,6 +46,11 @@ public class onErrorListener {
             try {
                 String result = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
                 String a = result;
+
+                ClipboardManager clipboard = (ClipboardManager)context. getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Source Text", url + "\n"+a);
+                clipboard.setPrimaryClip(clip);
+
                 Log.e("Error!!!", result + "");
 //                Toast.makeText(context, result+"", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
