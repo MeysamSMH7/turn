@@ -134,6 +134,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="0.5"
                                         android:gravity="right"
+                                        android:maxLines="1"
                                         android:paddingRight="7dp"
                                         android:text="دکتر"
                                         android:textColor="@color/colorAccent"
@@ -146,6 +147,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="0.5"
                                         android:gravity="right"
+                                        android:maxLines="1"
                                         android:paddingRight="7dp"
                                         android:text="تخصص"
                                         android:textColor="@color/colorAccent" />
@@ -155,6 +157,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="0.5"
+                                        android:maxLines="1"
                                         android:gravity="right"
                                         android:paddingRight="7dp"
                                         android:text="بیمارستان"
@@ -212,6 +215,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="right"
                                         android:gravity="right|center"
+                                        android:enabled="false"
                                         android:layoutDirection="rtl"
                                         android:text="شماره ارجاع" />
 
@@ -779,6 +783,6 @@
 
     </LinearLayout>
 
-    <include layout="@layout/item_print" />
+    <include layout="@layout/item_print" android:visibility="gone" />
 
 </RelativeLayout>

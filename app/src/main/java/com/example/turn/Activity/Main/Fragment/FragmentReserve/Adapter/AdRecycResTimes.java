@@ -57,7 +57,7 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             holder.txtRcycRT_doctorName.setText("دکتر " + data.get(position).dr_name);
             holder.txtRcycRT_takhasos.setText("تخصص: " + data.get(position).spc_title);
             holder.txtRcycRT_date.setText("تاریخ: " + data.get(position).prg_date);
-//              holder.txtRcycRT_num.setText("اینترنتی: " + data.get(position).web_turn);
+              holder.txtRcycRT_tedadNobat.setText("تعداد نوبت: " + data.get(position).web_turn);
 
             if (data.get(position).web_turn.equals("0"))
                 holder.btnRcycRT_status.setBackground(context.getResources().getDrawable(R.drawable.button_background_red));
@@ -113,7 +113,7 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
         TextView txtRcycRT_doctorName;
         TextView txtRcycRT_takhasos;
         TextView txtRcycRT_postNumber;
-        // TextView txtRcycRT_num;
+     TextView txtRcycRT_tedadNobat;
         LinearLayout linearRcycRT_status;
         Button btnRcycRT_status;
 
@@ -126,7 +126,7 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             txtRcycRT_doctorName = view.findViewById(R.id.txtRcycRT_doctorName);
             txtRcycRT_takhasos = view.findViewById(R.id.txtRcycRT_takhasos);
             txtRcycRT_date = view.findViewById(R.id.txtRcycRT_date);
-            //   txtRcycRT_num = view.findViewById(R.id.txtRcycRT_num);
+           txtRcycRT_tedadNobat = view.findViewById(R.id.txtRcycRT_tedadNobat);
             //linearRcycRT_status = view.findViewById(R.id.linearRcycRT_status);
             btnRcycRT_status = view.findViewById(R.id.btnRcycRT_status);
             txtRcycRT_postNumber = view.findViewById(R.id.txtRcycRT_postNumber);

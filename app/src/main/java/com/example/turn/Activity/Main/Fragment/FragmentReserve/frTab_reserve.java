@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
@@ -318,6 +319,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                         txtPrint_firstLastName.setText("");
                         txtPrint_price.setText("");
+                        txtPrint_ghabzNumber.setText("");
+                        txtPrint_time2.setText("");
 
                         txtPrint_bakhsh.setText("");
                         txtPrint_codNobat.setText("");
@@ -482,20 +485,26 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                         String phoneNum = edtFrPP_phone.getText().toString().replace(" ", "");
 
-                        if (phoneNum.length() != 10) {
+                        if (phoneNum.length() != 11) {
                             Toast.makeText(getContext(), "شماره ی موبایل نا معتبر است", Toast.LENGTH_SHORT).show();
                             return;
                         }
+
+                        String[] phNumArr = phoneNum.split("0",2);
+                        phoneNum =phNumArr[1]+ "";
+//                        for(int i = 1 ; i < phNumArr.length ;i++)
+//                            phoneNum += phNumArr[i];
+
 /*
                 if (edtFrPP_Cod.getText().toString().length() != 10) {
                     Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
                     return;
                 }*/
 
-                        if (edtFrPP_address.getText().toString().equals("")) {
+                  /*      if (edtFrPP_address.getText().toString().equals("")) {
                             Toast.makeText(getContext(), "آدرس نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
                             return;
-                        }
+                        }*/
 
                         if (edtFrPP_family.getText().toString().equals("")) {
                             Toast.makeText(getContext(), "نام خانوادگی نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
@@ -661,9 +670,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 }
             });
 
-            MaskFormatter maskFormatter = new MaskFormatter("9999999999", edtFrPP_phone);
+            MaskFormatter maskFormatter = new MaskFormatter("09999999999", edtFrPP_phone);
             edtFrPP_phone.setInputType(InputType.TYPE_CLASS_NUMBER);
-            edtFrPP_phone.setHint("9113456789");
+            edtFrPP_phone.setHint("09113456789");
             edtFrPP_phone.addTextChangedListener(maskFormatter);
 
             btnPP_previous = view.findViewById(R.id.btnPP_previous);
@@ -720,8 +729,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                 String pakhshName = jsonTSF.getString("sec_title") + "";
                 String codNobat = jsonTSF.getString("rcp_no") + "";
-                String numberNobat = jsonTSF.getString("csh_rcp_no") + "";
-
+                String numberNobat = jsonTSF.getString("seq_no") + "";
+                String shoamreGhbz = jsonTSF.getString("csh_rcp_no") + "";
+                String shaateNobat = jsonTSF.getString("rcp_time_str") + "";
 
                 if (hospitalName.equals("null"))
                     hospitalName = "";
@@ -770,23 +780,24 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                 //---------------------------------
                 txtPrint_hospitalName.setText(hospitalName);
-                txtPrint_hospitalAddress.setText("آدرس: " + hospitalAddress);
-                txtPrint_hospitalTell.setText("تلفن مرکز: " + hospitalTel);
+                txtPrint_hospitalAddress.setText("آدرس: " +Html.fromHtml("<b>" + hospitalAddress+ "</b>"));
+                txtPrint_hospitalTell.setText("تلفن مرکز: " +Html.fromHtml("<b>" + hospitalTel+ "</b>"));
 
-                txtPrint_date.setText("تاریخ اخذ نوبت: " + date);
-                txtPrint_time.setText("ساعت اخذ نوبت: " + timeRes);
-                txtPrint_hours.setText("ساخت حضور بیمار: " + timeHozor);
-                txtPrint_shit.setText("شیفت: " + shift);
-                txtPrint_doctor.setText("پزشک: " + doctorName);
-                txtPrint_type.setText("نوع خدمت: " + typeRes);
-                txtPrint_typeBime.setText("نوبع بیمه: " + bimeTitle);
+                txtPrint_date.setText("تاریخ اخذ نوبت: " +Html.fromHtml("<b>" + date+ "</b>"));
+                txtPrint_time.setText("ساعت اخذ نوبت: " +Html.fromHtml("<b>" + timeRes+ "</b>"));
+                txtPrint_hours.setText("ساخت حضور بیمار: " +Html.fromHtml("<b>" + timeHozor+ "</b>"));
+                txtPrint_shit.setText("شیفت: " +Html.fromHtml("<b>" + shift+ "</b>"));
+                txtPrint_doctor.setText("پزشک: " +Html.fromHtml("<b>" + doctorName+ "</b>"));
+                txtPrint_type.setText("نوع خدمت: " +Html.fromHtml("<b>" + typeRes+ "</b>"));
+                txtPrint_typeBime.setText("نوبع بیمه: " +Html.fromHtml("<b>" + bimeTitle+ "</b>"));
 
-                txtPrint_firstLastName.setText("نام و نام خانوادگی بیمار: " + nameFamily);
-                txtPrint_price.setText("مبلع قابل پرداخت: " + price);
+                txtPrint_firstLastName.setText("نام و نام خانوادگی بیمار: " +Html.fromHtml("<b>" + nameFamily+ "</b>"));
+                txtPrint_price.setText("مبلع قابل پرداخت: " +Html.fromHtml("<b>" + price+ "</b>"));
 
-                txtPrint_bakhsh.setText("نام بخش: " + pakhshName);
-                txtPrint_codNobat.setText("کد پیگیری: " + codNobat);
-                txtPrint_numberNobat.setText("شماره نوبت: " + numberNobat);
+                txtPrint_bakhsh.setText("نام بخش: " +Html.fromHtml("<b>" + pakhshName+ "</b>"));
+                txtPrint_codNobat.setText("کد پیگیری: " +Html.fromHtml("<b>" + codNobat+ "</b>"));
+                txtPrint_numberNobat.setText("شماره نوبت: " +Html.fromHtml("<b>" + numberNobat+ "</b>"));
+                txtPrint_ghabzNumber.setText("شماره ی قبض: " + Html.fromHtml("<b>" + shoamreGhbz+ "</b>" + ""));
                 String img = jsonTSF.getString("print_img");
 
                 if (!img.equals("")) {
@@ -958,6 +969,10 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 arrayListBime.add(temp.getString("ins_title"));
                 arrayListBimeID.add(temp.getString("ins_id"));
             }
+
+
+if (arrayListBime.size()!=0){           txtFrPP_bime.setText(arrayListBime.get(0) + "");
+            bimeIdSamane = arrayListBimeID.get(0) + "";}
 
             // get ostan
             JSONArray arrayOstan = objectData.getJSONArray("ostans");
@@ -1324,6 +1339,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                     time.prg_date = prg_date;
                     time.web_turn = web_turn;
                     time.status_type = status_type;
+                    time.web_turn = web_turn;
                     arrayListResTimes.add(time);
                 }
                 adapterResTimes.notifyDataSetChanged();
@@ -1387,12 +1403,12 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                 linearPP_pazireshData.setVisibility(View.VISIBLE);
 
-                hsp_title = hsp_title.replace("بیمارستان", "");
+                hsp_title = hsp_title.replace("بیمارستان: ", "");
                 txtPP_markazName.setText("" + hsp_title);
-                txtPP_doctorName.setText("دکتر " + dr_name);
+                txtPP_doctorName.setText("دکتر: " + dr_name);
                 txtPP_motakhasesName.setText(spc_level_title + ": " + spc_title);
-                txtPP_datePP.setText("تاریخ " + turn_date);
-
+                txtPP_datePP.setText("تاریخ: " + turn_date);
+              //  txtPP_datePP.setText("تاریخ:" + turn_date);
                 if (!dr_image.equals("null")) {
                     try {
                         String encodedDataString = dr_image;

@@ -70,11 +70,18 @@
                         android:orientation="vertical">
 
 
+                        <ImageView
+                            android:id="@+id/imgPrint_barcod"
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="7dp"
+                            android:scaleType="centerCrop" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:visibility="gone">
+                            android:orientation="horizontal">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -83,12 +90,14 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/txtPrint_ghabzNumber"
+                                    android:text="مهر پذیرش کلینیک:"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="right" />
 
                                 <TextView
+                                    android:id="@+id/txtPrint_time2"
+                                    android:visibility="gone"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="right" />
@@ -102,12 +111,14 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:text="شماره قبض:"
+                                    android:id="@+id/txtPrint_ghabzNumber"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:gravity="left" />
+                                    android:gravity="right" />
 
                                 <TextView
-                                    android:id="@+id/txtPrint_time2"
+                                    android:text="www.nobat.mazums.ac.ir"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:gravity="left" />
@@ -186,13 +197,13 @@
                             android:layout_marginTop="3dp"
                             android:gravity="right" />
 
+
                         <TextView
                             android:id="@+id/txtPrint_codNobat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:gravity="right" />
-
 
                         <TextView
                             android:id="@+id/txtPrint_numberNobat"
@@ -203,20 +214,6 @@
                             android:paddingRight="7dp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:gravity="right"
-                            android:text="کد پیگیری پرداخت :" />
-
-                        <ImageView
-                            android:id="@+id/imgPrint_barcod"
-                            android:layout_width="match_parent"
-                            android:scaleType="centerCrop"
-                            android:layout_marginTop="7dp"
-                            android:layout_marginBottom="7dp"
-                            android:layout_height="70dp" />
 
                     </LinearLayout>
 
