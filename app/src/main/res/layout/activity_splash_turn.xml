@@ -70,6 +70,7 @@
 
     <TextView
         android:id="@+id/txtAcS_tryAgain"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/progressAcS"

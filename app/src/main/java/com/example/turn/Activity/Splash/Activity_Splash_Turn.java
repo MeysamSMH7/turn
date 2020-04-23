@@ -92,7 +92,7 @@ public class Activity_Splash_Turn extends AppCompatActivity {
         btnAcS_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlDownload)));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://"+urlDownload)));
             }
         });
     }
