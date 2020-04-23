@@ -451,6 +451,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                 String pakhshName = jsonTSF.getString("sec_title") + "";
                 String codNobat = jsonTSF.getString("rcp_no") + "";
                 String numberNobat = jsonTSF.getString("csh_rcp_no") + "";
+                String stepId = jsonTSF.getString("step_id") + "";
 
 
                 if (hospitalName.equals("null"))

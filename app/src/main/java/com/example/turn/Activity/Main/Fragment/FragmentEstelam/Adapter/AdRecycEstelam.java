@@ -65,6 +65,12 @@ public class AdRecycEstelam extends RecyclerView.Adapter<AdRecycEstelam.ViewHold
                 }
             });
 
+            if (Integer.parseInt(data.get(position).step_id) < 60 )
+                holder.btnEstRecy_print.setVisibility(View.VISIBLE);
+            else
+                holder.btnEstRecy_print.setVisibility(View.GONE);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }

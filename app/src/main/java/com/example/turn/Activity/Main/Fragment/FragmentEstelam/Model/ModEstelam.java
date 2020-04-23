@@ -9,7 +9,7 @@ public class ModEstelam {
     public String date_string; // date
     public String status_title; // وضعیت نوبت
     public String status_detail; // نحوه دریافت نوبت
-
+    public String step_id;
     public String prg_title; //
     //ه دیتای این خط وقتی میخوایم بریم به چاپ نوبت نیاز داری یعنی باید برای من اینا رو بفرستی
     public String prg_id;
