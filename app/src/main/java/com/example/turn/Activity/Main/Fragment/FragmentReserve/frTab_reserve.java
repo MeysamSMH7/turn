@@ -490,7 +490,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         String[] phNumArr = phoneNum.split("0", 2);
                         phoneNum = phNumArr[1] + "";
 
-                        if (txtFrPP_city.equals("0")){
+                        if (txtFrPP_city.equals("0")) {
                             Toast.makeText(getContext(), "لطفا یکی از شهر ها را انتخاب کنید", Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -866,8 +866,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 cardViewFrPP_org.setVisibility(View.GONE);
                 fatherNameSamane = jsonPatient.getString("father_name") + "";
                 if (fatherNameSamane.equals("null")) fatherNameSamane = "";
-                cityIdSamane = jsonPatient.getString("city_id");
-                cityTitleSamane = jsonPatient.getString("city_title");
+//                cityIdSamane = jsonPatient.getString("city_id");
+//                cityTitleSamane = jsonPatient.getString("city_title");
                 sexSamane = jsonPatient.getString("is_sex"); // zero = man | one = woman
                 addressSamane = jsonPatient.getString("home_adr");
                 phoneNumSamane = jsonPatient.getString("home_mbl");
@@ -960,6 +960,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 arrayListCityID.add(temp.getString("id"));
             }
 
+            cityIdSamane = arrayListCityID.get(0) + "";
+            txtFrPP_city.setText(arrayListCity.get(0) + "");
+
             // get bime
             JSONArray arrayBime = objectData.getJSONArray("inslist");
             for (int i = 0; i < arrayBime.length(); i++) {
@@ -981,6 +984,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 arrayListOstan.add(temp.getString("title"));
                 arrayListOstanID.add(temp.getString("id"));
             }
+
+            txtFrPP_ostan.setText(arrayListOstan.get(0) + "");
+            ostanIdSamane = arrayListOstanID.get(0) + "";
 
             //} else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
@@ -1576,8 +1582,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                 });
                             }
 
-                        }
-                        else if (tag.equals("darmonghah")) {
+                        } else if (tag.equals("darmonghah")) {
                             txtFrRes_darmonghah.setText(title + "");
                             hospiralId = id;  // the last hsp_id save in here
                             hospiralSt = title;
@@ -1620,16 +1625,14 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                             txtFrRes_time.setText(title + "");
                             timeId = id;
                             timeSt = title;
-                        }
-                        else if (tag.equals("doctor")) {
+                        } else if (tag.equals("doctor")) {
                             txtFrRes_doctor.setText(title + "");
                             doctorId = id;
                             doctorSt = timeSt;
                         } else if (tag.equals("PPCity")) {
                             txtFrPP_city.setText(title + "");
                             cityIdSamane = id;
-                        }
-                        else if (tag.equals("PPOstan")) {
+                        } else if (tag.equals("PPOstan")) {
                             txtFrPP_ostan.setText(title + "");
                             ostanIdSamane = id;
 //     TODO: set data to city in pp
