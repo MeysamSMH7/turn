@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.turn.Activity.Main.Adapter.AdRecycPopUp;
 import com.example.turn.Activity.Main.Adapter.onClickInterface;
 import com.example.turn.Activity.Main.Model.ModAlerts;
+import com.example.turn.Classes.EnglishNumber;
 import com.example.turn.Classes.ShowMessage;
 import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
@@ -104,8 +105,8 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                 @Override
                 public void onClick(View view) {
                     try {
-                        String codMeli = edtLaghv_codMeli.getText().toString();
-                        String cod = edtLaghv_cod.getText().toString();
+                        String codMeli = EnglishNumber.convert(edtLaghv_codMeli.getText().toString());
+                        String cod = EnglishNumber.convert(edtLaghv_cod.getText().toString());
                         // TODO:
                         JSONObject object = new JSONObject();
                         try {
@@ -130,7 +131,8 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                         }
 
                         String vLghvUrl = "http://nobat.mazums.ac.ir/TurnAppApi/turn/cancelTurnList?pp_id=" +
-                                edtLaghv_codMeli.getText().toString() + "&rcp_no=" + edtLaghv_cod.getText().toString() + "&hsp_id=" + hospitalId;
+                                EnglishNumber.convert(edtLaghv_codMeli.getText().toString()) + "&rcp_no=" +
+                                        EnglishNumber.convert(edtLaghv_cod.getText().toString()) + "&hsp_id=" + hospitalId;
                         alertDialogLoding.show();
                         new setConnectionVolley(getContext(), vLghvUrl, object).connectStringRequest(new setConnectionVolley.OnResponse() {
                             @Override
@@ -165,11 +167,11 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                                 e.printStackTrace();
                             }
 
-                            if (edtLaghv_codMeli.getText().toString().length() != 10) {
+                            if (EnglishNumber.convert(edtLaghv_codMeli.getText().toString()).length() != 10) {
                                 Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
                                 return;
                             }
-                            if (edtLaghv_codMeli.getText().toString().equals("")) {
+                            if (EnglishNumber.convert(edtLaghv_codMeli.getText().toString()).equals("")) {
                                 Toast.makeText(getContext(), "کد پیگیری نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
                                 return;
                             }
@@ -186,7 +188,7 @@ public class frTab_laghv extends Fragment implements SearchView.OnQueryTextListe
                                     "&turn_time=" + turn_time +
                                     "&hsp_id=" + hospitalId +
                                     "&q_type=" + q_type +
-                                    "&rcp_id=" + edtLaghv_cod.getText().toString();
+                                    "&rcp_id=" + EnglishNumber.convert(edtLaghv_cod.getText().toString());
                             alertDialogLoding.show();
 
                             new setConnectionVolley(getContext(), vLaghvUrl, object).connectStringRequest(new setConnectionVolley.OnResponse() {
