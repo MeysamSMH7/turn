@@ -42,8 +42,6 @@ public class setConnectionVolley {
                 String txt = new onErrorListener().onErrorListener(context, error,url);
                 new ShowMessage(context).ShowMessType2_NoBtn( txt+ "", true, 2);
                 OnResponse.OnResponse("null");
-
-
             }
         }) {
             @Override

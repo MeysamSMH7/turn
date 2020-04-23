@@ -1,10 +1,6 @@
 package com.example.turn.Activity.Main.Fragment.FragmentReserve;
 
 import android.app.AlertDialog;
-import android.app.ExpandableListActivity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -14,7 +10,6 @@ import android.os.Handler;
 import android.text.Html;
 import android.text.InputType;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +40,7 @@ import com.example.turn.Activity.Main.Adapter.onClickInterface;
 import com.example.turn.Activity.Main.Fragment.FragmentReserve.Adapter.AdRecycResTimes;
 import com.example.turn.Activity.Main.Fragment.FragmentReserve.Model.ModResTime;
 import com.example.turn.Activity.Main.Model.ModAlerts;
+import com.example.turn.Classes.EnglishNumber;
 import com.example.turn.Classes.ShowMessage;
 import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
@@ -180,24 +176,24 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private ArrayList arrayListOrgID;
 
     private String bimeTitleSamane = "0";
-    private String bimeIdSamane= "0";
-    private String addressSamane= "0";
-    private String sexSamane= "0";
-    private String cityIdSamane= "0";
-    private String ostanIdSamane= "0";
-    private String orgIdSamane= "0";
-    private String phoneNumSamane= "0";
-    private String fatherNameSamane= "0";
-    private String lastNameSamane= "0";
-    private String firstNameSamane= "0";
-    private String cityTitleSamane= "0";
-    private String pp_id= "0";
+    private String bimeIdSamane = "0";
+    private String addressSamane = "0";
+    private String sexSamane = "0";
+    private String cityIdSamane = "0";
+    private String ostanIdSamane = "0";
+    private String orgIdSamane = "0";
+    private String phoneNumSamane = "0";
+    private String fatherNameSamane = "0";
+    private String lastNameSamane = "0";
+    private String firstNameSamane = "0";
+    private String cityTitleSamane = "0";
+    private String pp_id = "0";
 
-    private String srv_id= "0";
-    private String rcp_id= "0";
+    private String srv_id = "0";
+    private String rcp_id = "0";
     private String codMeliOrErja = "کد ملی";
-    private String ins_box_code= "0";
-    private String ins_box_val= "0";
+    private String ins_box_code = "0";
+    private String ins_box_val = "0";
     //
 
     private TextView txtPrint_date;
@@ -399,11 +395,11 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 public void onClick(View view) {
 //                TODO: Send id , meli and erja to link3 -----------------------------------------
                     try {
-                        if (arrayListBime.size()!=0){
+                        if (arrayListBime.size() != 0) {
                             arrayListBime.clear();
                             arrayListBimeID.clear();
                         }
-                        String meliOrEjra = edtFrPP_Cod.getText().toString();
+                        String meliOrEjra = EnglishNumber.convert(edtFrPP_Cod.getText().toString());
                         if (codMeliOrErja.equals("کد ملی")) {
                             if (meliOrEjra.length() != 10) {
                                 Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
@@ -484,41 +480,38 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 // TODO: link check
                         // set data in pazireshPage
 
-                        String phoneNum = edtFrPP_phone.getText().toString().replace(" ", "");
+                        String phoneNum = EnglishNumber.convert(edtFrPP_phone.getText().toString()).replace(" ", "");
 
                         if (phoneNum.length() != 11) {
                             Toast.makeText(getContext(), "شماره ی موبایل نا معتبر است", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
-                        String[] phNumArr = phoneNum.split("0",2);
-                        phoneNum =phNumArr[1]+ "";
-//                        for(int i = 1 ; i < phNumArr.length ;i++)
-//                            phoneNum += phNumArr[i];
+                        String[] phNumArr = phoneNum.split("0", 2);
+                        phoneNum = phNumArr[1] + "";
 
-/*
-                if (edtFrPP_Cod.getText().toString().length() != 10) {
-                    Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
-                    return;
-                }*/
+                        if (txtFrPP_city.equals("0")){
+                            Toast.makeText(getContext(), "لطفا یکی از شهر ها را انتخاب کنید", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
-                  /*      if (edtFrPP_address.getText().toString().equals("")) {
+                  /*      if (edtFrPP_address.getText().toString()).equals("")) {
                             Toast.makeText(getContext(), "آدرس نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
                             return;
                         }*/
 
-                        if (edtFrPP_family.getText().toString().equals("")) {
+                        if (EnglishNumber.convert(edtFrPP_family.getText().toString()).equals("")) {
                             Toast.makeText(getContext(), "نام خانوادگی نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
 
                             return;
                         }
 
-                        if (edtFrPP_name.getText().toString().equals("")) {
+                        if (EnglishNumber.convert(edtFrPP_name.getText().toString()).equals("")) {
                             Toast.makeText(getContext(), "نام نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
-                        if (edtFrPP_fatherName.getText().toString().equals("")) {
+                        if (EnglishNumber.convert(edtFrPP_fatherName.getText().toString()).equals("")) {
                             Toast.makeText(getContext(), "نام پدر نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -540,13 +533,13 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                     + "&srv_id=" + srv_id
                                     + "&spc_id=" + temp[4]
                                     + "&turn_date=" + temp[5]
-                                    + "&pp_id=" + edtFrPP_Cod.getText().toString().replace(" ", "")
+                                    + "&pp_id=" + EnglishNumber.convert(edtFrPP_Cod.getText().toString()).replace(" ", "")
                                     + "&home_mbl=" + phoneNum
-                                    + "&home_adr=" + edtFrPP_address.getText().toString().replace(" ", "%20")
-                                    + "&last_name=" + edtFrPP_family.getText().toString().replace(" ", "%20")
-                                    + "&first_name=" + edtFrPP_name.getText().toString().replace(" ", "%20")
+                                    + "&home_adr=" + EnglishNumber.convert(edtFrPP_address.getText().toString()).replace(" ", "%20")
+                                    + "&last_name=" + EnglishNumber.convert(edtFrPP_family.getText().toString()).replace(" ", "%20")
+                                    + "&first_name=" + EnglishNumber.convert(edtFrPP_name.getText().toString()).replace(" ", "%20")
                                     + "&is_sex=" + sexSamane
-                                    + "&father_name=" + edtFrPP_fatherName.getText().toString().replace(" ", "").replace(" ", "%20")
+                                    + "&father_name=" + EnglishNumber.convert(edtFrPP_fatherName.getText().toString()).replace(" ", "").replace(" ", "%20")
                                     + "&ins_id=" + bimeIdSamane
                                     + "&ost_id=" + ostanIdSamane
                                     + "&org_id=" + orgIdSamane;
@@ -558,16 +551,17 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                     + "&spc_id=" + temp[4]
                                     + "&turn_date=" + temp[5]
                                     + "&pp_id=" + pp_id
-                                    + "&family_code" + edtFrPP_Cod.getText().toString().replace(" ", "")
+                                    + "&family_code" + EnglishNumber.convert(edtFrPP_Cod.getText().toString()).replace(" ", "")
                                     + "&home_mbl=" + phoneNum
-                                    + "&home_adr=" + edtFrPP_address.getText().toString().replace(" ", "%20")
-                                    + "&last_name=" + edtFrPP_family.getText().toString().replace(" ", "%20")
-                                    + "&first_name=" + edtFrPP_name.getText().toString().replace(" ", "%20")
+                                    + "&home_adr=" + EnglishNumber.convert(edtFrPP_address.getText().toString()).replace(" ", "%20")
+                                    + "&last_name=" + EnglishNumber.convert(edtFrPP_family.getText().toString()).replace(" ", "%20")
+                                    + "&first_name=" + EnglishNumber.convert(edtFrPP_name.getText().toString()).replace(" ", "%20")
                                     + "&is_sex=" + sexSamane
-                                    + "&father_name=" + edtFrPP_fatherName.getText().toString().replace(" ", "").replace(" ", "%20")
+                                    + "&father_name=" + EnglishNumber.convert(edtFrPP_fatherName.getText().toString()).replace(" ", "").replace(" ", "%20")
                                     + "&ins_id=" + bimeIdSamane
                                     + "&ost_id=" + ostanIdSamane
-                                    + "&org_id=" + orgIdSamane;                        }
+                                    + "&org_id=" + orgIdSamane;
+                        }
                         alertDialogLoding.show();
                         new setConnectionVolley(getContext(), vPazireshlink, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
                             @Override
@@ -781,24 +775,24 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                 //---------------------------------
                 txtPrint_hospitalName.setText(hospitalName);
-                txtPrint_hospitalAddress.setText("آدرس: " +Html.fromHtml("<b>" + hospitalAddress+ "</b>"));
-                txtPrint_hospitalTell.setText("تلفن مرکز: " +Html.fromHtml("<b>" + hospitalTel+ "</b>"));
+                txtPrint_hospitalAddress.setText("آدرس: " + Html.fromHtml("<b>" + hospitalAddress + "</b>"));
+                txtPrint_hospitalTell.setText("تلفن مرکز: " + Html.fromHtml("<b>" + hospitalTel + "</b>"));
 
-                txtPrint_date.setText("تاریخ اخذ نوبت: " +Html.fromHtml("<b>" + date+ "</b>"));
-                txtPrint_time2.setText( Html.fromHtml("<b>" + timeRes+ "</b>"));
-                txtPrint_hours.setText("ساعت حضور بیمار: " +Html.fromHtml("<b>" + timeHozor+ "</b>"));
-                txtPrint_shit.setText("شیفت: " +Html.fromHtml("<b>" + shift+ "</b>"));
-                txtPrint_doctor.setText("پزشک: " +Html.fromHtml("<b>" + doctorName+ "</b>"));
-                txtPrint_type.setText("نوع خدمت: " +Html.fromHtml("<b>" + typeRes+ "</b>"));
-                txtPrint_typeBime.setText("نوبع بیمه: " +Html.fromHtml("<b>" + bimeTitle+ "</b>"));
+                txtPrint_date.setText("تاریخ اخذ نوبت: " + Html.fromHtml("<b>" + date + "</b>"));
+                txtPrint_time2.setText(Html.fromHtml("<b>" + timeRes + "</b>"));
+                txtPrint_hours.setText("ساعت حضور بیمار: " + Html.fromHtml("<b>" + timeHozor + "</b>"));
+                txtPrint_shit.setText("شیفت: " + Html.fromHtml("<b>" + shift + "</b>"));
+                txtPrint_doctor.setText("پزشک: " + Html.fromHtml("<b>" + doctorName + "</b>"));
+                txtPrint_type.setText("نوع خدمت: " + Html.fromHtml("<b>" + typeRes + "</b>"));
+                txtPrint_typeBime.setText("نوبع بیمه: " + Html.fromHtml("<b>" + bimeTitle + "</b>"));
 
-                txtPrint_firstLastName.setText("نام و نام خانوادگی بیمار: " +Html.fromHtml("<b>" + nameFamily+ "</b>"));
-                txtPrint_price.setText("مبلع قابل پرداخت: " +Html.fromHtml("<b>" + price+ "</b>"));
+                txtPrint_firstLastName.setText("نام و نام خانوادگی بیمار: " + Html.fromHtml("<b>" + nameFamily + "</b>"));
+                txtPrint_price.setText("مبلع قابل پرداخت: " + Html.fromHtml("<b>" + price + "</b>"));
 
-                txtPrint_bakhsh.setText("نام بخش: " +Html.fromHtml("<b>" + pakhshName+ "</b>"));
-                txtPrint_codNobat.setText("کد پیگیری: " +Html.fromHtml("<b>" + codNobat+ "</b>"));
-                txtPrint_numberNobat.setText("شماره نوبت: " +Html.fromHtml("<b>" + numberNobat+ "</b>"));
-                txtPrint_ghabzNumber.setText("شماره ی قبض: " + Html.fromHtml("<b>" + shoamreGhbz+ "</b>" + ""));
+                txtPrint_bakhsh.setText("نام بخش: " + Html.fromHtml("<b>" + pakhshName + "</b>"));
+                txtPrint_codNobat.setText("کد پیگیری: " + Html.fromHtml("<b>" + codNobat + "</b>"));
+                txtPrint_numberNobat.setText("شماره نوبت: " + Html.fromHtml("<b>" + numberNobat + "</b>"));
+                txtPrint_ghabzNumber.setText("شماره ی قبض: " + Html.fromHtml("<b>" + shoamreGhbz + "</b>" + ""));
                 String img = jsonTSF.getString("print_img");
 
                 Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/b_titr.ttf");
@@ -975,8 +969,10 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
             }
 
 
-if (arrayListBime.size()!=0){           txtFrPP_bime.setText(arrayListBime.get(0) + "");
-            bimeIdSamane = arrayListBimeID.get(0) + "";}
+            if (arrayListBime.size() != 0) {
+                txtFrPP_bime.setText(arrayListBime.get(0) + "");
+                bimeIdSamane = arrayListBimeID.get(0) + "";
+            }
 
             // get ostan
             JSONArray arrayOstan = objectData.getJSONArray("ostans");
@@ -1024,15 +1020,15 @@ if (arrayListBime.size()!=0){           txtFrPP_bime.setText(arrayListBime.get(0
                         txtFrRes_doctor = view.findViewById(R.id.txtFrRes_doctor);
 
                         if (!citySt.equals(""))
-                        txtFrRes_city.setText(citySt + "");
+                            txtFrRes_city.setText(citySt + "");
                         if (!takhasosSt.equals(""))
-                        txtFrRes_takhasos.setText(takhasosSt + "");
+                            txtFrRes_takhasos.setText(takhasosSt + "");
                         if (!hospiralSt.equals(""))
-                        txtFrRes_darmonghah.setText(hospiralSt + "");
+                            txtFrRes_darmonghah.setText(hospiralSt + "");
                         if (!timeSt.equals(""))
-                        txtFrRes_time.setText(timeSt + "");
+                            txtFrRes_time.setText(timeSt + "");
                         if (!doctorSt.equals(""))
-                        txtFrRes_doctor.setText(doctorSt + "");
+                            txtFrRes_doctor.setText(doctorSt + "");
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -1155,15 +1151,15 @@ if (arrayListBime.size()!=0){           txtFrPP_bime.setText(arrayListBime.get(0
 
 
                         if (!citySt.equals(""))
-                        txtFrRes_city.setText(citySt  + "");
+                            txtFrRes_city.setText(citySt + "");
                         if (!takhasosSt.equals(""))
-                        txtFrRes_takhasos.setText(takhasosSt  + "");
+                            txtFrRes_takhasos.setText(takhasosSt + "");
                         if (!hospiralSt.equals(""))
-                        txtFrRes_darmonghah.setText(hospiralSt  + "");
+                            txtFrRes_darmonghah.setText(hospiralSt + "");
                         if (!timeSt.equals(""))
-                        txtFrRes_time.setText(timeSt  + "");
+                            txtFrRes_time.setText(timeSt + "");
                         if (!doctorSt.equals(""))
-                        txtFrRes_doctor.setText(doctorSt  + "");
+                            txtFrRes_doctor.setText(doctorSt + "");
 
                         builder.setView(layout);
                         alertFilterRT = builder.create();
@@ -1298,7 +1294,7 @@ if (arrayListBime.size()!=0){           txtFrPP_bime.setText(arrayListBime.get(0
                     previousPage(linearResTimes, linearResTimesBtn, linearSelectFilters, linearSelectFiltersBtn);
                     new ShowMessage(getContext()).ShowMessType2_NoBtn("اطلاعاتی وجود ندارد", true, 2);
                     morePost = true;
-                } else if (arrayData.length() < 10 && pageNumber == 0 ) {
+                } else if (arrayData.length() < 10 && pageNumber == 0) {
                     morePost = false;
                 } else if (arrayData.length() == 0 && pageNumber != 0) {
                     Toast.makeText(getContext(), "اطلاعات بیشتری وجود ندارد", Toast.LENGTH_SHORT).show();
@@ -1412,7 +1408,7 @@ if (arrayListBime.size()!=0){           txtFrPP_bime.setText(arrayListBime.get(0
                 txtPP_doctorName.setText("دکتر: " + dr_name);
                 txtPP_motakhasesName.setText(spc_level_title + ": " + spc_title);
                 txtPP_datePP.setText("تاریخ: " + turn_date);
-              //  txtPP_datePP.setText("تاریخ:" + turn_date);
+                //  txtPP_datePP.setText("تاریخ:" + turn_date);
                 if (!dr_image.equals("null")) {
                     try {
                         String encodedDataString = dr_image;
@@ -1462,8 +1458,7 @@ if (arrayListBime.size()!=0){           txtFrPP_bime.setText(arrayListBime.get(0
             } else if (tag.equals("darmonghah")) {
                 arrayList = new ArrayList(dataHospital);
                 arrayListID = new ArrayList(dataHospitalID);
-            }
-            else if (tag.equals("time")) {
+            } else if (tag.equals("time")) {
                 arrayList = new ArrayList(dataTime);
                 arrayListID = new ArrayList(dataTimeID);
             } else if (tag.equals("doctor")) {
@@ -1472,8 +1467,7 @@ if (arrayListBime.size()!=0){           txtFrPP_bime.setText(arrayListBime.get(0
             } else if (tag.equals("PPCity")) {
                 arrayList = new ArrayList(arrayListCity);
                 arrayListID = new ArrayList(arrayListCityID);
-            }
-            else if (tag.equals("PPBime")) {
+            } else if (tag.equals("PPBime")) {
                 arrayList = new ArrayList(arrayListBime);
                 arrayListID = new ArrayList(arrayListBimeID);
             } else if (tag.equals("PPOstan")) {
@@ -1496,8 +1490,7 @@ if (arrayListBime.size()!=0){           txtFrPP_bime.setText(arrayListBime.get(0
             adRecycPopUp = new AdRecycPopUp(getContext(), arraylistSearchView, new onClickInterface() {
                 @Override
                 public void setClick(int position, boolean canUse, View view) {
-                    try
-                    {
+                    try {
                         positionItemRecycleViewFilter = position;
                         TextView txttitle = ((LinearLayout) view).findViewById(R.id.txtTitle);
                         TextView txtId = ((LinearLayout) view).findViewById(R.id.txtId);
@@ -1583,7 +1576,8 @@ if (arrayListBime.size()!=0){           txtFrPP_bime.setText(arrayListBime.get(0
                                 });
                             }
 
-                        } else if (tag.equals("darmonghah")) {
+                        }
+                        else if (tag.equals("darmonghah")) {
                             txtFrRes_darmonghah.setText(title + "");
                             hospiralId = id;  // the last hsp_id save in here
                             hospiralSt = title;
@@ -1622,12 +1616,12 @@ if (arrayListBime.size()!=0){           txtFrPP_bime.setText(arrayListBime.get(0
                                     }
                                 });
                             }
-                        }
-                        else if (tag.equals("time")) {
+                        } else if (tag.equals("time")) {
                             txtFrRes_time.setText(title + "");
                             timeId = id;
                             timeSt = title;
-                        } else if (tag.equals("doctor")) {
+                        }
+                        else if (tag.equals("doctor")) {
                             txtFrRes_doctor.setText(title + "");
                             doctorId = id;
                             doctorSt = timeSt;
@@ -1657,8 +1651,7 @@ if (arrayListBime.size()!=0){           txtFrPP_bime.setText(arrayListBime.get(0
                         } else if (tag.equals("PPBime")) {
                             txtFrPP_bime.setText(title + "");
                             bimeIdSamane = id;
-                        }
-                        else if (tag.equals("PPOrg")) {
+                        } else if (tag.equals("PPOrg")) {
                             txtFrPP_org.setText(title + "");
                             orgIdSamane = id;
                             // clicked on Org dropDown
@@ -1671,8 +1664,6 @@ if (arrayListBime.size()!=0){           txtFrPP_bime.setText(arrayListBime.get(0
                                     updteBimePP(response);
                                 }
                             });
-
-
                         }
 
                     } catch (Exception e) {
@@ -1698,8 +1689,7 @@ if (arrayListBime.size()!=0){           txtFrPP_bime.setText(arrayListBime.get(0
 
     private void updateCityPP(String response) {
         try {
-            if (arrayListCity.size()!=0)
-            {
+            if (arrayListCity.size() != 0) {
                 arrayListCity.clear();
                 arrayListCityID.clear();
             }
@@ -1717,13 +1707,13 @@ if (arrayListBime.size()!=0){           txtFrPP_bime.setText(arrayListBime.get(0
                     arrayListCityID.add(objectTemp.getString("id"));
                 }
 
-if (arrayListCity.size() !=0 ) {
-    txtFrPP_city.setText(arrayListCity.get(0) + "");
-    cityIdSamane = arrayListCityID.get(0) + "";
-}else{
-    txtFrPP_city.setText("");
-    cityIdSamane = "0";
-}
+                if (arrayListCity.size() != 0) {
+                    txtFrPP_city.setText(arrayListCity.get(0) + "");
+                    cityIdSamane = arrayListCityID.get(0) + "";
+                } else {
+                    txtFrPP_city.setText("");
+                    cityIdSamane = "0";
+                }
 
             } else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
@@ -1737,7 +1727,7 @@ if (arrayListCity.size() !=0 ) {
 
     private void updteBimePP(String response) {
         try {
-            if (arrayListBime.size()!=0){
+            if (arrayListBime.size() != 0) {
                 arrayListBime.clear();
                 arrayListBimeID.clear();
             }
@@ -1755,10 +1745,10 @@ if (arrayListCity.size() !=0 ) {
                     arrayListBime.add(objectTemp.getString("ins_title"));
                 }
 
-                if (arrayListBime.size()!=0) {
+                if (arrayListBime.size() != 0) {
                     txtFrPP_bime.setText(arrayListBime.get(0) + "");
                     bimeIdSamane = arrayListBimeID.get(0) + "";
-                }else {
+                } else {
                     txtFrPP_bime.setText("");
                     bimeIdSamane = "0";
                 }
@@ -1914,10 +1904,10 @@ if (arrayListCity.size() !=0 ) {
                 // TODO: Sent new id to link2 and change HOSPITAL NAMES --------------------------------------------------------
                 //city_id:0,hsp_id:0,spc_id:0,first_name:'',last_name:'', date_period:0,page_number:0,item_per_page:10}
                 // if (doctorId  0){
-                //     String[] temp = txtFrRes_doctor.getText().toString().split(" ");
+                //     String[] temp = txtFrRes_doctor.getText().toString()).split(" ");
                 //   }
-                String nameFamily = txtFrRes_doctor.getText().toString();
-                nameFamily = nameFamily.replace(" ","%20");
+                String nameFamily = EnglishNumber.convert(txtFrRes_doctor.getText().toString());
+                nameFamily = nameFamily.replace(" ", "%20");
                 String[] temp = nameFamily.split("-");
                 JSONObject object = new JSONObject();
 
@@ -1938,7 +1928,7 @@ if (arrayListCity.size() !=0 ) {
                 } catch (Exception e) {
                     vSearchUrl = "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
                             hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
-                            + timeId + "&page_number=" + pageNumber + "&last_name=" + txtFrRes_doctor.getText().toString()
+                            + timeId + "&page_number=" + pageNumber + "&last_name=" + EnglishNumber.convert(txtFrRes_doctor.getText().toString())
                             + doctorId + "&item_per_page=" + "10";
                     e.printStackTrace();
                 }
@@ -2070,7 +2060,6 @@ if (arrayListCity.size() !=0 ) {
         }
 
     }
-
 
     //  SearchView -------------------------------------------------------------
     private SearchView editsearchSearchView;

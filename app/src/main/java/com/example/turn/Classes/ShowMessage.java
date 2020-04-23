@@ -2,7 +2,9 @@ package com.example.turn.Classes;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.view.View;
 import android.widget.TextView;
 
@@ -205,19 +207,11 @@ public class ShowMessage {
                         }
                 );
 
-//        prettyDialog.addButton(
-//                "Option 3",
-//                R.color.pdlg_color_black,
-//                R.color.pdlg_color_gray,
-//                null
-//        );
-
             prettyDialog.setMessage(textBody);
             prettyDialog.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
     }
 

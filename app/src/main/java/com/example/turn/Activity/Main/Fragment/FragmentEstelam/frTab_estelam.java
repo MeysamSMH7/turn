@@ -35,6 +35,7 @@ import com.example.turn.Activity.Main.Fragment.FragmentEstelam.Adapter.AdRecycEs
 import com.example.turn.Activity.Main.Adapter.onClickInterface;
 import com.example.turn.Activity.Main.Model.ModAlerts;
 import com.example.turn.Activity.Main.Fragment.FragmentEstelam.Model.ModEstelam;
+import com.example.turn.Classes.EnglishNumber;
 import com.example.turn.Classes.ShowMessage;
 import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
@@ -157,7 +158,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
             btnEstelam_search.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (edtEstelam_codMeli.getText().toString().length() != 10) {
+                    if (EnglishNumber.convert(edtEstelam_codMeli.getText().toString()).length() != 10) {
                         Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -178,7 +179,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
             if (arrayListEstelam.size() != 0)
                 arrayListEstelam.clear();
 //                TODO: send cod meli and id hospital to link
-            String cod = edtEstelam_codMeli.getText().toString();
+            String cod = EnglishNumber.convert(edtEstelam_codMeli.getText().toString());
             JSONObject obj = new JSONObject();
             try {
                 obj.put("pp_id", cod);
@@ -187,7 +188,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                 e.printStackTrace();
             }
             String vEstelamUrl = "http://nobat.mazums.ac.ir/turnappApi/turn/turnlist?pPpId="
-                    + edtEstelam_codMeli.getText().toString() + "&pHspId=" + hospitalId;
+                    + EnglishNumber.convert(edtEstelam_codMeli.getText().toString()) + "&pHspId=" + hospitalId;
             alertDialogLoding.show();
             new setConnectionVolley(getContext(), vEstelamUrl, obj).connectStringRequest(new setConnectionVolley.OnResponse() {
                 @Override
@@ -321,7 +322,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                             e.printStackTrace();
                         }
 
-                        if (edtEstelam_codMeli.getText().toString().length() != 10) {
+                        if (EnglishNumber.convert(edtEstelam_codMeli.getText().toString()).length() != 10) {
                             Toast.makeText(getContext(), "کد ملی نا معتبر است", Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -340,7 +341,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                                 + "&hsp_id=" + modEstelam.hsp_id
                                 + "&rcp_id=" + modEstelam.rcp_id
                                 + "&turn_date=" + modEstelam.turn_date
-                                + "&pp_id=" + edtEstelam_codMeli.getText().toString();
+                                + "&pp_id=" + EnglishNumber.convert(edtEstelam_codMeli.getText().toString());
                         alertDialogLoding.show();
                         new setConnectionVolley(getContext(), vPazireshlink, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
                             @Override

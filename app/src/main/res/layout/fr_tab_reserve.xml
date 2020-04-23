@@ -637,8 +637,6 @@
 
                             </androidx.cardview.widget.CardView>
 
-
-
                             <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
                                 android:layout_height="?attr/actionBarSize"
@@ -666,7 +664,6 @@
 
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
-
 
                         </LinearLayout>
 
@@ -783,6 +780,6 @@
 
     </LinearLayout>
 
-    <include layout="@layout/item_print" />
+    <include layout="@layout/item_print"/>
 
 </RelativeLayout>
