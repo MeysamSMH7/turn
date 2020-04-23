@@ -139,7 +139,7 @@ public class Activity_Splash_Turn extends AppCompatActivity {
         if (internet.CheckNetworkConnection()) {
             JSONObject jsonObject = new JSONObject();
             String vUrl = "http://nobat.mazums.ac.ir/turnappapi/home/getversion";
-            new setConnectionVolley(context, "url", jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
+            new setConnectionVolley(context, vUrl, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
                 @Override
                 public void OnResponse(String response) {
                     try {
