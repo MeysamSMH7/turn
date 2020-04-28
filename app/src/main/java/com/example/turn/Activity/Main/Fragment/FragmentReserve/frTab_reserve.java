@@ -1,6 +1,7 @@
 package com.example.turn.Activity.Main.Fragment.FragmentReserve;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -174,6 +175,10 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
     private ArrayList arrayListBimeID;
     private ArrayList arrayListOrg;
     private ArrayList arrayListOrgID;
+//متغییر سراسری که همه جا بهش دسترسی داریم
+   /* public String getHspId(){
+        return hsp_pp;
+    }*/
 
     private String bimeTitleSamane = "0";
     private String bimeIdSamane = "0";
@@ -490,7 +495,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                         String[] phNumArr = phoneNum.split("0", 2);
                         phoneNum = phNumArr[1] + "";
 
-                        if (txtFrPP_city.equals("0")){
+                        if (txtFrPP_city.equals("0")) {
                             Toast.makeText(getContext(), "لطفا یکی از شهر ها را انتخاب کنید", Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -1208,54 +1213,114 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 public void setClick(final int position, boolean canUse, View view) {
                     if (canUse) {
 //// alert tavafoghname
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.tavafoghname, null, false);
-                        Button btnTavafogh_no = layout.findViewById(R.id.btnTavafogh_no);
-                        final Button btnTavafogh_ok = layout.findViewById(R.id.btnTavafogh_ok);
-                        btnTavafogh_no.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                alertDialogTavafoghName.dismiss();
-                            }
-                        });
-                        btnTavafogh_ok.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                try {
-                                    linearPazireshPage2.setVisibility(View.GONE);
-                                    btnPP_paziresh.setVisibility(View.INVISIBLE);
-                                    alertDialogLoding.show();
-                                    nextPage(linearResTimes, linearResTimesBtn, linearPazireshPage, linearPazireshPageBtn);
-                                    alertDialogTavafoghName.dismiss();
-                                    dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
-                                    //2_242_4781779718_45367_291_13990120
-                                    //dr_prg_hsp_mdc_spc_date
-                                    String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
-                                    JSONObject jsonObject = new JSONObject();
-                                    hospiralId = temp[2];
 
-                                    try {
-                                        jsonObject.put("dr_id", temp[0] + "");
-                                        jsonObject.put("prg_id", temp[1] + "");
-                                        jsonObject.put("hsp_id", temp[2] + "");
-                                        jsonObject.put("mdc_id", temp[3] + "");
-                                        jsonObject.put("spc_id", temp[4] + "");
-                                        jsonObject.put("prg_date", temp[5] + "");
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-// TODO: link check
-                                    // set data in pazireshPage
-                                    alertDialogLoding.show();
-                                    String link = "http://nobat.mazums.ac.ir/TurnAppApi/turn/TurnSpecification?dr_id=" + temp[0] + "" + "&prg_id=" + temp[1] + "" + "&hsp_id=" + temp[2] + "" + "&mdc_id=" + temp[3] + "" + "&spc_id=" + temp[4] + "&turn_date=" + temp[5] + "";
-                                    new setConnectionVolley(getContext(), link, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
+
+                        JSONObject object = new JSONObject();
+                        dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
+                        String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
+                        String vUrlremote = "http://nobat.mazums.ac.ir/TurnAppApi/search/IsRemoteVisit?hsp_id=" + temp[2] + "&prg_id=" + temp[1];
+                        new setConnectionVolley(getContext(), vUrlremote, object
+                        ).connectStringRequest(new setConnectionVolley.OnResponse() {
+                            @Override
+                            public void OnResponse(String response) {
+                                try {
+//b man begoo man anjam bedam to azyat mishi
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                    LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.tavafoghname, null, false);
+                                    Button btnTavafogh_no = layout.findViewById(R.id.btnTavafogh_no);
+                                    final Button btnTavafogh_ok = layout.findViewById(R.id.btnTavafogh_ok);
+                                    final TextView txtTavafogh = layout.findViewById(R.id.txtTavafogh);
+                                    btnTavafogh_no.setOnClickListener(new View.OnClickListener() {
                                         @Override
-                                        public void OnResponse(String response) {
-                                            if (alertDialogLoding.isShowing())
-                                                alertDialogLoding.dismiss();
-                                            setDataInPazireshPage(response);
+                                        public void onClick(View view) {
+                                            alertDialogTavafoghName.dismiss();
                                         }
                                     });
+                                    btnTavafogh_ok.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            try {
+
+                                                linearPazireshPage2.setVisibility(View.GONE);
+                                                btnPP_paziresh.setVisibility(View.INVISIBLE);
+                                                alertDialogLoding.show();
+                                                nextPage(linearResTimes, linearResTimesBtn, linearPazireshPage, linearPazireshPageBtn);
+                                                alertDialogTavafoghName.dismiss();
+                                                dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
+                                                //2_242_4781779718_45367_291_13990120
+                                                //dr_prg_hsp_mdc_spc_date
+                                                String[] temp = dr_prg_hsp_mdc_spc_date_id.split("_");
+                                                JSONObject jsonObject = new JSONObject();
+                                                hospiralId = temp[2];
+
+                                                try {
+                                                    jsonObject.put("dr_id", temp[0] + "");
+                                                    jsonObject.put("prg_id", temp[1] + "");
+                                                    jsonObject.put("hsp_id", temp[2] + "");
+                                                    jsonObject.put("mdc_id", temp[3] + "");
+                                                    jsonObject.put("spc_id", temp[4] + "");
+                                                    jsonObject.put("prg_date", temp[5] + "");
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+// TODO: link check
+
+
+                                                // set data in pazireshPage
+                                                alertDialogLoding.show();
+                                                String link = "http://nobat.mazums.ac.ir/TurnAppApi/turn/TurnSpecification?dr_id=" + temp[0] + "" + "&prg_id=" + temp[1] + "" + "&hsp_id=" + temp[2] + "" + "&mdc_id=" + temp[3] + "" + "&spc_id=" + temp[4] + "&turn_date=" + temp[5] + "";
+                                                new setConnectionVolley(getContext(), link, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
+                                                    @Override
+                                                    public void OnResponse(String response) {
+                                                        if (alertDialogLoding.isShowing())
+                                                            alertDialogLoding.dismiss();
+                                                        setDataInPazireshPage(response);
+                                                    }
+                                                });
+
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+
+
+                                    //  هد yetike اکیه
+                                    JSONObject jsonObject1 = new JSONObject(response);
+                                    String is_remote = jsonObject1.getString("is_remote");
+                                    final String RemoteVisitMessage = jsonObject1.getString("RemoteVisitMessage");
+                                    String RemoteAgreementation = jsonObject1.getString("RemoteAgreementation");
+
+
+                                    builder.setView(layout);
+                                    alertDialogTavafoghName = builder.create();
+                                    alertDialogTavafoghName.show();
+
+                                    if (!is_remote.equals("1")) {
+                                        alertDialogTavafoghName.dismiss();
+                                        AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                                        builder1.setTitle("");
+                                        builder1.setMessage(RemoteVisitMessage);
+                                        builder1.setPositiveButton("قبول کردن", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                txtTavafogh.setText(RemoteVisitMessage + "");
+                                                alertDialogTavafoghName.show();
+                                            }
+                                        });
+                                        builder1.setNegativeButton("قوبل نکردن", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                txtTavafogh.setText(getString(R.string.tavafogName) + "");
+                                                alertDialogTavafoghName.show();
+                                            }
+                                        });
+                                        builder1.create();
+                                        builder1.show();
+
+                                    } else
+                                        txtTavafogh.setText(getString(R.string.tavafogName) + "");
+
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -1263,9 +1328,6 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                             }
                         });
 
-                        builder.setView(layout);
-                        alertDialogTavafoghName = builder.create();
-                        alertDialogTavafoghName.show();
 //----- end of alert
                     } else
                         Toast.makeText(getContext(), "این نوبت به پایین رسیده است.", Toast.LENGTH_SHORT).show();
@@ -1576,8 +1638,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                 });
                             }
 
-                        }
-                        else if (tag.equals("darmonghah")) {
+                        } else if (tag.equals("darmonghah")) {
                             txtFrRes_darmonghah.setText(title + "");
                             hospiralId = id;  // the last hsp_id save in here
                             hospiralSt = title;
@@ -1620,16 +1681,14 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                             txtFrRes_time.setText(title + "");
                             timeId = id;
                             timeSt = title;
-                        }
-                        else if (tag.equals("doctor")) {
+                        } else if (tag.equals("doctor")) {
                             txtFrRes_doctor.setText(title + "");
                             doctorId = id;
                             doctorSt = timeSt;
                         } else if (tag.equals("PPCity")) {
                             txtFrPP_city.setText(title + "");
                             cityIdSamane = id;
-                        }
-                        else if (tag.equals("PPOstan")) {
+                        } else if (tag.equals("PPOstan")) {
                             txtFrPP_ostan.setText(title + "");
                             ostanIdSamane = id;
 //     TODO: set data to city in pp

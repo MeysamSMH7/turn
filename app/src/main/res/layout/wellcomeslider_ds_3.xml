@@ -14,8 +14,8 @@
         android:layout_height="match_parent"/>
     <ImageView
         android:id="@+id/img123"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/textasdf3"
         android:tint="@color/colorPrimaryDark"
         android:layout_centerHorizontal="true"
@@ -31,12 +31,11 @@
         android:text="لغو نوبت"
         android:textAlignment="center"
         android:textColor="@color/colorBlack"
-        android:textSize="13dp"
         android:textStyle="bold"
         android:typeface="serif" />
 
     <TextView
-        android:layout_width="461dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textasdf3"
         android:layout_alignParentStart="true"
@@ -47,6 +46,5 @@
         android:text="امکان لغو تمامی نوبت های اخذ شده "
         android:textAlignment="center"
         android:textColor="@color/colorBlack"
-        android:textSize="11dp"
         android:typeface="serif" />
 </RelativeLayout>

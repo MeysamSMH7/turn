@@ -510,7 +510,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                 txtPrint_shit.setText("شیفت: " +Html.fromHtml("<b>" + shift+ "</b>"));
                 txtPrint_doctor.setText("پزشک: " +Html.fromHtml("<b>" + doctorName+ "</b>"));
                 txtPrint_type.setText("نوع خدمت: " +Html.fromHtml("<b>" + typeRes+ "</b>"));
-                txtPrint_typeBime.setText("نوبع بیمه: " +Html.fromHtml("<b>" + bimeTitle+ "</b>"));
+                txtPrint_typeBime.setText("نوع بیمه: " +Html.fromHtml("<b>" + bimeTitle+ "</b>"));
 
                 txtPrint_firstLastName.setText("نام و نام خانوادگی بیمار: " +Html.fromHtml("<b>" + nameFamily+ "</b>"));
                 txtPrint_price.setText("مبلع قابل پرداخت: " +Html.fromHtml("<b>" + price+ "</b>"));

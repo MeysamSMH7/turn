@@ -30,12 +30,11 @@
         android:text="ما همیشه با شما هستیم"
         android:textAlignment="center"
         android:textColor="@color/colorBlack"
-        android:textSize="25dp"
         android:textStyle="bold"
         android:typeface="serif" />
 
     <TextView
-        android:layout_width="461dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textasdf3"
         android:layout_alignParentStart="true"
@@ -46,6 +45,6 @@
         android:text="در هر مکانی در سریعترین زمان پزشک و درمانگاه خود را انتخاب کنید"
         android:textAlignment="center"
         android:textColor="@color/colorBlack"
-        android:textSize="11dp"
         android:typeface="serif" />
+
 </RelativeLayout>

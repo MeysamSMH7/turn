@@ -46,6 +46,7 @@ public class AdRecycPopUp extends RecyclerView.Adapter<AdRecycPopUp.ViewHolder> 
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         try {
 
+
             Animation animation = AnimationUtils.loadAnimation(context, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
             holder.itemView.startAnimation(animation);
             lastPosition = position;
@@ -57,6 +58,7 @@ public class AdRecycPopUp extends RecyclerView.Adapter<AdRecycPopUp.ViewHolder> 
                 @Override
                 public void onClick(View view) {
                     onClickInterface.setClick(position, true,holder.itemView);
+//                    onClickInterface.setClick(data.get(position).getTitle(),data.get(position).getId());
                 }
             });
 
