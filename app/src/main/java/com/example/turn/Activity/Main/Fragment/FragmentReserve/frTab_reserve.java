@@ -871,8 +871,8 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 cardViewFrPP_org.setVisibility(View.GONE);
                 fatherNameSamane = jsonPatient.getString("father_name") + "";
                 if (fatherNameSamane.equals("null")) fatherNameSamane = "";
-                cityIdSamane = jsonPatient.getString("city_id");
-                cityTitleSamane = jsonPatient.getString("city_title");
+//                cityIdSamane = jsonPatient.getString("city_id");
+//                cityTitleSamane = jsonPatient.getString("city_title");
                 sexSamane = jsonPatient.getString("is_sex"); // zero = man | one = woman
                 addressSamane = jsonPatient.getString("home_adr");
                 phoneNumSamane = jsonPatient.getString("home_mbl");
@@ -965,6 +965,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 arrayListCityID.add(temp.getString("id"));
             }
 
+            cityIdSamane = arrayListCityID.get(0) + "";
+            txtFrPP_city.setText(arrayListCity.get(0) + "");
+
             // get bime
             JSONArray arrayBime = objectData.getJSONArray("inslist");
             for (int i = 0; i < arrayBime.length(); i++) {
@@ -986,6 +989,9 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                 arrayListOstan.add(temp.getString("title"));
                 arrayListOstanID.add(temp.getString("id"));
             }
+
+            txtFrPP_ostan.setText(arrayListOstan.get(0) + "");
+            ostanIdSamane = arrayListOstanID.get(0) + "";
 
             //} else
 //                new ShowMessage(getContext()).ShowMessage_SnackBar(linearSelectFilters, message + "");
