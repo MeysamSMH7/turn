@@ -16,6 +16,7 @@
     <color name="colorGray">#71878C</color>
     <color name="colorGray2">#6c6c6c</color>
     <color name="colorGray3">#E2E2E3</color>
+    <color name="colorGray4">#3BE2E2E3</color>
     <color name="colorBlack1">#40000000</color>
     <color name="colorBlack2">#7F000000</color>
     <color name="transparent">#00000000</color>
@@ -30,7 +31,7 @@
     <color name="colorPurple4">#23161D</color>
     <color name="colorPurple5">#531B42</color>
     <color name="colorPurple6">#0DC3B2</color>
-    <color name="colorPurple7">#684181</color>
+    <color name="colorPurple7">#757575</color>
     <color name="colorPink2">#C6779B</color>
     <color name="colorChat1">#182533</color>
     <color name="colorChat2">#684181</color>

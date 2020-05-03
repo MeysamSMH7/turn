@@ -16,10 +16,15 @@
             android:id="@+id/searchFr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_greywhite_corner"
             android:layout_weight="0.1"
+            android:layout_margin="7dp"
+            app:iconifiedByDefault="false"
+            android:queryHint="جستجو"
+            app:defaultQueryHint="جستجو"
             android:iconifiedByDefault="false">
 
-            <requestFocus />
+<!--            <requestFocus />-->
         </androidx.appcompat.widget.SearchView>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -802,7 +802,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
 
                 Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/b_titr.ttf");
                 txtPrint_numberNobat.setTypeface(font);
-
+                 txtPrint_time2.setTypeface(font);
                 if (!img.equals("")) {
                     if (!img.equals("null")) {
                         try {
@@ -1302,7 +1302,7 @@ public class frTab_reserve extends Fragment implements SearchView.OnQueryTextLis
                                     alertDialogTavafoghName = builder.create();
                                     alertDialogTavafoghName.show();
 
-                                    if (!is_remote.equals("1")) {
+                                    if (is_remote.equals("1")) {
                                         alertDialogTavafoghName.dismiss();
                                         AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
                                         builder1.setTitle("");

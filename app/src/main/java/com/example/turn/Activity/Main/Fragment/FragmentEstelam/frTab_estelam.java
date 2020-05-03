@@ -96,7 +96,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
     private boolean estelamDone = false;
     private SharedPreferences preferences;
     private int positionClick = -1;
-
+    private  String stepId="";
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -451,7 +451,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                 String pakhshName = jsonTSF.getString("sec_title") + "";
                 String codNobat = jsonTSF.getString("rcp_no") + "";
                 String numberNobat = jsonTSF.getString("csh_rcp_no") + "";
-                String stepId = jsonTSF.getString("step_id") + "";
+                 stepId = jsonTSF.getString("step_id") + "";
 
 
                 if (hospitalName.equals("null"))
@@ -513,7 +513,14 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
                 txtPrint_typeBime.setText("نوع بیمه: " +Html.fromHtml("<b>" + bimeTitle+ "</b>"));
 
                 txtPrint_firstLastName.setText("نام و نام خانوادگی بیمار: " +Html.fromHtml("<b>" + nameFamily+ "</b>"));
-                txtPrint_price.setText("مبلع قابل پرداخت: " +Html.fromHtml("<b>" + price+ "</b>"));
+                if (Integer.parseInt(stepId) < 60 ) {
+                    btnPrint_pay.setVisibility(View.VISIBLE);
+                    txtPrint_price.setText("مبلع قابل پرداخت: " + Html.fromHtml("<b>" + price + "</b>"));
+                }
+                else {
+                    btnPrint_pay.setVisibility(View.GONE);
+                    txtPrint_price.setText("مبلع پرداخت شده: " + Html.fromHtml("<b>" + price + "</b>"));
+                }
 
                 txtPrint_bakhsh.setText("نام بخش: " +Html.fromHtml("<b>" + pakhshName+ "</b>"));
                 txtPrint_codNobat.setText("کد پیگیری: " +Html.fromHtml("<b>" + codNobat+ "</b>"));

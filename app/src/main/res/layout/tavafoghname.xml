@@ -46,7 +46,7 @@
                     android:layout_weight="0.5"
                     android:background="@drawable/button_background_green"
                     android:text="پذیرفتن"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@color/complementaryColor"
                     android:textStyle="bold" />
 
                 <Button
@@ -57,7 +57,7 @@
                     android:layout_weight="0.5"
                     android:background="@drawable/button_background_red"
                     android:text="انصراف"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@color/colorRed"
                     android:textStyle="bold" />
 
             </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.turn.Activity.Main.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,9 @@ public class AdRecycPopUp extends RecyclerView.Adapter<AdRecycPopUp.ViewHolder> 
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         try {
 
+            if (data.get(position).getId().equals("0"))
+                holder.txtTitle.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/b_titr.ttf"));
+            else  holder.txtTitle.setTypeface(null);
 
             Animation animation = AnimationUtils.loadAnimation(context, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
             holder.itemView.startAnimation(animation);
@@ -59,6 +63,13 @@ public class AdRecycPopUp extends RecyclerView.Adapter<AdRecycPopUp.ViewHolder> 
                 public void onClick(View view) {
                     onClickInterface.setClick(position, true,holder.itemView);
 //                    onClickInterface.setClick(data.get(position).getTitle(),data.get(position).getId());
+                }
+            });
+            holder.txtTitle.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    onClickInterface.setClick(position, true,holder.itemView);
+                    return false;
                 }
             });
 

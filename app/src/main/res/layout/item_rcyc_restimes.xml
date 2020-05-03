@@ -64,9 +64,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
                         android:gravity="left"
+                        android:textColor="@color/colorPrimaryDark"
                         android:paddingRight="7dp"
                         android:text="123"
-                        android:textColor="@color/colorAccent"
                         android:textSize="16dp" />
 
 
@@ -128,10 +128,11 @@
                     <Button
                         android:id="@+id/btnRcycRT_status"
                         android:layout_width="wrap_content"
-                        android:layout_height="20dp"
+                        android:layout_height="wrap_content"
                         android:background="@drawable/button_background_green"
                         android:text=" وضعیت"
-                        android:textColor="@color/colorWhite"
+                        android:padding="3dp"
+                        android:textColor="@color/complementaryColor"
                         android:textStyle="bold" />
 
                 </LinearLayout>

@@ -53,16 +53,21 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             String hospitalName = data.get(position).hsp_title;
             hospitalName = hospitalName.replace("بیمارستان", "");
             holder.txtRcycRT_hospital.setText("بیمارستان " + hospitalName);
-            holder.txtRcycRT_shift.setText("شیفت " + data.get(position).shift_title);
-            holder.txtRcycRT_doctorName.setText("دکتر " + data.get(position).dr_name);
+            holder.txtRcycRT_shift.setText("شیفت :" + data.get(position).shift_title);
+            holder.txtRcycRT_doctorName.setText("دکتر: " + data.get(position).dr_name);
             holder.txtRcycRT_takhasos.setText("تخصص: " + data.get(position).spc_title);
             holder.txtRcycRT_date.setText("تاریخ: " + data.get(position).prg_date);
-              holder.txtRcycRT_tedadNobat.setText("تعداد نوبت: " + data.get(position).web_turn);
+            holder.txtRcycRT_tedadNobat.setText("تعداد نوبت: " + data.get(position).web_turn);
 
-            if (data.get(position).web_turn.equals("0"))
+            if (data.get(position).web_turn.equals("0")) {
                 holder.btnRcycRT_status.setBackground(context.getResources().getDrawable(R.drawable.button_background_red));
-            else
+                holder.btnRcycRT_status.setTextColor(context.getResources().getColor(R.color.colorRed));
+
+            }
+            else {
                 holder.btnRcycRT_status.setBackground(context.getResources().getDrawable(R.drawable.button_background_green));
+                holder.btnRcycRT_status.setTextColor(context.getResources().getColor(R.color.complementaryColor));
+            }
             holder.btnRcycRT_status.setText("" + data.get(position).status_type);
 
 
@@ -113,7 +118,7 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
         TextView txtRcycRT_doctorName;
         TextView txtRcycRT_takhasos;
         TextView txtRcycRT_postNumber;
-     TextView txtRcycRT_tedadNobat;
+        TextView txtRcycRT_tedadNobat;
         LinearLayout linearRcycRT_status;
         Button btnRcycRT_status;
 
@@ -126,7 +131,7 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
             txtRcycRT_doctorName = view.findViewById(R.id.txtRcycRT_doctorName);
             txtRcycRT_takhasos = view.findViewById(R.id.txtRcycRT_takhasos);
             txtRcycRT_date = view.findViewById(R.id.txtRcycRT_date);
-           txtRcycRT_tedadNobat = view.findViewById(R.id.txtRcycRT_tedadNobat);
+            txtRcycRT_tedadNobat = view.findViewById(R.id.txtRcycRT_tedadNobat);
             //linearRcycRT_status = view.findViewById(R.id.linearRcycRT_status);
             btnRcycRT_status = view.findViewById(R.id.btnRcycRT_status);
             txtRcycRT_postNumber = view.findViewById(R.id.txtRcycRT_postNumber);

@@ -135,7 +135,7 @@
                         android:background="@drawable/button_background_blue"
                         android:paddingRight="20dp"
                         android:text="جستجوکن"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/colorPurple7"
                         android:textStyle="bold" />
 
                 </LinearLayout>
