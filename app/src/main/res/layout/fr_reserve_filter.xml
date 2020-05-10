@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -277,6 +277,41 @@
 
 
             </LinearLayout>
+            <!--    linearSelectFiltersBtn        -->
+            <LinearLayout
+
+                android:id="@+id/linearSelectFiltersBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:visibility="visible"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnFrRes_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/button_background_blue"
+                    android:text="جستجو"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnFrRes_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/button_background_blue"
+                    android:text="حذف فیلترها"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-</LinearLayout>
+</RelativeLayout>

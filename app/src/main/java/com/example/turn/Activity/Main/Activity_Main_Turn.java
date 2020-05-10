@@ -6,8 +6,11 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 
 import com.example.turn.Activity.Main.Adapter.ViewPagerAdapterMain;
+import com.example.turn.Activity.Main.Adapter.setDataToFragment;
 import com.example.turn.Activity.Main.Fragment.FragmentEstelam.frTab_estelam;
 import com.example.turn.Activity.Main.Fragment.FragmentLaghv.frTab_laghv;
+import com.example.turn.Activity.Main.Fragment.FragmentReserve.Fragment.frTabRes_Filter;
+import com.example.turn.Activity.Main.Fragment.FragmentReserve.Fragment.frTabRes_ReserveTime;
 import com.example.turn.Activity.Main.Fragment.FragmentReserve.frTab_reserve;
 import com.example.turn.R;
 
@@ -39,11 +42,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Activity_Main_Turn extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
 
 
     private Context context = this;
@@ -82,14 +89,14 @@ public class Activity_Main_Turn extends AppCompatActivity
         findViews();
         changeTabsFont(tl_tabLayout);
         initViewPager();
-
+        customTab();
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("FirstTime?", false);
         editor.apply();
 
 
-        customTab();
+
 
 
     }
