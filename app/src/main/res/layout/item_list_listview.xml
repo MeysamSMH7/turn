@@ -13,6 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
+        android:paddingTop="9px"
+        android:paddingBottom="9px"
         android:background="@drawable/click_on_item"
         android:textSize="17sp"
         android:textStyle="bold"

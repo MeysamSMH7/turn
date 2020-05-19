@@ -176,11 +176,11 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
                     defaultDataDropDown();
                 }
             });
-
+//merccccccccccccccccccccc
             btnFrRes_next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Snackbar.make(view, "This is main activity", Snackbar.LENGTH_LONG)
+                 /*   Snackbar.make(view, "This is main activity", Snackbar.LENGTH_LONG)
                             .setAction("CLOSE", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -188,7 +188,7 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
                                 }
                             })
                             .setActionTextColor(getResources().getColor(android.R.color.holo_red_light ))
-                            .show();
+                            .show();*/
 
 
                     try {
@@ -602,7 +602,7 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
                         } else if (tag.equals("doctor")) {
                             txtFrRes_doctor.setText(title + "");
                             doctorId = id;
-                            doctorSt = timeSt;
+                            doctorSt = title;
                         }
 
                     } catch (Exception e) {

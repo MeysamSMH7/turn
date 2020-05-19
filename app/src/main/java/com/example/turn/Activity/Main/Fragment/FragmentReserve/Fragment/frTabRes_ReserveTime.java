@@ -12,6 +12,7 @@ import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,7 +81,7 @@ public class frTabRes_ReserveTime extends Fragment {
     private String doctorId = "";
 
     private String doctorSt = "";
-
+    private String exp = "";
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -109,31 +110,41 @@ public class frTabRes_ReserveTime extends Fragment {
         }
     }
 
+    TextView txtNoData;
+    RelativeLayout layoutMain;
+
     public void getDataFromFragment(String message) {
 
-        try {
-            JSONObject jsonObject = new JSONObject(message);
-            cityId = jsonObject.getString("cityId");
-            takhasosId = jsonObject.getString("takhasosId");
-            hospiralId = jsonObject.getString("hospiralId");
-            timeId = jsonObject.getString("timeId");
-            cityId = jsonObject.getString("cityId");
-            doctorId = jsonObject.getString("doctorId");
-            doctorSt = jsonObject.getString("doctorSt");
+        if (message.equals("false")) {
+            txtNoData.setVisibility(View.VISIBLE);
+            layoutMain.setVisibility(View.GONE);
+        } else {
+            txtNoData.setVisibility(View.GONE);
+            layoutMain.setVisibility(View.VISIBLE);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+            try {
+                JSONObject jsonObject = new JSONObject(message);
+                cityId = jsonObject.getString("cityId");
+                takhasosId = jsonObject.getString("takhasosId");
+                hospiralId = jsonObject.getString("hospiralId");
+                timeId = jsonObject.getString("timeId");
+                cityId = jsonObject.getString("cityId");
+                doctorId = jsonObject.getString("doctorId");
+                doctorSt = jsonObject.getString("doctorSt");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (!alertDialogLoding.isShowing())
+                alertDialogLoding.show();
+            arrayListResTimes.clear();
+            adapterResTimes.notifyDataSetChanged();
+            pageNumber = 0;
+            morePost = true;
+            refreshRT.setRefreshing(false);
+
+            doSearch(0);
         }
-        if (!alertDialogLoding.isShowing())
-            alertDialogLoding.show();
-        arrayListResTimes.clear();
-        adapterResTimes.notifyDataSetChanged();
-        pageNumber = 0;
-        morePost = true;
-        refreshRT.setRefreshing(false);
-
-        doSearch(0);
-        Toast.makeText(getContext(), message + "frTabRes_ReserveTime", Toast.LENGTH_SHORT).show();
     }
 
     private void reservationTimes(final View view) {
@@ -145,6 +156,8 @@ public class frTabRes_ReserveTime extends Fragment {
             rcycRT = view.findViewById(R.id.rcycRT);
             btnRT_filter = view.findViewById(R.id.btnRT_filter);
             refreshRT = view.findViewById(R.id.refreshRT);
+            txtNoData = view.findViewById(R.id.txtNoData);
+            layoutMain = view.findViewById(R.id.layoutMain);
 
             arrayListResTimes = new ArrayList();
 
@@ -216,6 +229,14 @@ public class frTabRes_ReserveTime extends Fragment {
                             public void OnResponse(String response) {
                                 try {
 //b man begoo man anjam bedam to azyat mishi
+
+                                    //  هد yetike اکیه
+                                    JSONObject jsonObject1 = new JSONObject(response);
+                                    String is_remote = jsonObject1.getString("is_remote");
+                                    final String RemoteVisitMessage = jsonObject1.getString("RemoteVisitMessage");
+                                    String RemoteAgreementation = jsonObject1.getString("RemoteAgreementation");
+                                exp=jsonObject1.getString("exp");
+
                                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                                     LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.tavafoghname, null, false);
                                     Button btnTavafogh_no = layout.findViewById(R.id.btnTavafogh_no);
@@ -233,16 +254,30 @@ public class frTabRes_ReserveTime extends Fragment {
                                             try {
 
 
-
-
-
-                                                /*linearPazireshPage2.setVisibility(View.GONE);
-                                                btnPP_paziresh.setVisibility(View.INVISIBLE);*/
-                                                //   nextPage(linearResTimes, linearResTimesBtn, linearPazireshPage, linearPazireshPageBtn);
                                                 alertDialogTavafoghName.dismiss();
                                                 dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
-                                                msetDataToFragment.setDataToFragment(dr_prg_hsp_mdc_spc_date_id, "secondToThird");
-
+                                                if (exp.equals("")) {
+                                                    msetDataToFragment.setDataToFragment(dr_prg_hsp_mdc_spc_date_id, "secondToThird");
+                                                } else {
+                                                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                                                    builder1.setTitle("");
+                                                    builder1.setMessage(exp);
+                                                    builder1.setPositiveButton(" تایید", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                            msetDataToFragment.setDataToFragment(dr_prg_hsp_mdc_spc_date_id, "secondToThird");
+                                                        }
+                                                    });
+                                                    builder1.setNegativeButton(" انصراف", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                                    builder1.create();
+                                                    builder1.show();
+                                                }
 
 
                                                 //2_242_4781779718_45367_291_13990120
@@ -253,13 +288,6 @@ public class frTabRes_ReserveTime extends Fragment {
                                             }
                                         }
                                     });
-
-
-                                    //  هد yetike اکیه
-                                    JSONObject jsonObject1 = new JSONObject(response);
-                                    String is_remote = jsonObject1.getString("is_remote");
-                                    final String RemoteVisitMessage = jsonObject1.getString("RemoteVisitMessage");
-                                    String RemoteAgreementation = jsonObject1.getString("RemoteAgreementation");
 
 
                                     builder.setView(layout);
@@ -274,6 +302,7 @@ public class frTabRes_ReserveTime extends Fragment {
                                         builder1.setPositiveButton("قبول کردن", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
                                                 txtTavafogh.setText(RemoteVisitMessage + "");
                                                 alertDialogTavafoghName.show();
                                             }
@@ -281,6 +310,7 @@ public class frTabRes_ReserveTime extends Fragment {
                                         builder1.setNegativeButton("قوبل نکردن", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
                                                 txtTavafogh.setText(getString(R.string.tavafogName) + "");
                                                 alertDialogTavafoghName.show();
                                             }
@@ -329,17 +359,24 @@ public class frTabRes_ReserveTime extends Fragment {
                 alertDialogLoding.show();
 
                 String vSearchUrl = "";
+
+                if (doctorSt.equals(""))
+                    vSearchUrl = "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
+                            hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
+                            + timeId + "&page_number=" + pageNumber + "&first_name=" +"" + "&doctor_id="
+                            + doctorId + "&item_per_page=" + "10" + "&last_name=" + "";
+                else
+                    vSearchUrl = "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
+                            hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
+                            + timeId + "&page_number=" + pageNumber + "&first_name=" + temp[1] + "&doctor_id="
+                            + doctorId + "&item_per_page=" + "10" + "&last_name=" + temp[0];
+
+               /*
                 try {
                     if (temp.length == 1)
-                        vSearchUrl = "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
-                                hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
-                                + timeId + "&page_number=" + pageNumber + "&first_name=" + "&doctor_id="
-                                + doctorId + "&item_per_page=" + "10" + "&last_name=" + "";
+
                     else
-                        vSearchUrl = "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
-                                hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
-                                + timeId + "&page_number=" + pageNumber + "&first_name=" + temp[1] + "&doctor_id="
-                                + doctorId + "&item_per_page=" + "10" + "&last_name=" + temp[0];
+
                 } catch (Exception e) {
                     vSearchUrl = "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
                             hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
@@ -347,7 +384,7 @@ public class frTabRes_ReserveTime extends Fragment {
                             + doctorId + "&item_per_page=" + "10";
                     e.printStackTrace();
                 }
-
+*/
                 new setConnectionVolley(getContext(), vSearchUrl, object
                 ).connectStringRequest(new setConnectionVolley.OnResponse() {
                     @Override

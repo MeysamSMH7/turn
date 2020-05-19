@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <TextView
+        android:id="@+id/txtNoData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="هیچ اطلاعاتی وجود ندارد" />
 
+<RelativeLayout
+    android:id="@+id/layoutMain"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <!--    linearPazireshPage         -->
     <LinearLayout
         android:id="@+id/linearPazireshPage"
@@ -161,6 +173,7 @@
                                 android:maxLines="2"
                                 android:paddingEnd="7dp"
                                 android:paddingRight="7dp"
+                                android:inputType="number"
                                 android:textColor="@color/colorBlack"
                                 android:textCursorDrawable="@color/colorPrimaryDark"
                                 android:textSize="15sp" />
@@ -618,6 +631,7 @@
 
         <Button
             android:id="@+id/btnPP_previous"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
@@ -643,4 +657,6 @@
 
 
     </LinearLayout>
+</RelativeLayout>
+
 </RelativeLayout>

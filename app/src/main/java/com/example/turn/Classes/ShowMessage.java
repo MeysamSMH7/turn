@@ -316,8 +316,8 @@ public class ShowMessage {
         }
 
     }
-
-    public void ShowMessage_SnackBar(Object layout, String text) {
+//
+/*    public void ShowMessage_SnackBar(Object layout, String text) {
         try {
 
             Snackbar snackbar = Snackbar.make((View) layout, text, Snackbar.LENGTH_LONG).setAction("بستن", new View.OnClickListener() {
@@ -336,7 +336,7 @@ public class ShowMessage {
             e.printStackTrace();
         }
 
-    }
+    }*/
 
 
 }

@@ -13,6 +13,7 @@
         android:tint="#EBFFFFFF" />
 
     <include layout="@layout/fr_reserve_print" />
+    <include layout="@layout/item_print" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedMain"

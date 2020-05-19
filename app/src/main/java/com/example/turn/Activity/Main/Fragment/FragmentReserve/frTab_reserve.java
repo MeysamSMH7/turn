@@ -136,16 +136,43 @@ public class frTab_reserve extends Fragment implements setDataToFragment {
             frTabRes_ReserveTime fragmentByTag = (frTabRes_ReserveTime) getChildFragmentManager().findFragmentByTag(tag2);
             fragmentByTag.getDataFromFragment(str);
             vp_viewPager.setCurrentItem(1);
+
+            tag2 = "android:switcher:" + R.id.vp_viewPagerFR + ":" + 2;
+            frTabRes_RazireshPage fragmentByTag2 = (frTabRes_RazireshPage) getChildFragmentManager().findFragmentByTag(tag2);
+            fragmentByTag2.getDataFromFragment("false");
+
+            tag2 = "android:switcher:" + R.id.vp_viewPagerFR + ":" + 3;
+            frTabRes_Print fragmentByTag3 = (frTabRes_Print) getChildFragmentManager().findFragmentByTag(tag2);
+            fragmentByTag3.getDataFromFragment("false");
+
         } else if (tag.equals("secondToThird")) {
             String tag2 = "android:switcher:" + R.id.vp_viewPagerFR + ":" + 2;
             frTabRes_RazireshPage fragmentByTag = (frTabRes_RazireshPage) getChildFragmentManager().findFragmentByTag(tag2);
             fragmentByTag.getDataFromFragment(str);
             vp_viewPager.setCurrentItem(2);
+
+            tag2 = "android:switcher:" + R.id.vp_viewPagerFR + ":" + 3;
+            frTabRes_Print fragmentByTag3 = (frTabRes_Print) getChildFragmentManager().findFragmentByTag(tag2);
+            fragmentByTag3.getDataFromFragment("false");
+
         } else if (tag.equals("thirdToFourth")) {
+
             String tag2 = "android:switcher:" + R.id.vp_viewPagerFR + ":" + 3;
             frTabRes_Print fragmentByTag = (frTabRes_Print) getChildFragmentManager().findFragmentByTag(tag2);
             fragmentByTag.getDataFromFragment(str);
             vp_viewPager.setCurrentItem(3);
+
+        }else if (tag.equals("fourthToFirst")){
+
+            String tag2 = "android:switcher:" + R.id.vp_viewPagerFR + ":" + 1;
+            frTabRes_ReserveTime fragmentByTag = (frTabRes_ReserveTime) getChildFragmentManager().findFragmentByTag(tag2);
+            fragmentByTag.getDataFromFragment("false");
+            vp_viewPager.setCurrentItem(0);
+
+            tag2 = "android:switcher:" + R.id.vp_viewPagerFR + ":" + 2;
+            frTabRes_RazireshPage fragmentByTag2 = (frTabRes_RazireshPage) getChildFragmentManager().findFragmentByTag(tag2);
+            fragmentByTag2.getDataFromFragment("false");
+
         }
 
     }

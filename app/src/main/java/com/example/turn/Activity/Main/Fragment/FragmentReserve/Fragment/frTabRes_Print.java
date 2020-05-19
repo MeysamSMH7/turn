@@ -37,9 +37,11 @@ public class frTabRes_Print extends Fragment {
     private TextView txtPrint_hours;
     private TextView txtPrint_shit;
     private TextView txtPrint_doctor;
+    private TextView  txtPrint_spcTitle;
     private TextView txtPrint_type;
     private TextView txtPrint_typeBime;
     private TextView txtPrint_firstLastName;
+    private TextView  txtPrint_message;
     private TextView txtPrint_price;
     private TextView txtPrint_bakhsh;
     private TextView txtPrint_codNobat;
@@ -91,21 +93,32 @@ public class frTabRes_Print extends Fragment {
         }
     }
 
+    TextView txtNoData;
+    LinearLayout layoutMain;
+
     public void getDataFromFragment(String message) {
 
-        String vPazireshlink = message;
-        JSONObject jsonObject = new JSONObject();
+        if (message.equals("false")) {
+            txtNoData.setVisibility(View.VISIBLE);
+            layoutMain.setVisibility(View.GONE);
+        } else {
 
-        alertDialogLoding.show();
-        new setConnectionVolley(getContext(), vPazireshlink, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
-            @Override
-            public void OnResponse(String response) {
-                if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
-                setDataPrint(response);
-            }
-        });
+            txtNoData.setVisibility(View.GONE);
+            layoutMain.setVisibility(View.VISIBLE);
 
-        Toast.makeText(getContext(), message + "frTabRes_Print", Toast.LENGTH_SHORT).show();
+            String vPazireshlink = message;
+            JSONObject jsonObject = new JSONObject();
+
+            alertDialogLoding.show();
+            new setConnectionVolley(getContext(), vPazireshlink, jsonObject).connectStringRequest(new setConnectionVolley.OnResponse() {
+                @Override
+                public void OnResponse(String response) {
+                    if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
+                    setDataPrint(response);
+                }
+            });
+        }
+
     }
 
     private void setDataPrint(String res) {
@@ -131,6 +144,7 @@ public class frTabRes_Print extends Fragment {
                 String shift = jsonTSF.getString("shift_title") + "";
                 String doctorName = jsonTSF.getString("dr_name") + "";
                 String typeRes = jsonTSF.getString("srv_title") + "";
+                String   spcTitle = jsonTSF.getString("spc_title") + "";
                 rcp_id = jsonTSF.getString("rcp_id") + "";
 
                 JSONObject bimeData = jsonTSF.getJSONObject("pInsurance");
@@ -195,26 +209,35 @@ public class frTabRes_Print extends Fragment {
 
                 //---------------------------------
                 txtPrint_hospitalName.setText(hospitalName);
-                txtPrint_hospitalAddress.setText("آدرس: " + Html.fromHtml("<b>" + hospitalAddress + "</b>"));
-                txtPrint_hospitalTell.setText("تلفن مرکز: " + Html.fromHtml("<b>" + hospitalTel + "</b>"));
+                txtPrint_hospitalAddress.setText(hospitalAddress );
+                txtPrint_hospitalTell.setText(hospitalTel );
+                txtPrint_date.setText(date );
+                txtPrint_shit.setText( shift );
+                txtPrint_doctor.setText(doctorName);
+                txtPrint_spcTitle.setText(spcTitle );
+                txtPrint_type.setText(typeRes );
+                txtPrint_typeBime.setText( bimeTitle );
 
-                txtPrint_date.setText("تاریخ اخذ نوبت: " + Html.fromHtml("<b>" + date + "</b>"));
-                txtPrint_time2.setText(Html.fromHtml("<b>" + timeRes + "</b>"));
-                txtPrint_hours.setText("ساعت حضور بیمار: " + Html.fromHtml("<b>" + timeHozor + "</b>"));
-                txtPrint_shit.setText("شیفت: " + Html.fromHtml("<b>" + shift + "</b>"));
-                txtPrint_doctor.setText("پزشک: " + Html.fromHtml("<b>" + doctorName + "</b>"));
-                txtPrint_type.setText("نوع خدمت: " + Html.fromHtml("<b>" + typeRes + "</b>"));
-                txtPrint_typeBime.setText("نوبع بیمه: " + Html.fromHtml("<b>" + bimeTitle + "</b>"));
-
-                txtPrint_firstLastName.setText("نام و نام خانوادگی بیمار: " + Html.fromHtml("<b>" + nameFamily + "</b>"));
-                txtPrint_price.setText("مبلع قابل پرداخت: " + Html.fromHtml("<b>" + price + "</b>"));
+                txtPrint_firstLastName.setText(nameFamily);
+                txtPrint_price.setText(price);
+                Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/b_titr.ttf");
+                txtPrint_message.setTypeface(font);
+           /*
 
                 txtPrint_bakhsh.setText("نام بخش: " + Html.fromHtml("<b>" + pakhshName + "</b>"));
+                txtPrint_bakhsh.setVisibility(View.GONE);
                 txtPrint_codNobat.setText("کد پیگیری: " + Html.fromHtml("<b>" + codNobat + "</b>"));
+                txtPrint_codNobat.setVisibility(View.GONE);
                 txtPrint_numberNobat.setText("شماره نوبت: " + Html.fromHtml("<b>" + numberNobat + "</b>"));
+                txtPrint_numberNobat.setVisibility(View.GONE);
                 txtPrint_ghabzNumber.setText("شماره ی قبض: " + Html.fromHtml("<b>" + shoamreGhbz + "</b>" + ""));
+                txtPrint_ghabzNumber.setVisibility(View.GONE);
+                txtPrint_hours.setText("ساعت حضور بیمار: " + Html.fromHtml("<b>" + timeHozor + "</b>"));
+                txtPrint_hours.setVisibility(View.GONE);
+                imgPrint_barcod.setVisibility(View.GONE);
+                txtPrint_time2.setText(Html.fromHtml("<b>" + timeRes + "</b>"));
+                txtPrint_time2.setVisibility(View.GONE);
                 String img = jsonTSF.getString("print_img");
-
                 Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/b_titr.ttf");
                 txtPrint_numberNobat.setTypeface(font);
                 txtPrint_time2.setTypeface(font);
@@ -229,8 +252,7 @@ public class frTabRes_Print extends Fragment {
                             e.printStackTrace();
                         }
                     }
-                }
-
+                }*/
             } else if (message.equals("Error creating window handle.")) {
 //--------- back to previous
 
@@ -258,19 +280,25 @@ public class frTabRes_Print extends Fragment {
 
     private void print(View view) {
         try {
+
+            txtNoData = view.findViewById(R.id.txtNoData);
+            layoutMain = view.findViewById(R.id.linearPrint);
+
             txtPrint_date = view.findViewById(R.id.txtPrint_date);
-            txtPrint_time = view.findViewById(R.id.txtPrint_time);
-            txtPrint_hours = view.findViewById(R.id.txtPrint_hours);
+            /*txtPrint_time = view.findViewById(R.id.txtPrint_time);
+            txtPrint_hours = view.findViewById(R.id.txtPrint_hours);*/
             txtPrint_shit = view.findViewById(R.id.txtPrint_shit);
             txtPrint_doctor = view.findViewById(R.id.txtPrint_doctor);
+            txtPrint_spcTitle = view.findViewById(R.id.txtPrint_spcTitle);
             txtPrint_type = view.findViewById(R.id.txtPrint_type);
             txtPrint_typeBime = view.findViewById(R.id.txtPrint_typeBime);
             txtPrint_firstLastName = view.findViewById(R.id.txtPrint_firstLastName);
+            txtPrint_message = view.findViewById(R.id.txtPrint_message);
             txtPrint_price = view.findViewById(R.id.txtPrint_price);
-            txtPrint_bakhsh = view.findViewById(R.id.txtPrint_bakhsh);
+      /*      txtPrint_bakhsh = view.findViewById(R.id.txtPrint_bakhsh);
             txtPrint_codNobat = view.findViewById(R.id.txtPrint_codNobat);
             txtPrint_numberNobat = view.findViewById(R.id.txtPrint_numberNobat);
-            imgPrint_barcod = view.findViewById(R.id.imgPrint_barcod);
+            imgPrint_barcod = view.findViewById(R.id.imgPrint_barcod);*/
             txtPrint_ghabzNumber = view.findViewById(R.id.txtPrint_ghabzNumber);
             txtPrint_time2 = view.findViewById(R.id.txtPrint_time2);
             txtPrint_hospitalName = view.findViewById(R.id.txtPrint_hospitalName);
@@ -278,6 +306,15 @@ public class frTabRes_Print extends Fragment {
             txtPrint_hospitalTell = view.findViewById(R.id.txtPrint_hospitalTell);
             btnPrint_pay = view.findViewById(R.id.btnPrint_pay);
             btnPrint_dismis = view.findViewById(R.id.btnPrint_dismis);
+        Button    btnPrint_dismis1 = view.findViewById(R.id.btnPrint_dismis1);
+btnPrint_dismis1.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        msetDataToFragment.setDataToFragment("","fourthToFirst");
+        layoutMain.setVisibility(View.GONE);
+        txtNoData.setVisibility(View.VISIBLE);
+    }
+});
 
             btnPrint_dismis.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -306,7 +343,10 @@ public class frTabRes_Print extends Fragment {
                         txtPrint_bakhsh.setText("");
                         txtPrint_codNobat.setText("");
                         txtPrint_numberNobat.setText("");
+                        msetDataToFragment.setDataToFragment("","fourthToFirst");
 
+                        layoutMain.setVisibility(View.GONE);
+                        txtNoData.setVisibility(View.VISIBLE);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -321,6 +361,10 @@ public class frTabRes_Print extends Fragment {
                         String link = "http://nobat.mazums.ac.ir/Pay/Apprdr/?r=" + rcp_id + "&h=" + hsp_id;
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
                         //         setAllDataToDefault();
+                        msetDataToFragment.setDataToFragment("","fourthToFirst");
+
+                        layoutMain.setVisibility(View.GONE);
+                        txtNoData.setVisibility(View.VISIBLE);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -333,5 +377,4 @@ public class frTabRes_Print extends Fragment {
             e.printStackTrace();
         }
     }
-
 }

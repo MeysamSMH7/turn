@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -111,6 +112,8 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
     private String ins_box_code = "0";
     private String ins_box_val = "0";
     private String dr_prg_hsp_mdc_spc_date_id = "";
+    private TextView txtNoData;
+    private RelativeLayout layoutMain;
 
     private AlertDialog alertDialogLoding;
 
@@ -140,10 +143,17 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
 
     public void getDataFromFragment(String message) {
 
-        dr_prg_hsp_mdc_spc_date_id = message;
-        fGetTurnINfo();
+        if (message.equals("false")) {
+            txtNoData.setVisibility(View.VISIBLE);
+            layoutMain.setVisibility(View.GONE);
+        } else {
 
-        Toast.makeText(getContext(), message + "frTabRes_RazireshPage", Toast.LENGTH_SHORT).show();
+            txtNoData.setVisibility(View.GONE);
+            layoutMain.setVisibility(View.VISIBLE);
+            dr_prg_hsp_mdc_spc_date_id = message;
+            fGetTurnINfo();
+        }
+
     }
 
     private void fGetTurnINfo() {
@@ -220,6 +230,8 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
             btnPP_search = view.findViewById(R.id.btnPP_search);
             btnPP_paziresh = view.findViewById(R.id.btnPP_paziresh);
             btnPP_paziresh.setVisibility(View.INVISIBLE);
+            txtNoData = view.findViewById(R.id.txtNoData);
+            layoutMain = view.findViewById(R.id.layoutMain);
 
             arrayListOstan = new ArrayList();
             arrayListCity = new ArrayList();
@@ -365,7 +377,6 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                         patient:{mome_mbl:'',home_adr:'',first_name:'',last_name:'',is_sex:0,father_name:'',ins_id:0}*/
 
 
-
                         String vPazireshlink = "";
 
                         if (codMeliOrErja.equals("کد ملی")) {
@@ -374,6 +385,7 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                                     + "&hsp_id=" + temp[2]
                                     + "&srv_id=" + srv_id
                                     + "&spc_id=" + temp[4]
+                                    + "&dr_id=" + temp[0]
                                     + "&turn_date=" + temp[5]
                                     + "&pp_id=" + EnglishNumber.convert(edtFrPP_Cod.getText().toString()).replace(" ", "")
                                     + "&home_mbl=" + phoneNum
@@ -388,6 +400,7 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                         } else {
                             vPazireshlink = "http://nobat.mazums.ac.ir/TurnAppApi/turn/MakeTurn?"
                                     + "prg_id=" + temp[1]
+                                    + "&dr_id=" + temp[0]
                                     + "&hsp_id=" + temp[2]
                                     + "&srv_id=" + srv_id
                                     + "&spc_id=" + temp[4]
@@ -404,9 +417,9 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                                     + "&ost_id=" + ostanIdSamane
                                     + "&org_id=" + orgIdSamane;
                         }
-                      //  alertDialogLoding.show();
+                        //  alertDialogLoding.show();
 
-                        msetDataToFragment.setDataToFragment(vPazireshlink,"thirdToFourth");
+                        msetDataToFragment.setDataToFragment(vPazireshlink, "thirdToFourth");
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -757,6 +770,10 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                             txtFrPP_bime.setText(title + "");
                             bimeIdSamane = id;
                         } else if (tag.equals("PPOrg")) {
+                            if (arrayListOrg.size() != 0) {
+                                arrayListOrg.clear();
+                                arrayListOrgID.clear();
+                            }
                             txtFrPP_org.setText(title + "");
                             orgIdSamane = id;
                             // clicked on Org dropDown
@@ -944,16 +961,17 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                 txtPP_motakhasesName.setText(spc_level_title + ": " + spc_title);
                 txtPP_datePP.setText("تاریخ: " + turn_date);
                 //  txtPP_datePP.setText("تاریخ:" + turn_date);
-                if (!dr_image.equals("null")) {
-                    try {
-                        String encodedDataString = dr_image;
-                        encodedDataString = encodedDataString.replace("data:image/png;base64,", "");
-                        byte[] imageAsBytes = Base64.decode(encodedDataString.getBytes(), 0);
-                        imgPP_drPic.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                if (!dr_image.equals("null"))
+                    if (!dr_image.equals("")) {
+                        try {
+                            String encodedDataString = dr_image;
+                            encodedDataString = encodedDataString.replace("data:image/png;base64,", "");
+                            byte[] imageAsBytes = Base64.decode(encodedDataString.getBytes(), 0);
+                            imgPP_drPic.setImageBitmap(BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
 
                 if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
 
