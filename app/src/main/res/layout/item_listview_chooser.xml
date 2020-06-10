@@ -35,7 +35,14 @@
             android:layout_marginBottom="7dp"
             android:layout_weight="0.8"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
+        <ImageButton
+            android:id="@+id/btnSpeak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:padding="1dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_microphone_2" />
         <Button
             android:id="@+id/btnFr"
             android:layout_width="match_parent"

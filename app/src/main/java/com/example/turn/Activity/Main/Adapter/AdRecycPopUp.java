@@ -115,4 +115,8 @@ public class AdRecycPopUp extends RecyclerView.Adapter<AdRecycPopUp.ViewHolder> 
         }
         notifyDataSetChanged();
     }
+
+
+
+
 }

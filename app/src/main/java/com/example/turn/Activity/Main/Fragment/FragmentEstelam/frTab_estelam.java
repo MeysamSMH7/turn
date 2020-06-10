@@ -95,6 +95,7 @@ public class frTab_estelam extends Fragment implements SearchView.OnQueryTextLis
     private TextView txtPrint_hospitalTell;
     private TextView txtPrint_hospitalTell1;
     private Button btnPrint_dismis;
+    private Button btnPrint_dismis1;
     private Button btnPrint_pay;
 
     private AlertDialog alertDialogLoding;
@@ -382,6 +383,7 @@ private TextView txtPrint_date1;
     private TextView txtPrint_type1;
     private TextView txtPrint_typeBime1;
     private TextView txtPrint_firstLastName1;
+    private TextView txtPrint_rcpDate;
     private TextView txtPrint_price1;
     private TextView btnPrint_pay1;
     private TextView txtPrint_peygiri;
@@ -408,6 +410,7 @@ private TextView txtPrint_date1;
             txtPrint_typeBime1 = view.findViewById(R.id.txtPrint_typeBime1);
             txtPrint_firstLastName = view.findViewById(R.id.txtPrint_firstLastName);
             txtPrint_firstLastName1 = view.findViewById(R.id.txtPrint_firstLastName1);
+            txtPrint_rcpDate = view.findViewById(R.id.txtPrint_rcpDate);
             txtPrint_price = view.findViewById(R.id.txtPrint_price);
             txtPrint_price1 = view.findViewById(R.id.txtPrint_price1);
 
@@ -442,6 +445,7 @@ private TextView txtPrint_date1;
 
             btnPrint_pay = view.findViewById(R.id.btnPrint_pay);
             btnPrint_dismis = view.findViewById(R.id.btnPrint_dismis);
+            btnPrint_dismis1 = view.findViewById(R.id.btnPrint_dismis1);
 
 
             btnPrint_pay.setOnClickListener(new View.OnClickListener() {
@@ -464,6 +468,14 @@ private TextView txtPrint_date1;
                 public void onClick(View view) {
                     nestedMain.setVisibility(View.VISIBLE);
                     linearPrint.setVisibility(View.GONE);
+                }
+            });
+
+            btnPrint_dismis1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    nestedMain.setVisibility(View.VISIBLE);
+                    linearPrint1.setVisibility(View.GONE);
                 }
             });
         } catch (Exception e) {
@@ -489,26 +501,26 @@ private TextView txtPrint_date1;
                 JSONObject jsonTSF = objectData.getJSONObject("turnSpecification");
                 String date = jsonTSF.getString("date_string") + "";
                 String timeRes = jsonTSF.getString("rcp_time_str") + "";
-                String timeHozor = jsonTSF.getString("prg_time") + "";
+                String timeHozor = jsonTSF.getString("attend_time") + "";
                 String shift = jsonTSF.getString("shift_title") + "";
                 String doctorName = jsonTSF.getString("dr_name") + "";
                 String typeRes = jsonTSF.getString("srv_title") + "";
                 String spctitle = jsonTSF.getString("spc_title") + "";
                 JSONObject bimeData = jsonTSF.getJSONObject("pInsurance");
                 String bimeTitle = bimeData.getString("ins_title");
-
-
+               String rcpDate =bimeData.getString("rcp_date");
                 JSONObject jsonPatient = objectData.getJSONObject("patient");
                 String nameFamily = jsonPatient.getString("first_name") + " " + jsonPatient.getString("last_name");
 
                 JSONObject jsonPay = objectData.getJSONObject("pay");
                 String price = jsonPay.getString("pat_pay_str") + "";
-                String peygiri = jsonPay.getString("pat_pay") + "";
+
                 String pakhshName = jsonTSF.getString("sec_title") + "";
                 String codNobat = jsonTSF.getString("rcp_no") + "";
-                String numberNobat = jsonTSF.getString("csh_rcp_no") + "";
+                String numberNobat = jsonTSF.getString("seq_no") + "";
                 stepId = jsonTSF.getString("step_id") + "";
 
+                String peygiri = jsonTSF.getString("trace_no") + "";
 
                 if (hospitalName.equals("null"))
                     hospitalName = "";
@@ -554,15 +566,20 @@ private TextView txtPrint_date1;
 
                 if (numberNobat.equals("null"))
                     numberNobat = "";
+                if (rcpDate.equals("null"))
+                    rcpDate = "";
+
+                if (peygiri.equals("null"))
+                    peygiri ="";
 
                 //---------------------------------
                 txtPrint_hospitalName.setText(hospitalName);
                 txtPrint_hospitalName1.setText(hospitalName);
-                txtPrint_hospitalAddress.setText( hospitalAddress);
-                txtPrint_hospitalAddress1.setText( hospitalAddress);
-                txtPrint_hospitalTell.setText( hospitalTel );
-                txtPrint_hospitalTell1.setText( hospitalTel );
 
+                txtPrint_hospitalAddress.setText("آدرس:"+  hospitalAddress );
+                txtPrint_hospitalAddress1.setText("آدرس:"+  hospitalAddress );
+                txtPrint_hospitalTell.setText("تلفن مرکز:"+hospitalTel );
+                txtPrint_hospitalTell1.setText("تلفن مرکز:"+hospitalTel );
 
                 txtPrint_doctor.setText( doctorName );
                 txtPrint_doctor1.setText( doctorName );
@@ -570,7 +587,7 @@ private TextView txtPrint_date1;
 
                 txtPrint_spcTitle.setText( spctitle );
                 txtPrint_spcTitle1.setText( spctitle );
-
+                txtPrint_date.setText(date );
                 txtPrint_date1.setText(date );
                 txtPrint_time2.setText( timeRes );
 
@@ -584,6 +601,8 @@ private TextView txtPrint_date1;
                 txtPrint_typeBime1.setText( bimeTitle );
                 txtPrint_firstLastName.setText(nameFamily );
                 txtPrint_firstLastName1.setText(nameFamily );
+
+                txtPrint_rcpDate.setText(rcpDate );
 
                 if (Integer.parseInt(stepId) < 60) {
                     linearPrint.setVisibility(View.VISIBLE);
@@ -611,7 +630,7 @@ private TextView txtPrint_date1;
 
                 Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/b_titr.ttf");
                 txtPrint_numberNobat.setTypeface(font);
-
+                txtPrint_hozor.setTypeface(font);
                 if (!img.equals("")) {
                     if (!img.equals("null")) {
                         try {

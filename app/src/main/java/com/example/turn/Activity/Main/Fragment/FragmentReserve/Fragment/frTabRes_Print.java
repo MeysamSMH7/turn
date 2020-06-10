@@ -29,6 +29,8 @@ import com.example.turn.R;
 
 import org.json.JSONObject;
 
+import arsatech.co.justifiedtextview.JustifiedTextView;
+
 public class frTabRes_Print extends Fragment {
 //print
 
@@ -42,6 +44,7 @@ public class frTabRes_Print extends Fragment {
     private TextView txtPrint_typeBime;
     private TextView txtPrint_firstLastName;
     private TextView  txtPrint_message;
+    private JustifiedTextView txtPrint_message1;
     private TextView txtPrint_price;
     private TextView txtPrint_bakhsh;
     private TextView txtPrint_codNobat;
@@ -53,6 +56,7 @@ public class frTabRes_Print extends Fragment {
     private TextView txtPrint_hospitalAddress;
     private TextView txtPrint_hospitalTell;
     private Button btnPrint_dismis;
+
     private Button btnPrint_pay;
     private String rcp_id = "";
     private String hsp_id = "";
@@ -75,7 +79,7 @@ public class frTabRes_Print extends Fragment {
         onAttachToParentFragment(getParentFragment());
         loading();
         print(view);
-
+        btnPrint_dismis.setVisibility(View.GONE);
         return view;
     }
 
@@ -104,7 +108,6 @@ public class frTabRes_Print extends Fragment {
         } else {
 
             txtNoData.setVisibility(View.GONE);
-            layoutMain.setVisibility(View.VISIBLE);
 
             String vPazireshlink = message;
             JSONObject jsonObject = new JSONObject();
@@ -127,6 +130,7 @@ public class frTabRes_Print extends Fragment {
             String status = object.getString("status");
             String message = object.getString("message");
             if (status.equals("yes")) {
+                layoutMain.setVisibility(View.VISIBLE);
                 String data = object.getString("data");
                 JSONObject objectData = new JSONObject(data);
                 //get  patient
@@ -209,8 +213,8 @@ public class frTabRes_Print extends Fragment {
 
                 //---------------------------------
                 txtPrint_hospitalName.setText(hospitalName);
-                txtPrint_hospitalAddress.setText(hospitalAddress );
-                txtPrint_hospitalTell.setText(hospitalTel );
+                txtPrint_hospitalAddress.setText("آدرس:"+  hospitalAddress );
+                txtPrint_hospitalTell.setText("تلفن مرکز:"+hospitalTel );
                 txtPrint_date.setText(date );
                 txtPrint_shit.setText( shift );
                 txtPrint_doctor.setText(doctorName);
@@ -222,6 +226,7 @@ public class frTabRes_Print extends Fragment {
                 txtPrint_price.setText(price);
                 Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/b_titr.ttf");
                 txtPrint_message.setTypeface(font);
+                txtPrint_message1.setTypeface(font);
            /*
 
                 txtPrint_bakhsh.setText("نام بخش: " + Html.fromHtml("<b>" + pakhshName + "</b>"));
@@ -256,9 +261,17 @@ public class frTabRes_Print extends Fragment {
             } else if (message.equals("Error creating window handle.")) {
 //--------- back to previous
 
+                new ShowMessage(getContext()).ShowMessType2_NoBtn("در هنگام پردازش اطلاعات خطایی رخ داده است.", true, 2);
+                msetDataToFragment.setDataToFragment("","fourthToFirst");
+                layoutMain.setVisibility(View.GONE);
+                txtNoData.setVisibility(View.VISIBLE);
             } else {
 //--------- back to previous
 
+                msetDataToFragment.setDataToFragment("","fourthToFirst");
+                layoutMain.setVisibility(View.GONE);
+                btnPrint_dismis.setVisibility(View.GONE);
+                txtNoData.setVisibility(View.VISIBLE);
                 new ShowMessage(getContext()).ShowMessType2_NoBtn(message, true, 2);
             }
 
@@ -306,15 +319,6 @@ public class frTabRes_Print extends Fragment {
             txtPrint_hospitalTell = view.findViewById(R.id.txtPrint_hospitalTell);
             btnPrint_pay = view.findViewById(R.id.btnPrint_pay);
             btnPrint_dismis = view.findViewById(R.id.btnPrint_dismis);
-        Button    btnPrint_dismis1 = view.findViewById(R.id.btnPrint_dismis1);
-btnPrint_dismis1.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        msetDataToFragment.setDataToFragment("","fourthToFirst");
-        layoutMain.setVisibility(View.GONE);
-        txtNoData.setVisibility(View.VISIBLE);
-    }
-});
 
             btnPrint_dismis.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -353,7 +357,6 @@ btnPrint_dismis1.setOnClickListener(new View.OnClickListener() {
                     }
                 }
             });
-
             btnPrint_pay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -34,6 +34,7 @@ import com.example.turn.Classes.EnglishNumber;
 import com.example.turn.Classes.ShowMessage;
 import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -137,7 +138,10 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
         loading();
         paziresh(view);
 
+
+
         return view;
+
     }
 
 
@@ -244,7 +248,7 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
 
             btnPP_search.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(final View view) {
 //                TODO: Send id , meli and erja to link3 -----------------------------------------
                     try {
                         if (arrayListBime.size() != 0) {
@@ -297,7 +301,7 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                             @Override
                             public void OnResponse(String response) {
                                 if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
-                                setDataFromSamane(response);
+                                setDataFromSamane(response,view);
                             }
                         });
 //                String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":{\"ins_id\":\"بیمه ی تکمیلی\",\"home_adr\":\"اراک انتهای خیابان\",\"is_sex\":\"0\",\"city_id\":\"1\",\"home_mbl\":\"09386977100\",\"father_name\":\"علی\",\"last_name\":\"حسینی\",\"first_name\":\"سیدمیثم\"}}";
@@ -541,7 +545,7 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
     }
 
     // استعلام هویت  estelame hoviyat
-    private void setDataFromSamane(String res) {
+    private void setDataFromSamane(String res,View view) {
 
         try {
             JSONObject object = new JSONObject(res);
@@ -559,7 +563,22 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
             JSONObject jsonPatient = objectData.getJSONObject("patient");
             firstNameSamane = jsonPatient.getString("first_name") + "";
             lastNameSamane = jsonPatient.getString("last_name") + "";
+            if (firstNameSamane.equals("null") || lastNameSamane.equals("null")) {
+
+                Snackbar.make(view, "اتصال به سرویس استحقاق درمان امکان پذیر نیست،لطفا فرم زیر را تکمیل کنید", Snackbar.LENGTH_LONG)
+                        .setAction("بستن", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        })
+                        .setActionTextColor(getResources().getColor(android.R.color.holo_red_light ))
+                        .show();}
+
+
             if (!firstNameSamane.equals("null") || !lastNameSamane.equals("null")) {
+
+
                 cardViewFrPP_org.setVisibility(View.GONE);
                 fatherNameSamane = jsonPatient.getString("father_name") + "";
                 if (fatherNameSamane.equals("null")) fatherNameSamane = "";
@@ -639,8 +658,13 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
             } else {
                 cardViewFrPP_org.setVisibility(View.VISIBLE);
                 JSONArray arrayOrg = objectData.getJSONArray("orgs");
+                     if (arrayListOrg.size() != 0) {
+                                arrayListOrg.clear();
+                                arrayListOrgID.clear();
+                            }
                 for (int i = 0; i < arrayOrg.length(); i++) {
                     JSONObject temp = arrayOrg.getJSONObject(i);
+
                     arrayListOrg.add(temp.getString("title"));
                     arrayListOrgID.add(temp.getString("id"));
                 }
@@ -745,6 +769,8 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                         String title = txttitle.getText().toString();
                         String id = txtId.getText().toString();
                         if (tag.equals("PPCity")) {
+
+
                             txtFrPP_city.setText(title + "");
                             cityIdSamane = id;
                         } else if (tag.equals("PPOstan")) {
@@ -770,10 +796,10 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                             txtFrPP_bime.setText(title + "");
                             bimeIdSamane = id;
                         } else if (tag.equals("PPOrg")) {
-                            if (arrayListOrg.size() != 0) {
+                           /* if (arrayListOrg.size() != 0) {
                                 arrayListOrg.clear();
                                 arrayListOrgID.clear();
-                            }
+                            }*/
                             txtFrPP_org.setText(title + "");
                             orgIdSamane = id;
                             // clicked on Org dropDown
@@ -783,7 +809,9 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                                 @Override
                                 public void OnResponse(String response) {
                                     // update city in pp
+                                    alertDialogLoding.show();
                                     updteBimePP(response);
+                                    if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
                                 }
                             });
                         }
@@ -961,7 +989,7 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                 txtPP_motakhasesName.setText(spc_level_title + ": " + spc_title);
                 txtPP_datePP.setText("تاریخ: " + turn_date);
                 //  txtPP_datePP.setText("تاریخ:" + turn_date);
-                if (!dr_image.equals("null"))
+            /*    if (!dr_image.equals("null"))
                     if (!dr_image.equals("")) {
                         try {
                             String encodedDataString = dr_image;
@@ -971,7 +999,7 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                    }
+                    }*/
 
                 if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
 

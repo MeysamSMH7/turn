@@ -3,11 +3,14 @@ package com.example.turn.Activity.Main.Fragment.FragmentReserve.Fragment;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -35,6 +38,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static android.app.Activity.RESULT_OK;
 
 public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextListener {
     //  linearSelectFilters
@@ -97,7 +102,7 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
 
 
     public void getDataFromFragment(String message) {
-        Toast.makeText(getContext(), message+"frTabRes_Filter", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), message + "frTabRes_Filter", Toast.LENGTH_SHORT).show();
     }
 
     @Nullable
@@ -176,7 +181,7 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
                     defaultDataDropDown();
                 }
             });
-//merccccccccccccccccccccc
+
             btnFrRes_next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -420,10 +425,36 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
     }
 
     //    SearchView
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 123) {
+            if (resultCode == RESULT_OK && null != data) {
+                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                String resSpeak = result.get(0);
+               /* resSpeak  = resSpeak.replace( "ی","ي");
+                resSpeak  = resSpeak.replace( "ک","ك");*/
+                editsearchSearchView.setQuery(resSpeak, false);
+            }
+        }
+    }
+
     private void alertDialogSearch(final String tag) {
         try {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.item_listview_chooser, null, false);
+            ImageButton btnSpeak = layout.findViewById(R.id.btnSpeak);
+            btnSpeak.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "fa");
+                    startActivityForResult(intent, 123);
+                }
+            });
+
 
             Button btnFr = layout.findViewById(R.id.btnFr);
             btnFr.setOnClickListener(new View.OnClickListener() {
@@ -435,6 +466,7 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
 
             ArrayList arrayList = new ArrayList();
             ArrayList arrayListID = new ArrayList();
+
 
             if (tag.equals("city")) {
                 arrayList = new ArrayList(dataCity);
@@ -648,7 +680,8 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
         return false;
     }
 
-  private   setDataToFragment msetDataToFragment;
+    private setDataToFragment msetDataToFragment;
+
     private void onAttachToParentFragment(Fragment fragment) {
         try {
             msetDataToFragment = (setDataToFragment) fragment;

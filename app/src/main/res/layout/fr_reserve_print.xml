@@ -11,11 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:visibility="gone"
+
         android:text="هیچ اطلاعاتی وجود ندارد" />
 
         <LinearLayout
             android:id="@+id/linearPrint"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
@@ -262,7 +263,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="3dp"
                                     android:gravity="right"
-                                    android:textSize="20dp"
+                                    android:textSize="16dp"
+
                                     android:text=""
                                     android:textStyle="bold" />
 
@@ -333,7 +335,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="3dp"
                                 android:padding="7dp"
-                                android:textSize="20dp"
+                                android:textSize="16dp"
                                 android:gravity="center"
                                 android:text="جهت تکمیل فرآیند نوبت دهی پرداخت کنید."
                                 android:textColor="@color/colorRed2"
@@ -347,7 +349,7 @@
                                 />-->
 
                             <arsatech.co.justifiedtextview.JustifiedTextView
-                                android:id="@+id/jtvSample"
+                                android:id="@+id/dasa"
                                 android:layout_width="match_parent"
                                 android:layout_margin="3dp"
                                 android:padding="7dp" android:textColor="@color/colorRed2"

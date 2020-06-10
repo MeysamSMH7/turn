@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.turn">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:name=".Classes.BaseActivity_Turn"
         android:allowBackup="true"
@@ -14,12 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".temp2.MainActivity"></activity>
         <activity android:name=".temp2.Activity_Test">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".tempActivity">
 
@@ -29,17 +29,29 @@
             <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".Activity.Wellcome.Activity_Welcome_Turn" />
-        <activity android:name=".Activity.Splash.Activity_Splash_Turn">
+        <activity
+            android:name=".Activity.Wellcome.Activity_Welcome_Turn"
+            android:screenOrientation="fullSensor" />
+        <activity
+            android:name=".Activity.Splash.Activity_Splash_Turn"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.Main.Activity_Main_Turn" >
-
-        </activity>
+        <activity
+            android:name=".Activity.Main.Activity_Main_Turn"
+            android:screenOrientation="fullSensor" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION"
+        />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-feature android:name="android.hardware.location.gps" />
 </manifest>

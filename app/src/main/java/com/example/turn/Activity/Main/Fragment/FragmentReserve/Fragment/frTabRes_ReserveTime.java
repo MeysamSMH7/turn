@@ -29,6 +29,7 @@ import com.example.turn.Activity.Main.Fragment.FragmentReserve.Adapter.AdRecycRe
 import com.example.turn.Activity.Main.Fragment.FragmentReserve.Model.ModResTime;
 import com.example.turn.Classes.EnglishNumber;
 import com.example.turn.Classes.ShowMessage;
+import com.example.turn.Classes.onErrorListener;
 import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
 
@@ -232,96 +233,102 @@ public class frTabRes_ReserveTime extends Fragment {
 
                                     //  هد yetike اکیه
                                     JSONObject jsonObject1 = new JSONObject(response);
-                                    String is_remote = jsonObject1.getString("is_remote");
-                                    final String RemoteVisitMessage = jsonObject1.getString("RemoteVisitMessage");
-                                    String RemoteAgreementation = jsonObject1.getString("RemoteAgreementation");
-                                exp=jsonObject1.getString("exp");
 
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                    LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.tavafoghname, null, false);
-                                    Button btnTavafogh_no = layout.findViewById(R.id.btnTavafogh_no);
-                                    final Button btnTavafogh_ok = layout.findViewById(R.id.btnTavafogh_ok);
-                                    final TextView txtTavafogh = layout.findViewById(R.id.txtTavafogh);
-                                    btnTavafogh_no.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            alertDialogTavafoghName.dismiss();
-                                        }
-                                    });
-                                    btnTavafogh_ok.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            try {
+if (jsonObject1.getString("status").equals("yes")) {
+    String is_remote = jsonObject1.getString("is_remote");
+    final String RemoteVisitMessage = jsonObject1.getString("RemoteVisitMessage");
+    String RemoteAgreementation = jsonObject1.getString("RemoteAgreementation");
+    exp = jsonObject1.getString("exp");
 
-
-                                                alertDialogTavafoghName.dismiss();
-                                                dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
-                                                if (exp.equals("")) {
-                                                    msetDataToFragment.setDataToFragment(dr_prg_hsp_mdc_spc_date_id, "secondToThird");
-                                                } else {
-                                                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
-                                                    builder1.setTitle("");
-                                                    builder1.setMessage(exp);
-                                                    builder1.setPositiveButton(" تایید", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            dialog.dismiss();
-                                                            msetDataToFragment.setDataToFragment(dr_prg_hsp_mdc_spc_date_id, "secondToThird");
-                                                        }
-                                                    });
-                                                    builder1.setNegativeButton(" انصراف", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            dialog.dismiss();
-                                                        }
-                                                    });
-                                                    builder1.create();
-                                                    builder1.show();
-                                                }
+    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+    LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.tavafoghname, null, false);
+    Button btnTavafogh_no = layout.findViewById(R.id.btnTavafogh_no);
+    final Button btnTavafogh_ok = layout.findViewById(R.id.btnTavafogh_ok);
+    final TextView txtTavafogh = layout.findViewById(R.id.txtTavafogh);
+    btnTavafogh_no.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            alertDialogTavafoghName.dismiss();
+        }
+    });
+    btnTavafogh_ok.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            try {
 
 
-                                                //2_242_4781779718_45367_291_13990120
-                                                //dr_prg_hsp_mdc_spc_date
-
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    });
-
-
-                                    builder.setView(layout);
-                                    alertDialogTavafoghName = builder.create();
-                                    alertDialogTavafoghName.show();
-
-                                    if (is_remote.equals("1")) {
-                                        alertDialogTavafoghName.dismiss();
-                                        AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
-                                        builder1.setTitle("");
-                                        builder1.setMessage(RemoteVisitMessage);
-                                        builder1.setPositiveButton("قبول کردن", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
-                                                txtTavafogh.setText(RemoteVisitMessage + "");
-                                                alertDialogTavafoghName.show();
-                                            }
-                                        });
-                                        builder1.setNegativeButton("قوبل نکردن", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
-                                                txtTavafogh.setText(getString(R.string.tavafogName) + "");
-                                                alertDialogTavafoghName.show();
-                                            }
-                                        });
-                                        builder1.create();
-                                        builder1.show();
-
-                                    } else
-                                        txtTavafogh.setText(getString(R.string.tavafogName) + "");
+                alertDialogTavafoghName.dismiss();
+                dr_prg_hsp_mdc_spc_date_id = arrayListResTimes.get(position).id;
+                if (exp.equals("")) {
+                    msetDataToFragment.setDataToFragment(dr_prg_hsp_mdc_spc_date_id, "secondToThird");
+                } else {
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                    builder1.setTitle("");
+                    builder1.setMessage(exp);
+                    builder1.setPositiveButton(" تایید", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            msetDataToFragment.setDataToFragment(dr_prg_hsp_mdc_spc_date_id, "secondToThird");
+                        }
+                    });
+                    builder1.setNegativeButton(" انصراف", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder1.create();
+                    builder1.show();
+                }
 
 
+                //2_242_4781779718_45367_291_13990120
+                //dr_prg_hsp_mdc_spc_date
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    });
+
+
+    builder.setView(layout);
+    alertDialogTavafoghName = builder.create();
+    alertDialogTavafoghName.show();
+
+    if (is_remote.equals("1")) {
+        alertDialogTavafoghName.dismiss();
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+        builder1.setTitle("");
+        builder1.setMessage(RemoteVisitMessage);
+        builder1.setPositiveButton("قبول کردن", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                txtTavafogh.setText(RemoteVisitMessage + "");
+                alertDialogTavafoghName.show();
+            }
+        });
+        builder1.setNegativeButton("قوبل نکردن", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                txtTavafogh.setText(getString(R.string.tavafogName) + "");
+                alertDialogTavafoghName.show();
+            }
+        });
+        builder1.create();
+        builder1.show();
+
+    } else
+        txtTavafogh.setText(getString(R.string.tavafogName) + "");
+
+}
+else    {
+    String txt = jsonObject1.getString("message");
+    new ShowMessage(getContext()).ShowMessType2_NoBtn( txt+ "", true, 2);
+}
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }

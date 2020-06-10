@@ -52,7 +52,7 @@ public class AdRecycResTimes extends RecyclerView.Adapter<AdRecycResTimes.ViewHo
 
 			String hospitalName = data.get(position).hsp_title;
 			hospitalName = hospitalName.replace("بیمارستان", "");
-			holder.txtRcycRT_hospital.setText("بیمارستان " + hospitalName);
+			holder.txtRcycRT_hospital.setText("بیمارستان :" + hospitalName);
 			holder.txtRcycRT_shift.setText("شیفت :" + data.get(position).shift_title);
 			holder.txtRcycRT_doctorName.setText("دکتر: " + data.get(position).dr_name);
 			holder.txtRcycRT_takhasos.setText("تخصص: " + data.get(position).spc_title);
