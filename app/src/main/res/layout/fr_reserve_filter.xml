@@ -51,7 +51,15 @@
                         android:text="انتخاب شهر"
                         android:textColor="@color/colorLogo"
                         android:textStyle="bold" />
-
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginLeft="2dp"
+                        android:orientation="horizontal"
+                        android:tint="@color/colorGray2"
+                        android:src="@drawable/ic_chevron"
+                        />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -92,50 +100,20 @@
                         android:text="تمامی درمانگاهها"
                         android:textColor="@color/colorLogo"
                         android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                app:cardCornerRadius="7dp">
-
-                <LinearLayout
-                    android:id="@+id/linearFrRes_doctor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:background="@drawable/bg_white_corner_"
-                    android:orientation="horizontal"
-                    android:padding="7dp">
-
                     <ImageView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_marginLeft="35dp"
+                        android:layout_width="16dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginLeft="2dp"
                         android:orientation="horizontal"
-                        android:src="@drawable/doctor"
-                        android:tint="@color/colorIcons" />
-
-                    <TextView
-                        android:id="@+id/txtFrRes_doctor"
-                        android:layout_width="381dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="13dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_weight="1"
-                        android:gravity="right|center"
-                        android:paddingLeft="7dp"
-                        android:paddingRight="45dp"
-                        android:text="تمامی پزشکان "
-                        android:textColor="@color/colorLogo"
-                        android:textStyle="bold" />
+                        android:tint="@color/colorGray2"
+                        android:src="@drawable/ic_chevron"
+                        />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -175,7 +153,63 @@
                         android:textStyle="bold"
 
                         />
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginLeft="2dp"
+                        android:orientation="horizontal"
+                        android:tint="@color/colorGray2"
+                        android:src="@drawable/ic_chevron"
+                        />
+                </LinearLayout>
 
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                app:cardCornerRadius="7dp">
+
+                <LinearLayout
+                    android:id="@+id/linearFrRes_doctor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/bg_white_corner_"
+                    android:orientation="horizontal"
+                    android:padding="7dp">
+
+                    <ImageView
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="35dp"
+                        android:orientation="horizontal"
+                        android:src="@drawable/doctor"
+                        android:tint="@color/colorIcons" />
+
+                    <TextView
+                        android:id="@+id/txtFrRes_doctor"
+                        android:layout_width="381dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:gravity="right|center"
+                        android:paddingLeft="7dp"
+                        android:paddingRight="45dp"
+                        android:text="تمامی پزشکان "
+                        android:textColor="@color/colorLogo"
+                        android:textStyle="bold" />
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginLeft="2dp"
+                        android:orientation="horizontal"
+                        android:tint="@color/colorGray2"
+                        android:src="@drawable/ic_chevron"
+                        />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -215,7 +249,15 @@
                         android:text="بازه زمانی"
                         android:textColor="@color/colorLogo"
                         android:textStyle="bold" />
-
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginLeft="2dp"
+                        android:orientation="horizontal"
+                        android:tint="@color/colorGray2"
+                        android:src="@drawable/ic_chevron"
+                        />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -296,6 +338,7 @@
                     android:layout_weight="0.5"
                     android:background="@drawable/button_background_blue"
                     android:text="جستجو"
+
                     android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold" />
 

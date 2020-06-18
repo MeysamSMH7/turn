@@ -92,6 +92,7 @@
                     android:maxLines="1"
                     android:paddingRight="7dp"
                     android:text="بیمارستان:"
+                    android:textStyle="bold"
                     android:textColor="@color/colorAccent" />
 
                 <TextView

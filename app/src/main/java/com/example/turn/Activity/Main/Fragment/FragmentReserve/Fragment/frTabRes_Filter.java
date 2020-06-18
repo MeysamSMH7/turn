@@ -1,8 +1,6 @@
 package com.example.turn.Activity.Main.Fragment.FragmentReserve.Fragment;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -12,29 +10,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.turn.Activity.Main.Activity_Main_Turn;
 import com.example.turn.Activity.Main.Adapter.AdRecycPopUp;
 import com.example.turn.Activity.Main.Adapter.onClickInterface;
 import com.example.turn.Activity.Main.Adapter.setDataToFragment;
 import com.example.turn.Activity.Main.Model.ModAlerts;
-import com.example.turn.Classes.EnglishNumber;
 import com.example.turn.Classes.ShowMessage;
 import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -116,6 +108,7 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
         selectFilters(view);
         onAttachToParentFragment(getParentFragment());
 
+        txtFrRes_city.setInputType(0);
         return view;
     }
 
@@ -263,6 +256,7 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
 
     private void defaultDataDropDown() {
         try {
+
             dataHospital = new ArrayList(dataHospital2);
             dataHospitalID = new ArrayList(dataHospitalID2);
             dataTakhasos = new ArrayList(dataTakhasos2);
@@ -279,6 +273,8 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
             hospiralId = dataHospitalID.get(0) + "";
             timeId = dataTimeID.get(0) + "";
             doctorId = dataDoctorID.get(0) + "";
+
+            doctorSt = "";
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -441,6 +437,7 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
     }
 
     private void alertDialogSearch(final String tag) {
+
         try {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.item_listview_chooser, null, false);
@@ -451,6 +448,7 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
                     Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                     intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                     intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "fa");
+
                     startActivityForResult(intent, 123);
                 }
             });
@@ -652,6 +650,10 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
             alertDialogFilter = builder.create();
             alertDialogFilter.show();
             alertDialogFilter.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            btnFrRes_next.setTextColor(getResources().getColor(R.color.colorRed));
+            btnFrRes_next.setBackground(getResources().getDrawable(R.drawable.button_background_red));
+
+         //   new HideKeyboardFrom(getContext(), layout);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -677,7 +679,10 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        return false;
+
+        // your search methods
+        editsearchSearchView.clearFocus();
+        return true;
     }
 
     private setDataToFragment msetDataToFragment;
@@ -690,6 +695,5 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
                     fragment.toString() + " must implement OnPlayerSelectionSetListener");
         }
     }
-
 
 }

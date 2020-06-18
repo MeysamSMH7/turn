@@ -120,6 +120,7 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
 
     private AlertDialog alertDialogFilter;
 
+    /**/
     //
     public static frTabRes_RazireshPage newInstance() {
 
@@ -137,7 +138,6 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
         onAttachToParentFragment(getParentFragment());
         loading();
         paziresh(view);
-
 
 
         return view;
@@ -233,7 +233,7 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
             edtFrPP_Cod = view.findViewById(R.id.edtFrPP_Cod);
             btnPP_search = view.findViewById(R.id.btnPP_search);
             btnPP_paziresh = view.findViewById(R.id.btnPP_paziresh);
-            btnPP_paziresh.setVisibility(View.INVISIBLE);
+            // btnPP_paziresh.setVisibility(View.INVISIBLE);
             txtNoData = view.findViewById(R.id.txtNoData);
             layoutMain = view.findViewById(R.id.layoutMain);
 
@@ -261,15 +261,15 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                                 Toast.makeText(getContext(), "کد ملی معتبر نیست", Toast.LENGTH_SHORT).show();
                                 return;
                             }
-
                         }
+
+
                         if (codMeliOrErja.equals("کد ارجاع")) {
                             if (meliOrEjra.equals("")) {
                                 Toast.makeText(getContext(), "شماره ارجاع نا معتبر است", Toast.LENGTH_SHORT).show();
                                 return;
                             }
                         }
-
                         JSONObject object = new JSONObject();
                         try {
                             if (meliOrErja) {
@@ -283,9 +283,9 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
+                /*        aa
                         linearPazireshPage2.setVisibility(View.VISIBLE);
-                        btnPP_paziresh.setVisibility(View.VISIBLE);
+                        btnPP_paziresh.setVisibility(View.VISIBLE);*/
 
                         String vUrl = "";
                         if (codMeliOrErja.equals("کد ملی")) {
@@ -301,7 +301,7 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                             @Override
                             public void OnResponse(String response) {
                                 if (alertDialogLoding.isShowing()) alertDialogLoding.dismiss();
-                                setDataFromSamane(response,view);
+                                setDataFromSamane(response, view);
                             }
                         });
 //                String res = "{\"status\":\"yes\",\"message\":\"\",\"data\":{\"ins_id\":\"بیمه ی تکمیلی\",\"home_adr\":\"اراک انتهای خیابان\",\"is_sex\":\"0\",\"city_id\":\"1\",\"home_mbl\":\"09386977100\",\"father_name\":\"علی\",\"last_name\":\"حسینی\",\"first_name\":\"سیدمیثم\"}}";
@@ -356,21 +356,65 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
                             return;
                         }*/
 
+
                         if (EnglishNumber.convert(edtFrPP_family.getText().toString()).equals("")) {
                             Toast.makeText(getContext(), "نام خانوادگی نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
 
                             return;
                         }
 
+                        if (EnglishNumber.convert(edtFrPP_family.getText().toString()).equals("-")) {
+                            Toast.makeText(getContext(), "نام خانوادگی نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        String vFamily = EnglishNumber.convert(edtFrPP_family.getText().toString()).replace(" ", "");
+                        if (vFamily.length() < 3) {
+                            Toast.makeText(getContext(), "نام خانوادگی نمیتواند کمتر از سه حرف باشد", Toast.LENGTH_SHORT).show();
+
+                            return;
+                        }
+                        String vFamilys = safeChar(vFamily) + "";
+                        if (vFamilys.length() > 0) {
+                            Toast.makeText(getContext(), "نام خانوادگی نمیتواند شامل کارکتر غیر از حروف فارسی باشد.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+
                         if (EnglishNumber.convert(edtFrPP_name.getText().toString()).equals("")) {
                             Toast.makeText(getContext(), "نام نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
-                        if (EnglishNumber.convert(edtFrPP_fatherName.getText().toString()).equals("")) {
+
+                        String vName = EnglishNumber.convert(edtFrPP_name.getText().toString()).replace(" ", "");
+                        if (vName.length() < 3) {
+                            Toast.makeText(getContext(), "نام  نمیتواند کمتر از سه حرف باشد", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        String sName = safeChar(vName) + "";
+                        if (sName.length() > 0) {
+                            Toast.makeText(getContext(), "نام  نمیتواند شامل کارکتر غیر از حروف فارسی باشد.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        String vfatherName = EnglishNumber.convert(edtFrPP_fatherName.getText().toString()) + "";
+                        if (vfatherName.equals("")) {
                             Toast.makeText(getContext(), "نام پدر نمیتواند خالی باشد", Toast.LENGTH_SHORT).show();
                             return;
                         }
+
+                        String sfatherName = safeChar(vfatherName) + "";
+                        if (sfatherName.length() > 0) {
+                            Toast.makeText(getContext(), "نام پدر نمیتواند شامل کارکتر غیر از حروف فارسی باشد.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                     /*   if (! EnglishNumber.convert(edtFrPP_fatherName.getText().toString()).equals("") || phoneNum.length() == 11 || ! txtFrPP_city.equals("0") ||
+                       ! EnglishNumber.convert(edtFrPP_family.getText().toString()).equals("") ) {
+                            btnPP_paziresh.setVisibility(View.VISIBLE);
+                        }
+*/
+
 
 //----------- when print is ok this 3 lines will be there (after get data rom server!!!!!)
                   /*      linearLinears.setVisibility(View.GONE);
@@ -545,12 +589,30 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
     }
 
     // استعلام هویت  estelame hoviyat
-    private void setDataFromSamane(String res,View view) {
+    private void setDataFromSamane(String res, View view) {
 
         try {
             JSONObject object = new JSONObject(res);
             String status = object.getString("status");
             String message = object.getString("message");
+
+            if (arrayListOstan.size() != 0)
+                arrayListOstan.clear();
+            if (arrayListCity.size() != 0)
+                arrayListCity.clear();
+            if (arrayListBime.size() != 0)
+                arrayListBime.clear();
+            if (arrayListOstanID.size() != 0)
+                arrayListOstanID.clear();
+            if (arrayListCityID.size() != 0)
+                arrayListCityID.clear();
+            if (arrayListBimeID.size() != 0)
+                arrayListBimeID.clear();
+            if (arrayListOrg.size() != 0)
+                arrayListOrg.clear();
+            if (arrayListOrgID.size() != 0)
+                arrayListOrgID.clear();
+
 
             //dar halate code erja
             if (message.contains("عدم تطابق تخصص"))
@@ -572,8 +634,9 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
 
                             }
                         })
-                        .setActionTextColor(getResources().getColor(android.R.color.holo_red_light ))
-                        .show();}
+                        .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
+                        .show();
+            }
 
 
             if (!firstNameSamane.equals("null") || !lastNameSamane.equals("null")) {
@@ -658,10 +721,10 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
             } else {
                 cardViewFrPP_org.setVisibility(View.VISIBLE);
                 JSONArray arrayOrg = objectData.getJSONArray("orgs");
-                     if (arrayListOrg.size() != 0) {
-                                arrayListOrg.clear();
-                                arrayListOrgID.clear();
-                            }
+                if (arrayListOrg.size() != 0) {
+                    arrayListOrg.clear();
+                    arrayListOrgID.clear();
+                }
                 for (int i = 0; i < arrayOrg.length(); i++) {
                     JSONObject temp = arrayOrg.getJSONObject(i);
 
@@ -850,13 +913,28 @@ public class frTabRes_RazireshPage extends Fragment implements SearchView.OnQuer
     @Override
     public boolean onQueryTextChange(String newText) {
         String text = newText;
+       /* text = text.replace("ا","آ");*/
         adRecycPopUp.filter(text);
+    /*    text = text.replace("آ","ا");
+        adRecycPopUp.filter(text);*/
         return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
+    }
+
+    public static String safeChar(String input) {
+        char[] allowed = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_".toCharArray();
+        char[] charArray = input.toString().toCharArray();
+        StringBuilder result = new StringBuilder();
+        for (char c : charArray) {
+            for (char a : allowed) {
+                if (c == a) result.append(a);
+            }
+        }
+        return result.toString();
     }
 
     private void updateCityPP(String response) {

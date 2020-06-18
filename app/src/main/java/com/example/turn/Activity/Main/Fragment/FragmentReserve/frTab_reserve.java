@@ -40,10 +40,10 @@ public class frTab_reserve extends Fragment implements setDataToFragment {
     private List<Fragment> fragments;
     private String[] titles;
     private int[] tabIcons = {
-            R.drawable.ic_num_1,
-            R.drawable.ic_num_2,
-            R.drawable.ic_num_2,
-            R.drawable.bandage
+            R.drawable.ic_microphone_2,
+            R.drawable.ic_microphone_2,
+            R.drawable.ic_microphone_2,
+            R.drawable.ic_microphone_2
     };
 
     @Nullable
@@ -56,7 +56,11 @@ public class frTab_reserve extends Fragment implements setDataToFragment {
         findViews(view);
         changeTabsFont(tl_tabLayout);
         initViewPager();
-        customTab();
+
+        titles = new String[]{"جستجو >>", "نوبت >>", "پذیرش >>", "چاپ"};
+        customTab(titles);
+
+
 
         return view;
     }
@@ -103,16 +107,16 @@ public class frTab_reserve extends Fragment implements setDataToFragment {
         vp_viewPager.setOffscreenPageLimit(limit);
         vp_viewPager.setCurrentItem(0);
 
-/*        tl_tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tl_tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tl_tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tl_tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-        tl_tabLayout.getTabAt(2).setIcon(tabIcons[2]);*/
+        tl_tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+
 
     }
 
-    private void customTab() {
-
-        titles = new String[]{"جستجو", "نوبت ها", "گرفتن\u200Cنوبت", "چاپ"};
+    private void customTab(String titles[]) {
+        titles = new String[]{"جستجو >>", "نوبت >>", "پذیرش >>", "چاپ"};
         for (int i = 0; i < tl_tabLayout.getTabCount(); i++) {
             LinearLayout tab = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.item_tablayout, null);
             TextView tab_label = (TextView) tab.findViewById(R.id.nav_label);
@@ -144,6 +148,12 @@ public class frTab_reserve extends Fragment implements setDataToFragment {
             tag2 = "android:switcher:" + R.id.vp_viewPagerFR + ":" + 3;
             frTabRes_Print fragmentByTag3 = (frTabRes_Print) getChildFragmentManager().findFragmentByTag(tag2);
             fragmentByTag3.getDataFromFragment("false");
+
+
+//            titles = new String[]{"جستجو1", "نوبت1 ها", "اخذ\u200Cنو1بت", "چا1پ"};
+//            customTab(titles);
+
+
 
         } else if (tag.equals("secondToThird")) {
             String tag2 = "android:switcher:" + R.id.vp_viewPagerFR + ":" + 2;

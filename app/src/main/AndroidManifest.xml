@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".temp2.MainActivity"></activity>
+        <activity android:name=".temp2.MainActivity">
+
+        </activity>
         <activity android:name=".temp2.Activity_Test">
 
             <!-- <intent-filter> -->
@@ -31,7 +33,9 @@
         </activity>
         <activity
             android:name=".Activity.Wellcome.Activity_Welcome_Turn"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
         <activity
             android:name=".Activity.Splash.Activity_Splash_Turn"
             android:configChanges="orientation|keyboardHidden"
@@ -44,7 +48,9 @@
         </activity>
         <activity
             android:name=".Activity.Main.Activity_Main_Turn"
-            android:screenOrientation="fullSensor" />
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 

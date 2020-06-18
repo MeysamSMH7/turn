@@ -302,7 +302,7 @@ if (jsonObject1.getString("status").equals("yes")) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
         builder1.setTitle("");
         builder1.setMessage(RemoteVisitMessage);
-        builder1.setPositiveButton("قبول کردن", new DialogInterface.OnClickListener() {
+        builder1.setPositiveButton("پذیرفتن", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -310,7 +310,7 @@ if (jsonObject1.getString("status").equals("yes")) {
                 alertDialogTavafoghName.show();
             }
         });
-        builder1.setNegativeButton("قوبل نکردن", new DialogInterface.OnClickListener() {
+        builder1.setNegativeButton("عدم پذیرش", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

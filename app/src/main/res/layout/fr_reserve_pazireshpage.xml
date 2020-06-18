@@ -202,6 +202,7 @@
                         android:id="@+id/linearPazireshPage2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="invisible"
                         android:orientation="vertical">
 
                         <androidx.cardview.widget.CardView
@@ -404,6 +405,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:backgroundTint="@color/colorPurple7"
+                                    android:textColorHint="@color/colorPurple8"
                                     android:gravity="right"
                                     android:inputType="number"
                                     android:maxLines="2"
@@ -504,7 +506,7 @@
                                     android:layout_weight="0.5"
                                     android:gravity="right|center"
                                     android:paddingLeft="7dp"
-                                    android:text="انتخاب ارگان"
+                                    android:text="انتخاب سازمان"
                                     android:textColor="@color/colorPurple7" />
 
                             </LinearLayout>
@@ -580,34 +582,19 @@
 
                         </androidx.cardview.widget.CardView>
 
-                        <androidx.cardview.widget.CardView
+                        <Button
+                            android:id="@+id/btnPP_paziresh"
                             android:layout_width="match_parent"
-                            android:layout_height="?attr/actionBarSize"
-                            android:layout_margin="3dp"
-                            android:visibility="invisible"
-                            app:cardCornerRadius="7dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="3dp"
-                                android:background="@drawable/bg_white_corner_"
-                                android:orientation="vertical"
-                                android:padding="7dp">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="7dp"
-                                    android:layout_marginBottom="7dp"
-                                    android:layout_weight="0.5"
-                                    android:gravity="right|center"
-                                    android:paddingLeft="7dp"
-                                    android:textColor="@color/colorPurple7" />
-
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="3dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/button_background_blue"
+                            android:text="ثبت پذیرش"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -642,19 +629,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnPP_paziresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:layout_marginBottom="3dp"
-            android:layout_weight="0.5"
-            android:background="@drawable/button_background_blue"
-            android:text="ثبت پذیرش"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"
-            android:visibility="invisible" />
+
 
 
     </LinearLayout>
