@@ -99,12 +99,13 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0.5"
-                                    android:maxLines="1"
+
                                     android:gravity="right"
                                     android:paddingRight="7dp"
                                     android:text="بیمارستان"
+                                    android:textStyle="bold"
                                     android:textColor="@color/colorAccent" />
-
+                    <!--            android:maxLines="1"-->
                                 <TextView
                                     android:id="@+id/txtPP_datePP"
                                     android:layout_width="match_parent"
@@ -234,7 +235,8 @@
                                     android:backgroundTint="@color/colorPurple7"
                                     android:enabled="false"
                                     android:gravity="right"
-                                    android:maxLines="2"
+                                    android:singleLine="true"
+                                    android:inputType="text"
                                     android:paddingEnd="7dp"
                                     android:paddingRight="7dp"
                                     android:textColor="@color/colorPurple7"
@@ -274,7 +276,8 @@
                                     android:backgroundTint="@color/colorPurple7"
                                     android:enabled="false"
                                     android:gravity="right"
-                                    android:maxLines="2"
+                                    android:singleLine="true"
+                                    android:inputType="text"
                                     android:paddingEnd="7dp"
                                     android:paddingRight="7dp"
                                     android:textColor="@color/colorPurple7"
@@ -313,9 +316,10 @@
                                     android:layout_height="wrap_content"
                                     android:backgroundTint="@color/colorPurple7"
                                     android:gravity="right"
-                                    android:maxLines="2"
                                     android:paddingEnd="7dp"
                                     android:paddingRight="7dp"
+                                    android:singleLine="true"
+                                    android:inputType="text"
                                     android:textColor="@color/colorPurple7"
                                     android:textCursorDrawable="@color/colorPurple7"
                                     android:textSize="15sp" />
@@ -408,7 +412,7 @@
                                     android:textColorHint="@color/colorPurple8"
                                     android:gravity="right"
                                     android:inputType="number"
-                                    android:maxLines="2"
+                                    android:singleLine="true"
                                     android:paddingEnd="7dp"
                                     android:paddingRight="7dp"
                                     android:textColor="@color/colorPurple7"

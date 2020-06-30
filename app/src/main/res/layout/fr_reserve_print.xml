@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-
         android:text="هیچ اطلاعاتی وجود ندارد" />
 
         <LinearLayout
@@ -348,15 +347,6 @@
                                 android:text=" از زمان دریافت نوبت تنها 10 دقیقه جهت پرداخت وجه فرصت دارید بعد از پایان این زمان نوبت شما لغو خواهد شد."
                                 />-->
 
-                            <arsatech.co.justifiedtextview.JustifiedTextView
-                                android:id="@+id/dasa"
-                                android:layout_width="match_parent"
-                                android:layout_margin="3dp"
-                                android:padding="7dp" android:textColor="@color/colorRed2"
-                                android:textStyle="bold"
-                                android:gravity="center"
-                                android:layout_height="match_parent"
-                                android:text=" از زمان دریافت نوبت تنها 10 دقیقه جهت پرداخت وجه فرصت دارید بعد از پایان این زمان نوبت شما لغو خواهد شد." />
                         </LinearLayout>
 
                         <LinearLayout
@@ -413,7 +403,23 @@
 
 
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
+
+                        <arsatech.co.justifiedtextview.JustifiedTextView
+                            android:id="@+id/dasa"
+                            android:layout_width="match_parent"
+                            android:layout_margin="3dp"
+                            android:padding="7dp" android:textColor="@color/colorRed2"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_height="match_parent"
+                            android:text=" از زمان دریافت نوبت تنها 5 دقیقه جهت پرداخت وجه فرصت دارید بعد از پایان این زمان نوبت شما لغو خواهد شد." />
+
+                    </LinearLayout>
                 </LinearLayout>
 
             </androidx.core.widget.NestedScrollView>

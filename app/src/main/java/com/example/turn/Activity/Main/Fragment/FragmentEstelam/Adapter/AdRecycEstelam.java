@@ -69,13 +69,10 @@ public class AdRecycEstelam extends RecyclerView.Adapter<AdRecycEstelam.ViewHold
                 stepId = 0;
             else
                 stepId = Integer.parseInt(data.get(position).step_id);
-
             if (stepId < 60)
-
                 holder.btnEstRecy_print.setVisibility(View.VISIBLE);
             else
                 holder.btnEstRecy_print.setVisibility(View.GONE);
-
 
         } catch (Exception e) {
             e.printStackTrace();

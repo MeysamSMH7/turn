@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.RecognizerIntent;
 import android.text.Html;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -48,6 +50,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static android.app.Activity.RESULT_OK;
 
 public class frTab_estelam extends Fragment implements SearchView.OnQueryTextListener {
 
@@ -508,7 +512,7 @@ private TextView txtPrint_date1;
                 String spctitle = jsonTSF.getString("spc_title") + "";
                 JSONObject bimeData = jsonTSF.getJSONObject("pInsurance");
                 String bimeTitle = bimeData.getString("ins_title");
-               String rcpDate =bimeData.getString("rcp_date");
+               String rcpDate =jsonTSF.getString("rcp_date");
                 JSONObject jsonPatient = objectData.getJSONObject("patient");
                 String nameFamily = jsonPatient.getString("first_name") + " " + jsonPatient.getString("last_name");
 
@@ -667,6 +671,22 @@ private TextView txtPrint_date1;
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.item_listview_chooser, null, false);
 
+        //voice type start
+        ImageButton btnSpeak = layout.findViewById(R.id.btnSpeak);
+        btnSpeak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "fa");
+
+                startActivityForResult(intent, 123);
+            }
+        });
+
+//voice type end
+
+
         Button btnFr = layout.findViewById(R.id.btnFr);
         btnFr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -734,5 +754,20 @@ private TextView txtPrint_date1;
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
+    //voice type start
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == 123) {
+            if (resultCode == RESULT_OK && null != data) {
+                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                String resSpeak = result.get(0);
+               /* resSpeak  = resSpeak.replace( "ی","ي");
+                resSpeak  = resSpeak.replace( "ک","ك");*/
+                editsearchSearchView.setQuery(resSpeak, false);
+            }
+        }
+    }
 }
+//voice type end

@@ -1,20 +1,37 @@
 package com.example.turn.Activity.Main.Fragment.FragmentReserve.Fragment;
 
+import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.media.Image;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.speech.RecognizerIntent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,11 +42,24 @@ import com.example.turn.Activity.Main.Model.ModAlerts;
 import com.example.turn.Classes.ShowMessage;
 import com.example.turn.Classes.setConnectionVolley;
 import com.example.turn.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import libs.mjn.prettydialog.PrettyDialog;
+import libs.mjn.prettydialog.PrettyDialogCallback;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -84,6 +114,9 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
 
     private AlertDialog alertDialogLoding;
 
+    private GoogleApiClient mGoogleApiClient = null;
+    private Location mLastLocation;
+
 
     public static frTabRes_Filter newInstance() {
 
@@ -108,8 +141,167 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
         selectFilters(view);
         onAttachToParentFragment(getParentFragment());
 
+        if (Build.VERSION.SDK_INT >= 23) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION
+                            , Manifest.permission.WRITE_SETTINGS
+                            , Manifest.permission.WRITE_SECURE_SETTINGS
+                    }
+                    , RequestPermissionCode);
+        } else
+            getLocation();
+
         txtFrRes_city.setInputType(0);
         return view;
+    }
+
+    private static final int RequestPermissionCode = 1;
+    private Intent intent1;
+    private Location location;
+    private LocationManager locationManager;
+    private boolean GpsStatus = false;
+    private Criteria criteria;
+    private String Holder;
+
+    private void setLoctionSetting() {
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        criteria = new Criteria();
+        Holder = locationManager.getBestProvider(criteria, false);
+        CheckGpsStatus();
+    }
+
+    private void CheckGpsStatus() {
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        GpsStatus = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+    }
+
+    private void getLocation() {
+
+        // میخواییم اینجا الرت دیالوگ رو باز کنیم
+// یک شئی از کتابخونه ی پرتی دیالگو میسازیم
+        final PrettyDialog prettyDialog = new PrettyDialog(getContext());
+        // ایکون تعریف میکنیم براش
+        prettyDialog.setIcon(
+                R.drawable.icon_warning,
+                null,
+                new PrettyDialogCallback() {
+                    @Override
+                    public void onClick() {
+
+                    }
+                });
+// این دکمه هم برای باز کردن تنظیماته
+        prettyDialog.addButton(
+                "روشن کردن",
+                R.color.pdlg_color_white,
+                R.color.colorPrimaryDark,
+                new PrettyDialogCallback() {
+                    @Override
+                    public void onClick() {
+//                        getActivity().startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 223);
+                        prettyDialog.dismiss();
+                        startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS), 222);
+                    }
+                }
+        );
+// یک دکمه ی بستن میذاریم
+        prettyDialog.addButton(
+                "بستن",
+                R.color.pdlg_color_white,
+                R.color.colorPrimaryDark,
+                new PrettyDialogCallback() {
+                    @Override
+                    public void onClick() {
+                        prettyDialog.dismiss();
+                    }
+                }
+        );
+
+// متن بادی
+        prettyDialog.setMessage("لوکشین شما خاموش است لطفا روشنش کنید");
+
+
+        //  اینجا باید یه ایف بذاریم اگر لوکشینش  خاموش بود الرت دیالوگ رو رون کنه
+        // اگر روشن بود لوکیشنش رو بگیره
+// نمیدونم ایا این وضعیت رو میگیر یا نه
+        // برنامه رو ران بگیر با لوکشین خاموش ببینم اینجا می افته یا نه
+        // چشم ولی الان سرور قطعه خخخخ
+        CheckGpsStatus();
+        if (GpsStatus)
+            getLocation2();
+        else
+            prettyDialog.show();
+
+    }
+
+    private void getLocation2() {
+        setLoctionSetting();
+        CheckGpsStatus();
+
+        if (GpsStatus == true) {
+            if (Holder != null) {
+                if (ActivityCompat.checkSelfPermission(
+                        getContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        &&
+                        ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                                != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                location = locationManager.getLastKnownLocation(Holder);
+                locationManager.requestLocationUpdates(Holder, 0, 0, new LocationListener() {
+                    @Override
+                    public void onLocationChanged(Location location) {
+                        Log.d("TAGTAGATA", "Longitude:" + location.getLongitude() + " " + "Latitude:" + location.getLatitude());
+                        //   Toast.makeText(getContext(), "ok", Toast.LENGTH_SHORT).show();
+                        lng_value_single = location.getLongitude() + "";
+                        lat_value_single = location.getLatitude() + "";
+                    }
+
+                    @Override
+                    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                    }
+
+                    @Override
+                    public void onProviderEnabled(String provider) {
+
+                    }
+
+                    @Override
+                    public void onProviderDisabled(String provider) {
+
+                    }
+                });
+            }
+        } else {
+
+            Toast.makeText(getContext(), "لطفا ابتدا دسترسی به مکان را روشن کنید ", Toast.LENGTH_LONG).show();
+            //
+            if (Build.VERSION.SDK_INT >= 23) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION
+                                , Manifest.permission.WRITE_SETTINGS
+                                , Manifest.permission.WRITE_SECURE_SETTINGS
+                        }
+                        , RequestPermissionCode);
+            } else
+                getLocation();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int RC, String per[], int[] PResult) {
+
+        if (RC == RequestPermissionCode) {
+            if (PResult.length > 0 && PResult[0] == PackageManager.PERMISSION_GRANTED) {
+                // Toast.makeText(getContext(), "Permission Granted, Now your application can access GPS.", Toast.LENGTH_LONG).show();
+                getLocation();
+            } else {
+
+                //   Toast.makeText(getContext(), "Permission Canceled, Now your application cannot access GPS.", Toast.LENGTH_LONG).show();
+
+            }
+        }
     }
 
     private void selectFilters(View view) {
@@ -195,6 +387,15 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
                         //nextPage(linearSelectFilters, linearSelectFiltersBtn, linearResTimes, linearResTimesBtn);
                         //   arrayListResTimes.clear();
                         //  adapterResTimes.notifyDataSetChanged();
+                        if (Build.VERSION.SDK_INT >= 23) {
+                            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION
+                                            , Manifest.permission.WRITE_SETTINGS
+                                            , Manifest.permission.WRITE_SECURE_SETTINGS
+                                    }
+                                    , RequestPermissionCode);
+                        } else
+                            getLocation();
+
                     /*    pageNumber = 0;
                         morePost = true;*/
                         doSearch(0);
@@ -403,9 +604,17 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
 
     }
 
+    private String lat_value_single = "0";
+    private String lng_value_single = "0";
+
     private void doSearch(int pageNumber) {
         if (alertDialogLoding.isShowing())
             alertDialogLoding.dismiss();
+
+        CheckGpsStatus();
+        if (GpsStatus)
+            getLocation2();
+
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("cityId", cityId);
@@ -414,6 +623,9 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
             jsonObject.put("timeId", timeId);
             jsonObject.put("doctorId", doctorId);
             jsonObject.put("doctorSt", doctorSt);
+            jsonObject.put("lat_value_single", lat_value_single);
+            jsonObject.put("lng_value_single", lng_value_single);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -433,6 +645,10 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
                 resSpeak  = resSpeak.replace( "ک","ك");*/
                 editsearchSearchView.setQuery(resSpeak, false);
             }
+        } else if (requestCode == 222) {
+            CheckGpsStatus();
+            if (GpsStatus)
+                getLocation2();
         }
     }
 
@@ -653,7 +869,7 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
             btnFrRes_next.setTextColor(getResources().getColor(R.color.colorRed));
             btnFrRes_next.setBackground(getResources().getDrawable(R.drawable.button_background_red));
 
-         //   new HideKeyboardFrom(getContext(), layout);
+            //   new HideKeyboardFrom(getContext(), layout);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -695,5 +911,4 @@ public class frTabRes_Filter extends Fragment implements SearchView.OnQueryTextL
                     fragment.toString() + " must implement OnPlayerSelectionSetListener");
         }
     }
-
 }

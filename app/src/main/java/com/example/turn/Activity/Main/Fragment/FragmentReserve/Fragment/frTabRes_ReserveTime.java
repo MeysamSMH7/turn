@@ -80,6 +80,9 @@ public class frTabRes_ReserveTime extends Fragment {
     private String hospiralId = "";
     private String timeId = "";
     private String doctorId = "";
+    private String lat_value_single = "";
+    private String lng_value_single = "";
+
 
     private String doctorSt = "";
     private String exp = "";
@@ -132,6 +135,8 @@ public class frTabRes_ReserveTime extends Fragment {
                 cityId = jsonObject.getString("cityId");
                 doctorId = jsonObject.getString("doctorId");
                 doctorSt = jsonObject.getString("doctorSt");
+                lat_value_single = jsonObject.getString("lat_value_single");
+                lng_value_single = jsonObject.getString("lng_value_single");
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -366,17 +371,20 @@ else    {
                 alertDialogLoding.show();
 
                 String vSearchUrl = "";
-
+// باید توی دوتا url
+                // بدوتا عدد رو بذاری
                 if (doctorSt.equals(""))
                     vSearchUrl = "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
                             hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
                             + timeId + "&page_number=" + pageNumber + "&first_name=" +"" + "&doctor_id="
-                            + doctorId + "&item_per_page=" + "10" + "&last_name=" + "";
+                            + doctorId + "&item_per_page=" + "10" + "&last_name="  + "&lat_value_single=" +
+                            lat_value_single + "&lng_value_single=" +lng_value_single;
                 else
                     vSearchUrl = "http://nobat.mazums.ac.ir/turnappApi/search/TurnList?hsp_id=" +
                             hospiralId + "&city_id=" + cityId + "&spc_id=" + takhasosId + "&date_period="
                             + timeId + "&page_number=" + pageNumber + "&first_name=" + temp[1] + "&doctor_id="
-                            + doctorId + "&item_per_page=" + "10" + "&last_name=" + temp[0];
+                            + doctorId + "&item_per_page=" + "10" + "&last_name=" + temp[0]
+                            + "&lat_value_single=" + lat_value_single + "&lng_value_single" +lng_value_single;
 
                /*
                 try {
